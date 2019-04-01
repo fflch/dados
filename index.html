@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://d3js.org/d3.v5.min.js"></script>	
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>  
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/britecharts@1/dist/bundled/britecharts.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/britecharts/dist/css/britecharts.min.css" type="text/css" />
 
-  <title>D3</title>
 </head>
 
 <body>
+  <h1> Portal de dados FFLCH - Em desenvolvimento </h1>
 
-<b>Dynamic bar-chart example.</b>
-<svg id="chart" width="650" height="420"></svg>
-
-Choose year: 
-<select id="year"></select>
-
-<input type="checkbox" id="sort">	
-Toggle sort 
-
-  <script src="graphs.js"></script>
-  
+  <h2> Bolsas de Iniciação Científica</h2>
+  <div class="js-bar-container"></div>
+  <div class="js-donut-container"></div>
+  <script src="./graphs.js"></script>
 </body>
 </html>
