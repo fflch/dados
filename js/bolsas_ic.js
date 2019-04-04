@@ -8,7 +8,7 @@ function createLinesChart() {
   chartTooltip.title('Iniciação Científica');
   
 
-  const chartContainer = d3.select('.bolsas');
+  const chartContainer = d3.select('.bolsas_ic');
   const containerWidth = chartContainer.node() ? chartContainer.node().getBoundingClientRect().width : false;
 
 
