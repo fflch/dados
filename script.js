@@ -1,9 +1,6 @@
 // Called at the very end
-
-createLinesChart();
-
 function createLinesChart() {
-
+  
   const lineChart = new britecharts.line();
   const chartTooltip = new britecharts.tooltip();
 
@@ -13,6 +10,8 @@ function createLinesChart() {
 
   const chartContainer = d3.select('.bolsas');
   const containerWidth = chartContainer.node() ? chartContainer.node().getBoundingClientRect().width : false;
+
+
 
   // Line chart options
   lineChart
@@ -29,13 +28,7 @@ function createLinesChart() {
     .on('customMouseOut', chartTooltip.hide);
   
   // Display line chart 
-var data;
-  //d3.json("http://127.0.0.1:8000/d3/iniciacao-cientifica/bolsas")
-  d3.json("https://api.fflch.usp.br/pessoa/servidores/total/ativos")
-    .get(function(error, data){
-        console.log(data);
-    });
-   // chartContainer.datum(data).call(lineChart);
+  chartContainer.datum(dataset).call(lineChart);
 
   // Display tooltip
   const tooltipContainer = chartContainer.select('.metadata-group .hover-marker'); // Do this only after chart is display, `.hover-marker` is a part of the chart's generated SVG
@@ -43,9 +36,81 @@ var data;
   
 }
 
+const dataset = {
+  'dataByTopic': [
+    {
+      'topic': 0,
+      'dates': [
+        {
+          'date': '2015-06-27T07:00:00.000Z',
+          'value': 1,
+          'fullDate': '2015-06-27T07:00:00.000Z'
+        }, {
+          'date': '2015-06-28T07:00:00.000Z',
+          'value': 1,
+          'fullDate': '2015-06-28T07:00:00.000Z'
+        }, {
+          'date': '2015-06-29T07:00:00.000Z',
+          'value': 4,
+          'fullDate': '2015-06-29T07:00:00.000Z'
+        }, {
+          'date': '2015-06-30T07:00:00.000Z',
+          'value': 2,
+          'fullDate': '2015-06-30T07:00:00.000Z'
+        }
+      ],
+      'topicName': 'CnpQ'
+    }, {
+      'topic': 1,
+      'dates': [
+        {
+          'date': '2015-06-27T07:00:00.000Z',
+          'value': 52,
+          'fullDate': '2015-06-27T07:00:00.000Z'
+        }, {
+          'date': '2015-06-28T07:00:00.000Z',
+          'value': 21,
+          'fullDate': '2015-06-28T07:00:00.000Z'
+        }, {
+          'date': '2015-06-29T07:00:00.000Z',
+          'value': 23,
+          'fullDate': '2015-06-29T07:00:00.000Z'
+        }, {
+          'date': '2015-06-30T07:00:00.000Z',
+          'value': 87,
+          'fullDate': '2015-06-30T07:00:00.000Z'
+        }
+      ],
+      'topicName': 'Fapesp'
+    }, {
+      'topic': 2,
+      'dates': [
+        {
+          'date': '2015-06-27T07:00:00.000Z',
+          'value': 31,
+          'fullDate': '2015-06-27T07:00:00.000Z'
+        }, {
+          'date': '2015-06-28T07:00:00.000Z',
+          'value': 73,
+          'fullDate': '2015-06-28T07:00:00.000Z'
+        }, {
+          'date': '2015-06-29T07:00:00.000Z',
+          'value': 61,
+          'fullDate': '2015-06-29T07:00:00.000Z'
+        }, {
+          'date': '2015-06-30T07:00:00.000Z',
+          'value': 40,
+          'fullDate': '2015-06-30T07:00:00.000Z'
+        }
+      ],
+      'topicName': 'FFLCh'
+    } 
+  ]
+};
 
+createLinesChart();
 
-
-
-
-
+  d3.json("https://api.fflch.usp.br/pessoa/servidores/total/ativos")
+    .get(function(error, data){
+        console.log(data);
+    });
