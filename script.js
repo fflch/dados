@@ -30,9 +30,9 @@ function createLinesChart() {
   
   // Display line chart 
 var data;
-d3.json("http://127.0.0.1:8000/d3/iniciacao-cientifica/bolsas")
+  //d3.json("http://127.0.0.1:8000/d3/iniciacao-cientifica/bolsas")
+  d3.json("https://api.fflch.usp.br/pessoa/servidores/total/ativos")
     .get(function(error, data){
-        data = data;
         console.log(data);
     });
    // chartContainer.datum(data).call(lineChart);
