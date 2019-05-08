@@ -109,8 +109,3 @@ const dataset = {
 };
 
 createLinesChart();
-
-  d3.json("https://api.fflch.usp.br/pessoa/servidores/total/ativos")
-    .get(function(error, data){
-        console.log(data);
-    });
