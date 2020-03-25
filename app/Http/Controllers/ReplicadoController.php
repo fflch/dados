@@ -3,16 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Charts\ExemploChart;
+use App\Charts\GenericChart;
 
 class ReplicadoController extends Controller
 {
     public function exemplo(){
-      $chart = new ExemploChart;
-      $chart->labels(['One', 'Two', 'Three', 'Four']);
-      $chart->dataset('My dataset', 'line', [1, 2, 3, 4]);
-      $chart->dataset('My dataset 2', 'line', [4, 3, 2, 1]);
+        /* Tipos de gráficos:
+         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
+         */
+        $chart = new GenericChart;
 
-      return view('exemplo', compact('chart'));
+        $data = [
+          'Graduação' => 100,
+          'Pós-Graduação' => 205, 
+          'Docentes'  => 89,
+          'Funcionários(as)' => 56
+        ];
+
+        $chart->labels(array_keys($data));
+        $chart->dataset('Quantidade', 'bar', array_values($data));
+
+        return view('exemplo', compact('chart'));
     }
 }

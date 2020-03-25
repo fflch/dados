@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db2a3d64b3ef9175cbb507e500c9a57f",
+    "content-hash": "6449783e2215b583c844d9c1bf5396a2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3586,6 +3586,46 @@
             ],
             "description": "usp theme for laravel",
             "time": "2019-06-12T00:29:52+00:00"
+        },
+        {
+            "name": "uspdev/replicado",
+            "version": "V1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uspdev/replicado.git",
+                "reference": "f432718f91b3b648734bf8bb8e52ad6eb05bcc0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uspdev/replicado/zipball/f432718f91b3b648734bf8bb8e52ad6eb05bcc0b",
+                "reference": "f432718f91b3b648734bf8bb8e52ad6eb05bcc0b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo_dblib": "*",
+                "monolog/monolog": "^1.25 || ^2",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Uspdev\\Replicado\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Thiago Gomes Verissimo",
+                    "email": "thiago.verissimo@usp.br",
+                    "homepage": "https://github.com/thiagogomesverissimo"
+                }
+            ],
+            "description": "Classes PHP que consome dados do Replicado USP",
+            "homepage": "https://github.com/uspdev/replicado",
+            "time": "2020-03-16T21:09:33+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
