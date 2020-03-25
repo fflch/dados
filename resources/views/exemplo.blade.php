@@ -1,9 +1,9 @@
 @extends('chart')
 
 @section('content_top')
-Eu sou um texto mostrado em cima
+<a href="/exemploCsv"><i class="fas fa-file-csv"></i></a> Download
 @endsection
 
 @section('content_footer')
-Eu sou um texto mostrado em baixo
+Dados relacionados:
 @endsection
