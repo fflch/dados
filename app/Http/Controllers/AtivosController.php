@@ -9,7 +9,7 @@ use Uspdev\Cache\Cache;
 class AtivosController extends Controller
 {
     private $data;
-    private $cache;
+
     public function __construct(){
 
         $cache = new Cache();
