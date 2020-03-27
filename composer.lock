@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6449783e2215b583c844d9c1bf5396a2",
+    "content-hash": "571b8a4ddc445ead7f313ea2ff16f5e9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3548,6 +3548,44 @@
             "time": "2019-10-24T08:53:34+00:00"
         },
         {
+            "name": "uspdev/cache",
+            "version": "v0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uspdev/cache.git",
+                "reference": "f2123dd3484246630d8e0a51d98f964e5af3c817"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uspdev/cache/zipball/f2123dd3484246630d8e0a51d98f964e5af3c817",
+                "reference": "f2123dd3484246630d8e0a51d98f964e5af3c817",
+                "shasum": ""
+            },
+            "require": {
+                "ext-memcached": "*",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Uspdev\\Cache\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Masaki Kawabata Neto",
+                    "email": "masaki.kawabata@gmail.com"
+                }
+            ],
+            "description": "Library to connect to cache server",
+            "homepage": "https://github.com/uspdev/cache",
+            "time": "2020-03-24T23:11:31+00:00"
+        },
+        {
             "name": "uspdev/laravel-usp-theme",
             "version": "1.0.4",
             "source": {
@@ -5860,5 +5898,6 @@
     "platform": {
         "php": "^7.2.5"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

@@ -4,32 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Charts\GenericChart;
-use Uspdev\Replicado\DB;
-
+use Uspdev\Cache\Cache;
 
 class AtivosController extends Controller
 {
     private $data;
+    private $cache;
     public function __construct(){
-        /** Queremos algo +/- assim:
-          * $data = [
-          *   'Graduação' => 100,
-          *   'Pós-Graduação' => 205, 
-          *   'Docentes'  => 89,
-          *   'Funcionários(as)' => 56
-          *  ];
-          **/
 
+        $cache = new Cache();
         $data = [];
 
         /* Contabiliza aluno grad */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr.sql');
-        $result = DB::fetch($query);
+
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Graduação'] = $result['computed'];
 
         /* Contabiliza aluno pós */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunopos.sql');
-        $result = DB::fetch($query);
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Pós-Graduação'] = $result['computed'];
 
         $this->data = $data;
