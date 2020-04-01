@@ -19,3 +19,16 @@ Route::get('/ativosMicrosNotes', 'AtivosMicrosNotesController@grafico');
 Route::get('/ativosMicrosNotesCsv', 'AtivosMicrosNotesController@csv');
 
 
+# totais de alunos da graduação, por gênero
+Route::get('/ativosPGGrad', 'AtivosPorGeneroGradController@grafico');
+Route::get('/ativosPGGradCsv', 'AtivosPorGeneroGradController@csv');
+
+
+# totais de alunos da pós graduação, por gênero
+Route::get('/ativosPGPos', 'AtivosPorGeneroPosController@grafico');
+Route::get('/ativosPGPosCsv', 'AtivosPorGeneroPosController@csv');
+
+
+# totais de docentes, por gênero
+Route::get('/ativosPGDocentes', 'AtivosPorGeneroDocentesController@grafico');
+Route::get('/ativosPGDocentesCsv', 'AtivosPorGeneroDocentesController@csv');
