@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title'=> 'Portal da Dados FFLCH',
+    'title'=> 'Portal de Dados FFLCH',
     'dashboard_url' => '/',
     'logout_method' => 'GET',
     'logout_url' => '/',
