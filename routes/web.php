@@ -32,3 +32,7 @@ Route::get('/ativosPGPosCsv', 'AtivosPorGeneroPosController@csv');
 # totais de docentes, por gênero
 Route::get('/ativosPGDocentes', 'AtivosPorGeneroDocentesController@grafico');
 Route::get('/ativosPGDocentesCsv', 'AtivosPorGeneroDocentesController@csv');
+
+# totais de alunos de pós-doutorado com programa ativo por curso
+Route::get('/ativosPosDoutPorCurso', 'AtivosPosDoutoradoPorCursoController@grafico')->name('ativosposdoutoradocurso');
+Route::get('/ativosPosDoutPorCursoCsv', 'AtivosPosDoutoradoPorCursoController@csv')->name('ativosposdoutoradocursocsv');
