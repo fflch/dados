@@ -44,6 +44,9 @@ Route::get('/ativosPosDoutPorCursoCsv', 'AtivosPosDoutoradoPorCursoController@cs
 Route::get('/ativosFuncionariosDepartamento', 'AtivosPorDepartamentoFuncionariosController@grafico');
 Route::get('/ativosFuncionariosDepartamentoCsv', 'AtivosPorDepartamentoFuncionariosController@csv');
 
+# totais de alunos da pós graduação, por programa
+Route::get('/ativosPorProgramaPos', 'AtivosPorProgramaPósController@grafico');
+Route::get('/ativosPorProgramaPosCsv', 'AtivosPorProgramaPósController@csv');
 # totais de alunos da graduação em sociais por gênero
 Route::get('/ativosGradSociais', 'AtivosPorGeneroCursoGradSociaisController@grafico');
 Route::get('/ativosGradSociaisCsv', 'AtivosPorGeneroCursoGradSociaisController@csv');
