@@ -8,26 +8,21 @@ Route::get('/', 'IndexController@index');
 Route::get('/ativos', 'AtivosController@grafico');
 Route::get('/ativosCsv', 'AtivosController@csv');
 
-
 # totais com vínculos ativos da graduação, separados por curso
 Route::get('/ativosPCGrad', 'AtivosPorCursoGradController@grafico');
 Route::get('/ativosPCGradCsv', 'AtivosPorCursoGradController@csv');
-
 
 # totais de microcomputadores e notebooks ativos
 Route::get('/ativosMicrosNotes', 'AtivosMicrosNotesController@grafico');
 Route::get('/ativosMicrosNotesCsv', 'AtivosMicrosNotesController@csv');
 
-
 # totais de alunos da graduação, por gênero
 Route::get('/ativosPGGrad', 'AtivosPorGeneroGradController@grafico');
 Route::get('/ativosPGGradCsv', 'AtivosPorGeneroGradController@csv');
 
-
 # totais de alunos da pós graduação, por gênero
 Route::get('/ativosPGPos', 'AtivosPorGeneroPosController@grafico');
 Route::get('/ativosPGPosCsv', 'AtivosPorGeneroPosController@csv');
-
 
 # totais de docentes, por gênero
 Route::get('/ativosPGDocentes', 'AtivosPorGeneroDocentesController@grafico');
@@ -48,3 +43,23 @@ Route::get('/ativosPosDoutPorCursoCsv', 'AtivosPosDoutoradoPorCursoController@cs
 # totais de funcionários, por departamento
 Route::get('/ativosFuncionariosDepartamento', 'AtivosPorDepartamentoFuncionariosController@grafico');
 Route::get('/ativosFuncionariosDepartamentoCsv', 'AtivosPorDepartamentoFuncionariosController@csv');
+
+# totais de alunos da graduação em sociais por gênero
+Route::get('/ativosGradSociais', 'AtivosPorGeneroCursoGradSociaisController@grafico');
+Route::get('/ativosGradSociaisCsv', 'AtivosPorGeneroCursoGradSociaisController@csv');
+
+# totais de alunos da graduação em filosofia por gênero
+Route::get('/ativosGradFilosofia', 'AtivosPorGeneroCursoGradFilosofiaController@grafico');
+Route::get('/ativosGradFilosofiaCsv', 'AtivosPorGeneroCursoGradFilosofiaController@csv');
+
+# totais de alunos da graduação em geografia por gênero
+Route::get('/ativosGradGeografia', 'AtivosPorGeneroCursoGradGeografiaController@grafico');
+Route::get('/ativosGradGeografiaCsv', 'AtivosPorGeneroCursoGradGeografiaController@csv');
+
+# totais de alunos da graduação em história por gênero
+Route::get('/ativosGradHistoria', 'AtivosPorGeneroCursoGradHistoriaController@grafico');
+Route::get('/ativosGradHistoriaCsv', 'AtivosPorGeneroCursoGradHistoriaController@csv');
+
+# totais de alunos da graduação em Letras por gênero
+Route::get('/ativosGradLetras', 'AtivosPorGeneroCursoGradLetrasController@grafico');
+Route::get('/ativosGradLetrasCsv', 'AtivosPorGeneroCursoGradLetrasController@csv');
