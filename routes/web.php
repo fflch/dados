@@ -48,3 +48,7 @@ Route::get('/ativosPosDoutPorCursoCsv', 'AtivosPosDoutoradoPorCursoController@cs
 # totais de funcionários, por departamento
 Route::get('/ativosFuncionariosDepartamento', 'AtivosPorDepartamentoFuncionariosController@grafico');
 Route::get('/ativosFuncionariosDepartamentoCsv', 'AtivosPorDepartamentoFuncionariosController@csv');
+
+# totais de alunos da pós graduação, por programa
+Route::get('/ativosPorProgramaPos', 'AtivosPorProgramaPósController@grafico');
+Route::get('/ativosPorProgramaPosCsv', 'AtivosPorProgramaPósController@csv');
