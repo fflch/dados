@@ -15,6 +15,12 @@ Dados do portal:
   <li class="list-group-item"><a href="{{ route('ativosposdoutoradocurso') }}">Totais de alunos Pós-doutorando ativos por curso.</a></li>
   <li class="list-group-item"><a href="/ativosFuncionariosDepartamento">Totais de funcionários contabilizados por departamento.</a></li>
   <li class="list-group-item"><a href="/ativosPorProgramaPos">Totais de pessoas da Pós-Graduação, separadas por programa.</a></li>
+  <li class="list-group-item"><a href="/ativosGradSociais">Totais de alunos da Graduação em Ciências Sociais contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosGradFilosofia">Totais de alunos da Graduação em Filosofia contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosGradGeografia">Totais de alunos da Graduação em Geografia contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosGradHistoria">Totais de alunos da Graduação em História contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosGradLetras">Totais de alunos da Graduação em Letras contabilizados por gênero.</a></li>
+
 </ul>
 
 @endsection
