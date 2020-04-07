@@ -20,6 +20,7 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosGradGeografia">Totais de alunos da Graduação em Geografia contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosGradHistoria">Totais de alunos da Graduação em História contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosGradLetras">Totais de alunos da Graduação em Letras contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosBeneficios">Totais de pessoas com benefícios ativos.</a></li>
 
 </ul>
 
