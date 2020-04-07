@@ -66,3 +66,7 @@ Route::get('/ativosGradHistoriaCsv', 'AtivosPorGeneroCursoGradHistoriaController
 # totais de alunos da graduação em Letras por gênero
 Route::get('/ativosGradLetras', 'AtivosPorGeneroCursoGradLetrasController@grafico');
 Route::get('/ativosGradLetrasCsv', 'AtivosPorGeneroCursoGradLetrasController@csv');
+
+# totais com algum benefício ativo
+Route::get('/ativosBeneficios', 'AtivosBeneficiosController@grafico');
+Route::get('/ativosBeneficiosCsv', 'AtivosBeneficiosController@csv');

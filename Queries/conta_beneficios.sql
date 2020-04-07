@@ -1,0 +1,3 @@
+SELECT COUNT(codpes) from BENEFICIOALUCONCEDIDO
+WHERE dtafimccd LIKE '%2020%'
+OR dtainiccd LIKE '%2020%'
