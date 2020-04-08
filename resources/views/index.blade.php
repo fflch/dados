@@ -21,7 +21,7 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosGradHistoria">Totais de alunos da Graduação em História contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosGradLetras">Totais de alunos da Graduação em Letras contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosBeneficios">Totais de pessoas com benefícios ativos.</a></li>
-
+  <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por ano a partir de 2014.</a></li>
+  <li class="list-group-item"><a href="/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados por programa.</a></li>
 </ul>
-
 @endsection

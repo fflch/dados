@@ -70,3 +70,11 @@ Route::get('/ativosGradLetrasCsv', 'AtivosPorGeneroCursoGradLetrasController@csv
 # totais com algum benefício ativo
 Route::get('/ativosBeneficios', 'AtivosBeneficiosController@grafico');
 Route::get('/ativosBeneficiosCsv', 'AtivosBeneficiosController@csv');
+
+# série histórica de benefícios concedidos
+Route::get('/ativosBeneficiosConHist', 'BeneficiosConcedidosHistoricoController@grafico');
+Route::get('/ativosBeneficiosConHistCsv', 'BeneficiosConcedidosHistoricoController@csv');
+
+# benefícios concedidos em 2019, por programa
+Route::get('/Benef2019Prog', 'Beneficios2019PorProgramaController@grafico');
+Route::get('/Benef2019ProgCsv', 'Beneficios2019PorProgramaController@csv');
