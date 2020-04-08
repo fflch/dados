@@ -23,5 +23,6 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosBeneficios">Totais de pessoas com benefícios ativos.</a></li>
   <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por ano a partir de 2014.</a></li>
   <li class="list-group-item"><a href="/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados por programa.</a></li>
+  <li class="list-group-item"><a href="/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão contabilizadas por gênero.</a></li>
 </ul>
 @endsection
