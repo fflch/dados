@@ -7,5 +7,5 @@
 @endsection
 
 @section('content_footer')
-<center>Quantidade de estagiários ativos na ativos na Faculdade de Filosofia, Letras e Ciências Humanas contabilizados por gênero.</center>
+<center>Quantidade de estagiários ativos na Faculdade de Filosofia, Letras e Ciências Humanas contabilizados por gênero.</center>
 @endsection

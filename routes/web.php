@@ -78,3 +78,7 @@ Route::get('/ativosBeneficiosConHistCsv', 'BeneficiosConcedidosHistoricoControll
 # benefícios concedidos em 2019, por programa
 Route::get('/Benef2019Prog', 'Beneficios2019PorProgramaController@grafico');
 Route::get('/Benef2019ProgCsv', 'Beneficios2019PorProgramaController@csv');
+
+# totais de alunos de cultura e extensão por gênero
+Route::get('/ativosCulturaExtensao', 'AtivosPorGeneroCEUController@grafico');
+Route::get('/ativosCulturaExtensaoCsv', 'AtivosPorGeneroCEUController@csv');

@@ -26,6 +26,11 @@ class AtivosController extends Controller
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Pós-Graduação'] = $result['computed'];
 
+        /* Contabiliza alunos cultura e extensão ativos */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['Cultura e Extensão'] = $result['computed'];
+
         /* Contabiliza docentes */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
