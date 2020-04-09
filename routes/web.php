@@ -86,3 +86,7 @@ Route::get('/ativosCulturaExtensaoCsv', 'AtivosPorGeneroCEUController@csv');
 # série histórica de concluintes da graduação
 Route::get('/concluintesGradPorAno', 'ConcluintesGradPorAnoController@grafico');
 Route::get('/concluintesGradPorAnoCsv', 'ConcluintesGradPorAnoController@csv');
+
+# totais de alunos pós-doutorando por gênero
+Route::get('/ativosPosDoutorado', 'AtivosPorGeneroPDController@grafico');
+Route::get('/ativosPosDoutoradoCsv', 'AtivosPorGeneroPDController@csv');
