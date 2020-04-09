@@ -7,5 +7,5 @@
 @endsection
 
 @section('content_footer')
-<center>Quantidade de pessoas com algum tipo de benefício ativo na Faculdade de Filosofia, Letras e Ciências Humanas em 2020.</center>
+<center>Série histórica: quantidade de alunos com algum tipo de benefício na Faculdade de Filosofia, Letras e Ciências Humanas entre 2010-2020.</center>
 @endsection

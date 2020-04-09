@@ -20,11 +20,11 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosGradGeografia">Totais de alunos da Graduação em Geografia contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosGradHistoria">Totais de alunos da Graduação em História contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosGradLetras">Totais de alunos da Graduação em Letras contabilizados por gênero.</a></li>
-  <li class="list-group-item"><a href="/ativosBeneficios">Totais de pessoas com benefícios ativos.</a></li>
   <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por ano a partir de 2014.</a></li>
   <li class="list-group-item"><a href="/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados por programa.</a></li>
   <li class="list-group-item"><a href="/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/concluintesGradPorAno">Série histórica de concluintes por ano a partir de 2014.</a></li>
   <li class="list-group-item"><a href="/ativosPosDoutorado">Totais de alunos de Pós Doutorado contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosBeneficios">Série histórica: quantidade de alunos com benefícios 2010-2020.</a></li>
 </ul>
 @endsection
