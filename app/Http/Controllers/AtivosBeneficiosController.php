@@ -15,11 +15,50 @@ class AtivosBeneficiosController extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza pessoas com beneficios ativos em 2020 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios.sql');
-
+        /* Contabiliza pessoas com beneficios ativos de 2010-2020 */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2010.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Beneficios'] = $result['computed'];
+        $data['2010'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2011.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2011'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2012.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2012'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2013.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2013'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2014.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2014'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2015.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2015'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2016.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2016'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2017.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2017'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2018.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2018'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2019.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2019'] = $result['computed'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2020.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['2020'] = $result['computed'];
 
         $this->data = $data;
     }    
@@ -31,7 +70,7 @@ class AtivosBeneficiosController extends Controller
         $chart = new GenericChart;
 
         $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
+        $chart->dataset('Quantidade de pessoas com benefícios', 'bar', array_values($this->data));
 
         return view('ativosBeneficios', compact('chart'));
     }
