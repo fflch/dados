@@ -82,3 +82,7 @@ Route::get('/Benef2019ProgCsv', 'Beneficios2019PorProgramaController@csv');
 # totais de alunos de cultura e extensão por gênero
 Route::get('/ativosCulturaExtensao', 'AtivosPorGeneroCEUController@grafico');
 Route::get('/ativosCulturaExtensaoCsv', 'AtivosPorGeneroCEUController@csv');
+
+# série histórica de concluintes da graduação
+Route::get('/concluintesGradPorAno', 'ConcluintesGradPorAnoController@grafico');
+Route::get('/concluintesGradPorAnoCsv', 'ConcluintesGradPorAnoController@csv');
