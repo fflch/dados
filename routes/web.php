@@ -90,3 +90,27 @@ Route::get('/concluintesGradPorAnoCsv', 'ConcluintesGradPorAnoController@csv');
 # totais de alunos pós-doutorando por gênero
 Route::get('/ativosPosDoutorado', 'AtivosPorGeneroPDController@grafico');
 Route::get('/ativosPosDoutoradoCsv', 'AtivosPorGeneroPDController@csv');
+
+# concluintes da graduação em 2014, por curso
+Route::get('/concluintesGrad2014PorCurso', 'ConcluintesGradPorCurso2014Controller@grafico');
+Route::get('/concluintesGrad2014PorCursoCsv', 'ConcluintesGradPorCurso2014Controller@csv');
+
+# concluintes da graduação em 2015, por curso
+Route::get('/concluintesGrad2015PorCurso', 'ConcluintesGradPorCurso2015Controller@grafico');
+Route::get('/concluintesGrad2015PorCursoCsv', 'ConcluintesGradPorCurso2015Controller@csv');
+
+# concluintes da graduação em 2016, por curso
+Route::get('/concluintesGrad2016PorCurso', 'ConcluintesGradPorCurso2016Controller@grafico');
+Route::get('/concluintesGrad2016PorCursoCsv', 'ConcluintesGradPorCurso2016Controller@csv');
+
+# concluintes da graduação em 2017, por curso
+Route::get('/concluintesGrad2017PorCurso', 'ConcluintesGradPorCurso2017Controller@grafico');
+Route::get('/concluintesGrad2017PorCursoCsv', 'ConcluintesGradPorCurso2017Controller@csv');
+
+# concluintes da graduação em 2018, por curso
+Route::get('/concluintesGrad2018PorCurso', 'ConcluintesGradPorCurso2018Controller@grafico');
+Route::get('/concluintesGrad2018PorCursoCsv', 'ConcluintesGradPorCurso2018Controller@csv');
+
+# concluintes da graduação em 2019, por curso
+Route::get('/concluintesGrad2019PorCurso', 'ConcluintesGradPorCurso2019Controller@grafico');
+Route::get('/concluintesGrad2019PorCursoCsv', 'ConcluintesGradPorCurso2019Controller@csv');

@@ -26,5 +26,11 @@ Dados do portal:
   <li class="list-group-item"><a href="/concluintesGradPorAno">Série histórica de concluintes por ano a partir de 2014.</a></li>
   <li class="list-group-item"><a href="/ativosPosDoutorado">Totais de alunos de Pós Doutorado contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosBeneficios">Série histórica: quantidade de alunos com benefícios 2010-2020.</a></li>
+  <li class="list-group-item"><a href="/concluintesGrad2014PorCurso">Total de concluintes da Graduação por curso em 2014.</a></li>
+  <li class="list-group-item"><a href="/concluintesGrad2015PorCurso">Total de concluintes da Graduação por curso em 2015.</a></li>
+  <li class="list-group-item"><a href="/concluintesGrad2016PorCurso">Total de concluintes da Graduação por curso em 2016.</a></li>
+  <li class="list-group-item"><a href="/concluintesGrad2017PorCurso">Total de concluintes da Graduação por curso em 2017.</a></li>
+  <li class="list-group-item"><a href="/concluintesGrad2018PorCurso">Total de concluintes da Graduação por curso em 2018.</a></li>
+  <li class="list-group-item"><a href="/concluintesGrad2019PorCurso">Total de concluintes da Graduação por curso em 2019.</a></li>
 </ul>
 @endsection
