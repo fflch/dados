@@ -114,3 +114,7 @@ Route::get('/concluintesGrad2018PorCursoCsv', 'ConcluintesGradPorCurso2018Contro
 # concluintes da graduação em 2019, por curso
 Route::get('/concluintesGrad2019PorCurso', 'ConcluintesGradPorCurso2019Controller@grafico');
 Route::get('/concluintesGrad2019PorCursoCsv', 'ConcluintesGradPorCurso2019Controller@csv');
+
+# série histórica de concluintes da pós-graduação
+Route::get('/concluintesPosPorAno', 'ConcluintesPosPorAnoController@grafico');
+Route::get('/concluintesPosPorAnoCsv', 'ConcluintesPosPorAnoController@csv');

@@ -8,6 +8,6 @@
 
 @section('content_footer')
 <center>
-    <p>Série histórica de concluintes por ano na Faculdade de Filosofia, Letras e Ciências Humanas a partir de 2014.</p>
+    <p>Série histórica de concluintes da Graduação por ano na Faculdade de Filosofia, Letras e Ciências Humanas a partir de 2010.</p>
 </center>
 @endsection

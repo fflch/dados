@@ -23,7 +23,6 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por ano a partir de 2014.</a></li>
   <li class="list-group-item"><a href="/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados por programa.</a></li>
   <li class="list-group-item"><a href="/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão contabilizados por gênero.</a></li>
-  <li class="list-group-item"><a href="/concluintesGradPorAno">Série histórica de concluintes por ano a partir de 2014.</a></li>
   <li class="list-group-item"><a href="/ativosPosDoutorado">Totais de alunos de Pós Doutorado contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosBeneficios">Série histórica: quantidade de alunos com benefícios 2010-2020.</a></li>
   <li class="list-group-item"><a href="/concluintesGrad2014PorCurso">Total de concluintes da Graduação por curso em 2014.</a></li>
@@ -32,5 +31,8 @@ Dados do portal:
   <li class="list-group-item"><a href="/concluintesGrad2017PorCurso">Total de concluintes da Graduação por curso em 2017.</a></li>
   <li class="list-group-item"><a href="/concluintesGrad2018PorCurso">Total de concluintes da Graduação por curso em 2018.</a></li>
   <li class="list-group-item"><a href="/concluintesGrad2019PorCurso">Total de concluintes da Graduação por curso em 2019.</a></li>
+  <li class="list-group-item"><a href="/concluintesGradPorAno">Série histórica de concluintes da Graduação por ano a partir de 2010.</a></li>
+  <li class="list-group-item"><a href="/concluintesPosPorAno">Série histórica de concluintes da Pós-Graduação por ano a partir de 2010.</a></li>
+
 </ul>
 @endsection
