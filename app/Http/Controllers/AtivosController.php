@@ -49,7 +49,7 @@ class AtivosController extends Controller
         /* Contabiliza estagiários ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_estagiario.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Estagiário'] = $result['computed'];
+        $data['Estagiários'] = $result['computed'];
 
         $this->data = $data;
     }    
