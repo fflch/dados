@@ -20,6 +20,16 @@ class ConveniosAtivosController extends Controller
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Convenios'] = $result['computed'];
 
+        /* Contabiliza dos convênios os que são financeiros */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_convenios_fin.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['Convenios Financeiros'] = $result['computed'];
+
+        /* Contabiliza dos convênios os que são acadêmicos */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_convenios_acad.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['Convenios Acadêmicos'] = $result['computed'];
+
         $this->data = $data;
     }    
     

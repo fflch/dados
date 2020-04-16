@@ -15,7 +15,7 @@ class AtivosBeneficiosController extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza pessoas com beneficios ativos de 2010-2020 */
+        /* Contabiliza alunos com beneficios ativos de 2010-2020 */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_2010.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['2010'] = $result['computed'];
