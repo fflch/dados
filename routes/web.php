@@ -122,3 +122,7 @@ Route::get('/concluintesPosPorAnoCsv', 'ConcluintesPosPorAnoController@csv');
 # totais de convênios ativos
 Route::get('/conveniosAtivos', 'ConveniosAtivosController@grafico');
 Route::get('/conveniosAtivosCsv', 'ConveniosAtivosController@csv');
+
+# totais com vínculos ativos da graduação, separados por cor/raça
+Route::get('/autodeclaradosGradAtivos', 'AutodeclaradosGraducaoController@grafico');
+Route::get('/autodeclaradosGradAtivosCsv', 'AutodeclaradosGraducaoController@csv');
