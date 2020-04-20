@@ -34,6 +34,6 @@ Dados do portal:
   <li class="list-group-item"><a href="/concluintesGradPorAno">Série histórica de concluintes da Graduação por ano a partir de 2010.</a></li>
   <li class="list-group-item"><a href="/concluintesPosPorAno">Série histórica de concluintes da Pós-Graduação por ano a partir de 2010.</a></li>
   <li class="list-group-item"><a href="/conveniosAtivos">Totais de convênios ativos.</a></li>
-
+  <li class="list-group-item"><a href="/autodeclaradosGradAtivos">Totais de alunos autodeclarados da Graduação contabilizados por raça/cor.</a></li>
 </ul>
 @endsection
