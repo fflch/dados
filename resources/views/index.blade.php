@@ -36,5 +36,6 @@ Dados do portal:
   <li class="list-group-item"><a href="/conveniosAtivos">Totais de convênios ativos.</a></li>
   <li class="list-group-item"><a href="/autodeclaradosGradAtivos">Totais de alunos autodeclarados da Graduação contabilizados por raça/cor.</a></li>
   <li class="list-group-item"><a href="/autodeclaradosPosAtivos">Totais de alunos autodeclarados da Pós-Graduação contabilizados por raça/cor.</a></li>
+  <li class="list-group-item"><a href="/autodeclaradosCeuAtivos">Totais de alunos autodeclarados da  Cultura e Extensão Universitária contabilizados por raça/cor.</a></li>
 </ul>
 @endsection
