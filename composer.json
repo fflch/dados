@@ -13,9 +13,9 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "khill/lavacharts": "^3.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
+        "maatwebsite/excel": "^3.1",
         "uspdev/cache": "^0.7.1",
         "uspdev/laravel-usp-theme": "^1.0",
         "uspdev/replicado": "^1.5"
