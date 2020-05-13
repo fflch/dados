@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
+use Maatwebsite\Excel\Excel;
+use App\Exports\DadosExport;
 
 class ConveniosAtivosController extends Controller
 {
     private $data;
+    private $excel;
 
-    public function __construct(){
-
+    public function __construct(Excel $excel){
+        $this->excel = $excel;
         $cache = new Cache();
         $data = [];
 
@@ -45,12 +48,11 @@ class ConveniosAtivosController extends Controller
         return view('conveniosAtivos', compact('chart'));
     }
 
-    public function csv(){
-
-        $data = collect($this->data);
-        $csvExporter = new \Laracsv\Export(); //dd($data);
-        $csvExporter->build($data, ['vinculo', 'quantidade'])->download();
-
+    public function export($format){
+        if($format == 'excel') {
+            $export = new DadosExport([$this->data],array_keys($this->data));
+            return $this->excel->download($export, 'ativos_convenios.xlsx');
+        }
     }
 
 }
