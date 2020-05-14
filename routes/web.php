@@ -6,7 +6,7 @@ Route::get('/', 'IndexController@index');
 
 # totais com vínculos ativos
 Route::get('/ativos', 'AtivosController@grafico');
-Route::get('/ativosCsv', 'AtivosController@csv');
+Route::get('/ativos/export/{format}', 'AtivosController@export');
 
 # totais com vínculos ativos da graduação, separados por curso
 Route::get('/ativosPCGrad', 'AtivosPorCursoGradController@grafico');
@@ -47,37 +47,38 @@ Route::get('/ativosFuncionariosDepartamentoCsv', 'AtivosPorDepartamentoFuncionar
 # totais de alunos da pós graduação, por programa
 Route::get('/ativosPorProgramaPos', 'AtivosPorProgramaPósController@grafico');
 Route::get('/ativosPorProgramaPosCsv', 'AtivosPorProgramaPósController@csv');
+
 # totais de alunos da graduação em sociais por gênero
 Route::get('/ativosGradSociais', 'AtivosPorGeneroCursoGradSociaisController@grafico');
-Route::get('/ativosGradSociaisCsv', 'AtivosPorGeneroCursoGradSociaisController@csv');
+Route::get('/ativosGradSociais/export/{format}', 'AtivosPorGeneroCursoGradSociaisController@export');
 
 # totais de alunos da graduação em filosofia por gênero
 Route::get('/ativosGradFilosofia', 'AtivosPorGeneroCursoGradFilosofiaController@grafico');
-Route::get('/ativosGradFilosofiaCsv', 'AtivosPorGeneroCursoGradFilosofiaController@csv');
+Route::get('/ativosGradFilosofia/export/{format}', 'AtivosPorGeneroCursoGradFilosofiaController@export');
 
 # totais de alunos da graduação em geografia por gênero
 Route::get('/ativosGradGeografia', 'AtivosPorGeneroCursoGradGeografiaController@grafico');
-Route::get('/ativosGradGeografiaCsv', 'AtivosPorGeneroCursoGradGeografiaController@csv');
+Route::get('/ativosGradGeografia/export/{format}', 'AtivosPorGeneroCursoGradGeografiaController@export');
 
 # totais de alunos da graduação em história por gênero
 Route::get('/ativosGradHistoria', 'AtivosPorGeneroCursoGradHistoriaController@grafico');
-Route::get('/ativosGradHistoriaCsv', 'AtivosPorGeneroCursoGradHistoriaController@csv');
+Route::get('/ativosGradHistoria/export/{format}', 'AtivosPorGeneroCursoGradHistoriaController@export');
 
 # totais de alunos da graduação em Letras por gênero
 Route::get('/ativosGradLetras', 'AtivosPorGeneroCursoGradLetrasController@grafico');
-Route::get('/ativosGradLetrasCsv', 'AtivosPorGeneroCursoGradLetrasController@csv');
+Route::get('/ativosGradLetras/export/{format}', 'AtivosPorGeneroCursoGradLetrasController@export');
 
 # totais com algum benefício ativo
 Route::get('/ativosBeneficios', 'AtivosBeneficiosController@grafico');
-Route::get('/ativosBeneficiosCsv', 'AtivosBeneficiosController@csv');
+Route::get('/ativosBeneficios/export/{format}', 'AtivosBeneficiosController@export');
 
 # série histórica de benefícios concedidos
 Route::get('/ativosBeneficiosConHist', 'BeneficiosConcedidosHistoricoController@grafico');
-Route::get('/ativosBeneficiosConHistCsv', 'BeneficiosConcedidosHistoricoController@csv');
+Route::get('/ativosBeneficiosConHist/export/{format}', 'BeneficiosConcedidosHistoricoController@export');
 
 # benefícios concedidos em 2019, por programa
 Route::get('/Benef2019Prog', 'Beneficios2019PorProgramaController@grafico');
-Route::get('/Benef2019ProgCsv', 'Beneficios2019PorProgramaController@csv');
+Route::get('/Benef2019Prog/export/{format}', 'Beneficios2019PorProgramaController@export');
 
 # totais de alunos de cultura e extensão por gênero
 Route::get('/ativosCulturaExtensao', 'AtivosPorGeneroCEUController@grafico');
@@ -85,39 +86,39 @@ Route::get('/ativosCulturaExtensaoCsv', 'AtivosPorGeneroCEUController@csv');
 
 # série histórica de concluintes da graduação
 Route::get('/concluintesGradPorAno', 'ConcluintesGradPorAnoController@grafico');
-Route::get('/concluintesGradPorAnoCsv', 'ConcluintesGradPorAnoController@csv');
+Route::get('/concluintesGradPorAno/export/{format}', 'ConcluintesGradPorAnoController@export');
 
 # totais de alunos pós-doutorando por gênero
 Route::get('/ativosPosDoutorado', 'AtivosPorGeneroPDController@grafico');
-Route::get('/ativosPosDoutoradoCsv', 'AtivosPorGeneroPDController@csv');
+Route::get('/ativosPosDoutorado/export/{format}', 'AtivosPorGeneroPDController@export');
 
 # concluintes da graduação em 2014, por curso
 Route::get('/concluintesGrad2014PorCurso', 'ConcluintesGradPorCurso2014Controller@grafico');
-Route::get('/concluintesGrad2014PorCursoCsv', 'ConcluintesGradPorCurso2014Controller@csv');
+Route::get('/concluintesGrad2014PorCurso/export/{format}', 'ConcluintesGradPorCurso2014Controller@export');
 
 # concluintes da graduação em 2015, por curso
 Route::get('/concluintesGrad2015PorCurso', 'ConcluintesGradPorCurso2015Controller@grafico');
-Route::get('/concluintesGrad2015PorCursoCsv', 'ConcluintesGradPorCurso2015Controller@csv');
+Route::get('/concluintesGrad2015PorCurso/export/{format}', 'ConcluintesGradPorCurso2015Controller@export');
 
 # concluintes da graduação em 2016, por curso
 Route::get('/concluintesGrad2016PorCurso', 'ConcluintesGradPorCurso2016Controller@grafico');
-Route::get('/concluintesGrad2016PorCursoCsv', 'ConcluintesGradPorCurso2016Controller@csv');
+Route::get('/concluintesGrad2016PorCurso/export/{format}', 'ConcluintesGradPorCurso2016Controller@export');
 
 # concluintes da graduação em 2017, por curso
 Route::get('/concluintesGrad2017PorCurso', 'ConcluintesGradPorCurso2017Controller@grafico');
-Route::get('/concluintesGrad2017PorCursoCsv', 'ConcluintesGradPorCurso2017Controller@csv');
+Route::get('/concluintesGrad2017PorCurso/export/{format}', 'ConcluintesGradPorCurso2017Controller@export');
 
 # concluintes da graduação em 2018, por curso
 Route::get('/concluintesGrad2018PorCurso', 'ConcluintesGradPorCurso2018Controller@grafico');
-Route::get('/concluintesGrad2018PorCursoCsv', 'ConcluintesGradPorCurso2018Controller@csv');
+Route::get('/concluintesGrad2018PorCurso/export/{format}', 'ConcluintesGradPorCurso2018Controller@export');
 
 # concluintes da graduação em 2019, por curso
 Route::get('/concluintesGrad2019PorCurso', 'ConcluintesGradPorCurso2019Controller@grafico');
-Route::get('/concluintesGrad2019PorCursoCsv', 'ConcluintesGradPorCurso2019Controller@csv');
+Route::get('/concluintesGrad2019PorCurso/export/{format}', 'ConcluintesGradPorCurso2019Controller@export');
 
 # série histórica de concluintes da pós-graduação
 Route::get('/concluintesPosPorAno', 'ConcluintesPosPorAnoController@grafico');
-Route::get('/concluintesPosPorAnoCsv', 'ConcluintesPosPorAnoController@csv');
+Route::get('/concluintesPosPorAno/export/{format}', 'ConcluintesPosPorAnoController@export');
 
 # totais de convênios ativos
 Route::get('/conveniosAtivos', 'ConveniosAtivosController@grafico');
