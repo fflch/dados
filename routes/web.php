@@ -14,7 +14,7 @@ Route::get('/ativosPCGrad/export/{format}', 'AtivosPorCursoGradController@export
 
 # totais de microcomputadores e notebooks ativos
 Route::get('/ativosMicrosNotes', 'AtivosMicrosNotesController@grafico');
-Route::get('/ativosMicrosNotesCsv', 'AtivosMicrosNotesController@csv');
+Route::get('/ativosMicrosNotes/export/{format}', 'AtivosMicrosNotesController@export');
 
 # totais de alunos da graduação, por gênero
 Route::get('/ativosPGGrad', 'AtivosPorGeneroGradController@grafico');
@@ -38,7 +38,7 @@ Route::get('/ativosFuncionarios/export/{format}', 'AtivosPorGeneroFuncionariosCo
 
 # totais de alunos de pós-doutorado com programa ativo por curso
 Route::get('/ativosPosDoutPorCurso', 'AtivosPosDoutoradoPorCursoController@grafico')->name('ativosposdoutoradocurso');
-Route::get('/ativosPosDoutPorCursoCsv', 'AtivosPosDoutoradoPorCursoController@csv')->name('ativosposdoutoradocursocsv');
+Route::get('/ativosPosDoutPorCurso/export/{format}', 'AtivosPosDoutoradoPorCursoController@export')->name('ativosposdoutoradocurso/export/{format}');
 
 # totais de funcionários, por departamento
 Route::get('/ativosFuncionariosDepartamento', 'AtivosPorDepartamentoFuncionariosController@grafico');
@@ -46,7 +46,7 @@ Route::get('/ativosFuncionariosDepartamento/export/{format}', 'AtivosPorDepartam
 
 # totais de alunos da pós graduação, por programa
 Route::get('/ativosPorProgramaPos', 'AtivosPorProgramaPósController@grafico');
-Route::get('/ativosPorProgramaPosCsv', 'AtivosPorProgramaPósController@csv');
+Route::get('/ativosPorProgramaPos/export/{format}', 'AtivosPorProgramaPósController@export');
 
 # totais de alunos da graduação em sociais por gênero
 Route::get('/ativosGradSociais', 'AtivosPorGeneroCursoGradSociaisController@grafico');
