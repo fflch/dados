@@ -54,11 +54,9 @@ class AtivosPosDoutoradoPorCursoController extends Controller
         return view('ativosPosDoutoradoPorCurso', compact('chart'));
     }
 
-    public function csv(){
-
+    public function export($format){
         #$data = collect($this->data);
         #$csvExporter = new \Laracsv\Export();
         #$csvExporter->build($data, ['vinculo', 'quantidade'])->download();
-
     }
 }
