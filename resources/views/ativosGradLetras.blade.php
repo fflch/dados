@@ -1,9 +1,8 @@
 @extends('chart')
 
 @section('content_top')
-{{-- CSV ainda não funcionando
-<a href="/ativosGradLetrasCsv"><i class="fas fa-file-csv"></i></a> Download
---}}
+<a href="/ativosGradLetras/export/excel">
+    <i class="fas fa-file-excel"></i> Download Excel</a>
 @endsection
 
 @section('content_footer')

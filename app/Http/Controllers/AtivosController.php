@@ -69,9 +69,12 @@ class AtivosController extends Controller
         return view('ativos', compact('chart'));
     }
 
-    public function csv(){
-        $export = new DadosExport([$this->data],array_keys($this->data));
-        return $this->excel->download($export, 'ativos.xlsx');
+    public function export($format)
+    {
+        if($format == 'excel') {
+            $export = new DadosExport([$this->data],array_keys($this->data));
+            return $this->excel->download($export, 'ativos.xlsx'); 
+        }
     }
-
 }
+
