@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AtivosPorGeneroMestrandosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
@@ -135,3 +136,7 @@ Route::get('/autodeclaradosPosAtivos/export/{format}', 'AutodeclaradosPosControl
 # totais com vínculos ativos da cultura e extensão universitária, separados por cor/raça
 Route::get('/autodeclaradosCeuAtivos', 'AutodeclaradosCeuController@grafico');
 Route::get('/autodeclaradosCeuAtivos/export/{format}', 'AutodeclaradosCeuController@export');
+
+#totais de alunos de mestrado ativos por gênero
+Route::get('/ativosMestrandos', 'AtivosPorGeneroMestrandosController@grafico');
+Route::get('/ativosMestrandos/export/{format}', 'AtivosPorGeneroMestrandosController@export');
