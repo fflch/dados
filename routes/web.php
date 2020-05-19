@@ -140,3 +140,7 @@ Route::get('/autodeclaradosCeuAtivos/export/{format}', 'AutodeclaradosCeuControl
 #totais de alunos de mestrado ativos por gênero
 Route::get('/ativosMestrandos', 'AtivosPorGeneroMestrandosController@grafico');
 Route::get('/ativosMestrandos/export/{format}', 'AtivosPorGeneroMestrandosController@export');
+
+#totais de chefes administrativos ativos por gênero
+Route::get('/ativosChefesAdministrativos', 'AtivosPorGeneroChefesAdministrativosController@grafico');
+Route::get('/ativosChefesAdministrativos/export/{format}', 'AtivosPorGeneroChefesAdministrativosController@export');
