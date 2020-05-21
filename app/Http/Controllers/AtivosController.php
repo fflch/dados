@@ -29,6 +29,11 @@ class AtivosController extends Controller
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Pós-Graduação'] = $result['computed'];
 
+        /* Contabiliza mestrandos ativos */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_mestrandos.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['Mestrandos'] = $result['computed'];
+
         /* Contabiliza alunos cultura e extensão ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
@@ -43,6 +48,11 @@ class AtivosController extends Controller
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Funcionários'] = $result['computed'];
+
+        /* Contabiliza pós doutorandos ativos */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_pos_doutorado.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['Pós-Doutorado'] = $result['computed'];
 
         /* Contabiliza alunos com benefícios ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados.sql');
