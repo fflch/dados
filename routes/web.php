@@ -144,3 +144,23 @@ Route::get('/ativosMestrandos/export/{format}', 'AtivosPorGeneroMestrandosContro
 #totais de chefes administrativos ativos por gênero
 Route::get('/ativosChefesAdministrativos', 'AtivosPorGeneroChefesAdministrativosController@grafico');
 Route::get('/ativosChefesAdministrativos/export/{format}', 'AtivosPorGeneroChefesAdministrativosController@export');
+
+#totais de alunos ativos da graduação nascidos e não nascidos no br
+Route::get('/ativosGradPaisNasc', 'AtivosGradPaisNascimentoController@grafico');
+Route::get('/ativosGradPaisNasc/export/{format}', 'AtivosGradPaisNascimentoController@export');
+
+#totais de alunos ativos da pós graduação nascidos e não nascidos no br
+Route::get('/ativosPosPaisNasc', 'AtivosPosPaisNascimentoController@grafico');
+Route::get('/ativosPosPaisNasc/export/{format}', 'AtivosPosPaisNascimentoController@export');
+
+#totais de docentes ativos nascidos e não nascidos no br
+Route::get('/ativosDocentesPaisNasc', 'AtivosDocentesPaisNascimentoController@grafico');
+Route::get('/ativosDocentesPaisNasc/export/{format}', 'AtivosDocentesPaisNascimentoController@export');
+
+#totais de alunos ativos de cultura e extensão universitária nascidos e não nascidos no br
+Route::get('/ativosCeuPaisNasc', 'AtivosCeuPaisNascimentoController@grafico');
+Route::get('/ativosCeuPaisNasc/export/{format}', 'AtivosCeuPaisNascimentoController@export');
+
+#totais de alunos ativos pós doutorado nascidos e não nascidos no br
+Route::get('/ativosPDPaisNasc', 'AtivosPDPaisNascimentoController@grafico');
+Route::get('/ativosPDPaisNasc/export/{format}', 'AtivosPDPaisNascimentoController@export');
