@@ -44,5 +44,6 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosDocentesPaisNasc">Totais de docentes da FFLCH nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosCeuPaisNasc">Totais de alunos de Cultura e Extensão Universitária nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosPDPaisNasc">Totais de alunos de Pós Doutorado nascidos e não nascidos no Brasil.</a></li>
+  <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
 </ul>
 @endsection
