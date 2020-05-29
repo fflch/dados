@@ -38,11 +38,12 @@ Dados do portal:
   <li class="list-group-item"><a href="/autodeclaradosPosAtivos">Totais de alunos autodeclarados da Pós-Graduação contabilizados por raça/cor.</a></li>
   <li class="list-group-item"><a href="/autodeclaradosCeuAtivos">Totais de alunos autodeclarados da  Cultura e Extensão Universitária contabilizados por raça/cor.</a></li>
   <li class="list-group-item"><a href="/ativosMestrandos">Totais de alunos de mestrado contabilizados por gênero.</a></li>
-  <li class="list-group-item"><a href="/ativosChefesAdministrativos">Totais de alunos de chefes administrativos contabilizados por gênero.</a></li>
+  <li class="list-group-item"><a href="/ativosChefesAdministrativos">Totais de chefes administrativos contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosGradPaisNasc">Totais de alunos da Graduação nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosPosPaisNasc">Totais de alunos da Pós Graduação nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosDocentesPaisNasc">Totais de docentes da FFLCH nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosCeuPaisNasc">Totais de alunos de Cultura e Extensão Universitária nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosPDPaisNasc">Totais de alunos de Pós Doutorado nascidos e não nascidos no Brasil.</a></li>
+  <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
 </ul>
 @endsection

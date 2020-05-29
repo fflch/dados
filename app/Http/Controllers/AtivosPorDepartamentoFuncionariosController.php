@@ -18,62 +18,16 @@ class AtivosPorDepartamentoFuncionariosController extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza funcionários ativos no setor de Geografia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_geografia.sql');
+        $departamentos = ['FLA','FLP','FLF','FLH','FLC','FLM','FLO','FLL','FSL', 'FLT','FLG',];
 
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Geografia'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Antropologia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_antropologia.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Antropologia'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Ciência Política */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_ciencia_politica.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Ciência Política'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Filosofia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_filosofia.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Filosofia'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de História */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_historia.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['História'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Letras Clássicas e Vernáculas */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_letras_classicas_e_vernaculas.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Letras Clássicas e Vernáculas'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Letras Modernas */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_letras_modernas.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Letras Modernas'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Letras Orientais */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_letras_orientais.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Letras Orientais'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Linguística */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_linguistica.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Linguística'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Sociologia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_sociologia.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Sociologia'] = $result['computed'];
-
-        /* Contabiliza funcionários ativos no setor de Teoria Literária e Literatura Comparada */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_teoria_literária_e_literatura_comparada.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Teoria Literária e Literatura Comparada'] = $result['computed'];
-
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_departamento.sql');
+        
+        /* Contabiliza funcionários ativos por departamento */
+        foreach ($departamentos as $departamento){
+            $query_por_departamento = str_replace('__departamento__', $departamento, $query);
+            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_departamento);
+            $data[$departamento] = $result['computed'];
+        }
         $this->data = $data;
     }    
     

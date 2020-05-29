@@ -164,3 +164,7 @@ Route::get('/ativosCeuPaisNasc/export/{format}', 'AtivosCeuPaisNascimentoControl
 #totais de alunos ativos pós doutorado nascidos e não nascidos no br
 Route::get('/ativosPDPaisNasc', 'AtivosPDPaisNascimentoController@grafico');
 Route::get('/ativosPDPaisNasc/export/{format}', 'AtivosPDPaisNascimentoController@export');
+
+#totais de alunos da Graduação por estado (RG)
+Route::get('/ativosAlunosEstado', 'AtivosGradPorEstadoController@grafico');
+Route::get('/ativosAlunosEstado/export/{format}', 'AtivosGradPorEstadoController@export');
