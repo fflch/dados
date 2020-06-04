@@ -45,5 +45,7 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosCeuPaisNasc">Totais de alunos de Cultura e Extensão Universitária nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosPDPaisNasc">Totais de alunos de Pós Doutorado nascidos e não nascidos no Brasil.</a></li>
   <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
+  <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
+
 </ul>
 @endsection

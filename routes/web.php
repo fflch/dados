@@ -168,3 +168,8 @@ Route::get('/ativosPDPaisNasc/export/{format}', 'AtivosPDPaisNascimentoControlle
 #totais de alunos da Graduação por estado (RG)
 Route::get('/ativosAlunosEstado', 'AtivosGradPorEstadoController@grafico');
 Route::get('/ativosAlunosEstado/export/{format}', 'AtivosGradPorEstadoController@export');
+
+#totais de docentes ativos por função
+Route::get('/ativosDocentesPorFuncao', 'AtivosDocentesPorFuncaoController@grafico');
+Route::get('/ativosDocentesPorFuncao/export/{format}', 'AtivosDocentesPorFuncaoController@export');
+
