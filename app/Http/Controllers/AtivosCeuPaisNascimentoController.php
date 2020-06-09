@@ -25,7 +25,7 @@ class AtivosCeuPaisNascimentoController extends Controller
         /* Contabiliza de cultura e extensão não nascido no br */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu_nao_nascidos_br.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Não nascidos no Brasil'] = $result['computed'];
+        $data['Estrangeiros'] = $result['computed'];
 
         /* Contabiliza de cultura e extensão sem infomações de local de nascimento */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu_nascidos_sem_info.sql');
