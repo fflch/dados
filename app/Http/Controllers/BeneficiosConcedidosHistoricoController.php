@@ -18,46 +18,15 @@ class BeneficiosConcedidosHistoricoController extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza benefícios concedidos em 2014 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2014.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2014'] = $result['computed'];
-        
+        $anos = ['2014', '2015', '2016', '2017', '2018', '2019', '2020',];
 
-        /* Contabiliza benefícios concedidos em 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2015'] = $result['computed'];
-
-
-        /* Contabiliza benefícios concedidos em 2016 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2016.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2016'] = $result['computed'];
-
-
-        /* Contabiliza benefícios concedidos em 2017 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2017.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2017'] = $result['computed'];
-
-
-        /* Contabiliza benefícios concedidos em 2018 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2018.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2018'] = $result['computed'];
-
-
-        /* Contabiliza benefícios concedidos em 2019 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2019.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2019'] = $result['computed'];
-
-
-        /* Contabiliza benefícios concedidos em 2020 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_2020.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2020'] = $result['computed'];
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_ano.sql');
+        /* Contabiliza benefícios concedidos de 2014-2020 */
+        foreach($anos as $ano){
+        $query_por_ano = str_replace('__ano__', $ano, $query);
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_ano);
+        $data[$ano] = $result['computed'];
+        }        
 
         $this->data = $data;
     }    

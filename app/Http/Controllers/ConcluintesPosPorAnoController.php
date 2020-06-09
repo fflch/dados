@@ -20,60 +20,15 @@ class ConcluintesPosPorAnoController extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza concluintes da pós-graduação em 2010 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2010.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2010'] = $result['computed'];
+        $anos = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020',];
 
-        /* Contabiliza concluintes da pós-graduação em 2011 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2011.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2011'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2012 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2012.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2012'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2013 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2013.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2013'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2014 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2014.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2014'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2015'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2016 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2016.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2016'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2017 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2017.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2017'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2018 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2018.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2018'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2019 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2019.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2019'] = $result['computed'];
-
-        /* Contabiliza concluintes da pós-graduação em 2020 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_2020.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['2020'] = $result['computed'];
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_pos_ano.sql');
+        /* Contabiliza concluintes da pós-graduação de 2010-2020 */
+        foreach ($anos as $ano){
+            $query_por_ano = str_replace('__ano__', $ano, $query);
+            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query_por_ano);
+            $data[$ano] = $result['computed'];
+        }
 
         $this->data = $data;
     }

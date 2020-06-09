@@ -25,7 +25,7 @@ class AtivosDocentesPaisNascimentoController extends Controller
         /* Contabiliza docentes não nascido no br */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes_nao_nascidos_br.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Não nascidos no Brasil'] = $result['computed'];
+        $data['Estrangeiros'] = $result['computed'];
 
         /* Contabiliza docentes sem infomações de local de nascimento */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes_nascidos_sem_info.sql');

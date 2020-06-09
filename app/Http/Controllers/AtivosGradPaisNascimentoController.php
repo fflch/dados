@@ -25,7 +25,7 @@ class AtivosGradPaisNascimentoController extends Controller
         /* Contabiliza aluno graduação não nascido no br */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_nao_nascidos_br.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Não nascidos no Brasil'] = $result['computed'];
+        $data['Estrangeiros'] = $result['computed'];
 
         /* Contabiliza aluno graduação sem infomações de local de nascimento */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_nascidos_sem_info.sql');
