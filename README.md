@@ -1,4 +1,20 @@
-Entregar um consulta nova:
+# Portal de Dados FFLCH
+
+
+## Instruções para instalação e contribuição para o projeto:
+
+Instalação da biblioteca ***Cache***: [Instalação e configuração](https://github.com/uspdev/cache).
+
+**É necessária a instalação do composer para prosseguir:**
+
+- `composer install`
+- `cp .env.example .env`
+- `php artisan key:generate`
+- `php artisan vendor:publish --provider="Uspdev\UspTheme\ServiceProvider" --tag=assets --force`
+- `php artisan serve`
+
+
+## Procedimentos para entregar um consulta nova:
 
  - Criar um controller, exemplo: AtivosController
  - Colocar três métodos neste controller: __construct, grafico e csv
