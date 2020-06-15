@@ -5,7 +5,7 @@
 
 Instalação da biblioteca ***Cache***: [Instalação e configuração](https://github.com/uspdev/cache).
 
-**É necessária a instalação do composer para prosseguir:**
+É necessário o ***composer*** instalado para prosseguir:
 
 - `composer install`
 - `cp .env.example .env`
@@ -14,7 +14,7 @@ Instalação da biblioteca ***Cache***: [Instalação e configuração](https://
 - `php artisan serve`
 
 
-## Procedimentos para entregar um consulta nova:
+## Procedimentos para entregar uma consulta nova:
 
  - Criar um controller, exemplo: AtivosController
  - Colocar três métodos neste controller: __construct, grafico e csv
