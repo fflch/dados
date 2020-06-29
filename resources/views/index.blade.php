@@ -46,6 +46,7 @@ Dados do portal:
   <li class="list-group-item"><a href="/ativosPDPaisNasc">Totais de alunos brasileiros e estrangeiros de Pós Doutorado.</a></li>
   <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
   <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
-
+  <li class="list-group-item"><a href="/ativosAlunosAutodeclarados">Totais de alunos autodeclarados.</a></li>
+  <li class="list-group-item"><a href="/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
 </ul>
 @endsection
