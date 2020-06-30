@@ -6,4 +6,4 @@ ON p.codpes = l.codpes
 WHERE l.tipvin = 'ALUNOGR' 
     AND l.codundclg = 8 
     AND s.codcur = 8010 
-    AND p.sexpes = 'F'
+    AND p.sexpes = '__sigla__'
