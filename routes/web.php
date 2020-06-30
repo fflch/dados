@@ -70,8 +70,8 @@ Route::get('/ativosGradLetras', 'AtivosPorGeneroCursoGradLetrasController@grafic
 Route::get('/ativosGradLetras/export/{format}', 'AtivosPorGeneroCursoGradLetrasController@export');
 
 # totais com algum benefício ativo
-Route::get('/ativosBeneficios', 'AtivosBeneficiosController@grafico');
-Route::get('/ativosBeneficios/export/{format}', 'AtivosBeneficiosController@export');
+Route::get('/beneficiados', 'BeneficiadosController@grafico');
+Route::get('/beneficiados/export/{format}', 'BeneficiadosController@export');
 
 # série histórica de benefícios concedidos
 Route::get('/ativosBeneficiosConHist', 'BeneficiosConcedidosHistoricoController@grafico');

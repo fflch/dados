@@ -1,7 +1,7 @@
 @extends('chart')
 
 @section('content_top')
-<a href="/ativosBeneficios/export/excel">
+<a href="/beneficiados/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 @endsection
 

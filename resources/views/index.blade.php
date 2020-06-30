@@ -45,7 +45,7 @@ Dados por curso:
 Dados por ano:
 <ul class="list-group">
   <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por ano a partir de 2014.</a></li>
-  <li class="list-group-item"><a href="/ativosBeneficios">Série histórica: quantidade de alunos com benefícios 2010-2020.</a></li>
+  <li class="list-group-item"><a href="/beneficiados">Série histórica: quantidade de alunos com benefícios 2010-2020.</a></li>
   <li class="list-group-item"><a href="/concluintesGradPorAno">Série histórica de concluintes da Graduação por ano a partir de 2010.</a></li>
   <li class="list-group-item"><a href="/concluintesPosPorAno">Série histórica de concluintes da Pós-Graduação por ano a partir de 2010.</a></li>
   <li class="list-group-item"><a href="/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados por programa.</a></li>
