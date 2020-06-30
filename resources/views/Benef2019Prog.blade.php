@@ -9,7 +9,7 @@
 
 <center>
     <p>Quantidade de benefícios concedidos em 2019 na Faculdade de Filosofia, Letras e Ciências Humanas separados por programa.</p>
-    <p>obs.: A consulta considera o número de benefícios concedidos, e não o número de alunos beneficiados.</p>
+    <p>Obs.: A consulta considera o número de benefícios concedidos, e não o número de alunos beneficiados.</p>
 </center>
 
 <b>Legenda: </b>
