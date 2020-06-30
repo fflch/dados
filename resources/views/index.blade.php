@@ -66,5 +66,10 @@ Dados por nacionalidade/localidade:
   <li class="list-group-item"><a href="/ativosDocentesPaisNasc">Totais de docentes brasileiros e estrangeiros da FFLCH.</a></li>
   <li class="list-group-item"><a href="/ativosCeuPaisNasc">Totais de alunos brasileiros e estrangeiros de Cultura e Extensão Universitária.</a></li>
   <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
+
+  <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
+  <li class="list-group-item"><a href="/ativosAlunosAutodeclarados">Totais de alunos autodeclarados.</a></li>
+  <li class="list-group-item"><a href="/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
+
 </ul>
 @endsection
