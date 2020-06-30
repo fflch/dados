@@ -17,30 +17,15 @@ class AtivosPorCursoGradController extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza aluno graduação - Ciências Sociais */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_sociais.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Ciências Sociais'] = $result['computed'];
+        $cursos = ['8040', '8010', '8021', '8030', '8051'];
 
-        /* Contabiliza aluno graduação - Filosofia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_filosofia.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Filosofia'] = $result['computed'];
-
-        //* Contabiliza aluno graduação - Geografia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_geografia.sql');
-        $result =$cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Geografia'] = $result['computed']; 
-
-        /* Contabiliza aluno graduação - História */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_historia.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['História'] = $result['computed']; 
-
-        /* Contabiliza aluno graduação - Letras */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_letras.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Letras'] = $result['computed']; 
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_curso.sql');
+        /* Contabiliza aluno graduação - por curso */
+        foreach ($cursos as $curso){
+            $query_por_curso = str_replace('__curso__', $curso, $query);
+            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_curso);
+            $data[$curso] = $result['computed'];
+        } 
 
         $this->data = $data;
     }    
@@ -50,8 +35,13 @@ class AtivosPorCursoGradController extends Controller
          * https://www.highcharts.com/docs/chart-and-series-types/chart-types
          */
         $chart = new GenericChart;
-
-        $chart->labels(array_keys($this->data));
+        $chart->labels([
+            'Ciências Sociais',
+            'Filosofia',
+            'Geografia',
+            'História',
+            'Letras',
+        ]);
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
         return view('ativosPCGrad', compact('chart'));

@@ -17,17 +17,15 @@ class AtivosPorGeneroCursoGradFilosofiaController extends Controller
         $this->excel = $excel;
         $cache = new Cache();
         $data = [];
+        $siglas = ['F', 'M'];
 
-        /* Contabiliza alunos graduação gênero feminino - filosofia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_filosofia_fem.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Feminino'] = $result['computed'];
-
-
-        /* Contabiliza alunos graduação gênero masculino - filosofia */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_filosofia_masc.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Masculino'] = $result['computed'];
+        /* Contabiliza alunos graduação gênero - filosofia */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_filosofia_genero.sql');
+        foreach($siglas as $sigla){
+            $query_por_genero = str_replace('__sigla__', $sigla, $query);
+            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_genero);
+            $data[$sigla] = $result['computed'];
+        }
 
         $this->data = $data;
     }    
@@ -37,8 +35,10 @@ class AtivosPorGeneroCursoGradFilosofiaController extends Controller
          * https://www.highcharts.com/docs/chart-and-series-types/chart-types
          */
         $chart = new GenericChart;
-
-        $chart->labels(array_keys($this->data));
+        $chart->labels([
+            'Feminino',
+            'Masculino',
+        ]);
         $chart->dataset('Filosofia por Gênero', 'bar', array_values($this->data));
 
         return view('ativosGradFilosofia', compact('chart'));
