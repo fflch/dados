@@ -180,3 +180,7 @@ Route::get('/ativosAlunosAutodeclarados/export/{format}', 'AlunosAtivosAutodecla
 #totais de alunos ativos da graduação por tipo de ingresso
 Route::get('/ativosAlunosGradTipoIngresso', 'AlunosAtivosGradTipoIngressoController@grafico');
 Route::get('/ativosAlunosGradTipoIngresso/export/{format}', 'AlunosAtivosGradTipoIngressoController@export');
+
+#totais de alunos da graduação com benefício ativo em 2020
+Route::get('/beneficiosAtivosGraduacao2020', 'BeneficiosAtivosGraduacao2020Controller@grafico');
+Route::get('/beneficiosAtivosGraduacao2020/export/{format}', 'BeneficiosAtivosGraduacao2020Controller@export');
