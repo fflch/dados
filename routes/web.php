@@ -184,3 +184,7 @@ Route::get('/ativosAlunosGradTipoIngresso/export/{format}', 'AlunosAtivosGradTip
 #totais de alunos da graduação com benefício ativo em 2020
 Route::get('/beneficiosAtivosGraduacao2020', 'BeneficiosAtivosGraduacao2020Controller@grafico');
 Route::get('/beneficiosAtivosGraduacao2020/export/{format}', 'BeneficiosAtivosGraduacao2020Controller@export');
+
+#totais de alunos da com benefício Bolsa Livro ativo em 2020
+Route::get('/ativosBolsaLivro', 'AtivosBolsaLivroController@grafico');
+Route::get('/ativosBolsaLivro/export/{format}', 'AtivosBolsaLivroController@export');
