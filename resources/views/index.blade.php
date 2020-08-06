@@ -25,7 +25,6 @@ Dados por gênero:
   <li class="list-group-item"><a href="/ativosGradLetras">Totais de alunos da Graduação em Letras contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosPosDoutorado">Totais de alunos de Pós Doutorado contabilizados por gênero.</a></li>
-  <li class="list-group-item"><a href="/ativosMestrandos">Totais de alunos de mestrado contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosChefesAdministrativos">Totais de chefes administrativos contabilizados por gênero.</a></li>
   </ul>
   <br>

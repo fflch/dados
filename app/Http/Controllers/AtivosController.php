@@ -29,11 +29,6 @@ class AtivosController extends Controller
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Pós-Graduação'] = $result['computed'];
 
-        /* Contabiliza mestrandos ativos */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_mestrandos.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Mestrandos'] = $result['computed'];
-
         /* Contabiliza doutorandos ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_doutorado.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
