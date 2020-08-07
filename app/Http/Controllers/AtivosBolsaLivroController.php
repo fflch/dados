@@ -8,7 +8,7 @@ use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 
-class AtivosPorGeneroMestrandosController extends Controller
+class AtivosBolsaLivroController extends Controller
 {
     private $data;
     private $excel;
@@ -18,16 +18,11 @@ class AtivosPorGeneroMestrandosController extends Controller
         $this->excel = $excel;
         $cache = new Cache();
         $data = [];
-
-        /* Contabiliza alunos de mestrado do gênero feminino */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_mestrandos_fem.sql');
+        
+        //Contabiliza alunos com o benefício Bolsa Livro ativo até 2020
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_bolsa_livro.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2010'] = $result['computed'];
-
-        /* Contabiliza alunos de mestrado do gênero masculino */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_mestrandos_masc.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2011'] = $result['computed'];
+        $data['Alunos com o benefício ativo'] = $result['computed'];
 
         $this->data = $data;
     }    
@@ -39,16 +34,16 @@ class AtivosPorGeneroMestrandosController extends Controller
         $chart = new GenericChart;
 
         $chart->labels(array_keys($this->data));
-        $chart->dataset('Gênero mestrandos', 'bar', array_values($this->data));
+        $chart->dataset('Quantidade de pessoas com benefício', 'bar', array_values($this->data));
 
-        return view('ativosMestrandos', compact('chart'));
+        return view('ativosBolsaLivro', compact('chart'));
     }
 
     public function export($format)
     {
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
-            return $this->excel->download($export, 'ativos_mestrandos_genero.xlsx'); 
+            return $this->excel->download($export, 'ativos_bolsa_livros.xlsx'); 
         }
     }
 }

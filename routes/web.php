@@ -137,10 +137,6 @@ Route::get('/autodeclaradosPosAtivos/export/{format}', 'AutodeclaradosPosControl
 Route::get('/autodeclaradosCeuAtivos', 'AutodeclaradosCeuController@grafico');
 Route::get('/autodeclaradosCeuAtivos/export/{format}', 'AutodeclaradosCeuController@export');
 
-#totais de alunos de mestrado ativos por gênero
-Route::get('/ativosMestrandos', 'AtivosPorGeneroMestrandosController@grafico');
-Route::get('/ativosMestrandos/export/{format}', 'AtivosPorGeneroMestrandosController@export');
-
 #totais de chefes administrativos ativos por gênero
 Route::get('/ativosChefesAdministrativos', 'AtivosPorGeneroChefesAdministrativosController@grafico');
 Route::get('/ativosChefesAdministrativos/export/{format}', 'AtivosPorGeneroChefesAdministrativosController@export');
@@ -184,3 +180,7 @@ Route::get('/ativosAlunosGradTipoIngresso/export/{format}', 'AlunosAtivosGradTip
 #totais de alunos da graduação com benefício ativo em 2020
 Route::get('/beneficiosAtivosGraduacao2020', 'BeneficiosAtivosGraduacao2020Controller@grafico');
 Route::get('/beneficiosAtivosGraduacao2020/export/{format}', 'BeneficiosAtivosGraduacao2020Controller@export');
+
+#totais de alunos da com benefício Bolsa Livro ativo em 2020
+Route::get('/ativosBolsaLivro', 'AtivosBolsaLivroController@grafico');
+Route::get('/ativosBolsaLivro/export/{format}', 'AtivosBolsaLivroController@export');

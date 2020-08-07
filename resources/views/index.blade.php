@@ -25,7 +25,6 @@ Dados por gênero:
   <li class="list-group-item"><a href="/ativosGradLetras">Totais de alunos da Graduação em Letras contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosPosDoutorado">Totais de alunos de Pós Doutorado contabilizados por gênero.</a></li>
-  <li class="list-group-item"><a href="/ativosMestrandos">Totais de alunos de mestrado contabilizados por gênero.</a></li>
   <li class="list-group-item"><a href="/ativosChefesAdministrativos">Totais de chefes administrativos contabilizados por gênero.</a></li>
   </ul>
   <br>
@@ -50,6 +49,7 @@ Dados por ano:
   <li class="list-group-item"><a href="/concluintesPosPorAno">Série histórica de concluintes da Pós-Graduação por ano a partir de 2010.</a></li>
   <li class="list-group-item"><a href="/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados por programa.</a></li>
   <li class="list-group-item"><a href="/beneficiosAtivosGraduacao2020">Quantidade de alunos de Graduação com benefícios (ativos) em 2020.</a></li>
+  <li class="list-group-item"><a href="/ativosBolsaLivro">Quantidade de alunos com o benefício Bolsa Livro ativo em 2020.</a></li>
 </ul>
 <br>
 Dados por cor/raça:
