@@ -184,3 +184,23 @@ Route::get('/beneficiosAtivosGraduacao2020/export/{format}', 'BeneficiosAtivosGr
 #totais de alunos da com benefício Bolsa Livro ativo em 2020
 Route::get('/ativosBolsaLivro', 'AtivosBolsaLivroController@grafico');
 Route::get('/ativosBolsaLivro/export/{format}', 'AtivosBolsaLivroController@export');
+
+#totais de trancamentos por semestre do curso de Sociais
+Route::get('/trancamentosSociaisPorSemestre', 'TrancamentosSociaisSemestralController@grafico');
+Route::get('/trancamentosSociaisPorSemestre/export/{format}', 'TrancamentosSociaisSemestralController@export');
+
+#totais de trancamentos por semestre do curso de Filosofia
+Route::get('/trancamentosFilosofiaPorSemestre', 'TrancamentosFilosofiaSemestralController@grafico');
+Route::get('/trancamentosFilosofiaPorSemestre/export/{format}', 'TrancamentosFilosofiaSemestralController@export');
+
+#totais de trancamentos por semestre do curso de Geografia
+Route::get('/trancamentosGeografiaPorSemestre', 'TrancamentosGeografiaSemestralController@grafico');
+Route::get('/trancamentosGeografiaPorSemestre/export/{format}', 'TrancamentosGeografiaSemestralController@export');
+
+#totais de trancamentos por semestre do curso de Historia
+Route::get('/trancamentosHistoriaPorSemestre', 'TrancamentosHistoriaSemestralController@grafico');
+Route::get('/trancamentosHistoriaPorSemestre/export/{format}', 'TrancamentosHistoriaSemestralController@export');
+
+#totais de trancamentos por semestre do curso de Letras
+Route::get('/trancamentosLetrasPorSemestre', 'TrancamentosLetrasSemestralController@grafico');
+Route::get('/trancamentosLetrasPorSemestre/export/{format}', 'TrancamentosLetrasSemestralController@export');
