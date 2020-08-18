@@ -222,7 +222,12 @@
                     de
                     ingresso.</a></li>
         </ul>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/alunosEspeciaisPosGrAno">Série histórica: quantidade de alunos especiais 
+            de pós-graduação (2010-2020)</a></li>
+        </ul>
     </div>
+    
 </div>
 
 @endsection

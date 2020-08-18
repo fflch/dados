@@ -204,3 +204,7 @@ Route::get('/trancamentosHistoriaPorSemestre/export/{format}', 'TrancamentosHist
 #totais de trancamentos por semestre do curso de Letras
 Route::get('/trancamentosLetrasPorSemestre', 'TrancamentosLetrasSemestralController@grafico');
 Route::get('/trancamentosLetrasPorSemestre/export/{format}', 'TrancamentosLetrasSemestralController@export');
+
+#quantidade de alunos especiais em pós graduação por ano (2010-2010)
+Route::get('/alunosEspeciaisPosGrAno', 'AlunosEspeciaisPosGRAnoController@grafico');
+Route::get('/alunosEspeciaisPosGrAno/export/{format}', 'AlunosEspeciaisPosGRAnoController@export');
