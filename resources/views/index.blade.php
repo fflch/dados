@@ -230,6 +230,10 @@
             <li class="list-group-item"><a href="/alunosEspeciaisGrAno">Série histórica: quantidade de alunos especiais 
             de graduação (2010-2020)</a></li>
         </ul>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/alunosEspeciaisPosGrDpto">Quantidade de alunos especiais 
+            de pós-graduação ativos por departamento</a></li>
+        </ul>
     </div>
     
 </div>

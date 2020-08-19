@@ -212,3 +212,7 @@ Route::get('/alunosEspeciaisPosGrAno/export/{format}', 'AlunosEspeciaisPosGrAnoC
 #quantidade de alunos especiais da graduação por ano (2010-2010)
 Route::get('/alunosEspeciaisGrAno', 'AlunosEspeciaisGrAnoController@grafico');
 Route::get('/alunosEspeciaisGrAno/export/{format}', 'AlunosEspeciaisGrAnoController@export');
+
+#quantidade de alunos especiais da pós-graduação por departamento
+Route::get('/alunosEspeciaisPosGrDpto', 'AlunosEspeciaisPosGrDptoController@grafico');
+Route::get('/alunosEspeciaisPosGrDpto/export/{format}', 'AlunosEspeciaisPosGrDptoController@export');
