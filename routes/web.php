@@ -206,5 +206,9 @@ Route::get('/trancamentosLetrasPorSemestre', 'TrancamentosLetrasSemestralControl
 Route::get('/trancamentosLetrasPorSemestre/export/{format}', 'TrancamentosLetrasSemestralController@export');
 
 #quantidade de alunos especiais em pós graduação por ano (2010-2010)
-Route::get('/alunosEspeciaisPosGrAno', 'AlunosEspeciaisPosGRAnoController@grafico');
-Route::get('/alunosEspeciaisPosGrAno/export/{format}', 'AlunosEspeciaisPosGRAnoController@export');
+Route::get('/alunosEspeciaisPosGrAno', 'AlunosEspeciaisPosGrAnoController@grafico');
+Route::get('/alunosEspeciaisPosGrAno/export/{format}', 'AlunosEspeciaisPosGrAnoController@export');
+
+#quantidade de alunos especiais da graduação por ano (2010-2010)
+Route::get('/alunosEspeciaisGrAno', 'AlunosEspeciaisGrAnoController@grafico');
+Route::get('/alunosEspeciaisGrAno/export/{format}', 'AlunosEspeciaisGrAnoController@export');
