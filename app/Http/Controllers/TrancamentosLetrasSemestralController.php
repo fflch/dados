@@ -7,6 +7,7 @@ use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use PhpParser\Node\Stmt\Foreach_;
 
 class TrancamentosLetrasSemestralController extends Controller
 {
@@ -36,11 +37,11 @@ class TrancamentosLetrasSemestralController extends Controller
             20202,
         ];
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos_letras.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos.sql');
 
-        /* Contabiliza trancamentos por semestre. */
+        /* Contabiliza trancamentos por semestre nos 3 códigos do curso de Letras. */
         foreach ($semestres as $semestre) {
-            $query_por_semestre = str_replace('__semestre__', $semestre, $query);
+            $query_por_semestre = str_replace(['__semestre__', '__curso__'], [$semestre, '8050, 8051, 8060'], $query);
             $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query_por_semestre);
             $data[$semestre] = $result['computed'];
         }

@@ -36,7 +36,10 @@ class TrancamentosHistoriaSemestralController extends Controller
             20202,
         ];
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos_historia.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos.sql');
+
+        /* Curso: História */
+        $query = str_replace('__curso__', 8030, $query);
 
         /* Contabiliza trancamentos por semestre. */
         foreach ($semestres as $semestre) {
