@@ -19,32 +19,23 @@ class ConcluintesGradPorCurso2015Controller extends Controller
         $cache = new Cache();
         $data = [];
 
-        /* Contabiliza concluintes da graduação em ciências sociais - 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_grad_sociais_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['Ciências Sociais'] = $result['computed'];
+        // Array cursos.  
+        $cursos = [
+            '8040',
+            '8010',
+            '8021',
+            '8030',
+            '8050, 8051, 8060',
+        ];
 
-        /* Contabiliza concluintes da graduação em filosofia - 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_grad_filosofia_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['Filosofia'] = $result['computed'];
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_grad_2015.sql');
 
-        /* Contabiliza concluintes da graduação em geografia - 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_grad_geografia_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['Geografia'] = $result['computed'];
-
-        /* Contabiliza concluintes da graduação em história - 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_grad_historia_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['História'] = $result['computed'];
-
-        /* Contabiliza concluintes da graduação em letras - 2015 */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_grad_letras_2015.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query);
-        $data['Letras'] = $result['computed'];
-
-
+        /* Contabiliza concluintes da graduação em 2015 por curso. */
+        foreach ($cursos as $curso) {
+            $query_por_curso = str_replace('__curso__', $curso, $query);
+            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query_por_curso);
+            $data[$curso] = $result['computed'];
+        }
         $this->data = $data;
     }
 
@@ -54,8 +45,13 @@ class ConcluintesGradPorCurso2015Controller extends Controller
          * https://www.highcharts.com/docs/chart-and-series-types/chart-types
          */
         $chart = new GenericChart;
-
-        $chart->labels(array_keys($this->data));
+        $chart->labels([
+            'Ciências Sociais',
+            'Filosofia',
+            'Geografia',
+            'História',
+            'Letras',
+        ]);
         $chart->dataset('Concluintes da Graduação por curso em 2015', 'bar', array_values($this->data));
 
         return view('concluintesGrad2015PorCurso', compact('chart'));
@@ -63,9 +59,9 @@ class ConcluintesGradPorCurso2015Controller extends Controller
 
     public function export($format)
     {
-        if($format == 'excel') {
-            $export = new DadosExport([$this->data],array_keys($this->data));
-            return $this->excel->download($export, 'concluintes_grad_2015.xlsx'); 
+        if ($format == 'excel') {
+            $export = new DadosExport([$this->data], array_keys($this->data));
+            return $this->excel->download($export, 'concluintes_grad_2015.xlsx');
         }
     }
 }
