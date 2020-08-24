@@ -6,4 +6,4 @@ WHERE ( v.tipvin = 'ALUNOGR'
     AND v.dtafimvin LIKE '%2017%'
     AND v.sitoco LIKE 'Conclu%' -- consulta não funciona com acento	
     AND v.codclg = 8
-    AND t.codcur in(8010))
+    AND t.codcur IN (__curso__))
