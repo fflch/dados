@@ -36,7 +36,10 @@ class TrancamentosFilosofiaSemestralController extends Controller
             20202,
         ];
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos_filosofia.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos.sql');
+
+        /* Curso: Filosofia */
+        $query = str_replace('__curso__', 8010, $query);
 
         /* Contabiliza trancamentos por semestre. */
         foreach ($semestres as $semestre) {

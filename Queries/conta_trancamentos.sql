@@ -6,6 +6,6 @@ FROM LOCALIZAPESSOA l
     ON p.codpes = l.codpes
 WHERE l.tipvin = 'ALUNOGR'
     AND l.codundclg = 8
-    AND s.codcur = 8040
+    AND s.codcur IN (__curso__)
     AND s.staalu = 'T'
     AND s.anosem = __semestre__

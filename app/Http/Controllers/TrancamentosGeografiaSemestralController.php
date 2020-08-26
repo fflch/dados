@@ -36,7 +36,10 @@ class TrancamentosGeografiaSemestralController extends Controller
             20202,
         ];
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos_geografia.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos.sql');
+
+        /* Curso: Geografia */
+        $query = str_replace('__curso__', 8021, $query);
 
         /* Contabiliza trancamentos por semestre. */
         foreach ($semestres as $semestre) {
