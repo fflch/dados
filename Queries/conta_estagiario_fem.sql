@@ -1,8 +1,0 @@
--- ESTÁGIARIOS ATIVOS GÊNERO FEMININO
-SELECT COUNT(DISTINCT l.codpes) 
-FROM LOCALIZAPESSOA l 
-INNER JOIN PESSOA p 
-ON l.codpes = p.codpes
-WHERE l.tipvin = 'ESTAGIARIORH' 
-AND l.codundclg = 8
-AND p.sexpes = 'F'
