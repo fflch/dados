@@ -17,7 +17,7 @@ class AlunosEspeciaisGrAnoController extends Controller
         $this->excel = $excel;
         $cache = new Cache();
         $data = [];
-        $anos = ['2010', '2011', '2012', '2013','2014', '2015', '2016', '2017', '2018', '2019'];
+        $anos = ['2010', '2011', '2012', '2013','2014', '2015', '2016', '2017', '2018', '2019','2020'];
         /* Contabiliza alunos especiais de graduação de 2010 até 2020 */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_especialgr.sql');
         foreach($anos as $ano){
@@ -25,18 +25,11 @@ class AlunosEspeciaisGrAnoController extends Controller
             $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_ano);
             $data[$ano] = $result['computed'];
         }
-        //query com os alunos especiais de graduação ativos no ano ATUAL
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_especialgr2020.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['2020'] = $result['computed'];
-
+        
         $this->data = $data;
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
         $chart = new GenericChart;
 
         $chart->labels(array_keys($this->data));
