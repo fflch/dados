@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;

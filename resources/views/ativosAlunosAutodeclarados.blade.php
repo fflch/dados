@@ -10,6 +10,6 @@
 
 @section('content_footer')
 
-<center>* Foram omitidos os dados de alunos que não dispõem da informação em seu cadastro.</center>
+<center><b>Obs:</b> Foram omitidos os dados de alunos que não dispõem da informação em seu cadastro.</center>
 
 @endsection

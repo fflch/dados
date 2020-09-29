@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
-use PhpParser\Node\Stmt\Foreach_;
 
 class TrancamentosLetrasSemestralController extends Controller
 {

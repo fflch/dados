@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
@@ -17,11 +16,6 @@ class ConveniosAtivosController extends Controller
         $this->excel = $excel;
         $cache = new Cache();
         $data = [];
-
-        /* Contabiliza convênios ativos firmados com a USP */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_convenios.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Convenios'] = $result['computed'];
 
         /* Contabiliza dos convênios os que são financeiros */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_convenios_fin.sql');
