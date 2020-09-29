@@ -214,7 +214,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por tipo de ingresso:</b></div>
+    <div class="card-header"><b>Dados por ingresso:</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -233,6 +233,12 @@
         <ul class="list-group">
             <li class="list-group-item"><a href="/alunosEspeciaisPosGrDpto">Quantidade de alunos especiais 
             de pós-graduação ativos por departamento</a></li>
+        </ul>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/ingressantesGeoMasculino">Série histórica: Ingressantes do gênero masculino no curso de Geografia 2010-2020</a></li>
+        </ul>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/ingressantesGeoFeminino">Série histórica: Ingressantes do gênero feminino no curso de Geografia 2010-2020</a></li>
         </ul>
     </div>
     

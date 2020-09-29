@@ -21,7 +21,8 @@ App\Http\Controllers\AtivosGradPorEstadoController, App\Http\Controllers\AtivosD
 App\Http\Controllers\AlunosAtivosGradTipoIngressoController, App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller, App\Http\Controllers\AtivosBolsaLivroController, 
 App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controllers\TrancamentosFilosofiaSemestralController, App\Http\Controllers\TrancamentosGeografiaSemestralController, 
 App\Http\Controllers\TrancamentosHistoriaSemestralController, App\Http\Controllers\TrancamentosLetrasSemestralController, App\Http\Controllers\AlunosEspeciaisPosGrAnoController, 
-App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
+App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController, App\Http\Controllers\IngressantesMasculinoGeoController,
+App\Http\Controllers\IngressantesFemininoGeoController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -236,3 +237,11 @@ Route::get('/alunosEspeciaisGrAno/export/{format}', [AlunosEspeciaisGrAnoControl
 #quantidade de alunos especiais da pós-graduação por departamento
 Route::get('/alunosEspeciaisPosGrDpto', [AlunosEspeciaisPosGrDptoController::class, 'grafico']);
 Route::get('/alunosEspeciaisPosGrDpto/export/{format}', [AlunosEspeciaisPosGrDptoController::class, 'export']);
+
+#quantidade de ingressantes do gênero masculino no curso de Geografia 2010-2020
+Route::get('/ingressantesGeoMasculino', [IngressantesMasculinoGeoController::class, 'grafico']);
+Route::get('/ingressantesGeoMasculino/export/{format}', [IngressantesMasculinoGeoController::class, 'export']);
+
+#quantidade de ingressantes do gênero feminino no curso de Geografia 2010-2020
+Route::get('/ingressantesGeoFeminino', [IngressantesFemininoGeoController::class, 'grafico']);
+Route::get('/ingressantesGeoFeminino/export/{format}', [IngressantesFemininoGeoController::class, 'export']);
