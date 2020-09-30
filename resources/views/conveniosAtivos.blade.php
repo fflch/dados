@@ -7,6 +7,6 @@
 
 @section('content_footer')
 <center>
-Quantidade de convênios ativos
+Quantidade de convênios ativos na Faculdade de Filosofia, Letras e Ciências Humanas.
 </center>
 @endsection

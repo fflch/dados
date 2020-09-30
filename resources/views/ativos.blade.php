@@ -6,5 +6,5 @@
 @endsection
 
 @section('content_footer')
-Dados relacionados:
+<center>Quantidade de pessoas com vínculos ativos na unidade.</center>
 @endsection

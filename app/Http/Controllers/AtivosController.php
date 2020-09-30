@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
@@ -34,6 +33,11 @@ class AtivosController extends Controller
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Doutorandos'] = $result['computed'];
 
+        /* Contabiliza pessoa externa à USP/ Unidade */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_externos.sql');
+        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $data['Externos'] = $result['computed'];
+
         /* Contabiliza alunos cultura e extensão ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
@@ -58,6 +62,7 @@ class AtivosController extends Controller
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_estagiario.sql');
         $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
         $data['Estagiários'] = $result['computed'];
+
 
         $this->data = $data;
     }    

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
@@ -60,7 +59,7 @@ class AutodeclaradosGraducaoController extends Controller
         $chart = new GenericChart;
 
         $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade de alunos(as) da Graduação contabilizados por raça/cor.', 'bar', array_values($this->data));
+        $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
         return view('autodeclaradosGradAtivos', compact('chart'));
     }

@@ -6,5 +6,5 @@
 @endsection
 
 @section('content_footer')
-Dados relacionados: Quantidade de microcomputadores e notebooks ativos na Faculdade de Filosofia, Letras e Ciências Humanas.
+<center>Dados relacionados: Quantidade de microcomputadores e notebooks ativos na Faculdade de Filosofia, Letras e Ciências Humanas.</center>
 @endsection
