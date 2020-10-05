@@ -22,7 +22,7 @@ App\Http\Controllers\AlunosAtivosGradTipoIngressoController, App\Http\Controller
 App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controllers\TrancamentosFilosofiaSemestralController, App\Http\Controllers\TrancamentosGeografiaSemestralController, 
 App\Http\Controllers\TrancamentosHistoriaSemestralController, App\Http\Controllers\TrancamentosLetrasSemestralController, App\Http\Controllers\AlunosEspeciaisPosGrAnoController, 
 App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController, App\Http\Controllers\IngressantesMasculinoGeoController,
-App\Http\Controllers\IngressantesFemininoGeoController;
+App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -245,3 +245,11 @@ Route::get('/ingressantesGeoMasculino/export/{format}', [IngressantesMasculinoGe
 #quantidade de ingressantes do gênero feminino no curso de Geografia 2010-2020
 Route::get('/ingressantesGeoFeminino', [IngressantesFemininoGeoController::class, 'grafico']);
 Route::get('/ingressantesGeoFeminino/export/{format}', [IngressantesFemininoGeoController::class, 'export']);
+
+#quantidade de alunos ativos da pós graduação, separados pelo nível de programa
+Route::get('ativosPosNivelPgm', [AtivosPosNivelProgramaController::class, 'grafico']);
+Route::get('ativosPosNivelPgm/export/{format}', [AtivosPosNivelProgramaController::class, 'export']);
+
+#quantidade de orientadores credenciados, separados pela area de concentração do programa de pós graduação
+Route::get('orientadoresPosGR', [OrientadoresPosGRContoller::class, 'grafico']);
+Route::get('orientadoresPosGR/export/{format}', [OrientadoresPosGRContoller::class, 'export']);
