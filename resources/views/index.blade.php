@@ -103,9 +103,6 @@
             <li class="list-group-item"><a href="/concluintesGrad2019PorCurso">Total de concluintes da Graduação por
                     curso em
                     2019.</a></li>
-            <li class="list-group-item"><a href="/ativosPorProgramaPos">Totais de pessoas da Pós-Graduação, separadas
-                    por
-                    programa.</a></li>
             <li class="list-group-item"><a href="/trancamentosSociaisPorSemestre">Total de trancamentos por semestre do
                     curso de
                     Ciências Sociais.</a></li>
@@ -131,9 +128,21 @@
 <br>
 
 <div class="card">
+    <div class="card-header"><b>Dados pós graduação:</b></div>
+    <div class="card-body">
+    <ul class="list-group">
+        <li class="list-group-item"><a href="/ativosPorProgramaPos">Totais de pessoas da Pós-Graduação, separadas por programa.</a></li>
+        <li class="list-group-item"><a href="/ativosPosNivelPgm">Quantidade de alunos ativos da pós-graduação por nível de programa.</a></li>
+        <li class="list-group-item"><a href="/orientadoresPosGR">Quantidade de orientadores credenciados na área de concentração do programa de pós graduação.</a></li>
+    </ul>
+    </div>
+</div>
+
+<br>
+
+<div class="card">
     <div class="card-header"><b>Dados por ano:</b></div>
     <div class="card-body">
-
         <ul class="list-group">
             <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por
                     ano a
@@ -165,7 +174,6 @@
 <div class="card">
     <div class="card-header"><b>Dados por cor/raça:</b></div>
     <div class="card-body">
-
         <ul class="list-group">
             <li class="list-group-item"><a href="/autodeclaradosGradAtivos">Totais de alunos autodeclarados da Graduação
                     contabilizados por raça/cor.</a></li>
@@ -176,7 +184,6 @@
                     Extensão
                     Universitária contabilizados por raça/cor.</a></li>
         </ul>
-
     </div>
 </div>
 
@@ -185,28 +192,15 @@
 <div class="card">
     <div class="card-header"><b>Dados por nacionalidade/localidade:</b></div>
     <div class="card-body">
-
         <ul class="list-group">
-            <li class="list-group-item"><a href="/ativosGradPaisNasc">Totais de alunos brasileiros e estrangeiros da
-                    Graduação.</a></li>
-            <li class="list-group-item"><a href="/ativosPosPaisNasc">Totais de alunos brasileiros e estrangeiros da Pós
-                    Graduação.</a></li>
-            <li class="list-group-item"><a href="/ativosPDPaisNasc">Totais de alunos brasileiros e estrangeiros de Pós
-                    Doutorado.</a></li>
-            <li class="list-group-item"><a href="/ativosDocentesPaisNasc">Totais de docentes brasileiros e estrangeiros
-                    da
-                    FFLCH.</a></li>
-            <li class="list-group-item"><a href="/ativosCeuPaisNasc">Totais de alunos brasileiros e estrangeiros de
-                    Cultura e
-                    Extensão Universitária.</a></li>
-            <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a>
-            </li>
-
-            <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por
-                    função.</a>
-            </li>
-            <li class="list-group-item"><a href="/ativosAlunosAutodeclarados">Totais de alunos autodeclarados.</a></li>
-
+                <li class="list-group-item"><a href="/ativosGradPaisNasc">Totais de alunos brasileiros e estrangeiros da Graduação.</a></li>
+                <li class="list-group-item"><a href="/ativosPosPaisNasc">Totais de alunos brasileiros e estrangeiros da Pós Graduação.</a></li>
+                <li class="list-group-item"><a href="/ativosPDPaisNasc">Totais de alunos brasileiros e estrangeiros de Pós Doutorado.</a></li>
+                <li class="list-group-item"><a href="/ativosDocentesPaisNasc">Totais de docentes brasileiros e estrangeiros da FFLCH.</a></li>
+                <li class="list-group-item"><a href="/ativosCeuPaisNasc">Totais de alunos brasileiros e estrangeiros de Cultura e Extensão Universitária.</a></li>
+                <li class="list-group-item"><a href="/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
+                <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
+                <li class="list-group-item"><a href="/ativosAlunosAutodeclarados">Totais de alunos autodeclarados.</a></li>
         </ul>
     </div>
 </div>
@@ -216,28 +210,15 @@
 <div class="card">
     <div class="card-header"><b>Dados por ingresso:</b></div>
     <div class="card-body">
-
         <ul class="list-group">
-            <li class="list-group-item"><a href="/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo
-                    de
-                    ingresso.</a></li>
-        </ul>
-        <ul class="list-group">
+            <li class="list-group-item"><a href="/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
             <li class="list-group-item"><a href="/alunosEspeciaisPosGrAno">Série histórica: quantidade de alunos especiais 
             de pós-graduação (2010-2020)</a></li>
-        </ul>
-        <ul class="list-group">
             <li class="list-group-item"><a href="/alunosEspeciaisGrAno">Série histórica: quantidade de alunos especiais 
             de graduação (2010-2020)</a></li>
-        </ul>
-        <ul class="list-group">
             <li class="list-group-item"><a href="/alunosEspeciaisPosGrDpto">Quantidade de alunos especiais 
             de pós-graduação ativos por departamento</a></li>
-        </ul>
-        <ul class="list-group">
             <li class="list-group-item"><a href="/ingressantesGeoMasculino">Série histórica: Ingressantes do gênero masculino no curso de Geografia 2010-2020</a></li>
-        </ul>
-        <ul class="list-group">
             <li class="list-group-item"><a href="/ingressantesGeoFeminino">Série histórica: Ingressantes do gênero feminino no curso de Geografia 2010-2020</a></li>
         </ul>
     </div>
