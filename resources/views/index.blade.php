@@ -66,6 +66,7 @@
                     contabilizados
                     por
                     gênero.</a></li>
+            <li class="list-group-item"><a href="/coordCursosGrad">Totais de coordenadores de cursos de Graduação, contabilizados por gênero.</a></li>
         </ul>
 
     </div>

@@ -57,7 +57,6 @@ class OrientadoresPosGRContoller extends Controller
             'TLLC',
         ]);
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
-
         return view('orientadoresPosGR', compact('chart'));
     }
 

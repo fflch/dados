@@ -19,4 +19,4 @@
 <center>
 Quantidade de orientadores credenciados na área de concentração do programa de pós graduação correspondente da Faculdade de Filosofia, Letras e Ciências Humanas.
 </center>
-@endsection
+@endsection 
