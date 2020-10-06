@@ -22,7 +22,8 @@ App\Http\Controllers\AlunosAtivosGradTipoIngressoController, App\Http\Controller
 App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controllers\TrancamentosFilosofiaSemestralController, App\Http\Controllers\TrancamentosGeografiaSemestralController, 
 App\Http\Controllers\TrancamentosHistoriaSemestralController, App\Http\Controllers\TrancamentosLetrasSemestralController, App\Http\Controllers\AlunosEspeciaisPosGrAnoController, 
 App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController, App\Http\Controllers\IngressantesMasculinoGeoController,
-App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller;
+App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller, 
+App\Http\Controllers\CoordCursosGradGeneroController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -253,3 +254,7 @@ Route::get('ativosPosNivelPgm/export/{format}', [AtivosPosNivelProgramaControlle
 #quantidade de orientadores credenciados, separados pela area de concentração do programa de pós graduação
 Route::get('orientadoresPosGR', [OrientadoresPosGRContoller::class, 'grafico']);
 Route::get('orientadoresPosGR/export/{format}', [OrientadoresPosGRContoller::class, 'export']);
+
+#quantidade de coordenadores de curso de gradução, separados por gênero
+Route::get('coordCursosGrad', [CoordCursosGradGeneroController::class, 'grafico']);
+Route::get('coordCursosGrad/export/{format}', [CoordCursosGradGeneroController::class, 'export']);
