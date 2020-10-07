@@ -23,7 +23,8 @@ App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controller
 App\Http\Controllers\TrancamentosHistoriaSemestralController, App\Http\Controllers\TrancamentosLetrasSemestralController, App\Http\Controllers\AlunosEspeciaisPosGrAnoController, 
 App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController, App\Http\Controllers\IngressantesMasculinoGeoController,
 App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller, 
-App\Http\Controllers\CoordCursosGradGeneroController;
+App\Http\Controllers\CoordCursosGradGeneroController, App\Http\Controllers\IngressantesFemininoLetrasController, App\Http\Controllers\IngressantesMasculinoLetrasController,
+App\Http\Controllers\IngressantesFemininoFilosofiaController, App\Http\Controllers\IngressantesMasculinoFilosofiaController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -258,3 +259,19 @@ Route::get('orientadoresPosGR/export/{format}', [OrientadoresPosGRContoller::cla
 #quantidade de coordenadores de curso de gradução, separados por gênero
 Route::get('coordCursosGrad', [CoordCursosGradGeneroController::class, 'grafico']);
 Route::get('coordCursosGrad/export/{format}', [CoordCursosGradGeneroController::class, 'export']);
+
+#quantidade de ingressantes do gênero feminino no curso de Letras 2010-2020
+Route::get('/ingressantesLetrasFeminino', [IngressantesFemininoLetrasController::class, 'grafico']);
+Route::get('/ingressantesLetrasFeminino/export/{format}', [IngressantesFemininoLetrasController::class, 'export']);
+
+#quantidade de ingressantes do gênero masculino no curso de Letras 2010-2020
+Route::get('/ingressantesLetrasMasculino', [IngressantesMasculinoLetrasController::class, 'grafico']);
+Route::get('/ingressantesLetrasMasculino/export/{format}', [IngressantesMasculinoLetrasController::class, 'export']);
+
+#quantidade de ingressantes do gênero feminino no curso de Filosofia 2010-2020
+Route::get('/ingressantesFilosofiaFeminino', [IngressantesFemininoFilosofiaController::class, 'grafico']);
+Route::get('/ingressantesFilosofiaFeminino/export/{format}', [IngressantesFemininoFilosofiaController::class, 'export']);
+
+#quantidade de ingressantes do gênero masculino no curso de Filosofia 2010-2020
+Route::get('/ingressantesFilosofiaMasculino', [IngressantesMasculinoFilosofiaController::class, 'grafico']);
+Route::get('/ingressantesFilosofiaMasculino/export/{format}', [IngressantesMasculinoFilosofiaController::class, 'export']);
