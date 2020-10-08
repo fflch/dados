@@ -221,6 +221,10 @@
             de pós-graduação ativos por departamento</a></li>
             <li class="list-group-item"><a href="/ingressantesGeoMasculino">Série histórica: Ingressantes do gênero masculino no curso de Geografia 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesGeoFeminino">Série histórica: Ingressantes do gênero feminino no curso de Geografia 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesLetrasMasculino">Série histórica: Ingressantes do gênero masculino no curso de Letras 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesLetrasFeminino">Série histórica: Ingressantes do gênero feminino no curso de Letras 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesFilosofiaMasculino">Série histórica: Ingressantes do gênero masculino no curso de Filosofia 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesFilosofiaFeminino">Série histórica: Ingressantes do gênero feminino no curso de Filosofia 2010-2020</a></li>
         </ul>
     </div>
     
