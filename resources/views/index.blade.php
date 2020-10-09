@@ -225,6 +225,10 @@
             <li class="list-group-item"><a href="/ingressantesLetrasFeminino">Série histórica: Ingressantes do gênero feminino no curso de Letras 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesFilosofiaMasculino">Série histórica: Ingressantes do gênero masculino no curso de Filosofia 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesFilosofiaFeminino">Série histórica: Ingressantes do gênero feminino no curso de Filosofia 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesHistoriaMasculino">Série histórica: Ingressantes do gênero masculino no curso de História 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesHistoriaFeminino">Série histórica: Ingressantes do gênero feminino no curso de História 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesSociaisMasculino">Série histórica: Ingressantes do gênero masculino no curso de Ciências Sociais 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesSociaisFeminino">Série histórica: Ingressantes do gênero feminino no curso de Ciências Sociais 2010-2020</a></li>
         </ul>
     </div>
     
