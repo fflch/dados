@@ -10,12 +10,9 @@
             <li class="list-group-item"><a href="/ativos">Totais de pessoas com vínculos ativos.</a></li>
             <li class="list-group-item"><a href="/ativosMicrosNotes">Totais de microcomputadores e notebooks.</a></li>
             <li class="list-group-item"><a href="/conveniosAtivos">Totais de convênios ativos.</a></li>
-            <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por
-                    função.</a>
-            </li>
-            <li class="list-group-item"><a href="/ativosFuncionariosDepartamento">Totais de funcionários contabilizados
-                    por
-                    departamento.</a></li>
+            <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
+            <li class="list-group-item"><a href="/ativosFuncionariosDepartamento">Totais de funcionários contabilizados por departamento.</a></li>
+            <li class="list-group-item"><a href="/ativosProfTitularDpto">Totais de Professores Titulares contabilizados por departamento.</a></li>
         </ul>
 
     </div>

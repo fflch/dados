@@ -25,7 +25,8 @@ App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\Alunos
 App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller, 
 App\Http\Controllers\CoordCursosGradGeneroController, App\Http\Controllers\IngressantesFemininoLetrasController, App\Http\Controllers\IngressantesMasculinoLetrasController,
 App\Http\Controllers\IngressantesFemininoFilosofiaController, App\Http\Controllers\IngressantesMasculinoFilosofiaController, App\Http\Controllers\IngressantesMasculinoHistoriaController,
-App\Http\Controllers\IngressantesFemininoHistoriaController, App\Http\Controllers\IngressantesFemininoSociaisController, App\Http\Controllers\IngressantesMasculinoSociaisController;
+App\Http\Controllers\IngressantesFemininoHistoriaController, App\Http\Controllers\IngressantesFemininoSociaisController, App\Http\Controllers\IngressantesMasculinoSociaisController,
+App\Http\Controllers\AtivosProfTitularPorDptoController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -292,3 +293,7 @@ Route::get('/ingressantesSociaisMasculino/export/{format}', [IngressantesMasculi
 #quantidade de ingressantes do gênero feminino no curso de Ciências Socias 2010-2020
 Route::get('/ingressantesSociaisFeminino', [IngressantesFemininoSociaisController::class, 'grafico']);
 Route::get('/ingressantesSociaisFeminino/export/{format}', [IngressantesFemininoSociaisController::class, 'export']);
+
+#quantidade de professores titulares ativos, por departamento
+Route::get('/ativosProfTitularDpto', [AtivosProfTitularPorDptoController::class, 'grafico']);
+Route::get('/ativosProfTitularDpto/export/{format}', [AtivosProfTitularPorDptoController::class, 'export']);
