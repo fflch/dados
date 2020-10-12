@@ -7,7 +7,7 @@ use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 
-class AtivosPorDepartamentoFuncionariosController extends Controller
+class AtivosProfTitularPorDptoController extends Controller
 {
     private $data;
     private $excel;
@@ -19,9 +19,9 @@ class AtivosPorDepartamentoFuncionariosController extends Controller
 
         $departamentos = ['FLA','FLP','FLF','FLH','FLC','FLM','FLO','FLL','FSL','FLT','FLG',];
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_departamento.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_proftitular_departamento.sql');
         
-        /* Contabiliza funcionários ativos por departamento */
+        /* Contabiliza professores titulares ativos por departamento */
         foreach ($departamentos as $departamento){
             $query_por_departamento = str_replace('__departamento__', $departamento, $query);
             $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_departamento);
@@ -36,13 +36,13 @@ class AtivosPorDepartamentoFuncionariosController extends Controller
         $chart->labels(array_keys($this->data));
         $chart->dataset('Quantidade', 'pie', array_values($this->data));
 
-        return view('ativosFuncionariosDepartamento', compact('chart'));
+        return view('ativosProfTitularDpto', compact('chart'));
     }
 
     public function export($format){
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
-            return $this->excel->download($export, 'ativos_por_departamento_funcionarios.xlsx');
+            return $this->excel->download($export, 'ativos_por_departamento_prof_titular.xlsx');
         }
     }
 

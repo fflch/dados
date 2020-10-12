@@ -10,12 +10,9 @@
             <li class="list-group-item"><a href="/ativos">Totais de pessoas com vínculos ativos.</a></li>
             <li class="list-group-item"><a href="/ativosMicrosNotes">Totais de microcomputadores e notebooks.</a></li>
             <li class="list-group-item"><a href="/conveniosAtivos">Totais de convênios ativos.</a></li>
-            <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por
-                    função.</a>
-            </li>
-            <li class="list-group-item"><a href="/ativosFuncionariosDepartamento">Totais de funcionários contabilizados
-                    por
-                    departamento.</a></li>
+            <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
+            <li class="list-group-item"><a href="/ativosFuncionariosDepartamento">Totais de funcionários contabilizados por departamento.</a></li>
+            <li class="list-group-item"><a href="/ativosProfTitularDpto">Totais de Professores Titulares contabilizados por departamento.</a></li>
         </ul>
 
     </div>
@@ -225,6 +222,10 @@
             <li class="list-group-item"><a href="/ingressantesLetrasFeminino">Série histórica: Ingressantes do gênero feminino no curso de Letras 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesFilosofiaMasculino">Série histórica: Ingressantes do gênero masculino no curso de Filosofia 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesFilosofiaFeminino">Série histórica: Ingressantes do gênero feminino no curso de Filosofia 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesHistoriaMasculino">Série histórica: Ingressantes do gênero masculino no curso de História 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesHistoriaFeminino">Série histórica: Ingressantes do gênero feminino no curso de História 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesSociaisMasculino">Série histórica: Ingressantes do gênero masculino no curso de Ciências Sociais 2010-2020</a></li>
+            <li class="list-group-item"><a href="/ingressantesSociaisFeminino">Série histórica: Ingressantes do gênero feminino no curso de Ciências Sociais 2010-2020</a></li>
         </ul>
     </div>
     
