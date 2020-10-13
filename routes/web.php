@@ -26,7 +26,7 @@ App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\Ati
 App\Http\Controllers\CoordCursosGradGeneroController, App\Http\Controllers\IngressantesFemininoLetrasController, App\Http\Controllers\IngressantesMasculinoLetrasController,
 App\Http\Controllers\IngressantesFemininoFilosofiaController, App\Http\Controllers\IngressantesMasculinoFilosofiaController, App\Http\Controllers\IngressantesMasculinoHistoriaController,
 App\Http\Controllers\IngressantesFemininoHistoriaController, App\Http\Controllers\IngressantesFemininoSociaisController, App\Http\Controllers\IngressantesMasculinoSociaisController,
-App\Http\Controllers\AtivosProfTitularPorDptoController;
+App\Http\Controllers\AtivosProfTitularPorDptoController, App\Http\Controllers\AtivosProfDoutorPorDptoController, App\Http\Controllers\AtivosProfAssociadoPorDptoController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -297,3 +297,11 @@ Route::get('/ingressantesSociaisFeminino/export/{format}', [IngressantesFeminino
 #quantidade de professores titulares ativos, por departamento
 Route::get('/ativosProfTitularDpto', [AtivosProfTitularPorDptoController::class, 'grafico']);
 Route::get('/ativosProfTitularDpto/export/{format}', [AtivosProfTitularPorDptoController::class, 'export']);
+
+#quantidade de professores doutores ativos, por departamento
+Route::get('/ativosProfDoutorDpto', [AtivosProfDoutorPorDptoController::class, 'grafico']);
+Route::get('/ativosProfDoutorDpto/export/{format}', [AtivosProfDoutorPorDptoController::class, 'export']);
+
+#quantidade de professores associados ativos, por departamento
+Route::get('/ativosProfAssociadoDpto', [AtivosProfAssociadoPorDptoController::class, 'grafico']);
+Route::get('/ativosProfAssociadoDpto/export/{format}', [AtivosProfAssociadoPorDptoController::class, 'export']);

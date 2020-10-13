@@ -12,6 +12,8 @@
             <li class="list-group-item"><a href="/conveniosAtivos">Totais de convênios ativos.</a></li>
             <li class="list-group-item"><a href="/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
             <li class="list-group-item"><a href="/ativosFuncionariosDepartamento">Totais de funcionários contabilizados por departamento.</a></li>
+            <li class="list-group-item"><a href="/ativosProfAssociadoDpto">Totais de Professores Associados contabilizados por departamento.</a></li>
+            <li class="list-group-item"><a href="/ativosProfDoutorDpto">Totais de Professores Doutores contabilizados por departamento.</a></li>
             <li class="list-group-item"><a href="/ativosProfTitularDpto">Totais de Professores Titulares contabilizados por departamento.</a></li>
         </ul>
 
