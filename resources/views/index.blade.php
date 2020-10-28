@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header"><b>Dados gerais do portal:</b></div>
+    <div class="card-header"><b>Dados gerais do portal: 8</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -23,7 +23,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por gênero:</b></div>
+    <div class="card-header"><b>Dados por gênero: 14</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -74,7 +74,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por curso:</b></div>
+    <div class="card-header"><b>Dados por curso: 13</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -128,12 +128,14 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados pós graduação:</b></div>
+    <div class="card-header"><b>Dados pós graduação: 4</b></div>
     <div class="card-body">
     <ul class="list-group">
         <li class="list-group-item"><a href="/ativosPorProgramaPos">Totais de pessoas da Pós-Graduação, separadas por programa.</a></li>
         <li class="list-group-item"><a href="/ativosPosNivelPgm">Quantidade de alunos ativos da pós-graduação por nível de programa.</a></li>
         <li class="list-group-item"><a href="/orientadoresPosGR">Quantidade de orientadores credenciados na área de concentração do programa de pós graduação.</a></li>
+        <li class="list-group-item"><a href="/alunosEspeciaisPosGrDpto">Quantidade de alunos especiais 
+            de pós-graduação ativos por departamento</a></li>
     </ul>
     </div>
 </div>
@@ -141,7 +143,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por ano:</b></div>
+    <div class="card-header"><b>Dados por ano: 9</b></div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item"><a href="/ativosBeneficiosConHist">Série histórica de benefícios concedidos por
@@ -165,6 +167,10 @@
             <li class="list-group-item"><a href="/ativosBolsaLivro">Quantidade de alunos com o benefício Bolsa Livro
                     ativo em
                     2020.</a></li>
+            <li class="list-group-item"><a href="/alunosEspeciaisPosGrAno">Série histórica: quantidade de alunos especiais 
+            de pós-graduação (2010-2020)</a></li>
+            <li class="list-group-item"><a href="/alunosEspeciaisGrAno">Série histórica: quantidade de alunos especiais 
+            de graduação (2010-2020)</a></li>
         </ul>
     </div>
 </div>
@@ -172,7 +178,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por cor/raça:</b></div>
+    <div class="card-header"><b>Dados por cor/raça: 3</b></div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item"><a href="/autodeclaradosGradAtivos">Totais de alunos autodeclarados da Graduação
@@ -190,7 +196,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por nacionalidade/localidade:</b></div>
+    <div class="card-header"><b>Dados por nacionalidade/localidade: 8</b></div>
     <div class="card-body">
         <ul class="list-group">
                 <li class="list-group-item"><a href="/ativosGradPaisNasc">Totais de alunos brasileiros e estrangeiros da Graduação.</a></li>
@@ -208,16 +214,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por ingresso:</b></div>
+    <div class="card-header"><b>Dados por ingresso: 11</b></div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item"><a href="/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
-            <li class="list-group-item"><a href="/alunosEspeciaisPosGrAno">Série histórica: quantidade de alunos especiais 
-            de pós-graduação (2010-2020)</a></li>
-            <li class="list-group-item"><a href="/alunosEspeciaisGrAno">Série histórica: quantidade de alunos especiais 
-            de graduação (2010-2020)</a></li>
-            <li class="list-group-item"><a href="/alunosEspeciaisPosGrDpto">Quantidade de alunos especiais 
-            de pós-graduação ativos por departamento</a></li>
             <li class="list-group-item"><a href="/ingressantesGeoMasculino">Série histórica: Ingressantes do gênero masculino no curso de Geografia 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesGeoFeminino">Série histórica: Ingressantes do gênero feminino no curso de Geografia 2010-2020</a></li>
             <li class="list-group-item"><a href="/ingressantesLetrasMasculino">Série histórica: Ingressantes do gênero masculino no curso de Letras 2010-2020</a></li>
