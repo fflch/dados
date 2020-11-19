@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header"><b>Dados gerais do portal: 8</b></div>
+    <div class="card-header"><b>Dados gerais do portal: 9</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -15,6 +15,7 @@
             <li class="list-group-item"><a href="/ativosProfAssociadoDpto">Totais de Professores Associados contabilizados por departamento.</a></li>
             <li class="list-group-item"><a href="/ativosProfDoutorDpto">Totais de Professores Doutores contabilizados por departamento.</a></li>
             <li class="list-group-item"><a href="/ativosProfTitularDpto">Totais de Professores Titulares contabilizados por departamento.</a></li>
+            <li class="list-group-item"><a href="/exAlunos">Total de Ex Alunos da Graduação e da Pós Graduação.</a></li>
         </ul>
 
     </div>
