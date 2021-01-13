@@ -11,9 +11,7 @@ App\Http\Controllers\AtivosPorGeneroCursoGradFilosofiaController, App\Http\Contr
 App\Http\Controllers\AtivosPorGeneroCursoGradHistoriaController, App\Http\Controllers\AtivosPorGeneroCursoGradLetrasController, 
 App\Http\Controllers\BeneficiadosController, App\Http\Controllers\BeneficiosConcedidosHistoricoController, App\Http\Controllers\Beneficios2019PorProgramaController, 
 App\Http\Controllers\AtivosPorGeneroCEUController, App\Http\Controllers\ConcluintesGradPorAnoController, App\Http\Controllers\AtivosPorGeneroPDController, 
-App\Http\Controllers\ConcluintesGradPorCurso2014Controller, App\Http\Controllers\ConcluintesGradPorCurso2015Controller, 
-App\Http\Controllers\ConcluintesGradPorCurso2016Controller, App\Http\Controllers\ConcluintesGradPorCurso2017Controller, App\Http\Controllers\ConcluintesGradPorCurso2018Controller, 
-App\Http\Controllers\ConcluintesGradPorCurso2019Controller, App\Http\Controllers\ConcluintesPosPorAnoController, App\Http\Controllers\ConveniosAtivosController, 
+App\Http\Controllers\ConcluintesGradPorCursoController, App\Http\Controllers\ConcluintesPosPorAnoController, App\Http\Controllers\ConveniosAtivosController, 
 App\Http\Controllers\AutodeclaradosGraducaoController, App\Http\Controllers\AutodeclaradosPosController, App\Http\Controllers\AutodeclaradosCeuController, 
 App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController, App\Http\Controllers\AtivosGradPaisNascimentoController, App\Http\Controllers\AtivosPosPaisNascimentoController, 
 App\Http\Controllers\AtivosDocentesPaisNascimentoController, App\Http\Controllers\AtivosCeuPaisNascimentoController, App\Http\Controllers\AtivosPDPaisNascimentoController, 
@@ -119,29 +117,9 @@ Route::get('/concluintesGradPorAno/export/{format}', 'ConcluintesGradPorAnoContr
 Route::get('/ativosPosDoutorado', [AtivosPorGeneroPDController::class, 'grafico']);
 Route::get('/ativosPosDoutorado/export/{format}', [AtivosPorGeneroPDController::class, 'export']);
 
-# concluintes da graduação em 2014, por curso
-Route::get('/concluintesGrad2014PorCurso', [ConcluintesGradPorCurso2014Controller::class, 'grafico']);
-Route::get('/concluintesGrad2014PorCurso/export/{format}', [ConcluintesGradPorCurso2014Controller::class, 'export']);
-
-# concluintes da graduação em 2015, por curso
-Route::get('/concluintesGrad2015PorCurso', [ConcluintesGradPorCurso2015Controller::class, 'grafico']);
-Route::get('/concluintesGrad2015PorCurso/export/{format}', [ConcluintesGradPorCurso2015Controller::class, 'export']);
-
-# concluintes da graduação em 2016, por curso
-Route::get('/concluintesGrad2016PorCurso', [ConcluintesGradPorCurso2016Controller::class, 'grafico']);
-Route::get('/concluintesGrad2016PorCurso/export/{format}', [ConcluintesGradPorCurso2016Controller::class, 'export']);
-
-# concluintes da graduação em 2017, por curso
-Route::get('/concluintesGrad2017PorCurso', [ConcluintesGradPorCurso2017Controller::class, 'grafico']);
-Route::get('/concluintesGrad2017PorCurso/export/{format}', [ConcluintesGradPorCurso2017Controller::class, 'export']);
-
-# concluintes da graduação em 2018, por curso
-Route::get('/concluintesGrad2018PorCurso', [ConcluintesGradPorCurso2018Controller::class, 'grafico']);
-Route::get('/concluintesGrad2018PorCurso/export/{format}', [ConcluintesGradPorCurso2018Controller::class, 'export']);
-
-# concluintes da graduação em 2019, por curso
-Route::get('/concluintesGrad2019PorCurso', [ConcluintesGradPorCurso2019Controller::class, 'grafico']);
-Route::get('/concluintesGrad2019PorCurso/export/{format}', [ConcluintesGradPorCurso2019Controller::class, 'export']);
+# concluintes da graduação em {ano}, por curso
+Route::get('/concluintesGradPorCurso/{ano}', [ConcluintesGradPorCursoController::class, 'grafico']);
+Route::get('/concluintesGradPorCurso/export/{format}/{ano}', [ConcluintesGradPorCursoController::class, 'export']);
 
 # série histórica de concluintes da pós-graduação
 Route::get('/concluintesPosPorAno', [ConcluintesPosPorAnoController::class, 'grafico']);

@@ -75,7 +75,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por curso: 13</b></div>
+    <div class="card-header"><b>Dados por curso: 8</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -86,24 +86,9 @@
             <li class="list-group-item"><a href="{{ route('ativosposdoutoradocurso') }}">Totais de alunos Pós-doutorando
                     ativos
                     por curso.</a></li>
-            <li class="list-group-item"><a href="/concluintesGrad2014PorCurso">Total de concluintes da Graduação por
-                    curso em
-                    2014.</a></li>
-            <li class="list-group-item"><a href="/concluintesGrad2015PorCurso">Total de concluintes da Graduação por
-                    curso em
-                    2015.</a></li>
-            <li class="list-group-item"><a href="/concluintesGrad2016PorCurso">Total de concluintes da Graduação por
-                    curso em
-                    2016.</a></li>
-            <li class="list-group-item"><a href="/concluintesGrad2017PorCurso">Total de concluintes da Graduação por
-                    curso em
-                    2017.</a></li>
-            <li class="list-group-item"><a href="/concluintesGrad2018PorCurso">Total de concluintes da Graduação por
-                    curso em
-                    2018.</a></li>
-            <li class="list-group-item"><a href="/concluintesGrad2019PorCurso">Total de concluintes da Graduação por
-                    curso em
-                    2019.</a></li>
+            <li class="list-group-item"><a href="/concluintesGradPorCurso/{{date('Y')}}">Total de concluintes da Graduação por
+                    curso.
+                        </a></li>
             <li class="list-group-item"><a href="/trancamentosSociaisPorSemestre">Total de trancamentos por semestre do
                     curso de
                     Ciências Sociais.</a></li>
