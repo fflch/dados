@@ -6,18 +6,28 @@ use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Illuminate\Http\Request;
 
-class TrancamentosLetrasSemestralController extends Controller
+class TrancamentosCursoSemestralController extends Controller
 {
     private $data;
     private $excel;
-    public function __construct(Excel $excel)
+    private $cursos;
+
+    public function __construct(Excel $excel, Request $request)
     {
         $this->excel = $excel;
         $cache = new Cache();
         $data = [];
-
-        // Array com os totais de trancamentos por semestre.  
+        $curso = $request->route()->parameter('curso') ?? 'Letras';
+        $this->cursos = [
+            'Sociais' => ['nome' => 'Ciências Sociais', 'cod' => '8040'],
+            'Filosofia' => ['nome' => 'Filosofia', 'cod' => '8010'],
+            'Geografia' => ['nome' => 'Geografia', 'cod' => '8021'],
+            'Historia' => ['nome' => 'História', 'cod' => '8030'],
+            'Letras' => ['nome' => 'Letras', 'cod' => '8050, 8051, 8060']
+        ];
+        // Array com os totais de trancamentos por semestre. 
         $semestres = [
             20141,
             20142,
@@ -35,20 +45,34 @@ class TrancamentosLetrasSemestralController extends Controller
             20202,
         ];
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_trancamentos.sql');
 
-        /* Contabiliza trancamentos por semestre nos 3 códigos do curso de Letras. */
+        $query = "SELECT count (distinct l.codpes)
+        FROM LOCALIZAPESSOA l
+            JOIN SITALUNOATIVOGR s
+            ON s.codpes = l.codpes
+            JOIN PESSOA p
+            ON p.codpes = l.codpes
+        WHERE l.tipvin = 'ALUNOGR'
+            AND l.codundclg = 8
+            AND s.codcur IN (".$this->cursos[$curso]['cod'].")
+            AND s.staalu = 'T'
+            AND s.anosem = __semestre__";
+
+        
+        /* Contabiliza trancamentos por semestre. */
         foreach ($semestres as $semestre) {
-            $query_por_semestre = str_replace(['__semestre__', '__curso__'], [$semestre, '8050, 8051, 8060'], $query);
+            $query_por_semestre = str_replace('__semestre__', $semestre, $query);
             $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query_por_semestre);
             $data[$semestre] = $result['computed'];
         }
        
+
         $this->data = $data;
     }
 
-    public function grafico()
+    public function grafico($curso)
     {
+        $cursos = $this->cursos;
         /* Tipos de gráficos:
          * https://www.highcharts.com/docs/chart-and-series-types/chart-types
          */
@@ -71,14 +95,14 @@ class TrancamentosLetrasSemestralController extends Controller
         ]);
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('trancamentosLetrasPorSemestre', compact('chart'));
+        return view('trancamentosCursoPorSemestre', compact('chart', 'curso', 'cursos'));
     }
 
-    public function export($format)
+    public function export($format, $curso)
     {
         if ($format == 'excel') {
             $export = new DadosExport([$this->data], array_keys($this->data));
-            return $this->excel->download($export, 'trancamentos_letras_semestral.xlsx');
+            return $this->excel->download($export, 'trancamentos_'.strtolower($curso).'_semestral.xlsx');
         }
     }
 }
