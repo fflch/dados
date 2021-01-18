@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ProgramaController;
+
 use App\Http\Controllers\IndexController, App\Http\Controllers\AtivosController, App\Http\Controllers\AtivosPorCursoGradController,
 App\Http\Controllers\AtivosMicrosNotesController, App\Http\Controllers\AtivosPorGeneroGradController, 
 App\Http\Controllers\AtivosPorGeneroPosController, App\Http\Controllers\AtivosPorGeneroDocentesController, 
@@ -292,3 +295,7 @@ Route::get('/ativosProfAssociadoDpto/export/{format}', [AtivosProfAssociadoPorDp
 #quantidade de Ex alunos de Graduação e Pós-Graduação
 Route::get('/exAlunos', [ExAlunosController::class, 'grafico']);
 Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
+
+#export dados do programa
+Route::get('/programas', [ProgramaController::class, 'index']);
+Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
