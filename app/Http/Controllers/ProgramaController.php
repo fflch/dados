@@ -19,11 +19,12 @@ class ProgramaController extends Controller
 
     public function show($codare) {
         # Mostrar nome do programa
-        # Deixar em ordem alfabética
+        
         $credenciados = ReplicadoTemp::credenciados($codare);
         for($i = 0; $i < count($credenciados); $i++){
+            $lattes = Lattes::getArray($credenciados[$i]['codpes']); 
             $credenciados[$i]['id_lattes'] = Lattes::id($credenciados[$i]['codpes']);
-            $data_atualizacao = Lattes::getUltimaAtualizacao($credenciados[$i]['codpes']) ; 
+            $data_atualizacao = Lattes::getUltimaAtualizacao($credenciados[$i]['codpes'], $lattes) ; 
             
             $credenciados[$i]['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
 
@@ -37,13 +38,14 @@ class ProgramaController extends Controller
     }
 
     public function docente($codpes) {
-    
+        $lattes = Lattes::getArray($codpes); 
+
         $content['nome'] = Pessoa::dump($codpes)['nompes'];
-        $content['resumo'] = Lattes::getResumoCV($codpes);
-        $content['livros'] = Lattes::getLivrosPublicados($codpes);
-        $content['linhas_pesquisa'] = Lattes::getLinhasPesquisa($codpes);
-        //$content['artigos'] = Lattes::getArtigos($codpes);
-        //$content['capitulos'] = Lattes::getCapitulosLivros($codpes);
+        $content['resumo'] = Lattes::getResumoCV($codpes, 'pt', $lattes);
+        $content['livros'] = Lattes::getLivrosPublicados($codpes, 4, 'ano', $lattes);
+        $content['linhas_pesquisa'] = Lattes::getLinhasPesquisa($codpes, $lattes);
+        $content['artigos'] = Lattes::getArtigos($codpes,4, 'ano', $lattes);
+        $content['capitulos'] = Lattes::getCapitulosLivros($codpes, 5, $lattes);
         //$content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         //dd($content['resumo']);
     

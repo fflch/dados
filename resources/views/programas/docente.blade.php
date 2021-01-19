@@ -72,6 +72,70 @@
           </div>
         </li>
       @endif
+
+
+      @if($content['artigos'])
+      <div class="panel panel-default panel-docente">
+          <div class="panel-heading">
+              <h2 role="button" data-toggle="collapse" href="#collapseArtigos" aria-expanded="true" aria-controls="collapseArtigos">
+                  Artigos completos publicados em periódicos
+              </h2>
+          </div>
+          
+          <ul class="list-group collapse in show" id="collapseArtigos">
+              @foreach($content['artigos'] as $key=>$value)
+                  <li class="list-group-item">
+                      @foreach($value['AUTORES'] as  $k=>$val)
+                          {{ $val["NOME-PARA-CITACAO"] }} 
+                          @if($k + 1 <  count($value['AUTORES']))
+                              ;
+                          @endif
+                      @endforeach 
+                      
+                      {{ $value["TITULO-DO-ARTIGO"] }}. 
+                      {{ $value["TITULO-DO-PERIODICO-OU-REVISTA"] }},
+                      v. {{ $value["VOLUME"] }},
+                      p. {{ $value["PAGINA-INICIAL"] }} - {{ $value["PAGINA-FINAL"] }},
+                      {{ $value["ANO"] }}.
+                  </li>
+              @endforeach
+          </ul>
+        
+      </div>
+      @endif
+
+      @if($content['capitulos'])
+      <div class="panel panel-default panel-docente"> 
+          <div class="panel-heading">
+              <h2 role="button" data-toggle="collapse" href="#collapseCapitulos" aria-expanded="true" aria-controls="collapseCapitulos">
+                  Capítulos publicados
+              </h2>
+          </div>
+          
+          <ul class="list-group collapse in show" id="collapseCapitulos">
+              @foreach($content['capitulos'] as $key=>$value)
+                  <li class="list-group-item">
+                    {{-- 
+                      @foreach($value['AUTORES'] as $k=>$val)
+                      {{ $val["NOME-PARA-CITACAO"] }} 
+                      @if( $k + 1 <  count($value['AUTORES']))
+                      ;
+                      @endif
+                      @endforeach
+                      --}}
+                      
+                      {{ $value["TITULO-DO-CAPITULO-DO-LIVRO"] }}. 
+                      {{ $value["TITULO-DO-LIVRO"] }},
+                      v. {{ $value["NUMERO-DE-VOLUMES"] }},
+                      p. {{ $value["PAGINA-INICIAL"] }} - {{ $value["PAGINA-FINAL"] }},
+                      {{ $value["ANO"] }}.
+                  </li>
+              @endforeach
+          </ul>
+      </div>
+      @endif
+
+
     </ul>
 
   </div>
