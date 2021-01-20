@@ -89,6 +89,8 @@
             <li class="list-group-item"><a href="/concluintesGradPorCurso/{{date('Y')}}">Total de concluintes da Graduação por
                     curso.
                         </a></li>
+            <li class="list-group-item"><a href="/trancamentosCursoPorSemestre/Letras">Total de trancamentos por semestre dos cursos.
+                        </a></li>
             <li class="list-group-item"><a href="/trancamentosSociaisPorSemestre">Total de trancamentos por semestre do
                     curso de
                     Ciências Sociais.</a></li>

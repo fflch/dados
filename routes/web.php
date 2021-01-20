@@ -20,7 +20,7 @@ App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController, App\Http\Co
 App\Http\Controllers\AtivosDocentesPaisNascimentoController, App\Http\Controllers\AtivosCeuPaisNascimentoController, App\Http\Controllers\AtivosPDPaisNascimentoController, 
 App\Http\Controllers\AtivosGradPorEstadoController, App\Http\Controllers\AtivosDocentesPorFuncaoController, App\Http\Controllers\AlunosAtivosAutodeclaradosController,
 App\Http\Controllers\AlunosAtivosGradTipoIngressoController, App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller, App\Http\Controllers\AtivosBolsaLivroController, 
-App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controllers\TrancamentosFilosofiaSemestralController, App\Http\Controllers\TrancamentosGeografiaSemestralController, 
+App\Http\Controllers\TrancamentosCursoSemestralController, App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controllers\TrancamentosFilosofiaSemestralController, App\Http\Controllers\TrancamentosGeografiaSemestralController, 
 App\Http\Controllers\TrancamentosHistoriaSemestralController, App\Http\Controllers\TrancamentosLetrasSemestralController, App\Http\Controllers\AlunosEspeciaisPosGrAnoController, 
 App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController, App\Http\Controllers\IngressantesMasculinoGeoController,
 App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller, 
@@ -192,6 +192,10 @@ Route::get('/beneficiosAtivosGraduacao2020/export/{format}', [BeneficiosAtivosGr
 Route::get('/ativosBolsaLivro', [AtivosBolsaLivroController::class, 'grafico']);
 Route::get('/ativosBolsaLivro/export/{format}', [AtivosBolsaLivroController::class, 'export']);
 
+#totais de trancamentos por semestre e por curso
+Route::get('/trancamentosCursoPorSemestre/{curso}', [TrancamentosCursoSemestralController::class, 'grafico']);
+Route::get('/trancamentosCursoPorSemestre/export/{format}/{curso}', [TrancamentosCursoSemestralController::class, 'export']);
+
 #totais de trancamentos por semestre do curso de Sociais
 Route::get('/trancamentosSociaisPorSemestre', [TrancamentosSociaisSemestralController::class, 'grafico']);
 Route::get('/trancamentosSociaisPorSemestre/export/{format}', [TrancamentosSociaisSemestralController::class, 'export']);
@@ -295,3 +299,4 @@ Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 #export dados do programa
 Route::get('/programas', [ProgramaController::class, 'index']);
 Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
+Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
