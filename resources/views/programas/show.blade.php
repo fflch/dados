@@ -51,6 +51,7 @@
               {{$credenciado['orientandos_concluidos']}}
             </a>
           </td>
+
           <td class="text-center">
             <a target="_blank" href="http://lattes.cnpq.br/{{$credenciado['id_lattes']}}">
               <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">

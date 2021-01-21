@@ -39,12 +39,13 @@ class ProgramaController extends Controller
             $credenciados[$i]['total_capitulos'] = Lattes::getCapitulosLivros($credenciados[$i]['codpes'], 5, $lattes);
             $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']) : '0';
             
+            
             $credenciados[$i]['orientandos'] = Posgraduacao::obterOrientandosAtivos($credenciados[$i]['codpes']);
             $credenciados[$i]['orientandos'] = $credenciados[$i]['orientandos'] ? count($credenciados[$i]['orientandos']) : '0';
 
             $credenciados[$i]['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($credenciados[$i]['codpes']);
             $credenciados[$i]['orientandos_concluidos'] = $credenciados[$i]['orientandos_concluidos'] ? count($credenciados[$i]['orientandos_concluidos']) : '0';
-
+            
 
         }
         
