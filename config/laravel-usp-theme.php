@@ -13,5 +13,5 @@ return [
             'url'  => '/',
         ],
     ],
-    'right_menu' => $right_menu,
+    'right_menu' => [],
 ];
