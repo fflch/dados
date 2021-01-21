@@ -1,0 +1,31 @@
+/*programas/docente*/
+h5[data-toggle="collapse"] {
+    cursor: pointer;
+    &.collapsed{
+        .controller-collapse{
+            .fa-plus-square{
+                display: inline-block;
+            }
+            .fa-minus-square{
+                display: none;
+            }
+        }
+    }
+    .controller-collapse{
+        float: right;
+        .fa-plus-square{
+            display: none;
+        }
+        .fa-minus-square{
+            display: inline-block;;
+        }
+    }
+}
+
+/*programas/show*/
+.docentes-programa-table{
+    th, td{
+        display: table-cell;
+        vertical-align: middle!important;
+    }
+}
