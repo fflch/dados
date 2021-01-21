@@ -152,14 +152,14 @@
             <ul class="list-group collapse in  {{ $section_show == 'capitulos' ?  'show' : ''}}" id="collapseCapitulos">
                 @foreach($content['capitulos'] as $key=>$value)
                     <li class="list-group-item">
-                        {{-- 
+                         
                         @foreach($value['AUTORES'] as $k=>$val)
                         {{ $val["NOME-PARA-CITACAO"] }} 
                         @if( $k + 1 <  count($value['AUTORES']))
                         ;
                         @endif
                         @endforeach
-                        --}}
+                        
                         
                         {{ $value["TITULO-DO-CAPITULO-DO-LIVRO"] }}. 
                         {{ $value["TITULO-DO-LIVRO"] }},

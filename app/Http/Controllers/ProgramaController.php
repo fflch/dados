@@ -30,7 +30,7 @@ class ProgramaController extends Controller
             $data_atualizacao = Lattes::getUltimaAtualizacao($credenciados[$i]['codpes'], $lattes) ; 
             $credenciados[$i]['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
             
-            $credenciados[$i]['total_livros'] = Lattes::getLivrosPublicados($credenciados[$i]['codpes'], 4, 'ano', $lattes);
+            $credenciados[$i]['total_livros'] = Lattes::getLivrosPublicados($credenciados[$i]['codpes'], $lattes, 'periodo', 2017, 2020);
             $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']) : '0';
             
             $credenciados[$i]['total_artigos'] = Lattes::getArtigos($credenciados[$i]['codpes'],4, 'ano', $lattes);
@@ -65,7 +65,7 @@ class ProgramaController extends Controller
 
         $content['nome'] = Pessoa::dump($codpes)['nompes'];
         $content['resumo'] = Lattes::getResumoCV($codpes, 'pt', $lattes);
-        $content['livros'] = Lattes::getLivrosPublicados($codpes, 4, 'ano', $lattes);
+        $content['livros'] = Lattes::getLivrosPublicados($codpes, $lattes, 'periodo', 2017, 2020);
         $content['linhas_pesquisa'] = Lattes::getLinhasPesquisa($codpes, $lattes);
         $content['artigos'] = Lattes::getArtigos($codpes,4, 'ano', $lattes);
         $content['capitulos'] = Lattes::getCapitulosLivros($codpes, 5, $lattes);
