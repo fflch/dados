@@ -43,12 +43,12 @@
           </td>
           <td class="text-center">
             <a href="/programas/docente/{{$credenciado['codpes']}}?section=orientandos">
-              {{$credenciado['orientandos']}}
+              {{-- $credenciado['orientandos'] --}}
             </a>
           </td>
           <td class="text-center">
             <a href="/programas/docente/{{$credenciado['codpes']}}?section=orientandos_concluidos">
-              {{$credenciado['orientandos_concluidos']}}
+              {{--$credenciado['orientandos_concluidos']--}}
             </a>
           </td>
 

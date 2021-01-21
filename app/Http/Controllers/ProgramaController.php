@@ -7,6 +7,7 @@ use Uspdev\Replicado\Posgraduacao;
 use Uspdev\Replicado\Lattes;
 use Uspdev\Replicado\Pessoa;
 use App\Utils\ReplicadoTemp;
+use App\Models\Lattes as LattesModel;
 
 class ProgramaController extends Controller
 {
@@ -21,30 +22,52 @@ class ProgramaController extends Controller
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         
         $credenciados = ReplicadoTemp::credenciados($codare);
-        
+
         for($i = 0; $i < count($credenciados); $i++){
-            
-            $lattes = Lattes::getArray($credenciados[$i]['codpes']); 
 
-            $credenciados[$i]['id_lattes'] = Lattes::id($credenciados[$i]['codpes']);
-            $data_atualizacao = Lattes::getUltimaAtualizacao($credenciados[$i]['codpes'], $lattes) ; 
-            $credenciados[$i]['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
+            $json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
             
-            $credenciados[$i]['total_livros'] = Lattes::getLivrosPublicados($credenciados[$i]['codpes'], $lattes, 'periodo', 2017, 2020);
-            $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']) : '0';
-            
-            $credenciados[$i]['total_artigos'] = Lattes::getArtigos($credenciados[$i]['codpes'],4, 'ano', $lattes);
-            $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']) : '0';
-            
-            $credenciados[$i]['total_capitulos'] = Lattes::getCapitulosLivros($credenciados[$i]['codpes'], 5, $lattes);
-            $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']) : '0';
-            
-            
-            $credenciados[$i]['orientandos'] = Posgraduacao::obterOrientandosAtivos($credenciados[$i]['codpes']);
-            $credenciados[$i]['orientandos'] = $credenciados[$i]['orientandos'] ? count($credenciados[$i]['orientandos']) : '0';
+            if($json_lattes) {
+                $lattes = json_decode($json_lattes->json,TRUE);
+                $credenciados[$i]['id_lattes'] = Lattes::id($credenciados[$i]['codpes']);
+                $data_atualizacao = Lattes::getUltimaAtualizacao($credenciados[$i]['codpes'], $lattes) ; 
+                $credenciados[$i]['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
+                
+                $credenciados[$i]['total_livros'] = Lattes::getLivrosPublicados($credenciados[$i]['codpes'], $lattes, 'periodo', 2017, 2020);
+                $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']) : '0';
+                
+                $credenciados[$i]['total_artigos'] = Lattes::getArtigos($credenciados[$i]['codpes'],4, 'ano', $lattes);
+                $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']) : '0';
+                
+                $credenciados[$i]['total_capitulos'] = Lattes::getCapitulosLivros($credenciados[$i]['codpes'], 5, $lattes);
+                $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']) : '0';   
+            } else {
+                #$lattes = null;
+                #continue;
+                $credenciados[$i]['id_lattes'] = '0';
+ 
+                $credenciados[$i]['data_atualizacao'] = '0';
+                
+                $credenciados[$i]['total_livros'] = '0';
+                $credenciados[$i]['total_livros'] = '0';
+                
+                $credenciados[$i]['total_artigos'] = '0';
+                $credenciados[$i]['total_artigos'] = '0';
+                
+                $credenciados[$i]['total_capitulos'] = '0';
+                $credenciados[$i]['total_capitulos'] = '0';
+            }
+             
+            #$lattes = Lattes::getArray($credenciados[$i]['codpes']); 
 
-            $credenciados[$i]['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($credenciados[$i]['codpes']);
-            $credenciados[$i]['orientandos_concluidos'] = $credenciados[$i]['orientandos_concluidos'] ? count($credenciados[$i]['orientandos_concluidos']) : '0';
+
+            
+            
+            #$credenciados[$i]['orientandos'] = Posgraduacao::obterOrientandosAtivos($credenciados[$i]['codpes']);
+            #$credenciados[$i]['orientandos'] = $credenciados[$i]['orientandos'] ? count($credenciados[$i]['orientandos']) : '0';
+
+            #$credenciados[$i]['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($credenciados[$i]['codpes']);
+            #$credenciados[$i]['orientandos_concluidos'] = $credenciados[$i]['orientandos_concluidos'] ? count($credenciados[$i]['orientandos_concluidos']) : '0';
             
 
         }
