@@ -1,5 +1,10 @@
 @extends('laravel-usp-theme::master')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
+@endsection('styles')
+
+
 @section('content')
 
 
