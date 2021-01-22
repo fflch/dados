@@ -227,9 +227,10 @@
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/programas">Exportar produção dos programas</a></li>
-        </ul>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/defesas">Defesas</a></li>
+       </ul>
     </div>
-    
 </div>
+
 
 @endsection

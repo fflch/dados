@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProgramaController;
+use App\Http\Controllers\DefesaController;
 
 use App\Http\Controllers\IndexController, App\Http\Controllers\AtivosController, App\Http\Controllers\AtivosPorCursoGradController,
 App\Http\Controllers\AtivosMicrosNotesController, App\Http\Controllers\AtivosPorGeneroGradController, 
@@ -298,5 +299,11 @@ Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 
 #export dados do programa
 Route::get('/programas', [ProgramaController::class, 'index']);
-Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
-Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
+#Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
+#Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
+
+# temporário, apontando para qq coisa enquanto não resolvemos a lentidão
+Route::get('/programas/{codare}', [ProgramaController::class, 'index']);
+
+# Defesas
+Route::get('/defesas', [DefesaController::class, 'index']);
