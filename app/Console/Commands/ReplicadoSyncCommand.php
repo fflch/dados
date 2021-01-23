@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Uspdev\Replicado\Lattes;
 use Uspdev\Replicado\Pessoa;
 use App\Models\Lattes as LattesModel;
+use App\Utils\ReplicadoTemp;
 
 class ReplicadoSyncCommand extends Command
 {
@@ -42,7 +43,8 @@ class ReplicadoSyncCommand extends Command
     {
 
         #$credenciados = ReplicadoTemp::credenciados($codare);
-        foreach(Pessoa::listarDocentes() as $docente) {
+       
+        foreach(ReplicadoTemp::credenciados() as $docente) {
             $lattes = LattesModel::where('codpes',$docente['codpes'])->first();
             if(!$lattes) {
                 $lattes = new LattesModel;

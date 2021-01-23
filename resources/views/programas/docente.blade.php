@@ -1,8 +1,7 @@
 @extends('laravel-usp-theme::master')
 
 @section('styles')
-@parent
-<link rel="stylesheet" href="../../css/programas/docente.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
 @endsection
 
 @section('content')
