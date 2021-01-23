@@ -6,6 +6,8 @@
 
 @section('content')
 
+@include ('programas.partials.search')
+
 <div class="card">
   <div class="card-header"><h3>{{ $content['nome'] }}</h3></div>
   <div class="card-body">
@@ -267,3 +269,7 @@
 </div>
 
 @endsection('content')
+
+@section('javascripts_bottom')
+  <script src="{{ asset('assets/js/programas.js') }}"></script>
+@endsection 
