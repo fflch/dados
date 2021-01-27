@@ -66,14 +66,13 @@ class ProgramaController extends Controller
             $credenciados[$i]['total_livros'] = Lattes::getLivrosPublicados($credenciados[$i]['codpes'], $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
             $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']) : '0';
             
-            $credenciados[$i]['total_artigos'] = Lattes::getArtigos($credenciados[$i]['codpes'],4, 'ano', $lattes);
+            $credenciados[$i]['total_artigos'] = Lattes::getArtigos($credenciados[$i]['codpes'], $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
             $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']) : '0';
             
-            $credenciados[$i]['total_capitulos'] = Lattes::getCapitulosLivros($credenciados[$i]['codpes'], 5, $lattes);
+            $credenciados[$i]['total_capitulos'] = Lattes::getCapitulosLivros($credenciados[$i]['codpes'], $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
             $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']) : '0';   
 
         }
-        
         usort($credenciados, function ($a, $b) {
             return $a['nompes'] > $b['nompes'];
         });
@@ -122,8 +121,8 @@ class ProgramaController extends Controller
         $content['resumo'] = Lattes::getResumoCV($codpes, 'pt', $lattes);
         $content['livros'] = Lattes::getLivrosPublicados($codpes, $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
         $content['linhas_pesquisa'] = Lattes::getLinhasPesquisa($codpes, $lattes);
-        $content['artigos'] = Lattes::getArtigos($codpes,4, 'ano', $lattes);
-        $content['capitulos'] = Lattes::getCapitulosLivros($codpes, 5, $lattes);
+        $content['artigos'] = Lattes::getArtigos($codpes, $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
+        $content['capitulos'] = Lattes::getCapitulosLivros($codpes, $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
         $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
     
