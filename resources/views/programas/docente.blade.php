@@ -1,11 +1,12 @@
 @extends('laravel-usp-theme::master')
 
 @section('styles')
-@parent
-<link rel="stylesheet" href="../../css/programas/docente.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
 @endsection
 
 @section('content')
+
+@include ('programas.partials.search')
 
 <div class="card">
   <div class="card-header"><h3>{{ $content['nome'] }}</h3></div>
@@ -268,3 +269,7 @@
 </div>
 
 @endsection('content')
+
+@section('javascripts_bottom')
+  <script src="{{ asset('assets/js/programas.js') }}"></script>
+@endsection 
