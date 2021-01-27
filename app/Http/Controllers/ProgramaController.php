@@ -18,7 +18,7 @@ class ProgramaController extends Controller
         ]);
     }
 
-    public function show($codare,  Request $request) {
+    public function show($codare, Request $request) {
         $tipo = $request->tipo;
         
         $filtro = ['tipo' => $tipo];
@@ -43,18 +43,15 @@ class ProgramaController extends Controller
                 break;
         }
         
-        
-    
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         
         $credenciados = ReplicadoTemp::credenciados($codare);
 
         for($i = 0; $i < count($credenciados); $i++){
 
-            $json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
-            
-            $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-            #$lattes = Lattes::getArray($credenciados[$i]['codpes']); 
+            #$json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
+            #$lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
+            $lattes = Lattes::getArray($credenciados[$i]['codpes']); 
             
             $credenciados[$i]['href'] = "/programas/docente/".$credenciados[$i]['codpes'];
             $credenciados[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
