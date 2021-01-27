@@ -20,7 +20,7 @@
         "phpoffice/phpspreadsheet": "^1.12",
         "uspdev/cache": "^0.7.1",
         "uspdev/laravel-usp-theme": "^2.0.2",
-        "uspdev/replicado": "^1.5"
+        "uspdev/replicado": "^1.6"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

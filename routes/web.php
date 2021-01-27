@@ -299,11 +299,8 @@ Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 
 #export dados do programa
 Route::get('/programas', [ProgramaController::class, 'index']);
-#Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
-#Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
-
-# temporário, apontando para qq coisa enquanto não resolvemos a lentidão
-Route::get('/programas/{codare}', [ProgramaController::class, 'index']);
+Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
+Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
 
 # Defesas
 Route::get('/defesas', [DefesaController::class, 'index']);
