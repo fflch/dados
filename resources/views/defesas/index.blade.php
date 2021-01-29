@@ -23,8 +23,17 @@
     <div class="form-group">
       <label for="ano"><b>Selecionar ano da defesa</b></label>
       <select class="form-control" name="ano">
-        @foreach($anos as $ano)
+        @foreach(App\Models\Defesa::anos() as $ano)
           <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+        @endforeach
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ano"><b>Selecionar Programa</b></label>
+      <select class="form-control" name="codcur">
+        @foreach(App\Models\Defesa::programas() as $codcur=>$nomcur)
+          <option value="{{$codcur}}" @if(request()->codcur == $codcur) selected @endif>{{$nomcur}}</option>
         @endforeach
       </select>
     </div>
