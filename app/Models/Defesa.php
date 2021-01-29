@@ -18,17 +18,15 @@ class Defesa extends Model
         $defesas = collect(Posgraduacao::listarDefesas($intervalo));
 
         # 2. Filter by codcur
-        if(array_key_exists('codcur',$filters)) $defesas = $defesas->where('codcur',$filters['codcur'])->all();
+        if(array_key_exists('codcur',$filters) && !empty($filters['codcur'])) {
+            $defesas = $defesas->where('codcur',$filters['codcur'])->all();
+        }
 
         return collect($defesas);
     }
 
     public static function anos(){
         return array_reverse(range(1950, Date('Y')));
-    }
-
-    public static function listarCodcur(){
-        return array_keys(Posgraduacao::areasProgramas());
     }
 
     public static function programas(){

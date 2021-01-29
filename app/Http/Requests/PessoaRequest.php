@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use App\Models\Defesa;
 
-class DefesaRequest extends FormRequest
+class PessoaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +23,8 @@ class DefesaRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'ano' => ['nullable','integer',Rule::in(Defesa::anos())],
-            'codcur' => ['nullable','integer',Rule::in(array_keys(Defesa::programas()))],
+        return [
+            //
         ];
-
-        return $rules;
     }
 }

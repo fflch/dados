@@ -2,34 +2,76 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\DefesaController;
-
-use App\Http\Controllers\IndexController, App\Http\Controllers\AtivosController, App\Http\Controllers\AtivosPorCursoGradController,
-App\Http\Controllers\AtivosMicrosNotesController, App\Http\Controllers\AtivosPorGeneroGradController, 
-App\Http\Controllers\AtivosPorGeneroPosController, App\Http\Controllers\AtivosPorGeneroDocentesController, 
-App\Http\Controllers\AtivosPorGeneroEstagiariosController, App\Http\Controllers\AtivosPorGeneroFuncionariosController,
-App\Http\Controllers\AtivosPosDoutoradoPorCursoController, App\Http\Controllers\AtivosPorDepartamentoFuncionariosController, 
-App\Http\Controllers\AtivosPorProgramaPósController, App\Http\Controllers\AtivosPorGeneroCursoGradSociaisController, 
-App\Http\Controllers\AtivosPorGeneroCursoGradFilosofiaController, App\Http\Controllers\AtivosPorGeneroCursoGradGeografiaController,
-App\Http\Controllers\AtivosPorGeneroCursoGradHistoriaController, App\Http\Controllers\AtivosPorGeneroCursoGradLetrasController, 
-App\Http\Controllers\BeneficiadosController, App\Http\Controllers\BeneficiosConcedidosHistoricoController, App\Http\Controllers\Beneficios2019PorProgramaController, 
-App\Http\Controllers\AtivosPorGeneroCEUController, App\Http\Controllers\ConcluintesGradPorAnoController, App\Http\Controllers\AtivosPorGeneroPDController, 
-App\Http\Controllers\ConcluintesGradPorCursoController, App\Http\Controllers\ConcluintesPosPorAnoController, App\Http\Controllers\ConveniosAtivosController, 
-App\Http\Controllers\AutodeclaradosGraducaoController, App\Http\Controllers\AutodeclaradosPosController, App\Http\Controllers\AutodeclaradosCeuController, 
-App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController, App\Http\Controllers\AtivosGradPaisNascimentoController, App\Http\Controllers\AtivosPosPaisNascimentoController, 
-App\Http\Controllers\AtivosDocentesPaisNascimentoController, App\Http\Controllers\AtivosCeuPaisNascimentoController, App\Http\Controllers\AtivosPDPaisNascimentoController, 
-App\Http\Controllers\AtivosGradPorEstadoController, App\Http\Controllers\AtivosDocentesPorFuncaoController, App\Http\Controllers\AlunosAtivosAutodeclaradosController,
-App\Http\Controllers\AlunosAtivosGradTipoIngressoController, App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller, App\Http\Controllers\AtivosBolsaLivroController, 
-App\Http\Controllers\TrancamentosCursoSemestralController, App\Http\Controllers\TrancamentosSociaisSemestralController, App\Http\Controllers\TrancamentosFilosofiaSemestralController, App\Http\Controllers\TrancamentosGeografiaSemestralController, 
-App\Http\Controllers\TrancamentosHistoriaSemestralController, App\Http\Controllers\TrancamentosLetrasSemestralController, App\Http\Controllers\AlunosEspeciaisPosGrAnoController, 
-App\Http\Controllers\AlunosEspeciaisGrAnoController, App\Http\Controllers\AlunosEspeciaisPosGrDptoController, App\Http\Controllers\IngressantesMasculinoGeoController,
-App\Http\Controllers\IngressantesFemininoGeoController, App\Http\Controllers\AtivosPosNivelProgramaController, App\Http\Controllers\OrientadoresPosGRContoller, 
-App\Http\Controllers\CoordCursosGradGeneroController, App\Http\Controllers\IngressantesFemininoLetrasController, App\Http\Controllers\IngressantesMasculinoLetrasController,
-App\Http\Controllers\IngressantesFemininoFilosofiaController, App\Http\Controllers\IngressantesMasculinoFilosofiaController, App\Http\Controllers\IngressantesMasculinoHistoriaController,
-App\Http\Controllers\IngressantesFemininoHistoriaController, App\Http\Controllers\IngressantesFemininoSociaisController, App\Http\Controllers\IngressantesMasculinoSociaisController,
-App\Http\Controllers\AtivosProfTitularPorDptoController, App\Http\Controllers\AtivosProfDoutorPorDptoController, App\Http\Controllers\AtivosProfAssociadoPorDptoController,
-App\Http\Controllers\ExAlunosController;
+use App\Http\Controllers\PessoaController;
+use App\Http\Controllers\AtivosController;
+use App\Http\Controllers\AtivosPorCursoGradController;
+use App\Http\Controllers\AtivosMicrosNotesController;
+use App\Http\Controllers\AtivosPorGeneroGradController;
+use App\Http\Controllers\AtivosPorGeneroPosController;
+use App\Http\Controllers\AtivosPorGeneroDocentesController;
+use App\Http\Controllers\AtivosPorGeneroEstagiariosController;
+use App\Http\Controllers\AtivosPorGeneroFuncionariosController;
+use App\Http\Controllers\AtivosPosDoutoradoPorCursoController;
+use App\Http\Controllers\AtivosPorDepartamentoFuncionariosController;
+use App\Http\Controllers\AtivosPorProgramaPósController;
+use App\Http\Controllers\AtivosPorGeneroCursoGradSociaisController;
+use App\Http\Controllers\AtivosPorGeneroCursoGradFilosofiaController;
+use App\Http\Controllers\AtivosPorGeneroCursoGradGeografiaController;
+use App\Http\Controllers\AtivosPorGeneroCursoGradHistoriaController;
+use App\Http\Controllers\AtivosPorGeneroCursoGradLetrasController;
+use App\Http\Controllers\BeneficiadosController;
+use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
+use App\Http\Controllers\Beneficios2019PorProgramaController;
+use App\Http\Controllers\AtivosPorGeneroCEUController;
+use App\Http\Controllers\ConcluintesGradPorAnoController;
+use App\Http\Controllers\AtivosPorGeneroPDController;
+use App\Http\Controllers\ConcluintesGradPorCursoController;
+use App\Http\Controllers\ConcluintesPosPorAnoController;
+use App\Http\Controllers\ConveniosAtivosController;
+use App\Http\Controllers\AutodeclaradosGraducaoController;
+use App\Http\Controllers\AutodeclaradosPosController;
+use App\Http\Controllers\AutodeclaradosCeuController;
+use App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController;
+use App\Http\Controllers\AtivosGradPaisNascimentoController;
+use App\Http\Controllers\AtivosPosPaisNascimentoController;
+use App\Http\Controllers\AtivosDocentesPaisNascimentoController;
+use App\Http\Controllers\AtivosCeuPaisNascimentoController;
+use App\Http\Controllers\AtivosPDPaisNascimentoController;
+use App\Http\Controllers\AtivosGradPorEstadoController;
+use App\Http\Controllers\AtivosDocentesPorFuncaoController;
+use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
+use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
+use App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller;
+use App\Http\Controllers\AtivosBolsaLivroController;
+use App\Http\Controllers\TrancamentosCursoSemestralController;
+use App\Http\Controllers\TrancamentosSociaisSemestralController;
+use App\Http\Controllers\TrancamentosFilosofiaSemestralController;
+use App\Http\Controllers\TrancamentosGeografiaSemestralController;
+use App\Http\Controllers\TrancamentosHistoriaSemestralController;
+use App\Http\Controllers\TrancamentosLetrasSemestralController;
+use App\Http\Controllers\AlunosEspeciaisPosGrAnoController;
+use App\Http\Controllers\AlunosEspeciaisGrAnoController;
+use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
+use App\Http\Controllers\IngressantesMasculinoGeoController;
+use App\Http\Controllers\IngressantesFemininoGeoController;
+use App\Http\Controllers\AtivosPosNivelProgramaController;
+use App\Http\Controllers\OrientadoresPosGRContoller;
+use App\Http\Controllers\CoordCursosGradGeneroController;
+use App\Http\Controllers\IngressantesFemininoLetrasController;
+use App\Http\Controllers\IngressantesMasculinoLetrasController;
+use App\Http\Controllers\IngressantesFemininoFilosofiaController;
+use App\Http\Controllers\IngressantesMasculinoFilosofiaController;
+use App\Http\Controllers\IngressantesMasculinoHistoriaController;
+use App\Http\Controllers\IngressantesFemininoHistoriaController;
+use App\Http\Controllers\IngressantesFemininoSociaisController;
+use App\Http\Controllers\IngressantesMasculinoSociaisController;
+use App\Http\Controllers\AtivosProfTitularPorDptoController;
+use App\Http\Controllers\AtivosProfDoutorPorDptoController;
+use App\Http\Controllers\AtivosProfAssociadoPorDptoController;
+use App\Http\Controllers\ExAlunosController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -304,3 +346,6 @@ Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']
 
 # Defesas
 Route::get('/defesas', [DefesaController::class, 'index']);
+
+# Pessoas
+Route::get('/pessoas', [PessoaController::class, 'index']);

@@ -32,6 +32,7 @@
     <div class="form-group">
       <label for="ano"><b>Selecionar Programa</b></label>
       <select class="form-control" name="codcur">
+        <option value="" selected>Selecionar</option>
         @foreach(App\Models\Defesa::programas() as $codcur=>$nomcur)
           <option value="{{$codcur}}" @if(request()->codcur == $codcur) selected @endif>{{$nomcur}}</option>
         @endforeach
