@@ -301,10 +301,6 @@ Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 Route::get('/programas', [ProgramaController::class, 'index']);
 Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
 Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 
 # Defesas
 Route::get('/defesas', [DefesaController::class, 'index']);
