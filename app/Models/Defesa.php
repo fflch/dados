@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Uspdev\Replicado\Posgraduacao;
+use Carbon\Carbon;
 
 class Defesa extends Model
 {
@@ -22,7 +23,17 @@ class Defesa extends Model
             $defesas = $defesas->where('codcur',$filters['codcur'])->all();
         }
 
-        return collect($defesas);
+        # 3. Convertendo defesas dentro de $defesas para collection
+        $defesas = collect($defesas)->map(function ($item) {
+            return (object) $item;
+        });
+
+        # 4. Últimos tratamentos antes de devolver
+        $defesas->each(function(&$defesa) {
+            $defesa->dtadfapgm = Carbon::createFromFormat('Y-m-d H:i:s', $defesa->dtadfapgm)->format('d/m/Y');
+        });  
+        
+        return $defesas;
     }
 
     public static function anos(){

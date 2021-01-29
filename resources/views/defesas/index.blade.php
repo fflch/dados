@@ -57,11 +57,11 @@
       <tbody>
         @foreach($defesas->sortBy('nomcur') as $defesa)
           <tr>
-            <td><a href="#">{{$defesa['nompes']}} </a></td>
-            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $defesa['dtadfapgm'])->format('d/m/Y') }} </td>
-            <td>{{ $defesa['nivpgm'] }} </td>
-            <td>{{ $defesa['nomcur'] }} </td>
-            <td>{!! $defesa['tittrb'] !!} </td>
+            <td><a href="#">{{ $defesa->nompes }} </a></td>
+            <td>{{ $defesa->dtadfapgm }} </td>
+            <td>{{ $defesa->nivpgm }} </td>
+            <td>{{ $defesa->nomcur }} </td>
+            <td>{!! $defesa->tittrb !!} </td>
           </tr>
         @endforeach
       </tbody>
