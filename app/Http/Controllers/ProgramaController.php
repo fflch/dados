@@ -49,25 +49,30 @@ class ProgramaController extends Controller
 
         for($i = 0; $i < count($credenciados); $i++){
 
-            #$json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
-            #$lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-            $lattes = Lattes::getArray($credenciados[$i]['codpes']); 
+            $json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
+            
+            $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
+           
+            
+            //$lattes = Lattes::getArray($credenciados[$i]['codpes']); 
             
             $credenciados[$i]['href'] = "/programas/docente/".$credenciados[$i]['codpes'];
             $credenciados[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
 
-            $credenciados[$i]['id_lattes'] = Lattes::id($credenciados[$i]['codpes']);
-            $data_atualizacao = Lattes::getUltimaAtualizacao($credenciados[$i]['codpes'], $lattes) ; 
-            $credenciados[$i]['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
+            $credenciados[$i]['id_lattes'] = $lattes['id_lattes'];
+
+            $credenciados[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
             
-            $credenciados[$i]['total_livros'] = Lattes::getLivrosPublicados($credenciados[$i]['codpes'], $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
-            $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']) : '0';
+            $credenciados[$i]['total_livros'] = $lattes['livros'] ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']): '0';
             
-            $credenciados[$i]['total_artigos'] = Lattes::getArtigos($credenciados[$i]['codpes'], $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
-            $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']) : '0';
+            $credenciados[$i]['total_artigos'] = $lattes['artigos'] ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']): '0';
             
-            $credenciados[$i]['total_capitulos'] = Lattes::getCapitulosLivros($credenciados[$i]['codpes'], $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
-            $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']) : '0';   
+            $credenciados[$i]['total_capitulos'] = $lattes['capitulos'] ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']): '0';
+            
+ 
 
         }
         usort($credenciados, function ($a, $b) {
@@ -80,6 +85,29 @@ class ProgramaController extends Controller
             'filtro' => $filtro,
             'form_action' => "/programas/$codare"
         ]);
+    }
+
+    private function filtrar($array, $campo_ano, $tipo, $limit_ini, $limit_fim){
+        $result = [];
+        $i = 0;
+        foreach($array as $item){
+            $i++;
+            if($tipo == 'registros'){
+                if($limit_ini != -1 && $i > $limit_ini) continue;  //-1 retorna tudo
+            }else if($tipo == 'anual'){
+                if($limit_ini != -1 &&  (int)$item[$campo_ano] !=  $limit_ini ) continue; //se for diferente do ano determinado, pula para o próximo
+            }else if($tipo == 'periodo'){
+                if($limit_ini != -1 && 
+                    (
+                        (int)$item[$campo_ano] < $limit_ini ||
+                        (int)$item[$campo_ano] > $limit_fim 
+                    )
+                 ) continue;
+            }
+            array_push($result, $item);
+        }
+        
+        return $result;
     }
 
     public function docente($codpes, Request $request) {
@@ -114,14 +142,17 @@ class ProgramaController extends Controller
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
         //$lattes = Lattes::getArray($codpes); 
 
-        $content['nome'] = Pessoa::dump($codpes)['nompes'];
-        $content['resumo'] = Lattes::getResumoCV($codpes, 'pt', $lattes);
-        $content['livros'] = Lattes::getLivrosPublicados($codpes, $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
-        $content['linhas_pesquisa'] = Lattes::getLinhasPesquisa($codpes, $lattes);
-        $content['artigos'] = Lattes::getArtigos($codpes, $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
-        $content['capitulos'] = Lattes::getCapitulosLivros($codpes, $lattes, $filtro['tipo'], $filtro['limit_ini'], $filtro['limit_fim']);
+        $content['nome'] = $lattes['nome'];
+        $content['resumo'] = $lattes['resumo'];
+        $content['livros'] = $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']);
+        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
+        $content['artigos'] = $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']);
+        $content['capitulos'] = $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']);
         $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
+
+      
+
     
         return view('programas.docente',[
             'content' => $content,
