@@ -57,11 +57,11 @@
       <tbody>
         @foreach($defesas->sortBy('nomcur') as $defesa)
           <tr>
-            <td><a href="#">{{ $defesa->nompes }} </a></td>
-            <td>{{ $defesa->dtadfapgm }} </td>
-            <td>{{ $defesa->nivpgm }} </td>
+            <td><a href="#">{{ $defesa->nome }} </a></td>
+            <td>{{ $defesa->data }} </td>
+            <td>{{ $defesa->nivel }} </td>
             <td>{{ $defesa->nomcur }} </td>
-            <td>{!! $defesa->tittrb !!} </td>
+            <td>{!! $defesa->titulo !!} </td>
           </tr>
         @endforeach
       </tbody>

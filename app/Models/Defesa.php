@@ -16,24 +16,36 @@ class Defesa extends Model
             'inicio' => $filters['ano'] . '-01-01',
             'fim'    => $filters['ano'] . '-12-31'
         ];
-        $defesas = collect(Posgraduacao::listarDefesas($intervalo));
+        $defesas = Posgraduacao::listarDefesas($intervalo);
 
         # 2. Filter by codcur
+        $defesas = collect($defesas);
         if(array_key_exists('codcur',$filters) && !empty($filters['codcur'])) {
             $defesas = $defesas->where('codcur',$filters['codcur'])->all();
         }
 
-        # 3. Convertendo defesas dentro de $defesas para collection
+        # 3. Dados que serão de fato retornados
+        $aux = [];
+        foreach ($defesas as $defesa) {
+            $aux[] = [
+                'nome'   => $defesa['nompes'],
+                'nivel'  => $defesa['nivpgm'],
+                'codare' => $defesa['codare'],
+                'codcur' => $defesa['codcur'],
+                'nomcur' => $defesa['nomcur'],
+                'nomare' => $defesa['nomare'],
+                'titulo' => $defesa['tittrb'],
+                'data' => Carbon::createFromFormat('Y-m-d H:i:s', $defesa['dtadfapgm'])->format('d/m/Y'),
+            ];
+        }
+        $defesas = $aux;
+
+        # Convertendo tudo para collection
         $defesas = collect($defesas)->map(function ($item) {
             return (object) $item;
         });
 
-        # 4. Últimos tratamentos antes de devolver
-        $defesas->each(function(&$defesa) {
-            $defesa->dtadfapgm = Carbon::createFromFormat('Y-m-d H:i:s', $defesa->dtadfapgm)->format('d/m/Y');
-        });  
-        
-        return $defesas;
+        return collect($defesas);
     }
 
     public static function anos(){
