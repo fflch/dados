@@ -5106,16 +5106,16 @@
         },
         {
             "name": "uspdev/replicado",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/uspdev/replicado.git",
-                "reference": "6aad212aae901f1defe6bdd92ff4beefc685de41"
+                "reference": "b9779c025271ca2a75f7a897029bf28dae68e50f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uspdev/replicado/zipball/6aad212aae901f1defe6bdd92ff4beefc685de41",
-                "reference": "6aad212aae901f1defe6bdd92ff4beefc685de41",
+                "url": "https://api.github.com/repos/uspdev/replicado/zipball/b9779c025271ca2a75f7a897029bf28dae68e50f",
+                "reference": "b9779c025271ca2a75f7a897029bf28dae68e50f",
                 "shasum": ""
             },
             "require": {
@@ -5147,7 +5147,7 @@
             ],
             "description": "Classes PHP que consome dados do Replicado USP",
             "homepage": "https://github.com/uspdev/replicado",
-            "time": "2021-01-29T17:16:24+00:00"
+            "time": "2021-02-01T13:33:07+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
