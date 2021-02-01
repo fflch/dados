@@ -20,6 +20,7 @@
           <th scope="col" class="text-center">Livros</th>
           <th scope="col" class="text-center">Artigos</th>
           <th scope="col" class="text-center">Capítulos de Livros</th>
+          <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
         </tr>
@@ -45,6 +46,11 @@
           <td class="text-center">
             <a href="{{$credenciado['href']}}&section=capitulos">
               {{$credenciado['total_capitulos']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$credenciado['href']}}&section=jornal_revista">
+              {{$credenciado['total_jornal_revista']}}
             </a>
           </td>
           <td class="text-center">
