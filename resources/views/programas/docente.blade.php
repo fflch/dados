@@ -173,6 +173,48 @@
         </div>
      </li>
       @endif
+     
+      @if($content['jornal_revista'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapsejornal_revista" aria-controls="collapsejornal_revista"
+                {{$section_show == 'jornal_revista' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Textos em jornais de notícias/revistas: {{count($content['jornal_revista'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'jornal_revista' ?  'show' : ''}}" id="collapsejornal_revista">
+                @foreach($content['jornal_revista'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @foreach($value['AUTORES'] as $k=>$val)
+                        {{ $val["NOME-PARA-CITACAO"] }} 
+                        @if( $k + 1 <  count($value['AUTORES']))
+                        ;
+                        @endif
+                        @endforeach
+                        
+                        {{ $value["TITULO"] }}. 
+                        {{ $value["TITULO-DO-JORNAL-OU-REVISTA"] }},
+                        {{ $value["LOCAL-DE-PUBLICACAO"] }},
+                        <?php
+                            if(isset($value["DATA"])){
+                                $meses = ['', 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; 
+                                echo substr($value["DATA"],0,2) .' '. $meses[(int)substr($value["DATA"],2,2)] .'. '. substr($value["DATA"],4,4) .'.';
+                            }
+                        ?>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
 
       @if($content['orientandos'])
         <li class="list-group-item">

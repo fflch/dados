@@ -72,6 +72,9 @@ class ProgramaController extends Controller
             $credenciados[$i]['total_capitulos'] = $lattes['capitulos'] ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']): '0';
             
+            $credenciados[$i]['total_jornal_revista'] = $lattes['jornal_revista'] ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_jornal_revista'] = $credenciados[$i]['total_jornal_revista'] ? count($credenciados[$i]['total_jornal_revista']): '0';
+            
  
 
         }
@@ -148,6 +151,9 @@ class ProgramaController extends Controller
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
         $content['artigos'] = $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']);
         $content['capitulos'] = $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']);
+        $content['jornal_revista'] = $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']);
+        
+        
         $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
 
