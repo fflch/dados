@@ -215,6 +215,56 @@
         </div>
      </li>
       @endif
+      
+      @if($content['outras_producoes_bibliograficas'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseoutras_producoes_bibliograficas" aria-controls="collapseoutras_producoes_bibliograficas"
+                {{$section_show == 'outras_producoes_bibliograficas' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Outras Produções Bibliográficas: {{count($content['outras_producoes_bibliograficas'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'outras_producoes_bibliograficas' ?  'show' : ''}}" id="collapseoutras_producoes_bibliograficas">
+                @foreach($content['outras_producoes_bibliograficas'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @foreach($value['AUTORES'] as $k=>$val)
+                        {{ $val["NOME-PARA-CITACAO"] }} 
+                        @if( $k + 1 <  count($value['AUTORES']))
+                        ;
+                        @endif
+                        @endforeach
+                        
+                        {{ $value["TITULO"] }}. 
+                        {{ $value["CIDADE-DA-EDITORA"] }}
+                        @if($value["EDITORA"] )
+                            :{{ $value["EDITORA"] }},
+                        @endif
+                        {{ $value["ANO"] }}
+                        @if($value["TIPO"] )
+                            ({{ $value["TIPO"] }})
+                        @endif
+
+
+                        <?php
+                            if(isset($value["DATA"])){
+                                $meses = ['', 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; 
+                                echo substr($value["DATA"],0,2) .' '. $meses[(int)substr($value["DATA"],2,2)] .'. '. substr($value["DATA"],4,4) .'.';
+                            }
+                        ?>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
 
       @if($content['orientandos'])
         <li class="list-group-item">
