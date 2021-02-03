@@ -8,13 +8,13 @@ use Uspdev\Replicado\Lattes;
 use Uspdev\Replicado\Pessoa;
 use App\Utils\ReplicadoTemp;
 use App\Models\Lattes as LattesModel;
+use App\Models\Programa;
 
 class ProgramaController extends Controller
 {
     public function index(){
-        $programas = Posgraduacao::programas(8);
         return view('programas.index',[
-            'programas' => $programas,
+            'programas' => Programa::index(),
         ]);
     }
 
@@ -78,8 +78,6 @@ class ProgramaController extends Controller
           
             $credenciados[$i]['total_outras_producoes_bibliograficas'] = $lattes['outras_producoes_bibliograficas'] ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_outras_producoes_bibliograficas'] = $credenciados[$i]['total_outras_producoes_bibliograficas'] ? count($credenciados[$i]['total_outras_producoes_bibliograficas']): '0';
-            
- 
 
         }
         usort($credenciados, function ($a, $b) {
