@@ -63,21 +63,26 @@ class ProgramaController extends Controller
 
             $credenciados[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
             
-            $credenciados[$i]['total_livros'] = $lattes['livros'] ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']): '0';
             
-            $credenciados[$i]['total_artigos'] = $lattes['artigos'] ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']): '0';
             
-            $credenciados[$i]['total_capitulos'] = $lattes['capitulos'] ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']): '0';
             
-            $credenciados[$i]['total_jornal_revista'] = $lattes['jornal_revista'] ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_jornal_revista'] = $credenciados[$i]['total_jornal_revista'] ? count($credenciados[$i]['total_jornal_revista']): '0';
             
           
-            $credenciados[$i]['total_outras_producoes_bibliograficas'] = $lattes['outras_producoes_bibliograficas'] ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             $credenciados[$i]['total_outras_producoes_bibliograficas'] = $credenciados[$i]['total_outras_producoes_bibliograficas'] ? count($credenciados[$i]['total_outras_producoes_bibliograficas']): '0';
+
+
+            $credenciados[$i]['total_trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+            $credenciados[$i]['total_trabalhos_anais'] = $credenciados[$i]['total_trabalhos_anais'] ? count($credenciados[$i]['total_trabalhos_anais']): '0';
+
 
         }
         usort($credenciados, function ($a, $b) {
@@ -149,14 +154,13 @@ class ProgramaController extends Controller
 
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
-        $content['livros'] = $lattes['livros'] ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        $content['artigos'] = $lattes['livros'] ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['capitulos'] = $lattes['artigos'] ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['jornal_revista'] = $lattes['jornal_revista'] ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['outras_producoes_bibliograficas'] = $lattes['outras_producoes_bibliograficas'] ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        
-
+        $content['livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
         $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
@@ -170,5 +174,14 @@ class ProgramaController extends Controller
             'filtro' => $filtro,
             'form_action' => "/programas/docente/$codpes"
         ]);
+      }
+
+      private function hasValue($arr, $val){
+          if(isset($arr[$val])){
+              if($arr[$val] != null && $arr[$val] != false ){
+                  return true;
+              }
+          }
+          return false;
       }
 }

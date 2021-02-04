@@ -64,9 +64,10 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['artigos'] = Lattes::getArtigos($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['capitulos'] = Lattes::getCapitulosLivros($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($docente['codpes'], null, 'anual', -1, null);
-                //$info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($docente['codpes']);
-                //$info_lattes['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($docente['codpes']);
+                $info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($docente['codpes']);
+                $info_lattes['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($docente['codpes']);
                 
                 $lattes->codpes = $docente['codpes'];
                 $lattes->json = $this->safe_json_encode($info_lattes);
