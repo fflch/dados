@@ -216,6 +216,64 @@
      </li>
       @endif
       
+      @if($content['trabalhos_anais'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapsetrabalhos_anais" aria-controls="collapsetrabalhos_anais"
+                {{$section_show == 'trabalhos_anais' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Trabalhos em Anais: {{count($content['trabalhos_anais'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'trabalhos_anais' ?  'show' : ''}}" id="collapsetrabalhos_anais">
+                @foreach($content['trabalhos_anais'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @foreach($value['AUTORES'] as $k=>$val)
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
+                        @if( $k + 1 <  count($value['AUTORES']))
+                            ;
+                        @else
+                            .
+                        @endif
+                        @endforeach
+                        
+                        {{ $value["TITULO"] }}. 
+                        @if($value["NOME-DO-EVENTO"] )
+                        In: {{ $value["NOME-DO-EVENTO"] }},
+                        {{ $value["ANO"] }}, {{ $value["CIDADE-DO-EVENTO"] }}.
+                        @endif
+
+                        {{ $value["TITULO-DOS-ANAIS-OU-PROCEEDINGS"] }}.
+
+                        @if($value["NOME-DA-EDITORA"] )
+                            {{ $value["CIDADE-DA-EDITORA"] }}: {{ $value["NOME-DA-EDITORA"] }},
+                        @endif
+                        {{ $value["ANO-DE-REALIZACAO"] }}.
+
+                        @if($value["PAGINA-INICIAL"] )
+                            p. {{ $value["PAGINA-INICIAL"] }}-{{ $value["PAGINA-FINAL"] }}.
+                        @endif
+                        
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+      
       @if($content['outras_producoes_bibliograficas'])
       <li class="list-group-item">
         <div class="panel panel-default panel-docente"> 
