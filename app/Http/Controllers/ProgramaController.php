@@ -18,76 +18,11 @@ class ProgramaController extends Controller
         ]);
     }
 
+    
     public function show($codare, Request $request) {
-        $tipo = $request->tipo;
-        
-        $filtro = ['tipo' => $tipo];
-        switch($tipo){
-            case 'anual':
-                $filtro['limit_ini'] = $request->ano;
-                $filtro['limit_fim'] = null;
-                break;
-            case 'periodo':
-                $filtro['limit_ini'] = $request->ano_ini;
-                $filtro['limit_fim'] = $request->ano_fim;
-                break;
-            case 'tudo':
-                $filtro['tipo'] = 'tudo';
-                $filtro['limit_ini'] = null;
-                $filtro['limit_fim'] = null;
-            break;
-            default:
-                $filtro['tipo'] = 'periodo';
-                $filtro['limit_ini'] = 2017;
-                    $filtro['limit_fim'] = 2020;
-                break;
-        }
-        
+        $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        
-        $credenciados = ReplicadoTemp::credenciados($codare);
-
-        for($i = 0; $i < count($credenciados); $i++){
-
-            $json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
-            
-            $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-           
-            
-            //$lattes = Lattes::getArray($credenciados[$i]['codpes']); 
-            
-            $credenciados[$i]['href'] = "/programas/docente/".$credenciados[$i]['codpes'];
-            $credenciados[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
-
-            $credenciados[$i]['id_lattes'] = $lattes['id_lattes'];
-
-            $credenciados[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
-            
-            $credenciados[$i]['total_livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-            $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']): '0';
-            
-            $credenciados[$i]['total_artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-            $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']): '0';
-            
-            $credenciados[$i]['total_capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-            $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']): '0';
-            
-            $credenciados[$i]['total_jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-            $credenciados[$i]['total_jornal_revista'] = $credenciados[$i]['total_jornal_revista'] ? count($credenciados[$i]['total_jornal_revista']): '0';
-            
-          
-            $credenciados[$i]['total_outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-            $credenciados[$i]['total_outras_producoes_bibliograficas'] = $credenciados[$i]['total_outras_producoes_bibliograficas'] ? count($credenciados[$i]['total_outras_producoes_bibliograficas']): '0';
-
-
-            $credenciados[$i]['total_trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-            $credenciados[$i]['total_trabalhos_anais'] = $credenciados[$i]['total_trabalhos_anais'] ? count($credenciados[$i]['total_trabalhos_anais']): '0';
-
-
-        }
-        usort($credenciados, function ($a, $b) {
-            return $a['nompes'] > $b['nompes'];
-        });
+        $credenciados = Programa::show($codare, $filtro);
         
         return view('programas.show',[
             'credenciados' => $credenciados,
@@ -97,53 +32,8 @@ class ProgramaController extends Controller
         ]);
     }
 
-    private function filtrar($array, $campo_ano, $tipo, $limit_ini, $limit_fim){
-        $result = [];
-        $i = 0;
-        foreach($array as $item){
-            $i++;
-            if($tipo == 'registros'){
-                if($limit_ini != -1 && $i > $limit_ini) continue;  //-1 retorna tudo
-            }else if($tipo == 'anual'){
-                if($limit_ini != -1 &&  (int)$item[$campo_ano] !=  $limit_ini ) continue; //se for diferente do ano determinado, pula para o próximo
-            }else if($tipo == 'periodo'){
-                if($limit_ini != -1 && 
-                    (
-                        (int)$item[$campo_ano] < $limit_ini ||
-                        (int)$item[$campo_ano] > $limit_fim 
-                    )
-                 ) continue;
-            }
-            array_push($result, $item);
-        }
-        
-        return $result;
-    }
-
     public function docente($codpes, Request $request) {
-        $tipo = $request->tipo;
-       
-        $filtro = ['tipo' => $tipo];
-        switch($tipo){
-            case 'anual':
-                $filtro['limit_ini'] = $request->ano;
-                $filtro['limit_fim'] = null;
-                break;
-            case 'periodo':
-                $filtro['limit_ini'] = $request->ano_ini;
-                $filtro['limit_fim'] = $request->ano_fim;
-                break;
-            case 'tudo':
-                $filtro['tipo'] = 'tudo';
-                $filtro['limit_ini'] = null;
-                $filtro['limit_fim'] = null;
-            break;
-            default:
-                $filtro['tipo'] = 'periodo';
-                $filtro['limit_ini'] = 2017;
-                    $filtro['limit_fim'] = 2020;
-                break;
-        }
+        $filtro = $this->getFiltro($request);
 
         $section_show = request()->section ?? '';
         
@@ -161,7 +51,10 @@ class ProgramaController extends Controller
         $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        
+        $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+
+
+
         $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
 
@@ -175,6 +68,59 @@ class ProgramaController extends Controller
             'form_action' => "/programas/docente/$codpes"
         ]);
       }
+
+
+    public function getFiltro(Request $request){
+        $tipo = $request->tipo;
+        
+        $filtro = ['tipo' => $tipo];
+        switch($tipo){
+            case 'anual':
+                $filtro['limit_ini'] = $request->ano;
+                $filtro['limit_fim'] = null;
+                break;
+            case 'periodo':
+                $filtro['limit_ini'] = $request->ano_ini;
+                $filtro['limit_fim'] = $request->ano_fim;
+                break;
+            case 'tudo':
+                $filtro['tipo'] = 'tudo';
+                $filtro['limit_ini'] = null;
+                $filtro['limit_fim'] = null;
+            break;
+            default:
+                $filtro['tipo'] = 'periodo';
+                $filtro['limit_ini'] = 2017;
+                    $filtro['limit_fim'] = 2020;
+                break;
+        }
+        return $filtro;
+    }
+
+    private function filtrar($array, $campo_ano, $tipo, $limit_ini, $limit_fim){
+        $result = [];
+        $i = 0;
+        foreach($array as $item){
+            $i++;
+            if($tipo == 'registros'){
+                if($limit_ini != -1 && $i > $limit_ini) continue;  //-1 retorna tudo
+            }else if($tipo == 'anual' && isset($item[$campo_ano])){
+                if($limit_ini != -1 &&  (int)$item[$campo_ano] !=  $limit_ini ) continue; //se for diferente do ano determinado, pula para o próximo
+            }else if($tipo == 'periodo' && isset($item[$campo_ano])){
+                if($limit_ini != -1 && 
+                    (
+                        (int)$item[$campo_ano] < $limit_ini ||
+                        (int)$item[$campo_ano] > $limit_fim 
+                    )
+                 ) continue;
+            }
+            array_push($result, $item);
+        }
+        
+        return $result;
+    }
+
+    
 
       private function hasValue($arr, $val){
           if(isset($arr[$val])){

@@ -78,12 +78,22 @@
               <ul class="list-group collapse in {{ $section_show == 'livros' ?  'show' : ''}}" id="collapseLivrosPublicados">
                   @foreach($content['livros'] as $key => $value)
                       <li class="list-group-item">
-                      @foreach($value['AUTORES'] as $k=>$val)
-                          {{ $val["NOME-PARA-CITACAO"] }} 
-                          @if($k + 1 <  count($value['AUTORES']))
-                              ;
-                          @endif
-                      @endforeach 
+                          
+                        @foreach($value['AUTORES'] as $k=>$val)
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
+                        @if( $k + 1 <  count($value['AUTORES']))
+                            ;
+                        @else
+                            .
+                        @endif
+                        @endforeach
+                        
                       
                       {{ $value["TITULO-DO-LIVRO"] }}. 
                       {{ $value["CIDADE-DA-EDITORA"] }}: {{ $value["NOME-DA-EDITORA"] }},
@@ -115,12 +125,21 @@
             <ul class="list-group collapse in {{ $section_show == 'artigos' ?  'show' : ''}}" id="collapseArtigos">
                 @foreach($content['artigos'] as $key=>$value)
                     <li class="list-group-item">
-                        @foreach($value['AUTORES'] as  $k=>$val)
-                            {{ $val["NOME-PARA-CITACAO"] }} 
-                            @if($k + 1 <  count($value['AUTORES']))
-                                ;
-                            @endif
-                        @endforeach 
+                        @foreach($value['AUTORES'] as $k=>$val)
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
+                        @if( $k + 1 <  count($value['AUTORES']))
+                            ;
+                        @else
+                            .
+                        @endif
+                        @endforeach
+                        
                         
                         {{ $value["TITULO-DO-ARTIGO"] }}. 
                         {{ $value["TITULO-DO-PERIODICO-OU-REVISTA"] }},
@@ -155,11 +174,20 @@
                     <li class="list-group-item">
                          
                         @foreach($value['AUTORES'] as $k=>$val)
-                        {{ $val["NOME-PARA-CITACAO"] }} 
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
                         @if( $k + 1 <  count($value['AUTORES']))
-                        ;
+                            ;
+                        @else
+                            .
                         @endif
                         @endforeach
+                        
                         
                         
                         {{ $value["TITULO-DO-CAPITULO-DO-LIVRO"] }}. 
@@ -194,11 +222,20 @@
                     <li class="list-group-item">
                          
                         @foreach($value['AUTORES'] as $k=>$val)
-                        {{ $val["NOME-PARA-CITACAO"] }} 
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
                         @if( $k + 1 <  count($value['AUTORES']))
-                        ;
+                            ;
+                        @else
+                            .
                         @endif
                         @endforeach
+                        
                         
                         {{ $value["TITULO"] }}. 
                         {{ $value["TITULO-DO-JORNAL-OU-REVISTA"] }},
@@ -294,11 +331,20 @@
                     <li class="list-group-item">
                          
                         @foreach($value['AUTORES'] as $k=>$val)
-                        {{ $val["NOME-PARA-CITACAO"] }} 
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
                         @if( $k + 1 <  count($value['AUTORES']))
-                        ;
+                            ;
+                        @else
+                            .
                         @endif
                         @endforeach
+                        
                         
                         {{ $value["TITULO"] }}. 
                         {{ $value["CIDADE-DA-EDITORA"] }}
@@ -317,6 +363,51 @@
                                 echo substr($value["DATA"],0,2) .' '. $meses[(int)substr($value["DATA"],2,2)] .'. '. substr($value["DATA"],4,4) .'.';
                             }
                         ?>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+      
+      @if($content['trabalhos_tecnicos'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapsetrabalhos_tecnicos" aria-controls="collapsetrabalhos_tecnicos"
+                {{$section_show == 'trabalhos_tecnicos' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Apresentação de trabalhos técnicos: {{count($content['trabalhos_tecnicos'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'trabalhos_tecnicos' ?  'show' : ''}}" id="collapsetrabalhos_tecnicos">
+                @foreach($content['trabalhos_tecnicos'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @foreach($value['AUTORES'] as $k=>$val)
+                        <?php
+                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
+                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                            }else {
+                                echo $val["NOME-PARA-CITACAO"]; 
+                            }
+                        ?>
+                        @if( $k + 1 <  count($value['AUTORES']))
+                            ;
+                        @else
+                            .
+                        @endif
+                        @endforeach
+                        
+                        
+                        {{ $value["TITULO"] }}. 
+                        {{ $value["ANO"] }}
+
                     </li>
                 @endforeach
             </ul>

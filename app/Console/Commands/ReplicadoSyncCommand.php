@@ -66,6 +66,7 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($docente['codpes'], null, 'anual', -1, null);
                 
                 //$info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($docente['codpes']);
                 //$info_lattes['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($docente['codpes']);
