@@ -11,8 +11,13 @@ use App\Models\Lattes as LattesModel;
 
 class Programa extends Model
 {
+
     public static function index(){
-        return Posgraduacao::programas(8);
+        $programas = [];
+        foreach(Programa::all() as $programa){
+            $programas[] = json_decode($programa->json);
+        }
+        return $programas;
     }
 
     public static function show($codare, $filtro, $api = false){

@@ -8,6 +8,7 @@ use Uspdev\Replicado\Pessoa;
 use Uspdev\Replicado\Posgraduacao;
 use App\Models\Lattes as LattesModel;
 use App\Utils\ReplicadoTemp;
+use App\Models\Programa;
 
 class ReplicadoSyncCommand extends Command
 {
@@ -42,6 +43,22 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+
+        $programas = Posgraduacao::programas(8);
+
+        foreach($programas as $key=>$value) {
+            $programa = Programa::where('codare',$value['codare'])->first();
+            if(!$programa) $programa = new Programa;
+
+            $programas[$key]['docentes'] = count(ReplicadoTemp::credenciados($value['codare']));
+            $programas[$key]['discentes'] = Posgraduacao::contarAtivos($value['codare']);
+            $programas[$key]['egressos'] = Posgraduacao::contarEgressosAreaAgrupadoPorAno($value['codare']);
+            $programa->codare = $value['codare'];
+            $programa->json = json_encode($programas[$key]);
+            $programa->save();
+        }
+
+        dd('Parei');
        
         #$credenciados = ReplicadoTemp::credenciados($codare);
       

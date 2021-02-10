@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLattesTable extends Migration
+class CreateProgramasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLattesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lattes', function (Blueprint $table) {
+        Schema::create('programas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('codpes');
+            $table->integer('codare');
             $table->json('json');
         });
     }
@@ -28,6 +28,6 @@ class CreateLattesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lattes');
+        Schema::dropIfExists('programas');
     }
 }

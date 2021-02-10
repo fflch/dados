@@ -15,7 +15,9 @@
       <ul class="list-group">
         @foreach($programas as $programa)
           <li class="list-group-item">
-            <a href="/programas/{{$programa['codare']}}">{{$programa['codare']}}  - {{$programa['nomcur']}} </a>
+            {{ $programa->nomcur }} - 
+            <a href="/programas/{{$programa->codare}}"> {{$programa->docentes }} docentes -
+            {{$programa->discentes }} discentes </a>
           </li>
         @endforeach
       </ul>
