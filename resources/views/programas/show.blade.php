@@ -23,6 +23,7 @@
           <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
           <th scope="col" class="text-center">Trabalhos em anais</th>
           <th scope="col" class="text-center">Outras produções bibliográficas</th>
+          <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
         </tr>
@@ -63,6 +64,11 @@
           <td class="text-center">
             <a href="{{$credenciado['href']}}&section=outras_producoes_bibliograficas">
               {{$credenciado['total_outras_producoes_bibliograficas']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$credenciado['href']}}&section=trabalhos_tecnicos">
+              {{$credenciado['total_trabalhos_tecnicos']}}
             </a>
           </td>
           <td class="text-center">

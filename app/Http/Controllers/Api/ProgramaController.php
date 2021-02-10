@@ -13,4 +13,14 @@ class ProgramaController extends Controller
             Programa::index()
         );
     }
+
+    public function show($codare, Request $request){
+        
+        $filtro = Programa::getFiltro($request);        
+        $credenciados = Programa::show($codare, $filtro, $api = true);
+        
+        return response()->json(
+            $credenciados
+        );
+    }
 }
