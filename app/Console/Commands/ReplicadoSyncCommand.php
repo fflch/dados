@@ -58,7 +58,7 @@ class ReplicadoSyncCommand extends Command
             $programa->save();
         }
 
-        dd('Parei');
+       
        
         #$credenciados = ReplicadoTemp::credenciados($codare);
       

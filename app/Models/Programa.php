@@ -15,70 +15,78 @@ class Programa extends Model
     public static function index(){
         $programas = [];
         foreach(Programa::all() as $programa){
-            $programas[] = json_decode($programa->json);
+            $aux_programa = json_decode($programa->json);
+            $total_egresso = 0;
+            if($aux_programa->egressos){
+                foreach($aux_programa->egressos as $qtd_egresso)
+                
+                    $total_egresso += $qtd_egresso;
+            }
+            $aux_programa->total_egressos = $total_egresso;
+            $programas[] = $aux_programa;
         }
         return $programas;
     }
 
-    public static function show($codare, $filtro, $api = false){
+    public static function listarPessoa($codare, $filtro, $pessoas, $api = false){
                 
-        $credenciados = ReplicadoTemp::credenciados($codare);
+        
 
-        for($i = 0; $i < count($credenciados); $i++){
+        for($i = 0; $i < count($pessoas); $i++){
 
-            $json_lattes = LattesModel::where('codpes',$credenciados[$i]['codpes'])->first();
+            $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
             
             $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null; 
            
 
             if(!$api){
-                $credenciados[$i]['href'] = "/programas/docente/".$credenciados[$i]['codpes'];
-                $credenciados[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
+                $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
+                $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 
-            $credenciados[$i]['id_lattes'] = $lattes['id_lattes'];
+            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'];
 
-            $credenciados[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
+            $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
             
          
             if(!$api){
-                $credenciados[$i]['total_livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_livros'] = $credenciados[$i]['total_livros'] ? count($credenciados[$i]['total_livros']): '0';
+                $pessoas[$i]['total_livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_livros'] = $pessoas[$i]['total_livros'] ? count($pessoas[$i]['total_livros']): '0';
                 
-                $credenciados[$i]['total_artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_artigos'] = $credenciados[$i]['total_artigos'] ? count($credenciados[$i]['total_artigos']): '0';
+                $pessoas[$i]['total_artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_artigos'] = $pessoas[$i]['total_artigos'] ? count($pessoas[$i]['total_artigos']): '0';
                 
-                $credenciados[$i]['total_capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_capitulos'] = $credenciados[$i]['total_capitulos'] ? count($credenciados[$i]['total_capitulos']): '0';
+                $pessoas[$i]['total_capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_capitulos'] = $pessoas[$i]['total_capitulos'] ? count($pessoas[$i]['total_capitulos']): '0';
                 
-                $credenciados[$i]['total_jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_jornal_revista'] = $credenciados[$i]['total_jornal_revista'] ? count($credenciados[$i]['total_jornal_revista']): '0';
+                $pessoas[$i]['total_jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_jornal_revista'] = $pessoas[$i]['total_jornal_revista'] ? count($pessoas[$i]['total_jornal_revista']): '0';
                 
               
-                $credenciados[$i]['total_outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_outras_producoes_bibliograficas'] = $credenciados[$i]['total_outras_producoes_bibliograficas'] ? count($credenciados[$i]['total_outras_producoes_bibliograficas']): '0';
+                $pessoas[$i]['total_outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_outras_producoes_bibliograficas'] = $pessoas[$i]['total_outras_producoes_bibliograficas'] ? count($pessoas[$i]['total_outras_producoes_bibliograficas']): '0';
     
     
-                $credenciados[$i]['total_trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_trabalhos_anais'] = $credenciados[$i]['total_trabalhos_anais'] ? count($credenciados[$i]['total_trabalhos_anais']): '0';
+                $pessoas[$i]['total_trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_trabalhos_anais'] = $pessoas[$i]['total_trabalhos_anais'] ? count($pessoas[$i]['total_trabalhos_anais']): '0';
     
-                $credenciados[$i]['total_trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['total_trabalhos_tecnicos'] = $credenciados[$i]['total_trabalhos_tecnicos'] ? count($credenciados[$i]['total_trabalhos_tecnicos']): '0';
+                $pessoas[$i]['total_trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_trabalhos_tecnicos'] = $pessoas[$i]['total_trabalhos_tecnicos'] ? count($pessoas[$i]['total_trabalhos_tecnicos']): '0';
             }else{
-                $credenciados[$i]['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $credenciados[$i]['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
             }
 
         }
-        usort($credenciados, function ($a, $b) {
+        usort($pessoas, function ($a, $b) {
             return $a['nompes'] > $b['nompes'];
         });
-        return $credenciados;
+        return $pessoas;
         
     }
 

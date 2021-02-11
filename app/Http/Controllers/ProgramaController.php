@@ -19,16 +19,32 @@ class ProgramaController extends Controller
     }
 
     
-    public function show($codare, Request $request) {
+    public function listarDocentes($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $credenciados = Programa::show($codare, $filtro);
+        $credenciados = ReplicadoTemp::credenciados($codare);
+        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados);
         
         return view('programas.show',[
             'credenciados' => $credenciados,
             'programa' => $programa,
             'filtro' => $filtro,
-            'form_action' => "/programas/$codare"
+            'form_action' => "/programas/docentes/$codare"
+        ]);
+    }
+    
+    public function listarDiscentes($codare, Request $request) {
+        $filtro = Programa::getFiltro($request);        
+        $programa = Posgraduacao::programas(8, null, $codare)[0];
+        
+        #$credenciados = ReplicadoTemp::credenciados($codare); pegar os discentes ativos do prgrama
+        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados);
+        
+        return view('programas.show',[
+            'credenciados' => $credenciados,
+            'programa' => $programa,
+            'filtro' => $filtro,
+            'form_action' => "/programas/docentes/$codare"
         ]);
     }
 

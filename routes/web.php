@@ -341,7 +341,8 @@ Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 
 # Programas
 Route::get('/programas', [ProgramaController::class, 'index']);
-Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
+Route::get('/programas/docentes/{codare}', [ProgramaController::class, 'listarDocentes']);
+Route::get('/programas/discentes/{codare}', [ProgramaController::class, 'listarDiscentes']);
 Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
 
 # Defesas
