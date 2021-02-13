@@ -43,7 +43,6 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
-
         $programas = Posgraduacao::programas(8);
 
         foreach($programas as $key=>$value) {
@@ -56,9 +55,7 @@ class ReplicadoSyncCommand extends Command
             $programa->codare = $value['codare'];
             $programa->json = json_encode($programas[$key]);
             $programa->save();
-        }
-
-       
+        }       
        
         #$credenciados = ReplicadoTemp::credenciados($codare);
       
@@ -98,6 +95,41 @@ class ReplicadoSyncCommand extends Command
                 }
             }else{
                 echo $docente['codpes'] .";". Pessoa::dump($docente['codpes'])['nompes'] .";". Lattes::id($docente['codpes']) .";lattes não encontrado\n";
+            }
+        }
+
+        foreach(Posgraduacao::obterAtivosPorArea($value['codare'],8) as $discente) {
+            
+            $lattes = LattesModel::where('codpes',$discente['codpes'])->first();
+            if(!$lattes) {
+                $lattes = new LattesModel;
+            }
+            if(Lattes::getArray($discente['codpes'])){
+                $info_lattes = [];
+                $info_lattes['nome'] = Pessoa::dump($discente['codpes'])['nompes'];
+                $info_lattes['id_lattes'] = Lattes::id($discente['codpes']);
+                $data_atualizacao = Lattes::getUltimaAtualizacao($discente['codpes'], null) ; 
+                $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
+                $info_lattes['resumo'] = Lattes::getResumoCV($discente['codpes'], 'pt', null);
+                $info_lattes['livros'] = Lattes::getLivrosPublicados($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['linhas_pesquisa'] = Lattes::getLinhasPesquisa($discente['codpes'], null);
+                $info_lattes['artigos'] = Lattes::getArtigos($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['capitulos'] = Lattes::getCapitulosLivros($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($discente['codpes'], null, 'anual', -1, null);
+                                
+                $lattes->codpes = $discente['codpes'];
+                $lattes->json = $this->safe_json_encode($info_lattes);
+                
+                $lattes->save();
+                
+                if(!$lattes->json){
+                    echo $discente['codpes'] .";". Pessoa::dump($discente['codpes'])['nompes'] .";". Lattes::id($discente['codpes']) .";erro no json_encode\n";
+                }
+            }else{
+                echo $discente['codpes'] .";". Pessoa::dump($discente['codpes'])['nompes'] .";". Lattes::id($discente['codpes']) .";lattes não encontrado\n";
             }
         }
         return 0;
