@@ -170,6 +170,86 @@
 </div>
 @endif
 
+@if(isset($egressos))
+<div class="card">
+  <div class="card-header">
+    <b>Egressos do programa de {{$programa['nomcur']}}: {{count($egressos)}}</b>
+  </div>
+  <div class="card-body">
+    <table class="table egressos-programa-table">
+      <thead>
+        <tr>
+          <th scope="col">Egresso</th>
+          <th scope="col" class="text-center">Livros</th>
+          <th scope="col" class="text-center">Artigos</th>
+          <th scope="col" class="text-center">Capítulos de Livros</th>
+          <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
+          <th scope="col" class="text-center">Trabalhos em anais</th>
+          <th scope="col" class="text-center">Outras produções bibliográficas</th>
+          <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
+          <th scope="col" class="text-center">Lattes</th>
+          <th scope="col" class="text-center">Última Atualização Lattes</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($egressos as $egresso)
+        <tr>
+          <td>
+            <a href="{{$egresso['href']}}">
+              {{$egresso['nompes']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=livros">
+              {{$egresso['total_livros']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=artigos">
+              {{$egresso['total_artigos']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=capitulos">
+              {{$egresso['total_capitulos']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=jornal_revista">
+              {{$egresso['total_jornal_revista']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=trabalhos_anais">
+              {{$egresso['total_trabalhos_anais']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=outras_producoes_bibliograficas">
+              {{$egresso['total_outras_producoes_bibliograficas']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{$egresso['href']}}&section=trabalhos_tecnicos">
+              {{$egresso['total_trabalhos_tecnicos']}}
+            </a>
+          </td>
+          <td class="text-center">
+            <a target="_blank" href="http://lattes.cnpq.br/{{$egresso['id_lattes']}}">
+              <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
+            </a>
+          </td>
+          <td class="text-center">{{$egresso['data_atualizacao']}}</td>
+        </tr>
+        
+        @endforeach
+       
+      </tbody>
+    </table>  
+  </div>
+</div>
+@endif
+
 @endsection('content')
 
 @section('javascripts_bottom')

@@ -74,6 +74,8 @@ use App\Http\Controllers\AtivosProfAssociadoPorDptoController;
 use App\Http\Controllers\ExAlunosController;
 
 Route::get('/', [IndexController::class, 'index']);
+Route::get('/sobre', [IndexController::class, 'sobre']);
+
 
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
@@ -345,6 +347,8 @@ Route::get('/programas/docentes/{codare}', [ProgramaController::class, 'listarDo
 Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
 Route::get('/programas/discentes/{codare}', [ProgramaController::class, 'listarDiscentes']);
 Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
+Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
+Route::get('/programas/egressos/{codare}', [ProgramaController::class, 'listarEgressos']);
 
 # Defesas
 Route::get('/defesas', [DefesaController::class, 'index']);

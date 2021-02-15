@@ -17,6 +17,11 @@ class Programa extends Model
         foreach(Programa::all() as $programa){
             $aux_programa = json_decode($programa->json);
             $total_egresso = 0;
+            if($aux_programa->egressos){
+                foreach($aux_programa->egressos as $qtd_egresso)
+                
+                    $total_egresso += $qtd_egresso;
+            }
             $aux_programa->total_egressos = $total_egresso;
             $programas[] = $aux_programa;
         }
@@ -37,6 +42,9 @@ class Programa extends Model
                     $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
                 } else if ($tipo_pessoa == 'discente'){
                     $pessoas[$i]['href'] = "/programas/discente/".$pessoas[$i]['codpes'];
+                }
+                else {
+                    $pessoas[$i]['href'] = "/programas/egresso/".$pessoas[$i]['codpes'];
                 }
                 $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
@@ -86,7 +94,6 @@ class Programa extends Model
         return $pessoas;
         
     }
-
 
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
@@ -138,15 +145,13 @@ class Programa extends Model
         return $result;
     }
 
-    
-
-      private static function hasValue($arr, $val){
-          if(isset($arr[$val])){
-              if($arr[$val] != null && $arr[$val] != false ){
-                  return true;
-              }
-          }
-          return false;
-      }
+    private static function hasValue($arr, $val){
+        if(isset($arr[$val])){
+            if($arr[$val] != null && $arr[$val] != false ){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

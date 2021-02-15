@@ -40,7 +40,7 @@
             </a>
           </td>
           <td class="text-center">
-            <a href="/programas/discentes/{{$programa->codare}}">
+            <a href="/programas/egressos/{{$programa->codare}}">
               {{$programa->total_egressos }}
             </a>
           </td>

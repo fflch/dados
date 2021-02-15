@@ -60,6 +60,42 @@ class ReplicadoSyncCommand extends Command
         #$credenciados = ReplicadoTemp::credenciados($codare);
       
         echo "nusp;nome;lattes id;obs\n";
+        foreach(Posgraduacao::egressosArea($value['codare']) as $egresso) {
+            
+            $lattes = LattesModel::where('codpes',$egresso['codpes'])->first();
+            if(!$lattes) {
+                $lattes = new LattesModel;
+            }
+            if(Lattes::getArray($egresso['codpes'])){
+                $info_lattes = [];
+                $info_lattes['nome'] = Pessoa::dump($egresso['codpes'])['nompes'];
+                $info_lattes['id_lattes'] = Lattes::id($egresso['codpes']);
+                $data_atualizacao = Lattes::getUltimaAtualizacao($egresso['codpes'], null) ; 
+                $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
+                $info_lattes['resumo'] = Lattes::getResumoCV($egresso['codpes'], 'pt', null);
+                $info_lattes['livros'] = Lattes::getLivrosPublicados($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['linhas_pesquisa'] = Lattes::getLinhasPesquisa($egresso['codpes'], null);
+                $info_lattes['artigos'] = Lattes::getArtigos($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['capitulos'] = Lattes::getCapitulosLivros($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($egresso['codpes'], null, 'anual', -1, null);
+                
+                
+                $lattes->codpes = $egresso['codpes'];
+                $lattes->json = $this->safe_json_encode($info_lattes);
+                
+                $lattes->save();
+                
+                if(!$lattes->json){
+                    echo $egresso['codpes'] .";". Pessoa::dump($egresso['codpes'])['nompes'] .";". Lattes::id($egresso['codpes']) .";erro no json_encode\n";
+                }
+            }else{
+                echo $egresso['codpes'] .";". Pessoa::dump($egresso['codpes'])['nompes'] .";". Lattes::id($egresso['codpes']) .";lattes não encontrado\n";
+            }
+        }
+
         foreach(ReplicadoTemp::credenciados() as $docente) {
             
             $lattes = LattesModel::where('codpes',$docente['codpes'])->first();
@@ -132,6 +168,7 @@ class ReplicadoSyncCommand extends Command
                 echo $discente['codpes'] .";". Pessoa::dump($discente['codpes'])['nompes'] .";". Lattes::id($discente['codpes']) .";lattes não encontrado\n";
             }
         }
+
         return 0;
     }
 
