@@ -17,21 +17,14 @@ class Programa extends Model
         foreach(Programa::all() as $programa){
             $aux_programa = json_decode($programa->json);
             $total_egresso = 0;
-            if($aux_programa->egressos){
-                foreach($aux_programa->egressos as $qtd_egresso)
-                
-                    $total_egresso += $qtd_egresso;
-            }
             $aux_programa->total_egressos = $total_egresso;
             $programas[] = $aux_programa;
         }
         return $programas;
     }
 
-    public static function listarPessoa($codare, $filtro, $pessoas, $api = false){
+    public static function listarPessoa($codare, $filtro, $pessoas, $api = false, $tipo_pessoa){
                 
-        
-
         for($i = 0; $i < count($pessoas); $i++){
 
             $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
@@ -40,7 +33,11 @@ class Programa extends Model
            
 
             if(!$api){
-                $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
+                if($tipo_pessoa == 'docente'){
+                    $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
+                } else if ($tipo_pessoa == 'discente'){
+                    $pessoas[$i]['href'] = "/programas/discente/".$pessoas[$i]['codpes'];
+                }
                 $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 

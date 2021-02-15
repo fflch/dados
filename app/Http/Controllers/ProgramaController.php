@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Uspdev\Replicado\Posgraduacao;
-use Uspdev\Replicado\Lattes;
-use Uspdev\Replicado\Pessoa;
 use App\Utils\ReplicadoTemp;
 use App\Models\Lattes as LattesModel;
 use App\Models\Programa;
@@ -22,7 +20,7 @@ class ProgramaController extends Controller
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $credenciados = ReplicadoTemp::credenciados($codare);
-        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados);
+        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
         
         return view('programas.show',[
             'credenciados' => $credenciados,
@@ -36,7 +34,7 @@ class ProgramaController extends Controller
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $discentes = Posgraduacao::obterAtivosPorArea($codare, 8); 
-        $discentes = Programa::listarPessoa($codare, $filtro, $discentes);
+        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
         
         return view('programas.show',[
             'discentes' => $discentes,
