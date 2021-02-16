@@ -30,7 +30,7 @@
               <div class="panel-body collapse in {{ $section_show == 'resumo' ?  'show' : ''}}" id="collapseResumo">
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <p>{{ $content['resumo'] }}</p>
+                      <p><?= htmlspecialchars_decode(utf8_decode($content['resumo'])) ?></p>
                     </li>
                   </ul>
               </div>
@@ -53,7 +53,7 @@
               </div>
               <ul class="list-group collapse in  {{ $section_show == 'linhas_pesquisa' ?  'show' : ''}}" id="collapseLinhaPesquisa">
                   @foreach($content['linhas_pesquisa'] as $key => $value)
-                      <li class="list-group-item"> {{ $value }} </li> 
+                      <li class="list-group-item"> <?= htmlspecialchars_decode(utf8_decode($value)) ?>  </li> 
                   @endforeach 
               </ul>
               
@@ -82,9 +82,9 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
@@ -95,9 +95,9 @@
                         @endforeach
                         
                       
-                      {{ $value["TITULO-DO-LIVRO"] }}. 
-                      {{ $value["CIDADE-DA-EDITORA"] }}: {{ $value["NOME-DA-EDITORA"] }},
-                      {{ $value["ANO"] }}. {{ $value["NUMERO-DE-PAGINAS"] }}p. 
+                        <?= htmlspecialchars_decode(utf8_decode($value["TITULO-DO-LIVRO"])) .".". 
+                         htmlspecialchars_decode(utf8_decode($value["CIDADE-DA-EDITORA"])) .":".  htmlspecialchars_decode(utf8_decode($value["NOME-DA-EDITORA"])) .",".
+                         htmlspecialchars_decode(utf8_decode($value["ANO"])) .".". htmlspecialchars_decode(utf8_decode($value["NUMERO-DE-PAGINAS"])) ."p." ?> 
                       
                       </li>
                       @endforeach
@@ -128,24 +128,24 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
                             ;
-                        @else
+                        @elseif($value['AUTORES'])
                             .
                         @endif
                         @endforeach
                         
                         
-                        {{ $value["TITULO-DO-ARTIGO"] }}. 
-                        {{ $value["TITULO-DO-PERIODICO-OU-REVISTA"] }},
-                        v. {{ $value["VOLUME"] }},
-                        p. {{ $value["PAGINA-INICIAL"] }} - {{ $value["PAGINA-FINAL"] }},
-                        {{ $value["ANO"] }}.
+                        <?= htmlspecialchars_decode(utf8_decode($value["TITULO-DO-ARTIGO"])) ?>. 
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-PERIODICO-OU-REVISTA'])) ?>,
+                        v. <?= htmlspecialchars_decode(utf8_decode($value['VOLUME'])) ?>,
+                        p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
+                        <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
                     </li>
                 @endforeach
             </ul>
@@ -176,9 +176,9 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
@@ -190,11 +190,11 @@
                         
                         
                         
-                        {{ $value["TITULO-DO-CAPITULO-DO-LIVRO"] }}. 
-                        {{ $value["TITULO-DO-LIVRO"] }},
-                        v. {{ $value["NUMERO-DE-VOLUMES"] }},
-                        p. {{ $value["PAGINA-INICIAL"] }} - {{ $value["PAGINA-FINAL"] }},
-                        {{ $value["ANO"] }}.
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-CAPITULO-DO-LIVRO'])) ?>. 
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-LIVRO'])) ?>,
+                        v. <?= htmlspecialchars_decode(utf8_decode($value['NUMERO-DE-VOLUMES'])) ?>,
+                        p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
+                        <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
                     </li>
                 @endforeach
             </ul>
@@ -224,9 +224,9 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
@@ -237,9 +237,9 @@
                         @endforeach
                         
                         
-                        {{ $value["TITULO"] }}. 
-                        {{ $value["TITULO-DO-JORNAL-OU-REVISTA"] }},
-                        {{ $value["LOCAL-DE-PUBLICACAO"] }},
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-JORNAL-OU-REVISTA'])) ?>,
+                        <?= htmlspecialchars_decode(utf8_decode($value['LOCAL-DE-PUBLICACAO'])) ?>,
                         <?php
                             if(isset($value["DATA"])){
                                 $meses = ['', 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; 
@@ -275,9 +275,9 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
@@ -287,16 +287,16 @@
                         @endif
                         @endforeach
                         
-                        {{ $value["TITULO"] }}. 
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
                         @if($value["NOME-DO-EVENTO"] )
-                        In: {{ $value["NOME-DO-EVENTO"] }},
-                        {{ $value["ANO"] }}, {{ $value["CIDADE-DO-EVENTO"] }}.
+                        In: <?= htmlspecialchars_decode(utf8_decode($value['NOME-DO-EVENTO'])) ?>,
+                        {{ $value["ANO"] }}, <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DO-EVENTO'])) ?>.
                         @endif
 
-                        {{ $value["TITULO-DOS-ANAIS-OU-PROCEEDINGS"] }}.
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DOS-ANAIS-OU-PROCEEDINGS'])) ?>.
 
                         @if($value["NOME-DA-EDITORA"] )
-                            {{ $value["CIDADE-DA-EDITORA"] }}: {{ $value["NOME-DA-EDITORA"] }},
+                        <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DA-EDITORA'])) ?>: <?= htmlspecialchars_decode(utf8_decode($value['NOME-DA-EDITORA'])) ?>,
                         @endif
                         {{ $value["ANO-DE-REALIZACAO"] }}.
 
@@ -333,9 +333,9 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
@@ -345,15 +345,14 @@
                         @endif
                         @endforeach
                         
-                        
-                        {{ $value["TITULO"] }}. 
-                        {{ $value["CIDADE-DA-EDITORA"] }}
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
+                        <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DA-EDITORA'])) ?>
                         @if($value["EDITORA"] )
-                            :{{ $value["EDITORA"] }},
+                            :<?= htmlspecialchars_decode(utf8_decode($value['EDITORA'])) ?>,
                         @endif
                         {{ $value["ANO"] }}
                         @if($value["TIPO"] )
-                            ({{ $value["TIPO"] }})
+                            (<?= htmlspecialchars_decode(utf8_decode($value['TIPO'])) ?>)
                         @endif
 
 
@@ -392,9 +391,9 @@
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
                             if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo explode(';', $val["NOME-PARA-CITACAO"])[0];
+                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
                             }else {
-                                echo $val["NOME-PARA-CITACAO"]; 
+                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
                             }
                         ?>
                         @if( $k + 1 <  count($value['AUTORES']))
@@ -405,7 +404,7 @@
                         @endforeach
                         
                         
-                        {{ $value["TITULO"] }}. 
+                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
                         {{ $value["ANO"] }}
 
                     </li>
