@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Uspdev\Replicado\Posgraduacao;
-use Uspdev\Replicado\Lattes;
-use Uspdev\Replicado\Pessoa;
 use App\Utils\ReplicadoTemp;
 use App\Models\Lattes as LattesModel;
 use App\Models\Programa;
@@ -17,13 +15,12 @@ class ProgramaController extends Controller
             'programas' => Programa::index(),
         ]);
     }
-
     
     public function listarDocentes($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $credenciados = ReplicadoTemp::credenciados($codare);
-        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados);
+        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
         
         return view('programas.show',[
             'credenciados' => $credenciados,
@@ -36,17 +33,31 @@ class ProgramaController extends Controller
     public function listarDiscentes($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        
-        #$credenciados = ReplicadoTemp::credenciados($codare); pegar os discentes ativos do prgrama
-        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados);
+        $discentes = Posgraduacao::obterAtivosPorArea($codare, 8); 
+        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
         
         return view('programas.show',[
-            'credenciados' => $credenciados,
+            'discentes' => $discentes,
             'programa' => $programa,
             'filtro' => $filtro,
-            'form_action' => "/programas/docentes/$codare"
+            'form_action' => "/programas/discentes/$codare"
         ]);
     }
+
+    public function listarEgressos($codare, Request $request) {
+        $filtro = Programa::getFiltro($request);        
+        $programa = Posgraduacao::programas(8, null, $codare)[0];
+        $egressos = Posgraduacao::egressosArea($codare, 8); 
+        $egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
+        
+        return view('programas.show',[
+            'egressos' => $egressos,
+            'programa' => $programa,
+            'filtro' => $filtro,
+            'form_action' => "/programas/egressos/$codare"
+        ]);
+    }
+    
 
     public function docente($codpes, Request $request) {
         $filtro = $this->getFiltro($request);
@@ -69,13 +80,8 @@ class ProgramaController extends Controller
         $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
 
-
-
         $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
         $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
-
-      
-
     
         return view('programas.docente',[
             'content' => $content,
@@ -85,6 +91,63 @@ class ProgramaController extends Controller
         ]);
       }
 
+      public function discente($codpes, Request $request) {
+        $filtro = $this->getFiltro($request);
+
+        $section_show = request()->section ?? '';
+        
+        $json_lattes = LattesModel::where('codpes',$codpes)->first();
+            
+        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
+        //$lattes = Lattes::getArray($codpes); 
+
+        $content['nome'] = $lattes['nome'];
+        $content['resumo'] = $lattes['resumo'];
+        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
+        $content['livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        
+        return view('programas.discente',[
+            'content' => $content,
+            'section_show' => $section_show,
+            'filtro' => $filtro,
+            'form_action' => "/programas/discente/$codpes"
+        ]);
+      }
+
+      public function egresso($codpes, Request $request) {
+        $filtro = $this->getFiltro($request);
+
+        $section_show = request()->section ?? '';
+        
+        $json_lattes = LattesModel::where('codpes',$codpes)->first();
+            
+        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
+        //$lattes = Lattes::getArray($codpes); 
+
+        $content['nome'] = $lattes['nome'];
+        $content['resumo'] = $lattes['resumo'];
+        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
+        $content['livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        
+        return view('programas.egresso',[
+            'content' => $content,
+            'section_show' => $section_show,
+            'filtro' => $filtro,
+            'form_action' => "/programas/egresso/$codpes"
+        ]);
+      }
 
     public function getFiltro(Request $request){
         $tipo = $request->tipo;
@@ -135,15 +198,14 @@ class ProgramaController extends Controller
         
         return $result;
     }
-
     
 
-      private function hasValue($arr, $val){
-          if(isset($arr[$val])){
-              if($arr[$val] != null && $arr[$val] != false ){
-                  return true;
-              }
-          }
-          return false;
-      }
+    private function hasValue($arr, $val){
+        if(isset($arr[$val])){
+            if($arr[$val] != null && $arr[$val] != false ){
+                return true;
+            }
+        }
+        return false;
+    }
 }

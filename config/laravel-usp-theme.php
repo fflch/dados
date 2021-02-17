@@ -12,6 +12,10 @@ return [
             'text' => 'Início',
             'url'  => '/',
         ],
+        [
+            'text' => 'Sobre',
+            'url'  => '/sobre',
+        ],
     ],
     'right_menu' => [],
 ];

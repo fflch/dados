@@ -28,10 +28,8 @@ class Programa extends Model
         return $programas;
     }
 
-    public static function listarPessoa($codare, $filtro, $pessoas, $api = false){
+    public static function listarPessoa($codare, $filtro, $pessoas, $api = false, $tipo_pessoa){
                 
-        
-
         for($i = 0; $i < count($pessoas); $i++){
 
             $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
@@ -40,7 +38,14 @@ class Programa extends Model
            
 
             if(!$api){
-                $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
+                if($tipo_pessoa == 'docente'){
+                    $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
+                } else if ($tipo_pessoa == 'discente'){
+                    $pessoas[$i]['href'] = "/programas/discente/".$pessoas[$i]['codpes'];
+                }
+                else {
+                    $pessoas[$i]['href'] = "/programas/egresso/".$pessoas[$i]['codpes'];
+                }
                 $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 
@@ -89,7 +94,6 @@ class Programa extends Model
         return $pessoas;
         
     }
-
 
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
@@ -141,15 +145,13 @@ class Programa extends Model
         return $result;
     }
 
-    
-
-      private static function hasValue($arr, $val){
-          if(isset($arr[$val])){
-              if($arr[$val] != null && $arr[$val] != false ){
-                  return true;
-              }
-          }
-          return false;
-      }
+    private static function hasValue($arr, $val){
+        if(isset($arr[$val])){
+            if($arr[$val] != null && $arr[$val] != false ){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
