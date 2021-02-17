@@ -28,4 +28,14 @@ h5[data-toggle="collapse"] {
     display: table-cell;
     vertical-align: middle !important;
   }
+
+  .discentes-programa-table th, .discentes-programa-table td {
+    display: table-cell;
+    vertical-align: middle !important;
+  }
+
+  .egressos-programa-table th, .egressos-programa-table td {
+    display: table-cell;
+    vertical-align: middle !important;
+  }
   /*# sourceMappingURL=programas.css.map */
