@@ -81,7 +81,14 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($egresso['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($egresso['codpes'], null, 'anual', -1, null);
                 $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($egresso['codpes'], null, 'anual', -1, null);
-                
+                $info_lattes['organizacao_evento'] = Lattes::getOrganizacaoEvento($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_tecnicas'] = Lattes::getOutrasProducoesTecnicas($egresso['codpes'], null, 'anual', -1, null);
+                foreach(Lattes::getFormacaoAcademica($egresso['codpes']) as $key=>$value)
+                {
+                    $value['TIPO'] = $key;
+                    $info_lattes[$i]['ultima_formacao'] = $value;
+                    break;
+                }
                 
                 $lattes->codpes = $egresso['codpes'];
                 $lattes->json = $this->safe_json_encode($info_lattes);
@@ -117,7 +124,9 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($docente['codpes'], null, 'anual', -1, null);
                 $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($docente['codpes'], null, 'anual', -1, null);
-                
+                $info_lattes['organizacao_evento'] = Lattes::getOrganizacaoEvento($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_tecnicas'] = Lattes::getOutrasProducoesTecnicas($egresso['codpes'], null, 'anual', -1, null);
+
                 //$info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($docente['codpes']);
                 //$info_lattes['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($docente['codpes']);
                 
@@ -155,7 +164,9 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($discente['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($discente['codpes'], null, 'anual', -1, null);
                 $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($discente['codpes'], null, 'anual', -1, null);
-                                
+                $info_lattes['organizacao_evento'] = Lattes::getOrganizacaoEvento($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_tecnicas'] = Lattes::getOutrasProducoesTecnicas($egresso['codpes'], null, 'anual', -1, null);
+
                 $lattes->codpes = $discente['codpes'];
                 $lattes->json = $this->safe_json_encode($info_lattes);
                 

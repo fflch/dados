@@ -13,11 +13,11 @@
   <div class="card-header">
     <b>{{$titulo}}</b>
   </div>
-  <div class="card-body">
-    <table class="table docentes-programa-table">
+  <div class="card-body wrapper-pessoas-programa-table">
+    <table class="table pessoas-programa-table">
       <thead>
         <tr>
-          <th scope="col">Docente</th>
+          <th scope="col" class="first-col"><span class="text-first-col">Docente<span></th>
           <th scope="col" class="text-center">Livros</th>
           <th scope="col" class="text-center">Artigos</th>
           <th scope="col" class="text-center">Capítulos de Livros</th>
@@ -27,89 +27,108 @@
           <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
+          @if($tipo_pessoa == "egressos")
+            <th scope="col" class="text-center">Última Formação Acadêmica</th>
+          @endif
         </tr>
       </thead>
       <tbody>
-        @foreach($pessoas as $credenciado)
+        @foreach($pessoas as $pessoa)
         <tr>
-          <td>
-            <a href="{{$credenciado['href']}}">
-              {{$credenciado['nompes']}}
-            </a>
+        
+          <td class="first-col">
+              @if(isset($pessoa['href']))
+                <a href="{{$pessoa['href']}}">
+              @endif
+                <span class="text-first-col">{{$pessoa['nompes']}}<span>
+              @if(isset($pessoa['href']))
+                </a>
+              @endif
           </td>
+        
           <td class="text-center">
-            @if($credenciado['total_livros'] != 0 || $credenciado['total_livros'] != '0')
-                <a href="{{$credenciado['href']}}&section=livros">
-                  {{$credenciado['total_livros']}}
+            @if($pessoa['total_livros'] != 0 || $pessoa['total_livros'] != '0')
+                <a href="{{$pessoa['href']}}&section=livros">
+                  {{$pessoa['total_livros']}}
                 </a>
             @else
-                {{$credenciado['total_livros']}}
+                {{$pessoa['total_livros']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['total_artigos'] != 0 || $credenciado['total_artigos'] != '0')
-              <a href="{{$credenciado['href']}}&section=artigos">
-                {{$credenciado['total_artigos']}}
+            @if($pessoa['total_artigos'] != 0 || $pessoa['total_artigos'] != '0')
+              <a href="{{$pessoa['href']}}&section=artigos">
+                {{$pessoa['total_artigos']}}
               </a>
             @else
-                {{$credenciado['total_artigos']}}
+                {{$pessoa['total_artigos']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['total_capitulos'] != 0 || $credenciado['total_capitulos'] != '0')
-              <a href="{{$credenciado['href']}}&section=capitulos">
-                {{$credenciado['total_capitulos']}}
+            @if($pessoa['total_capitulos'] != 0 || $pessoa['total_capitulos'] != '0')
+              <a href="{{$pessoa['href']}}&section=capitulos">
+                {{$pessoa['total_capitulos']}}
               </a>
             @else
-                {{$credenciado['total_capitulos']}}
+                {{$pessoa['total_capitulos']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['total_jornal_revista'] != 0 || $credenciado['total_jornal_revista'] != '0')
-              <a href="{{$credenciado['href']}}&section=jornal_revista">
-                {{$credenciado['total_jornal_revista']}}
+            @if($pessoa['total_jornal_revista'] != 0 || $pessoa['total_jornal_revista'] != '0')
+              <a href="{{$pessoa['href']}}&section=jornal_revista">
+                {{$pessoa['total_jornal_revista']}}
               </a>
             @else
-                {{$credenciado['total_jornal_revista']}}
+                {{$pessoa['total_jornal_revista']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['total_trabalhos_anais'] != 0 || $credenciado['total_trabalhos_anais'] != '0')
-              <a href="{{$credenciado['href']}}&section=trabalhos_anais">
-                {{$credenciado['total_trabalhos_anais']}}
+            @if($pessoa['total_trabalhos_anais'] != 0 || $pessoa['total_trabalhos_anais'] != '0')
+              <a href="{{$pessoa['href']}}&section=trabalhos_anais">
+                {{$pessoa['total_trabalhos_anais']}}
               </a>
             @else
-                {{$credenciado['total_trabalhos_anais']}}
+                {{$pessoa['total_trabalhos_anais']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['total_outras_producoes_bibliograficas'] != 0 || $credenciado['total_outras_producoes_bibliograficas'] != '0')
-              <a href="{{$credenciado['href']}}&section=outras_producoes_bibliograficas">
-                {{$credenciado['total_outras_producoes_bibliograficas']}}
+            @if($pessoa['total_outras_producoes_bibliograficas'] != 0 || $pessoa['total_outras_producoes_bibliograficas'] != '0')
+              <a href="{{$pessoa['href']}}&section=outras_producoes_bibliograficas">
+                {{$pessoa['total_outras_producoes_bibliograficas']}}
               </a>
             @else
-                {{$credenciado['total_outras_producoes_bibliograficas']}}
+                {{$pessoa['total_outras_producoes_bibliograficas']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['total_trabalhos_tecnicos'] != 0 || $credenciado['total_trabalhos_tecnicos'] != '0')
-              <a href="{{$credenciado['href']}}&section=trabalhos_tecnicos">
-                {{$credenciado['total_trabalhos_tecnicos']}}
+            @if($pessoa['total_trabalhos_tecnicos'] != 0 || $pessoa['total_trabalhos_tecnicos'] != '0')
+              <a href="{{$pessoa['href']}}&section=trabalhos_tecnicos">
+                {{$pessoa['total_trabalhos_tecnicos']}}
               </a>
             @else
-                {{$credenciado['total_trabalhos_tecnicos']}}
+                {{$pessoa['total_trabalhos_tecnicos']}}
             @endif
           </td>
           <td class="text-center">
-            @if($credenciado['id_lattes'] != null)
-              <a target="_blank" href="http://lattes.cnpq.br/{{$credenciado['id_lattes']}}">
+            @if($pessoa['id_lattes'] != null)
+              <a target="_blank" href="http://lattes.cnpq.br/{{$pessoa['id_lattes']}}">
                 <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
               </a>
             @else
               Lattes não encontrado
             @endif
           </td>
-          <td class="text-center">{{$credenciado['data_atualizacao']}}</td>
+          <td class="text-center">{{$pessoa['data_atualizacao']}}</td>
+          @if($tipo_pessoa == "egressos")
+            <td class="text-center">
+              @if(isset($pessoa['ultima_formacao']) && $pessoa['ultima_formacao'] != null && $pessoa['ultima_formacao'] != '')
+                <?= ucfirst(strtolower($pessoa['ultima_formacao']['TIPO'])) ?>
+                em 
+                <?= htmlspecialchars_decode(($pessoa['ultima_formacao']['NOME-INSTITUICAO'])) ?>
+                ({{$pessoa['ultima_formacao']['ANO-DE-CONCLUSAO']}})
+              @endif
+            </td>
+          @endif
         </tr>
         
         @endforeach

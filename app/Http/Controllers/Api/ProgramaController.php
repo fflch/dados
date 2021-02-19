@@ -21,7 +21,7 @@ class ProgramaController extends Controller
         
         $filtro = Programa::getFiltro($request);     
         $docentes = ReplicadoTemp::credenciados($codare);   
-        $docentes = Programa::listarPessoa($codare, $filtro, $docentes, true, 'docentes');
+        $docentes = Programa::listarPessoa($codare, $filtro, $docentes, true, 'docente');
         
         return response()->json(
             $docentes
@@ -31,7 +31,7 @@ class ProgramaController extends Controller
         
         $filtro = Programa::getFiltro($request);   
         $discentes = Posgraduacao::obterAtivosPorArea($codare, 8);      
-        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, true, 'discentes');
+        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, true, 'discente');
 
         return response()->json(
             $discentes
@@ -41,7 +41,7 @@ class ProgramaController extends Controller
         
         $filtro = Programa::getFiltro($request);       
         $egressos = Posgraduacao::egressosArea($codare, 8);  
-        $egressos = Programa::listarPessoa($codare, $filtro, $egressos, true, 'egressos');
+        $egressos = Programa::listarPessoa($codare, $filtro, $egressos, true, 'egresso');
         
         return response()->json(
             $egressos

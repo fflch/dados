@@ -29,13 +29,14 @@ class Programa extends Model
     }
 
     public static function listarPessoa($codare, $filtro, $pessoas, $api = false, $tipo_pessoa){
-                
+        $aux_pessoas = [];
         for($i = 0; $i < count($pessoas); $i++){
 
             $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
             
             $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null; 
            
+            
 
             if(!$api){
                 if($tipo_pessoa == 'docente'){
@@ -49,9 +50,12 @@ class Programa extends Model
                 $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 
-            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'];
+            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'] ?? '';
 
-            $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
+            $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'] ?? '';
+            if($tipo_pessoa == 'egresso'){
+                $pessoas[$i]['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : '';
+            } 
             
          
             if(!$api){
@@ -85,13 +89,16 @@ class Programa extends Model
                 $pessoas[$i]['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                
             }
+            array_push($aux_pessoas, $pessoas[$i]);
 
         }
-        usort($pessoas, function ($a, $b) {
+        usort($aux_pessoas, function ($a, $b) {
             return $a['nompes'] > $b['nompes'];
         });
-        return $pessoas;
+        return $aux_pessoas;
         
     }
 

@@ -23,12 +23,15 @@ class ProgramaController extends Controller
         $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
         $titulo = "Docentes credenciados ao programa de " .$programa['nomcur'] .": " .count($credenciados);
 
+        
         return view('programas.show',[
             'pessoas' => $credenciados,
             'programa' => $programa,
             'filtro' => $filtro,
             'titulo' => $titulo,
-            'form_action' => "/programas/docentes/$codare"
+            'form_action' => "/programas/docentes/$codare",
+            'tipo_pessoa' => "docentes"
+
         ]);
     }
     
@@ -44,7 +47,9 @@ class ProgramaController extends Controller
             'programa' => $programa,
             'filtro' => $filtro,
             'titulo' => $titulo,
-            'form_action' => "/programas/discentes/$codare"
+            'form_action' => "/programas/discentes/$codare",
+            'tipo_pessoa' => "discentes"
+
         ]);
     }
 
@@ -52,15 +57,16 @@ class ProgramaController extends Controller
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $egressos = Posgraduacao::egressosArea($codare, 8); 
-        $egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
+        $content_egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
         $titulo = "Egressos do programa de ".$programa['nomcur'].": ".count($egressos);
-
+        
         return view('programas.show',[
-            'pessoas' => $egressos,
+            'pessoas' => $content_egressos,
             'programa' => $programa,
             'filtro' => $filtro,
             'titulo' => $titulo,
             'form_action' => "/programas/egressos/$codare",
+            'tipo_pessoa' => "egressos"
         ]);
     }
     
