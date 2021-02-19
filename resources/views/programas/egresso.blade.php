@@ -98,6 +98,7 @@
                       {{ $value["TITULO-DO-LIVRO"] }}. 
                       {{ $value["CIDADE-DA-EDITORA"] }}: {{ $value["NOME-DA-EDITORA"] }},
                       {{ $value["ANO"] }}. {{ $value["NUMERO-DE-PAGINAS"] }}p. 
+                      ISBN: {{ $value["ISBN"] }}.  
                       
                       </li>
                       @endforeach
@@ -145,7 +146,7 @@
                         {{ $value["TITULO-DO-PERIODICO-OU-REVISTA"] }},
                         v. {{ $value["VOLUME"] }},
                         p. {{ $value["PAGINA-INICIAL"] }} - {{ $value["PAGINA-FINAL"] }},
-                        {{ $value["ANO"] }}.
+                        {{ $value["ANO"] }}. ISSN: {{ $value["ISSN"]}}.
                     </li>
                 @endforeach
             </ul>
