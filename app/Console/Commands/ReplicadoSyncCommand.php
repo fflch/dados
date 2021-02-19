@@ -86,7 +86,7 @@ class ReplicadoSyncCommand extends Command
                 foreach(Lattes::getFormacaoAcademica($egresso['codpes']) as $key=>$value)
                 {
                     $value['TIPO'] = $key;
-                    $info_lattes[$i]['ultima_formacao'] = $value;
+                    $info_lattes['ultima_formacao'] = $value;
                     break;
                 }
                 
