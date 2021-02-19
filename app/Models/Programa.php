@@ -95,6 +95,34 @@ class Programa extends Model
         
     }
 
+    public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa) {
+
+        
+        $json_lattes = LattesModel::where('codpes',$codpes)->first();
+            
+        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
+
+        $content['nome'] = $lattes['nome'];
+        $content['resumo'] = $lattes['resumo'];
+        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
+        $content['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+
+        if($tipo_pessoa == 'docente'){
+            $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
+            $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
+        }
+
+        return $content;
+    
+    }
+
+
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
         

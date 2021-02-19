@@ -12,3 +12,9 @@ Route::get('/pessoas', [PessoaController::class, 'index']);
 
 Route::get('/programas', [ProgramaController::class, 'index']);
 Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
+Route::get('/programas/docentes/{codare}', [ProgramaController::class, 'listarDocentes']);
+Route::get('/programas/discentes/{codare}', [ProgramaController::class, 'listarDiscentes']);
+Route::get('/programas/egressos/{codare}', [ProgramaController::class, 'listarEgressos']);
+Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
+Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
+Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
