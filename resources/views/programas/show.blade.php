@@ -8,16 +8,16 @@
 
 @include ('programas.partials.search')
 
-@if(isset($credenciados))
+@if(isset($pessoas))
 <div class="card">
   <div class="card-header">
-    <b>Docentes credenciados ao programa de {{$programa['nomcur']}}: {{count($credenciados)}}</b>
+    <b>{{$titulo}}</b>
   </div>
-  <div class="card-body">
-    <table class="table docentes-programa-table">
+  <div class="card-body wrapper-pessoas-programa-table">
+    <table class="table pessoas-programa-table">
       <thead>
         <tr>
-          <th scope="col">Docente</th>
+          <th scope="col" class="first-col"><span class="text-first-col">Docente<span></th>
           <th scope="col" class="text-center">Livros</th>
           <th scope="col" class="text-center">Artigos</th>
           <th scope="col" class="text-center">Capítulos de Livros</th>
@@ -27,57 +27,108 @@
           <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
+          @if($tipo_pessoa == "egressos")
+            <th scope="col" class="text-center">Última Formação Acadêmica</th>
+          @endif
         </tr>
       </thead>
       <tbody>
-        @foreach($credenciados as $credenciado)
+        @foreach($pessoas as $pessoa)
         <tr>
-          <td>
-            <a href="{{$credenciado['href']}}">
-              {{$credenciado['nompes']}}
-            </a>
+        
+          <td class="first-col">
+              @if(isset($pessoa['href']))
+                <a href="{{$pessoa['href']}}">
+              @endif
+                <span class="text-first-col">{{$pessoa['nompes']}}<span>
+              @if(isset($pessoa['href']))
+                </a>
+              @endif
+          </td>
+        
+          <td class="text-center">
+            @if($pessoa['total_livros'] != 0 || $pessoa['total_livros'] != '0')
+                <a href="{{$pessoa['href']}}&section=livros">
+                  {{$pessoa['total_livros']}}
+                </a>
+            @else
+                {{$pessoa['total_livros']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=livros">
-              {{$credenciado['total_livros']}}
-            </a>
+            @if($pessoa['total_artigos'] != 0 || $pessoa['total_artigos'] != '0')
+              <a href="{{$pessoa['href']}}&section=artigos">
+                {{$pessoa['total_artigos']}}
+              </a>
+            @else
+                {{$pessoa['total_artigos']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=artigos">
-              {{$credenciado['total_artigos']}}
-            </a>
+            @if($pessoa['total_capitulos'] != 0 || $pessoa['total_capitulos'] != '0')
+              <a href="{{$pessoa['href']}}&section=capitulos">
+                {{$pessoa['total_capitulos']}}
+              </a>
+            @else
+                {{$pessoa['total_capitulos']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=capitulos">
-              {{$credenciado['total_capitulos']}}
-            </a>
+            @if($pessoa['total_jornal_revista'] != 0 || $pessoa['total_jornal_revista'] != '0')
+              <a href="{{$pessoa['href']}}&section=jornal_revista">
+                {{$pessoa['total_jornal_revista']}}
+              </a>
+            @else
+                {{$pessoa['total_jornal_revista']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=jornal_revista">
-              {{$credenciado['total_jornal_revista']}}
-            </a>
+            @if($pessoa['total_trabalhos_anais'] != 0 || $pessoa['total_trabalhos_anais'] != '0')
+              <a href="{{$pessoa['href']}}&section=trabalhos_anais">
+                {{$pessoa['total_trabalhos_anais']}}
+              </a>
+            @else
+                {{$pessoa['total_trabalhos_anais']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=trabalhos_anais">
-              {{$credenciado['total_trabalhos_anais']}}
-            </a>
+            @if($pessoa['total_outras_producoes_bibliograficas'] != 0 || $pessoa['total_outras_producoes_bibliograficas'] != '0')
+              <a href="{{$pessoa['href']}}&section=outras_producoes_bibliograficas">
+                {{$pessoa['total_outras_producoes_bibliograficas']}}
+              </a>
+            @else
+                {{$pessoa['total_outras_producoes_bibliograficas']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=outras_producoes_bibliograficas">
-              {{$credenciado['total_outras_producoes_bibliograficas']}}
-            </a>
+            @if($pessoa['total_trabalhos_tecnicos'] != 0 || $pessoa['total_trabalhos_tecnicos'] != '0')
+              <a href="{{$pessoa['href']}}&section=trabalhos_tecnicos">
+                {{$pessoa['total_trabalhos_tecnicos']}}
+              </a>
+            @else
+                {{$pessoa['total_trabalhos_tecnicos']}}
+            @endif
           </td>
           <td class="text-center">
-            <a href="{{$credenciado['href']}}&section=trabalhos_tecnicos">
-              {{$credenciado['total_trabalhos_tecnicos']}}
-            </a>
+            @if($pessoa['id_lattes'] != null)
+              <a target="_blank" href="http://lattes.cnpq.br/{{$pessoa['id_lattes']}}">
+                <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
+              </a>
+            @else
+              Lattes não encontrado
+            @endif
           </td>
-          <td class="text-center">
-            <a target="_blank" href="http://lattes.cnpq.br/{{$credenciado['id_lattes']}}">
-              <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
-            </a>
-          </td>
-          <td class="text-center">{{$credenciado['data_atualizacao']}}</td>
+          <td class="text-center">{{$pessoa['data_atualizacao']}}</td>
+          @if($tipo_pessoa == "egressos")
+            <td class="text-center">
+              @if(isset($pessoa['ultima_formacao']) && $pessoa['ultima_formacao'] != null && $pessoa['ultima_formacao'] != '')
+                <?= ucfirst(strtolower($pessoa['ultima_formacao']['TIPO'])) ?>
+                em 
+                <?= htmlspecialchars_decode(($pessoa['ultima_formacao']['NOME-INSTITUICAO'])) ?>
+                ({{$pessoa['ultima_formacao']['ANO-DE-CONCLUSAO']}})
+              @endif
+            </td>
+          @endif
         </tr>
         
         @endforeach
@@ -90,165 +141,6 @@
 </div>
 @endif 
 
-@if(isset($discentes))
-<div class="card">
-  <div class="card-header">
-    <b>Discentes ativos ao programa de {{$programa['nomcur']}}: {{count($discentes)}}</b>
-  </div>
-  <div class="card-body">
-    <table class="table discentes-programa-table">
-      <thead>
-        <tr>
-          <th scope="col">Discente</th>
-          <th scope="col" class="text-center">Livros</th>
-          <th scope="col" class="text-center">Artigos</th>
-          <th scope="col" class="text-center">Capítulos de Livros</th>
-          <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
-          <th scope="col" class="text-center">Trabalhos em anais</th>
-          <th scope="col" class="text-center">Outras produções bibliográficas</th>
-          <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
-          <th scope="col" class="text-center">Lattes</th>
-          <th scope="col" class="text-center">Última Atualização Lattes</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($discentes as $discente)
-        <tr>
-          <td>
-            <a href="{{$discente['href']}}">
-              {{$discente['nompes']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=livros">
-              {{$discente['total_livros']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=artigos">
-              {{$discente['total_artigos']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=capitulos">
-              {{$discente['total_capitulos']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=jornal_revista">
-              {{$discente['total_jornal_revista']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=trabalhos_anais">
-              {{$discente['total_trabalhos_anais']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=outras_producoes_bibliograficas">
-              {{$discente['total_outras_producoes_bibliograficas']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$discente['href']}}&section=trabalhos_tecnicos">
-              {{$discente['total_trabalhos_tecnicos']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a target="_blank" href="http://lattes.cnpq.br/{{$discente['id_lattes']}}">
-              <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
-            </a>
-          </td>
-          <td class="text-center">{{$discente['data_atualizacao']}}</td>
-        </tr>
-        
-        @endforeach
-       
-      </tbody>
-    </table>  
-  </div>
-</div>
-@endif
-
-@if(isset($egressos))
-<div class="card">
-  <div class="card-header">
-    <b>Egressos do programa de {{$programa['nomcur']}}: {{count($egressos)}}</b>
-  </div>
-  <div class="card-body">
-    <table class="table egressos-programa-table">
-      <thead>
-        <tr>
-          <th scope="col">Egresso</th>
-          <th scope="col" class="text-center">Livros</th>
-          <th scope="col" class="text-center">Artigos</th>
-          <th scope="col" class="text-center">Capítulos de Livros</th>
-          <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
-          <th scope="col" class="text-center">Trabalhos em anais</th>
-          <th scope="col" class="text-center">Outras produções bibliográficas</th>
-          <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
-          <th scope="col" class="text-center">Lattes</th>
-          <th scope="col" class="text-center">Última Atualização Lattes</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($egressos as $egresso)
-        <tr>
-          <td>
-            <a href="{{$egresso['href']}}">
-              {{$egresso['nompes']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=livros">
-              {{$egresso['total_livros']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=artigos">
-              {{$egresso['total_artigos']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=capitulos">
-              {{$egresso['total_capitulos']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=jornal_revista">
-              {{$egresso['total_jornal_revista']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=trabalhos_anais">
-              {{$egresso['total_trabalhos_anais']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=outras_producoes_bibliograficas">
-              {{$egresso['total_outras_producoes_bibliograficas']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a href="{{$egresso['href']}}&section=trabalhos_tecnicos">
-              {{$egresso['total_trabalhos_tecnicos']}}
-            </a>
-          </td>
-          <td class="text-center">
-            <a target="_blank" href="http://lattes.cnpq.br/{{$egresso['id_lattes']}}">
-              <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
-            </a>
-          </td>
-          <td class="text-center">{{$egresso['data_atualizacao']}}</td>
-        </tr>
-        
-        @endforeach
-       
-      </tbody>
-    </table>  
-  </div>
-</div>
-@endif
 
 @endsection('content')
 

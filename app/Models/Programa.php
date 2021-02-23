@@ -29,13 +29,14 @@ class Programa extends Model
     }
 
     public static function listarPessoa($codare, $filtro, $pessoas, $api = false, $tipo_pessoa){
-                
+        $aux_pessoas = [];
         for($i = 0; $i < count($pessoas); $i++){
 
             $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
             
             $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null; 
            
+            
 
             if(!$api){
                 if($tipo_pessoa == 'docente'){
@@ -49,9 +50,12 @@ class Programa extends Model
                 $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 
-            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'];
+            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'] ?? '';
 
-            $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'];
+            $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'] ?? '';
+            if($tipo_pessoa == 'egresso'){
+                $pessoas[$i]['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : '';
+            } 
             
          
             if(!$api){
@@ -85,15 +89,46 @@ class Programa extends Model
                 $pessoas[$i]['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                
             }
+            array_push($aux_pessoas, $pessoas[$i]);
 
         }
-        usort($pessoas, function ($a, $b) {
+        usort($aux_pessoas, function ($a, $b) {
             return $a['nompes'] > $b['nompes'];
         });
-        return $pessoas;
+        return $aux_pessoas;
         
     }
+
+    public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa) {
+
+        
+        $json_lattes = LattesModel::where('codpes',$codpes)->first();
+            
+        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
+
+        $content['nome'] = $lattes['nome'];
+        $content['resumo'] = $lattes['resumo'];
+        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
+        $content['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+
+        if($tipo_pessoa == 'docente'){
+            $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
+            $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
+        }
+
+        return $content;
+    
+    }
+
 
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
