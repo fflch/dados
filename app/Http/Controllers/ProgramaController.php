@@ -21,12 +21,17 @@ class ProgramaController extends Controller
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $credenciados = ReplicadoTemp::credenciados($codare);
         $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
+        $titulo = "Docentes credenciados ao programa de " .$programa['nomcur'] .": " .count($credenciados);
+
         
         return view('programas.show',[
-            'credenciados' => $credenciados,
+            'pessoas' => $credenciados,
             'programa' => $programa,
             'filtro' => $filtro,
-            'form_action' => "/programas/docentes/$codare"
+            'titulo' => $titulo,
+            'form_action' => "/programas/docentes/$codare",
+            'tipo_pessoa' => "docentes"
+
         ]);
     }
     
@@ -35,12 +40,16 @@ class ProgramaController extends Controller
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $discentes = Posgraduacao::obterAtivosPorArea($codare, 8); 
         $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
-        
+        $titulo = "Discentes ativos ao programa de ". $programa['nomcur'].": ".count($discentes);
+
         return view('programas.show',[
-            'discentes' => $discentes,
+            'pessoas' => $discentes,
             'programa' => $programa,
             'filtro' => $filtro,
-            'form_action' => "/programas/discentes/$codare"
+            'titulo' => $titulo,
+            'form_action' => "/programas/discentes/$codare",
+            'tipo_pessoa' => "discentes"
+
         ]);
     }
 
@@ -48,71 +57,41 @@ class ProgramaController extends Controller
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $egressos = Posgraduacao::egressosArea($codare, 8); 
-        $egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
+        $content_egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
+        $titulo = "Egressos do programa de ".$programa['nomcur'].": ".count($egressos);
         
         return view('programas.show',[
-            'egressos' => $egressos,
+            'pessoas' => $content_egressos,
             'programa' => $programa,
             'filtro' => $filtro,
-            'form_action' => "/programas/egressos/$codare"
+            'titulo' => $titulo,
+            'form_action' => "/programas/egressos/$codare",
+            'tipo_pessoa' => "egressos"
         ]);
     }
     
-
-    public function docente($codpes, Request $request) {
-        $filtro = $this->getFiltro($request);
-
-        $section_show = request()->section ?? '';
-        
-        $json_lattes = LattesModel::where('codpes',$codpes)->first();
+        public function docente($codpes, Request $request) {
+            $filtro = Programa::getFiltro($request);        
+            $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
+            $section_show = request()->section ?? '';
             
-        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-        //$lattes = Lattes::listarArray($codpes); 
-
-        $content['nome'] = $lattes['nome'];
-        $content['resumo'] = $lattes['resumo'];
-        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        $content['livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-
-        $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
-        $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
-    
-        return view('programas.docente',[
-            'content' => $content,
-            'section_show' => $section_show,
-            'filtro' => $filtro,
-            'form_action' => "/programas/docente/$codpes"
-        ]);
-      }
+        
+            return view('programas.pessoa',[
+                'content' => $content,
+                'section_show' => $section_show,
+                'filtro' => $filtro,
+                'form_action' => "/programas/docente/$codpes"
+            ]);
+        }
+   
+        
 
       public function discente($codpes, Request $request) {
-        $filtro = $this->getFiltro($request);
-
+        $filtro = Programa::getFiltro($request);        
+        $content = Programa::obterPessoa($codpes, $filtro, false, 'discente');
         $section_show = request()->section ?? '';
         
-        $json_lattes = LattesModel::where('codpes',$codpes)->first();
-            
-        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-        //$lattes = Lattes::listarArray($codpes); 
-
-        $content['nome'] = $lattes['nome'];
-        $content['resumo'] = $lattes['resumo'];
-        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        $content['livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        
-        return view('programas.discente',[
+        return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
@@ -121,27 +100,11 @@ class ProgramaController extends Controller
       }
 
       public function egresso($codpes, Request $request) {
-        $filtro = $this->getFiltro($request);
-
+        $filtro = Programa::getFiltro($request);        
+        $content = Programa::obterPessoa($codpes, $filtro, false, 'egresso');
         $section_show = request()->section ?? '';
         
-        $json_lattes = LattesModel::where('codpes',$codpes)->first();
-            
-        $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-        //$lattes = Lattes::listarArray($codpes); 
-
-        $content['nome'] = $lattes['nome'];
-        $content['resumo'] = $lattes['resumo'];
-        $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        $content['livros'] = $this->hasValue($lattes,'livros') ? $this->filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['artigos'] = $this->hasValue($lattes,'artigos') ? $this->filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['capitulos'] = $this->hasValue($lattes,'capitulos') ? $this->filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['jornal_revista'] = $this->hasValue($lattes,'jornal_revista') ? $this->filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['outras_producoes_bibliograficas'] = $this->hasValue($lattes,'outras_producoes_bibliograficas') ? $this->filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['trabalhos_anais'] = $this->hasValue($lattes,'trabalhos_anais') ? $this->filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $content['trabalhos_tecnicos'] = $this->hasValue($lattes,'trabalhos_tecnicos') ? $this->filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        
-        return view('programas.egresso',[
+        return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
@@ -149,63 +112,6 @@ class ProgramaController extends Controller
         ]);
       }
 
-    public function getFiltro(Request $request){
-        $tipo = $request->tipo;
-        
-        $filtro = ['tipo' => $tipo];
-        switch($tipo){
-            case 'anual':
-                $filtro['limit_ini'] = $request->ano;
-                $filtro['limit_fim'] = null;
-                break;
-            case 'periodo':
-                $filtro['limit_ini'] = $request->ano_ini;
-                $filtro['limit_fim'] = $request->ano_fim;
-                break;
-            case 'tudo':
-                $filtro['tipo'] = 'tudo';
-                $filtro['limit_ini'] = null;
-                $filtro['limit_fim'] = null;
-            break;
-            default:
-                $filtro['tipo'] = 'periodo';
-                $filtro['limit_ini'] = 2017;
-                    $filtro['limit_fim'] = 2020;
-                break;
-        }
-        return $filtro;
-    }
+   
 
-    private function filtrar($array, $campo_ano, $tipo, $limit_ini, $limit_fim){
-        $result = [];
-        $i = 0;
-        foreach($array as $item){
-            $i++;
-            if($tipo == 'registros'){
-                if($limit_ini != -1 && $i > $limit_ini) continue;  //-1 retorna tudo
-            }else if($tipo == 'anual' && isset($item[$campo_ano])){
-                if($limit_ini != -1 &&  (int)$item[$campo_ano] !=  $limit_ini ) continue; //se for diferente do ano determinado, pula para o próximo
-            }else if($tipo == 'periodo' && isset($item[$campo_ano])){
-                if($limit_ini != -1 && 
-                    (
-                        (int)$item[$campo_ano] < $limit_ini ||
-                        (int)$item[$campo_ano] > $limit_fim 
-                    )
-                 ) continue;
-            }
-            array_push($result, $item);
-        }
-        
-        return $result;
-    }
-    
-
-    private function hasValue($arr, $val){
-        if(isset($arr[$val])){
-            if($arr[$val] != null && $arr[$val] != false ){
-                return true;
-            }
-        }
-        return false;
-    }
 }
