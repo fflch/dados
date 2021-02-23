@@ -66,21 +66,21 @@ class ReplicadoSyncCommand extends Command
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
-            if(Lattes::getArray($egresso['codpes'])){
+            if(Lattes::listarArray($egresso['codpes'])){
                 $info_lattes = [];
                 $info_lattes['nome'] = Pessoa::dump($egresso['codpes'])['nompes'];
                 $info_lattes['id_lattes'] = Lattes::id($egresso['codpes']);
-                $data_atualizacao = Lattes::getUltimaAtualizacao($egresso['codpes'], null) ; 
+                $data_atualizacao = Lattes::retornarUltimaAtualizacao($egresso['codpes'], null) ; 
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
-                $info_lattes['resumo'] = Lattes::getResumoCV($egresso['codpes'], 'pt', null);
-                $info_lattes['livros'] = Lattes::getLivrosPublicados($egresso['codpes'], null, 'anual', -1, null);
-                $info_lattes['linhas_pesquisa'] = Lattes::getLinhasPesquisa($egresso['codpes'], null);
-                $info_lattes['artigos'] = Lattes::getArtigos($egresso['codpes'], null, 'anual', -1, null);
-                $info_lattes['capitulos'] = Lattes::getCapitulosLivros($egresso['codpes'], null, 'anual', -1, null);
-                $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($egresso['codpes'], null, 'anual', -1, null);
-                $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($egresso['codpes'], null, 'anual', -1, null);
-                $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($egresso['codpes'], null, 'anual', -1, null);
-                $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['resumo'] = Lattes::retornarResumoCV($egresso['codpes'], 'pt', null);
+                $info_lattes['livros'] = Lattes::listarLivrosPublicados($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['linhas_pesquisa'] = Lattes::retornarLinhasPesquisa($egresso['codpes'], null);
+                $info_lattes['artigos'] = Lattes::listarArtigos($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['capitulos'] = Lattes::listarCapitulosLivros($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['jornal_revista'] = Lattes::listarTextosJornaisRevistas($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_anais'] = Lattes::listarTrabalhosAnais($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_bibliograficas'] = Lattes::listarOutrasProducoesBibliograficas($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_tecnicos'] = Lattes::listarTrabalhosTecnicos($egresso['codpes'], null, 'anual', -1, null);
                 
                 
                 $lattes->codpes = $egresso['codpes'];
@@ -102,21 +102,21 @@ class ReplicadoSyncCommand extends Command
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
-            if(Lattes::getArray($docente['codpes'])){
+            if(Lattes::listarArray($docente['codpes'])){
                 $info_lattes = [];
                 $info_lattes['nome'] = Pessoa::dump($docente['codpes'])['nompes'];
                 $info_lattes['id_lattes'] = Lattes::id($docente['codpes']);
-                $data_atualizacao = Lattes::getUltimaAtualizacao($docente['codpes'], null) ; 
+                $data_atualizacao = Lattes::retornarUltimaAtualizacao($docente['codpes'], null) ; 
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
-                $info_lattes['resumo'] = Lattes::getResumoCV($docente['codpes'], 'pt', null);
-                $info_lattes['livros'] = Lattes::getLivrosPublicados($docente['codpes'], null, 'anual', -1, null);
-                $info_lattes['linhas_pesquisa'] = Lattes::getLinhasPesquisa($docente['codpes'], null);
-                $info_lattes['artigos'] = Lattes::getArtigos($docente['codpes'], null, 'anual', -1, null);
-                $info_lattes['capitulos'] = Lattes::getCapitulosLivros($docente['codpes'], null, 'anual', -1, null);
-                $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($docente['codpes'], null, 'anual', -1, null);
-                $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($docente['codpes'], null, 'anual', -1, null);
-                $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($docente['codpes'], null, 'anual', -1, null);
-                $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['resumo'] = Lattes::retornarResumoCV($docente['codpes'], 'pt', null);
+                $info_lattes['livros'] = Lattes::listarLivrosPublicados($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['linhas_pesquisa'] = Lattes::retornarLinhasPesquisa($docente['codpes'], null);
+                $info_lattes['artigos'] = Lattes::listarArtigos($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['capitulos'] = Lattes::listarCapitulosLivros($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['jornal_revista'] = Lattes::listarTextosJornaisRevistas($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_anais'] = Lattes::listarTrabalhosAnais($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_bibliograficas'] = Lattes::listarOutrasProducoesBibliograficas($docente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_tecnicos'] = Lattes::listarTrabalhosTecnicos($docente['codpes'], null, 'anual', -1, null);
                 
                 //$info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($docente['codpes']);
                 //$info_lattes['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($docente['codpes']);
@@ -140,21 +140,21 @@ class ReplicadoSyncCommand extends Command
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
-            if(Lattes::getArray($discente['codpes'])){
+            if(Lattes::listarArray($discente['codpes'])){
                 $info_lattes = [];
                 $info_lattes['nome'] = Pessoa::dump($discente['codpes'])['nompes'];
                 $info_lattes['id_lattes'] = Lattes::id($discente['codpes']);
-                $data_atualizacao = Lattes::getUltimaAtualizacao($discente['codpes'], null) ; 
+                $data_atualizacao = Lattes::retornarUltimaAtualizacao($discente['codpes'], null) ; 
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
-                $info_lattes['resumo'] = Lattes::getResumoCV($discente['codpes'], 'pt', null);
-                $info_lattes['livros'] = Lattes::getLivrosPublicados($discente['codpes'], null, 'anual', -1, null);
-                $info_lattes['linhas_pesquisa'] = Lattes::getLinhasPesquisa($discente['codpes'], null);
-                $info_lattes['artigos'] = Lattes::getArtigos($discente['codpes'], null, 'anual', -1, null);
-                $info_lattes['capitulos'] = Lattes::getCapitulosLivros($discente['codpes'], null, 'anual', -1, null);
-                $info_lattes['jornal_revista'] = Lattes::getTextosJornaisRevistas($discente['codpes'], null, 'anual', -1, null);
-                $info_lattes['trabalhos_anais'] = Lattes::getTrabalhosAnais($discente['codpes'], null, 'anual', -1, null);
-                $info_lattes['outras_producoes_bibliograficas'] = Lattes::getOutrasProducoesBibliograficas($discente['codpes'], null, 'anual', -1, null);
-                $info_lattes['trabalhos_tecnicos'] = Lattes::getTrabalhosTecnicos($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['resumo'] = Lattes::retornarResumoCV($discente['codpes'], 'pt', null);
+                $info_lattes['livros'] = Lattes::listarLivrosPublicados($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['linhas_pesquisa'] = Lattes::retornarLinhasPesquisa($discente['codpes'], null);
+                $info_lattes['artigos'] = Lattes::listarArtigos($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['capitulos'] = Lattes::listarCapitulosLivros($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['jornal_revista'] = Lattes::listarTextosJornaisRevistas($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_anais'] = Lattes::listarTrabalhosAnais($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_bibliograficas'] = Lattes::listarOutrasProducoesBibliograficas($discente['codpes'], null, 'anual', -1, null);
+                $info_lattes['trabalhos_tecnicos'] = Lattes::listarTrabalhosTecnicos($discente['codpes'], null, 'anual', -1, null);
                                 
                 $lattes->codpes = $discente['codpes'];
                 $lattes->json = $this->safe_json_encode($info_lattes);

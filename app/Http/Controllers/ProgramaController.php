@@ -67,7 +67,7 @@ class ProgramaController extends Controller
         $json_lattes = LattesModel::where('codpes',$codpes)->first();
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-        //$lattes = Lattes::getArray($codpes); 
+        //$lattes = Lattes::listarArray($codpes); 
 
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
@@ -99,7 +99,7 @@ class ProgramaController extends Controller
         $json_lattes = LattesModel::where('codpes',$codpes)->first();
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-        //$lattes = Lattes::getArray($codpes); 
+        //$lattes = Lattes::listarArray($codpes); 
 
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
@@ -128,7 +128,7 @@ class ProgramaController extends Controller
         $json_lattes = LattesModel::where('codpes',$codpes)->first();
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-        //$lattes = Lattes::getArray($codpes); 
+        //$lattes = Lattes::listarArray($codpes); 
 
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
