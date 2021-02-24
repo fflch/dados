@@ -30,7 +30,7 @@
               <div class="panel-body collapse in {{ $section_show == 'resumo' ?  'show' : ''}}" id="collapseResumo">
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <p><?= htmlspecialchars_decode(utf8_decode($content['resumo'])) ?></p>
+                      <p>{!! $content['resumo'] !!}</p>
                     </li>
                   </ul>
               </div>
@@ -53,7 +53,7 @@
               </div>
               <ul class="list-group collapse in  {{ $section_show == 'linhas_pesquisa' ?  'show' : ''}}" id="collapseLinhaPesquisa">
                   @foreach($content['linhas_pesquisa'] as $key => $value)
-                      <li class="list-group-item"> <?= htmlspecialchars_decode(utf8_decode($value)) ?>  </li> 
+                      <li class="list-group-item"> {!! $value !!}  </li> 
                   @endforeach 
               </ul>
               
@@ -97,8 +97,9 @@
                       
                         <?= htmlspecialchars_decode(utf8_decode($value["TITULO-DO-LIVRO"])) .".". 
                          htmlspecialchars_decode(utf8_decode($value["CIDADE-DA-EDITORA"])) .":".  htmlspecialchars_decode(utf8_decode($value["NOME-DA-EDITORA"])) .",".
-                         htmlspecialchars_decode(utf8_decode($value["ANO"])) .".". htmlspecialchars_decode(utf8_decode($value["NUMERO-DE-PAGINAS"])) ."p." 
-                         . " ISBN: " . htmlspecialchars_decode(utf8_decode($value["ISBN"])) ?> 
+                         htmlspecialchars_decode(utf8_decode($value["ANO"])) .".". htmlspecialchars_decode(utf8_decode($value["NUMERO-DE-PAGINAS"])) ."p." ?> 
+
+                         {{-- . " ISBN: " . htmlspecialchars_decode(utf8_decode($value["ISBN"]) --}} 
                       
                       </li>
                       @endforeach
@@ -125,6 +126,9 @@
             
             <ul class="list-group collapse in {{ $section_show == 'artigos' ?  'show' : ''}}" id="collapseArtigos">
                 @foreach($content['artigos'] as $key=>$value)
+                    @php 
+                        $obj = (object) $value;
+                    @endphp
                     <li class="list-group-item">
                         @foreach($value['AUTORES'] as $k=>$val)
                         <?php
@@ -142,12 +146,13 @@
                         @endforeach
                         
                         
-                        <?= htmlspecialchars_decode(utf8_decode($value["TITULO-DO-ARTIGO"])) ?>. 
+                        {!! utf8_decode($value["TITULO-DO-ARTIGO"]) !!}
                         <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-PERIODICO-OU-REVISTA'])) ?>,
                         v. <?= htmlspecialchars_decode(utf8_decode($value['VOLUME'])) ?>,
                         p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
                         <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
-                        ISSN: <?= htmlspecialchars_decode(utf8_decode($value['ISSN'])) ?>
+
+                        {{-- ISSN: <?= htmlspecialchars_decode(utf8_decode($value['ISSN'])) ?> --}}
                     </li>
                 @endforeach
             </ul>

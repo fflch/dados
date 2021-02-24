@@ -2,6 +2,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 @endsection('styles')
 
 @section('content')
@@ -53,7 +54,7 @@
                   {{$pessoa['total_livros']}}
                 </a>
             @else
-                {{$pessoa['total_livros']}}
+                -
             @endif
           </td>
           <td class="text-center">
@@ -62,7 +63,7 @@
                 {{$pessoa['total_artigos']}}
               </a>
             @else
-                {{$pessoa['total_artigos']}}
+                -
             @endif
           </td>
           <td class="text-center">
@@ -71,7 +72,7 @@
                 {{$pessoa['total_capitulos']}}
               </a>
             @else
-                {{$pessoa['total_capitulos']}}
+                -
             @endif
           </td>
           <td class="text-center">
@@ -80,7 +81,7 @@
                 {{$pessoa['total_jornal_revista']}}
               </a>
             @else
-                {{$pessoa['total_jornal_revista']}}
+                -
             @endif
           </td>
           <td class="text-center">
@@ -89,7 +90,7 @@
                 {{$pessoa['total_trabalhos_anais']}}
               </a>
             @else
-                {{$pessoa['total_trabalhos_anais']}}
+                -
             @endif
           </td>
           <td class="text-center">
@@ -98,7 +99,7 @@
                 {{$pessoa['total_outras_producoes_bibliograficas']}}
               </a>
             @else
-                {{$pessoa['total_outras_producoes_bibliograficas']}}
+                -
             @endif
           </td>
           <td class="text-center">
@@ -107,13 +108,13 @@
                 {{$pessoa['total_trabalhos_tecnicos']}}
               </a>
             @else
-                {{$pessoa['total_trabalhos_tecnicos']}}
+                -
             @endif
           </td>
           <td class="text-center">
             @if($pessoa['id_lattes'] != null)
               <a target="_blank" href="http://lattes.cnpq.br/{{$pessoa['id_lattes']}}">
-                <img src="http://buscatextual.cnpq.br/buscatextual/images/titulo-sistema.png">
+              <i class="ai ai-lattes ai-2x"></i>
               </a>
             @else
               Lattes não encontrado

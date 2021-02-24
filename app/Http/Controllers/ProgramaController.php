@@ -70,23 +70,21 @@ class ProgramaController extends Controller
         ]);
     }
     
-        public function docente($codpes, Request $request) {
-            $filtro = Programa::getFiltro($request);        
-            $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
-            $section_show = request()->section ?? '';
-            
+    public function docente($codpes, Request $request) {
+        $filtro = Programa::getFiltro($request);        
+        $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
+        $section_show = request()->section ?? '';
         
-            return view('programas.pessoa',[
-                'content' => $content,
-                'section_show' => $section_show,
-                'filtro' => $filtro,
-                'form_action' => "/programas/docente/$codpes"
-            ]);
-        }
-   
-        
+    
+        return view('programas.pessoa',[
+            'content' => $content,
+            'section_show' => $section_show,
+            'filtro' => $filtro,
+            'form_action' => "/programas/docente/$codpes"
+        ]);
+    }
 
-      public function discente($codpes, Request $request) {
+    public function discente($codpes, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro, false, 'discente');
         $section_show = request()->section ?? '';
@@ -97,9 +95,9 @@ class ProgramaController extends Controller
             'filtro' => $filtro,
             'form_action' => "/programas/discente/$codpes"
         ]);
-      }
+    }
 
-      public function egresso($codpes, Request $request) {
+    public function egresso($codpes, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro, false, 'egresso');
         $section_show = request()->section ?? '';
@@ -110,8 +108,5 @@ class ProgramaController extends Controller
             'filtro' => $filtro,
             'form_action' => "/programas/egresso/$codpes"
         ]);
-      }
-
-   
-
+    }
 }
