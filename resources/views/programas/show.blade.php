@@ -29,6 +29,7 @@
           <th scope="col" class="text-center">Última Atualização Lattes</th>
           @if($tipo_pessoa == "egressos")
             <th scope="col" class="text-center">Última Formação Acadêmica</th>
+            <th scope="col" class="text-center">Último Vínculo Profissional</th>
           @endif
         </tr>
       </thead>
@@ -126,6 +127,14 @@
                 em 
                 <?= htmlspecialchars_decode(($pessoa['ultima_formacao']['NOME-INSTITUICAO'])) ?>
                 ({{$pessoa['ultima_formacao']['ANO-DE-CONCLUSAO']}})
+              @endif
+            </td>
+            <td class="text-center">
+              @if(isset($pessoa['ultimo_vinculo_profissional']) && $pessoa['ultimo_vinculo_profissional'] != null && $pessoa['ultimo_vinculo_profissional'] != '')
+                <?= ucfirst(strtolower($pessoa['VINCULOS']['TIPO-DE-VINCULO'])) ?>
+                em 
+                <?= htmlspecialchars_decode(($pessoa['NOME-INSTITUICAO'])) ?>
+                ({{$pessoa['VINCULOS']['ANO-INICIO']}} - Atual)
               @endif
             </td>
           @endif

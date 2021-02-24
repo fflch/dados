@@ -35,8 +35,6 @@ class Programa extends Model
             $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
             
             $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null; 
-           
-            
 
             if(!$api){
                 if($tipo_pessoa == 'docente'){
@@ -56,8 +54,10 @@ class Programa extends Model
             if($tipo_pessoa == 'egresso'){
                 $pessoas[$i]['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : '';
             } 
+            if($tipo_pessoa == 'egresso'){
+                $pessoas[$i]['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? $lattes['ultimo_vinculo_profissional'] : '';
+            }
             
-         
             if(!$api){
                 $pessoas[$i]['total_livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['total_livros'] = $pessoas[$i]['total_livros'] ? count($pessoas[$i]['total_livros']): '0';
@@ -99,12 +99,9 @@ class Programa extends Model
             return $a['nompes'] > $b['nompes'];
         });
         return $aux_pessoas;
-        
     }
 
     public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa) {
-
-        
         $json_lattes = LattesModel::where('codpes',$codpes)->first();
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
@@ -124,11 +121,8 @@ class Programa extends Model
             $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
             $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
         }
-
         return $content;
-    
     }
-
 
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
@@ -176,7 +170,6 @@ class Programa extends Model
             }
             array_push($result, $item);
         }
-        
         return $result;
     }
 
