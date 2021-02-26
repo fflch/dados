@@ -18,7 +18,10 @@
     <table class="table pessoas-programa-table">
       <thead>
         <tr>
-          <th scope="col" class="first-col"><span class="text-first-col">Docente<span></th>
+          <th scope="col" class="first-col"><span class="text-first-col">Nome<span></th>
+          @if($tipo_pessoa == "egressos")
+          <th scope="col" class="text-center">Nível Programa</th>
+          @endif
           <th scope="col" class="text-center">Livros</th>
           <th scope="col" class="text-center">Artigos</th>
           <th scope="col" class="text-center">Capítulos de Livros</th>
@@ -39,15 +42,19 @@
         <tr>
         
           <td class="first-col">
-              @if(isset($pessoa['href']))
+              @if(isset($pessoa['id_lattes']) && $pessoa['id_lattes'] != null)
                 <a href="{{$pessoa['href']}}">
               @endif
                 <span class="text-first-col">{{$pessoa['nompes']}}<span>
-              @if(isset($pessoa['href']))
+              @if(isset($pessoa['id_lattes']) && $pessoa['id_lattes'] != null)
                 </a>
               @endif
           </td>
-        
+
+          @if($tipo_pessoa == "egressos")
+          <td class="text-center"> {{$pessoa['nivpgm']}} </td>
+          @endif
+
           <td class="text-center">
             @if($pessoa['total_livros'] != 0 || $pessoa['total_livros'] != '0')
                 <a href="{{$pessoa['href']}}&section=livros">
@@ -117,7 +124,7 @@
               <i class="ai ai-lattes ai-2x"></i>
               </a>
             @else
-              Lattes não encontrado
+              Lattes não sincronizado
             @endif
           </td>
           <td class="text-center">{{$pessoa['data_atualizacao']}}</td>
@@ -136,6 +143,8 @@
                 em 
                 <?= htmlspecialchars_decode(($pessoa['NOME-INSTITUICAO'])) ?>
                 ({{$pessoa['VINCULOS']['ANO-INICIO']}} - Atual)
+              @else
+              Vínculo não sincronizado
               @endif
             </td>
           @endif

@@ -78,29 +78,12 @@
               <ul class="list-group collapse in {{ $section_show == 'livros' ?  'show' : ''}}" id="collapseLivrosPublicados">
                   @foreach($content['livros'] as $key => $value)
                       <li class="list-group-item">
-                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
-                        
-                      
-                        <?= htmlspecialchars_decode(utf8_decode($value["TITULO-DO-LIVRO"])) .".". 
-                         htmlspecialchars_decode(utf8_decode($value["CIDADE-DA-EDITORA"])) .":".  htmlspecialchars_decode(utf8_decode($value["NOME-DA-EDITORA"])) .",".
-                         htmlspecialchars_decode(utf8_decode($value["ANO"])) .".". htmlspecialchars_decode(utf8_decode($value["NUMERO-DE-PAGINAS"])) ."p." ?> 
+                      @include ('programas.partials.autores')
 
-                         {{-- . " ISBN: " . htmlspecialchars_decode(utf8_decode($value["ISBN"]) --}} 
-                      
+                        {!! $value["TITULO-DO-LIVRO"] !!}. 
+                        {!! $value["CIDADE-DA-EDITORA"] !!}: {!! $value["NOME-DA-EDITORA"] !!},
+                        {!! $value["ANO"] !!}. {!! $value["NUMERO-DE-PAGINAS"] !!}p.  
+                        ISBN: {!! $value["ISBN"] !!}. 
                       </li>
                       @endforeach
               </ul>
@@ -130,29 +113,13 @@
                         $obj = (object) $value;
                     @endphp
                     <li class="list-group-item">
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @elseif($value['AUTORES'])
-                            .
-                        @endif
-                        @endforeach
+                        @include ('programas.partials.autores')
                         
-                        
-                        {!! utf8_decode($value["TITULO-DO-ARTIGO"]) !!}
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-PERIODICO-OU-REVISTA'])) ?>,
-                        v. <?= htmlspecialchars_decode(utf8_decode($value['VOLUME'])) ?>,
-                        p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
-                        <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
-
-                        {{-- ISSN: <?= htmlspecialchars_decode(utf8_decode($value['ISSN'])) ?> --}}
+                        {!! $value["TITULO-DO-ARTIGO"] !!}
+                        {!! $value['TITULO-DO-PERIODICO-OU-REVISTA'] !!},
+                        v. {!! $value['VOLUME'] !!},
+                        p. {!! $value['PAGINA-INICIAL'] !!} - {!! $value['PAGINA-FINAL'] !!},
+                        {!! $value['ANO'] !!}. ISSN: {!! $value['ISSN'] !!}.
                     </li>
                 @endforeach
             </ul>
@@ -180,28 +147,13 @@
                 @foreach($content['capitulos'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
-                        
-                        
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-CAPITULO-DO-LIVRO'])) ?>. 
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-LIVRO'])) ?>,
-                        v. <?= htmlspecialchars_decode(utf8_decode($value['NUMERO-DE-VOLUMES'])) ?>,
-                        p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
-                        <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
+                    @include ('programas.partials.autores')
+                                               
+                        {!! $value['TITULO-DO-CAPITULO-DO-LIVRO'] !!}. 
+                        {!! $value['TITULO-DO-LIVRO'] !!},
+                        v. {!! $value['NUMERO-DE-VOLUMES'] !!},
+                        p. {!! $value['PAGINA-INICIAL'] !!} - {!! $value['PAGINA-FINAL'] !!},
+                        {!! $value['ANO'] !!}.
                     </li>
                 @endforeach
             </ul>
@@ -228,25 +180,11 @@
                 @foreach($content['jornal_revista'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
+                @include ('programas.partials.autores')
                         
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-JORNAL-OU-REVISTA'])) ?>,
-                        <?= htmlspecialchars_decode(utf8_decode($value['LOCAL-DE-PUBLICACAO'])) ?>,
+                        {!! $value['TITULO'] !!}. 
+                        {!! $value['TITULO-DO-JORNAL-OU-REVISTA'] !!},
+                        {!! $value['LOCAL-DE-PUBLICACAO'] !!},
                         <?php
                             if(isset($value["DATA"])){
                                 $meses = ['', 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; 
@@ -279,31 +217,18 @@
                 @foreach($content['trabalhos_anais'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
+                    @include ('programas.partials.autores')
+
+                        {!! $value['TITULO'] !!}. 
                         @if($value["NOME-DO-EVENTO"] )
-                        In: <?= htmlspecialchars_decode(utf8_decode($value['NOME-DO-EVENTO'])) ?>,
-                        {{ $value["ANO"] }}, <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DO-EVENTO'])) ?>.
+                        In: {!! $value['NOME-DO-EVENTO'] !!},
+                        {{ $value["ANO"] }}, {!! $value['CIDADE-DO-EVENTO'] !!}.
                         @endif
 
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DOS-ANAIS-OU-PROCEEDINGS'])) ?>.
+                        {!! $value['TITULO-DOS-ANAIS-OU-PROCEEDINGS'] !!}.
 
                         @if($value["NOME-DA-EDITORA"] )
-                        <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DA-EDITORA'])) ?>: <?= htmlspecialchars_decode(utf8_decode($value['NOME-DA-EDITORA'])) ?>,
+                        {!! $value['CIDADE-DA-EDITORA'] !!}: {!! $value['NOME-DA-EDITORA'] !!},
                         @endif
                         {{ $value["ANO-DE-REALIZACAO"] }}.
 
@@ -337,31 +262,16 @@
                 @foreach($content['outras_producoes_bibliograficas'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
+                    @include ('programas.partials.autores')
                         
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
-                        <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DA-EDITORA'])) ?>
-                        @if($value["EDITORA"] )
-                            :<?= htmlspecialchars_decode(utf8_decode($value['EDITORA'])) ?>,
+                        {!! $value['TITULO'] !!}. 
+                        {!! $value['CIDADE-DA-EDITORA']!!}:
+                        @if($value["EDITORA"] ){!! $value['EDITORA'] !!},
                         @endif
-                        {{ $value["ANO"] }}
+                        {!! $value["ANO"] !!}
                         @if($value["TIPO"] )
-                            (<?= htmlspecialchars_decode(utf8_decode($value['TIPO'])) ?>)
+                            ({!! $value['TIPO'] !!})
                         @endif
-
 
                         <?php
                             if(isset($value["DATA"])){
@@ -395,24 +305,10 @@
                 @foreach($content['trabalhos_tecnicos'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
+                    @include ('programas.partials.autores')
                         
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
-                        {{ $value["ANO"] }}
+                    {!! $value['TITULO'] !!}. 
+                    {!! $value["ANO"] !!}
 
                     </li>
                 @endforeach
@@ -436,15 +332,13 @@
                 </div>
                 <div class="panel-body collapse in {{ $section_show == 'orientandos' ?  'show' : ''}}" id="collapseOrientandos">
                     <table class="table">
-                    <tr >
-                        <td>Número USP</td>
+                    <tr>
                         <td>Nome orientando</td>
                         <td>Área</td>
                         <td>Nível de Programa</td>
                     </tr>
                     @foreach($content['orientandos'] as $row )
                         <tr>
-                            <td>{{ $row['codpespgm'] }}</td>
                             <td>{{ $row['nompes'] }}</td>
                             <td>{{ $row['nomare'] }}</td>
                             @if($row['nivpgm'] == 'DO')
@@ -479,8 +373,7 @@
                 </div>
                 <div class="panel-body collapse in {{ $section_show == 'orientandos_concluidos' ?  'show' : ''}}" id="collapseOrientandosConcluidos">
                     <table class="table ">
-                    <tr >
-                        <td>Número USP</td>
+                    <tr>
                         <td>Nome orientando</td>
                         <td>Área</td>
                         <td>Nível de Programa</td>
@@ -488,7 +381,6 @@
                     </tr>
                     @foreach( $content['orientandos_concluidos'] as $row )
                         <tr>
-                            <td>{{ $row['codpespgm'] }}</td>
                             <td>{{ $row['nompes'] }}</td>
                             <td>{{ $row['nomare'] }}</td>
                             @if($row['nivpgm'] == 'DO')
@@ -508,7 +400,6 @@
             </div>
         </li>
        @endif
-
 
     </ul>
 

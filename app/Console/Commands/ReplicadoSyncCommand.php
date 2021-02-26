@@ -45,20 +45,6 @@ class ReplicadoSyncCommand extends Command
     {
         $programas = Posgraduacao::programas(8);
 
-       /* $amacio =  [[
-            "codpes" => "102122",
-            "nompes" => "Amâncio"
-        ]];
-
-        $this->syncJson($amacio);
-*/
-
-        $this->syncJson(ReplicadoTemp::credenciados());
-
-        #102122
-
-        dd('morri');
-
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
@@ -70,8 +56,11 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
 
-            #$this->syncJson(Posgraduacao::egressosArea($value['codare']));
-            #$this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
+            $this->syncJson(ReplicadoTemp::credenciados());
+            $this->syncJson(Posgraduacao::egressosArea($value['codare']));
+            $this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
+
+            dd('morri');
         }
        
         return 0;
