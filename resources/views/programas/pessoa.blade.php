@@ -401,6 +401,121 @@
         </li>
        @endif
 
+    @if(isset($content['ultima_formacao']))
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseultima_formacao" aria-controls="collapseultima_formacao"
+                {{$section_show == 'ultima_formacao' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                    Formação Acadêmica: {{count($content['ultima_formacao'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'ultima_formacao' ?  'show' : ''}}" id="collapseultima_formacao">
+                @foreach($content['ultima_formacao'] as $key=>$value)
+                    <li class="list-group-item">
+                        <?= ucfirst(strtolower($key)) ?>:
+                        <ul class="list-group">
+                        @foreach($value as $val)
+                            @if(isset($val["ANO-DE-CONCLUSAO"]))
+                            <li class="list-group-item">
+                            @if(isset($val['NOME-CURSO']))
+                            Curso: {!! $val['NOME-CURSO'] !!} <br>
+                            @endif
+                            Nome da Instituição: {!! $val["NOME-INSTITUICAO"] !!} <br>
+                            @if(isset($val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO']) && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != null && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != '')
+                            Título: {!! $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] !!} <br> 
+                            @endif
+                            Ano de conclusão: 
+                            @if(isset($val['ANO-DE-CONCLUSAO']) && $val['ANO-DE-CONCLUSAO'] != null && $val['ANO-DE-CONCLUSAO'] != '') 
+                            {!! $val["ANO-DE-CONCLUSAO"] !!} 
+                            @else
+                            Atual
+                            @endif
+                            </li>
+                            @endif
+                        @endforeach
+                        </ul>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+    @endif
+
+    @if(isset($content['ultimo_vinculo_profissional']))
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseultimo_vinculo_profissional" aria-controls="collapseultimo_vinculo_profissional"
+                {{$section_show == 'ultimo_vinculo_profissional' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Atuação Profissional: {{count($content['ultimo_vinculo_profissional'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'ultimo_vinculo_profissional' ?  'show' : ''}}" id="collapseultimo_vinculo_profissional">
+                @foreach($content['ultimo_vinculo_profissional'] as $key=>$value)
+                    <li class="list-group-item">
+                        {!! $value['NOME-INSTITUICAO'] !!}:
+                        <ul class="list-group">
+                        @if(isset($value['VINCULOS']['ANO-INICIO']))
+                            <li class="list-group-item">
+                                Tipo de vínculo: <?= ucfirst(strtolower($value['VINCULOS']['TIPO-DE-VINCULO'])) ?>
+                                ({!! $value['VINCULOS']['ANO-INICIO'] !!} - 
+                                @if($value['VINCULOS']['ANO-FIM'] == '') Atual
+                                @else 
+                                    {!! $value['VINCULOS']['ANO-FIM'] !!}
+                                @endif
+                                ).
+                                @if(isset($value['VINCULOS']['OUTRAS-INFORMACOES']) && $value['VINCULOS']['OUTRAS-INFORMACOES'] != '' && $value['VINCULOS']['OUTRAS-INFORMACOES'] != null && strlen($value['VINCULOS']['OUTRAS-INFORMACOES']) > 0 )
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRAS-INFORMACOES'] !!}
+                                @endif
+                                @if(isset($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != '' && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != null && strlen($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) > 0)
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] !!}
+                                @endif                                
+                            </li>
+                        @else
+                            @foreach($value['VINCULOS'] as $val)
+                                @if(isset($val["ANO-INICIO"]))
+                                <li class="list-group-item">
+                                Tipo de vínculo: <?= ucfirst(strtolower($val['TIPO-DE-VINCULO']))?>
+                                ({!! $val['ANO-INICIO'] !!} - 
+                                @if($val['ANO-FIM'] == '') Atual
+                                @else
+                                    {!! $val['ANO-FIM'] !!}
+                                @endif
+                                ).
+                                @if(isset($value['VINCULOS']['OUTRAS-INFORMACOES']) && $value['VINCULOS']['OUTRAS-INFORMACOES'] != '' && $value['VINCULOS']['OUTRAS-INFORMACOES'] != null && strlen($value['VINCULOS']['OUTRAS-INFORMACOES']) > 0 )
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRAS-INFORMACOES'] !!}
+                                @endif
+                                @if(isset($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != '' && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != null && strlen($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) > 0)
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] !!}
+                                @endif
+                                </li>
+                                @endif
+                            @endforeach
+                        @endif
+                        </ul>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+    @endif
+
     </ul>
 
   </div>

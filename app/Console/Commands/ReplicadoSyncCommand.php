@@ -56,9 +56,9 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
 
-            $this->syncJson(ReplicadoTemp::credenciados());
+            #$this->syncJson(ReplicadoTemp::credenciados());
             $this->syncJson(Posgraduacao::egressosArea($value['codare']));
-            $this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
+            #$this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
 
             dd('morri');
         }
@@ -94,6 +94,9 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['trabalhos_anais'] = Lattes::listarTrabalhosAnais($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::listarOutrasProducoesBibliograficas($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['trabalhos_tecnicos'] = Lattes::listarTrabalhosTecnicos($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['ultima_formacao'] = Lattes::retornarFormacaoAcademica($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], null, 'anual', -1, null);
                 #$info_lattes['organizacao_evento'] = Lattes::getOrganizacaoEvento($egresso['codpes'], null, 'anual', -1, null);
                 #$info_lattes['outras_producoes_tecnicas'] = Lattes::getOutrasProducoesTecnicas($egresso['codpes'], null, 'anual', -1, null);
 
