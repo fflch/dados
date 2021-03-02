@@ -18,7 +18,10 @@
     <table class="table pessoas-programa-table">
       <thead>
         <tr>
-          <th scope="col" class="first-col"><span class="text-first-col">Docente<span></th>
+          <th scope="col" class="first-col"><span class="text-first-col">Nome<span></th>
+          @if($tipo_pessoa == "egressos")
+          <th scope="col" class="text-center">Nível Programa</th>
+          @endif
           <th scope="col" class="text-center">Livros</th>
           <th scope="col" class="text-center">Artigos</th>
           <th scope="col" class="text-center">Capítulos de Livros</th>
@@ -29,8 +32,8 @@
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
           @if($tipo_pessoa == "egressos")
-            <th scope="col" class="text-center">Última Formação Acadêmica</th>
-            <th scope="col" class="text-center">Último Vínculo Profissional</th>
+            <th scope="col" class="text-center">Formação Acadêmica</th>
+            <th scope="col" class="text-center">Atuação Profissional</th>
           @endif
         </tr>
       </thead>
@@ -39,15 +42,19 @@
         <tr>
         
           <td class="first-col">
-              @if(isset($pessoa['href']))
+              @if(isset($pessoa['id_lattes']) && $pessoa['id_lattes'] != null)
                 <a href="{{$pessoa['href']}}">
               @endif
                 <span class="text-first-col">{{$pessoa['nompes']}}<span>
-              @if(isset($pessoa['href']))
+              @if(isset($pessoa['id_lattes']) && $pessoa['id_lattes'] != null)
                 </a>
               @endif
           </td>
-        
+
+          @if($tipo_pessoa == "egressos")
+          <td class="text-center"> {{$pessoa['nivpgm']}} </td>
+          @endif
+
           <td class="text-center">
             @if($pessoa['total_livros'] != 0 || $pessoa['total_livros'] != '0')
                 <a href="{{$pessoa['href']}}&section=livros">
@@ -117,30 +124,31 @@
               <i class="ai ai-lattes ai-2x"></i>
               </a>
             @else
-              Lattes não encontrado
+              Lattes não sincronizado
             @endif
           </td>
           <td class="text-center">{{$pessoa['data_atualizacao']}}</td>
           @if($tipo_pessoa == "egressos")
             <td class="text-center">
-              @if(isset($pessoa['ultima_formacao']) && $pessoa['ultima_formacao'] != null && $pessoa['ultima_formacao'] != '')
-                <?= ucfirst(strtolower($pessoa['ultima_formacao']['TIPO'])) ?>
-                em 
-                <?= htmlspecialchars_decode(($pessoa['ultima_formacao']['NOME-INSTITUICAO'])) ?>
-                ({{$pessoa['ultima_formacao']['ANO-DE-CONCLUSAO']}})
+              @if($pessoa['total_ultima_formacao'] != 0 || $pessoa['total_ultima_formacao'] != '0')
+                <a href="{{$pessoa['href']}}&section=ultima_formacao">
+                  {{$pessoa['total_ultima_formacao']}}
+                </a>
+              @else
+                  -
               @endif
             </td>
             <td class="text-center">
-              @if(isset($pessoa['ultimo_vinculo_profissional']) && $pessoa['ultimo_vinculo_profissional'] != null && $pessoa['ultimo_vinculo_profissional'] != '')
-                <?= ucfirst(strtolower($pessoa['VINCULOS']['TIPO-DE-VINCULO'])) ?>
-                em 
-                <?= htmlspecialchars_decode(($pessoa['NOME-INSTITUICAO'])) ?>
-                ({{$pessoa['VINCULOS']['ANO-INICIO']}} - Atual)
-              @endif
+              @if($pessoa['total_ultimo_vinculo_profissional'] != 0 || $pessoa['total_ultimo_vinculo_profissional'] != '0')
+                <a href="{{$pessoa['href']}}&section=ultimo_vinculo_profissional">
+                    {{$pessoa['total_ultimo_vinculo_profissional']}}
+                </a>
+                @else
+                    -
+                @endif
             </td>
           @endif
         </tr>
-        
         @endforeach
        
       </tbody>
@@ -150,7 +158,6 @@
   </div>
 </div>
 @endif 
-
 
 @endsection('content')
 

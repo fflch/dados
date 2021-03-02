@@ -78,29 +78,12 @@
               <ul class="list-group collapse in {{ $section_show == 'livros' ?  'show' : ''}}" id="collapseLivrosPublicados">
                   @foreach($content['livros'] as $key => $value)
                       <li class="list-group-item">
-                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
-                        
-                      
-                        <?= htmlspecialchars_decode(utf8_decode($value["TITULO-DO-LIVRO"])) .".". 
-                         htmlspecialchars_decode(utf8_decode($value["CIDADE-DA-EDITORA"])) .":".  htmlspecialchars_decode(utf8_decode($value["NOME-DA-EDITORA"])) .",".
-                         htmlspecialchars_decode(utf8_decode($value["ANO"])) .".". htmlspecialchars_decode(utf8_decode($value["NUMERO-DE-PAGINAS"])) ."p." ?> 
+                      @include ('programas.partials.autores')
 
-                         {{-- . " ISBN: " . htmlspecialchars_decode(utf8_decode($value["ISBN"]) --}} 
-                      
+                        {!! $value["TITULO-DO-LIVRO"] !!}. 
+                        {!! $value["CIDADE-DA-EDITORA"] !!}: {!! $value["NOME-DA-EDITORA"] !!},
+                        {!! $value["ANO"] !!}. {!! $value["NUMERO-DE-PAGINAS"] !!}p.  
+                        ISBN: {!! $value["ISBN"] !!}. 
                       </li>
                       @endforeach
               </ul>
@@ -130,29 +113,13 @@
                         $obj = (object) $value;
                     @endphp
                     <li class="list-group-item">
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @elseif($value['AUTORES'])
-                            .
-                        @endif
-                        @endforeach
+                        @include ('programas.partials.autores')
                         
-                        
-                        {!! utf8_decode($value["TITULO-DO-ARTIGO"]) !!}
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-PERIODICO-OU-REVISTA'])) ?>,
-                        v. <?= htmlspecialchars_decode(utf8_decode($value['VOLUME'])) ?>,
-                        p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
-                        <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
-
-                        {{-- ISSN: <?= htmlspecialchars_decode(utf8_decode($value['ISSN'])) ?> --}}
+                        {!! $value["TITULO-DO-ARTIGO"] !!}
+                        {!! $value['TITULO-DO-PERIODICO-OU-REVISTA'] !!},
+                        v. {!! $value['VOLUME'] !!},
+                        p. {!! $value['PAGINA-INICIAL'] !!} - {!! $value['PAGINA-FINAL'] !!},
+                        {!! $value['ANO'] !!}. ISSN: {!! $value['ISSN'] !!}.
                     </li>
                 @endforeach
             </ul>
@@ -180,28 +147,13 @@
                 @foreach($content['capitulos'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
-                        
-                        
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-CAPITULO-DO-LIVRO'])) ?>. 
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-LIVRO'])) ?>,
-                        v. <?= htmlspecialchars_decode(utf8_decode($value['NUMERO-DE-VOLUMES'])) ?>,
-                        p. <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-INICIAL'])) ?> - <?= htmlspecialchars_decode(utf8_decode($value['PAGINA-FINAL'])) ?>,
-                        <?= htmlspecialchars_decode(utf8_decode($value['ANO'])) ?>.
+                    @include ('programas.partials.autores')
+                                               
+                        {!! $value['TITULO-DO-CAPITULO-DO-LIVRO'] !!}. 
+                        {!! $value['TITULO-DO-LIVRO'] !!},
+                        v. {!! $value['NUMERO-DE-VOLUMES'] !!},
+                        p. {!! $value['PAGINA-INICIAL'] !!} - {!! $value['PAGINA-FINAL'] !!},
+                        {!! $value['ANO'] !!}.
                     </li>
                 @endforeach
             </ul>
@@ -228,25 +180,11 @@
                 @foreach($content['jornal_revista'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
+                @include ('programas.partials.autores')
                         
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DO-JORNAL-OU-REVISTA'])) ?>,
-                        <?= htmlspecialchars_decode(utf8_decode($value['LOCAL-DE-PUBLICACAO'])) ?>,
+                        {!! $value['TITULO'] !!}. 
+                        {!! $value['TITULO-DO-JORNAL-OU-REVISTA'] !!},
+                        {!! $value['LOCAL-DE-PUBLICACAO'] !!},
                         <?php
                             if(isset($value["DATA"])){
                                 $meses = ['', 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; 
@@ -279,31 +217,18 @@
                 @foreach($content['trabalhos_anais'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
+                    @include ('programas.partials.autores')
+
+                        {!! $value['TITULO'] !!}. 
                         @if($value["NOME-DO-EVENTO"] )
-                        In: <?= htmlspecialchars_decode(utf8_decode($value['NOME-DO-EVENTO'])) ?>,
-                        {{ $value["ANO"] }}, <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DO-EVENTO'])) ?>.
+                        In: {!! $value['NOME-DO-EVENTO'] !!},
+                        {{ $value["ANO"] }}, {!! $value['CIDADE-DO-EVENTO'] !!}.
                         @endif
 
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO-DOS-ANAIS-OU-PROCEEDINGS'])) ?>.
+                        {!! $value['TITULO-DOS-ANAIS-OU-PROCEEDINGS'] !!}.
 
                         @if($value["NOME-DA-EDITORA"] )
-                        <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DA-EDITORA'])) ?>: <?= htmlspecialchars_decode(utf8_decode($value['NOME-DA-EDITORA'])) ?>,
+                        {!! $value['CIDADE-DA-EDITORA'] !!}: {!! $value['NOME-DA-EDITORA'] !!},
                         @endif
                         {{ $value["ANO-DE-REALIZACAO"] }}.
 
@@ -337,31 +262,16 @@
                 @foreach($content['outras_producoes_bibliograficas'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
+                    @include ('programas.partials.autores')
                         
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
-                        <?= htmlspecialchars_decode(utf8_decode($value['CIDADE-DA-EDITORA'])) ?>
-                        @if($value["EDITORA"] )
-                            :<?= htmlspecialchars_decode(utf8_decode($value['EDITORA'])) ?>,
+                        {!! $value['TITULO'] !!}. 
+                        {!! $value['CIDADE-DA-EDITORA']!!}:
+                        @if($value["EDITORA"] ){!! $value['EDITORA'] !!},
                         @endif
-                        {{ $value["ANO"] }}
+                        {!! $value["ANO"] !!}
                         @if($value["TIPO"] )
-                            (<?= htmlspecialchars_decode(utf8_decode($value['TIPO'])) ?>)
+                            ({!! $value['TIPO'] !!})
                         @endif
-
 
                         <?php
                             if(isset($value["DATA"])){
@@ -395,24 +305,10 @@
                 @foreach($content['trabalhos_tecnicos'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        @foreach($value['AUTORES'] as $k=>$val)
-                        <?php
-                            if(strpos($val["NOME-PARA-CITACAO"], ';') !== false){
-                                echo htmlspecialchars_decode(utf8_decode(explode(';', $val["NOME-PARA-CITACAO"])[0]));
-                            }else {
-                                echo htmlspecialchars_decode(utf8_decode($val["NOME-PARA-CITACAO"]));  
-                            }
-                        ?>
-                        @if( $k + 1 <  count($value['AUTORES']))
-                            ;
-                        @else
-                            .
-                        @endif
-                        @endforeach
+                    @include ('programas.partials.autores')
                         
-                        
-                        <?= htmlspecialchars_decode(utf8_decode($value['TITULO'])) ?>. 
-                        {{ $value["ANO"] }}
+                    {!! $value['TITULO'] !!}. 
+                    {!! $value["ANO"] !!}
 
                     </li>
                 @endforeach
@@ -436,15 +332,13 @@
                 </div>
                 <div class="panel-body collapse in {{ $section_show == 'orientandos' ?  'show' : ''}}" id="collapseOrientandos">
                     <table class="table">
-                    <tr >
-                        <td>Número USP</td>
+                    <tr>
                         <td>Nome orientando</td>
                         <td>Área</td>
                         <td>Nível de Programa</td>
                     </tr>
                     @foreach($content['orientandos'] as $row )
                         <tr>
-                            <td>{{ $row['codpespgm'] }}</td>
                             <td>{{ $row['nompes'] }}</td>
                             <td>{{ $row['nomare'] }}</td>
                             @if($row['nivpgm'] == 'DO')
@@ -479,8 +373,7 @@
                 </div>
                 <div class="panel-body collapse in {{ $section_show == 'orientandos_concluidos' ?  'show' : ''}}" id="collapseOrientandosConcluidos">
                     <table class="table ">
-                    <tr >
-                        <td>Número USP</td>
+                    <tr>
                         <td>Nome orientando</td>
                         <td>Área</td>
                         <td>Nível de Programa</td>
@@ -488,7 +381,6 @@
                     </tr>
                     @foreach( $content['orientandos_concluidos'] as $row )
                         <tr>
-                            <td>{{ $row['codpespgm'] }}</td>
                             <td>{{ $row['nompes'] }}</td>
                             <td>{{ $row['nomare'] }}</td>
                             @if($row['nivpgm'] == 'DO')
@@ -509,6 +401,120 @@
         </li>
        @endif
 
+    @if(isset($content['ultima_formacao']))
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseultima_formacao" aria-controls="collapseultima_formacao"
+                {{$section_show == 'ultima_formacao' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                    Formação Acadêmica: {{count($content['ultima_formacao'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'ultima_formacao' ?  'show' : ''}}" id="collapseultima_formacao">
+                @foreach($content['ultima_formacao'] as $key=>$value)
+                    <li class="list-group-item">
+                        <?= ucfirst(strtolower($key)) ?>:
+                        <ul class="list-group">
+                        @foreach($value as $val)
+                            @if(isset($val["ANO-DE-CONCLUSAO"]))
+                            <li class="list-group-item">
+                            @if(isset($val['NOME-CURSO']))
+                            Curso: {!! $val['NOME-CURSO'] !!} <br>
+                            @endif
+                            Nome da Instituição: {!! $val["NOME-INSTITUICAO"] !!} <br>
+                            @if(isset($val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO']) && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != null && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != '')
+                            Título: {!! $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] !!} <br> 
+                            @endif
+                            Ano de conclusão: 
+                            @if(isset($val['ANO-DE-CONCLUSAO']) && $val['ANO-DE-CONCLUSAO'] != null && $val['ANO-DE-CONCLUSAO'] != '') 
+                            {!! $val["ANO-DE-CONCLUSAO"] !!} 
+                            @else
+                            Atual
+                            @endif
+                            </li>
+                            @endif
+                        @endforeach
+                        </ul>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+    @endif
+
+    @if(isset($content['ultimo_vinculo_profissional']))
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseultimo_vinculo_profissional" aria-controls="collapseultimo_vinculo_profissional"
+                {{$section_show == 'ultimo_vinculo_profissional' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Atuação Profissional: {{count($content['ultimo_vinculo_profissional'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'ultimo_vinculo_profissional' ?  'show' : ''}}" id="collapseultimo_vinculo_profissional">
+                @foreach($content['ultimo_vinculo_profissional'] as $key=>$value)
+                    <li class="list-group-item">
+                        {!! $value['NOME-INSTITUICAO'] !!}:
+                        <ul class="list-group">
+                        @if(isset($value['VINCULOS']['ANO-INICIO']))
+                            <li class="list-group-item">
+                                Tipo de vínculo: <?= ucfirst(strtolower($value['VINCULOS']['TIPO-DE-VINCULO'])) ?>
+                                ({!! $value['VINCULOS']['ANO-INICIO'] !!} - 
+                                @if($value['VINCULOS']['ANO-FIM'] == '') Atual
+                                @else 
+                                    {!! $value['VINCULOS']['ANO-FIM'] !!}
+                                @endif
+                                ).
+                                @if(isset($value['VINCULOS']['OUTRAS-INFORMACOES']) && $value['VINCULOS']['OUTRAS-INFORMACOES'] != '' && $value['VINCULOS']['OUTRAS-INFORMACOES'] != null && strlen($value['VINCULOS']['OUTRAS-INFORMACOES']) > 0 )
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRAS-INFORMACOES'] !!}
+                                @endif
+                                @if(isset($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != '' && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != null && strlen($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) > 0)
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] !!}
+                                @endif                                
+                            </li>
+                        @else
+                            @foreach($value['VINCULOS'] as $val)
+                                @if(isset($val["ANO-INICIO"]))
+                                <li class="list-group-item">
+                                Tipo de vínculo: <?= ucfirst(strtolower($val['TIPO-DE-VINCULO']))?>
+                                ({!! $val['ANO-INICIO'] !!} - 
+                                @if($val['ANO-FIM'] == '') Atual
+                                @else
+                                    {!! $val['ANO-FIM'] !!}
+                                @endif
+                                ).
+                                @if(isset($value['VINCULOS']['OUTRAS-INFORMACOES']) && $value['VINCULOS']['OUTRAS-INFORMACOES'] != '' && $value['VINCULOS']['OUTRAS-INFORMACOES'] != null && strlen($value['VINCULOS']['OUTRAS-INFORMACOES']) > 0 )
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRAS-INFORMACOES'] !!}
+                                @endif
+                                @if(isset($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != '' && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != null && strlen($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) > 0)
+                                <br>
+                                    Outras informações: {!! $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] !!}
+                                @endif
+                                </li>
+                                @endif
+                            @endforeach
+                        @endif
+                        </ul>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+    @endif
 
     </ul>
 

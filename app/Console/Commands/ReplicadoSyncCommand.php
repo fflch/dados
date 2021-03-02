@@ -45,20 +45,6 @@ class ReplicadoSyncCommand extends Command
     {
         $programas = Posgraduacao::programas(8);
 
-       /* $amacio =  [[
-            "codpes" => "102122",
-            "nompes" => "Amâncio"
-        ]];
-
-        $this->syncJson($amacio);
-*/
-
-        $this->syncJson(ReplicadoTemp::credenciados());
-
-        #102122
-
-        dd('morri');
-
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
@@ -70,23 +56,25 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
 
-            #$this->syncJson(Posgraduacao::egressosArea($value['codare']));
+            #$this->syncJson(ReplicadoTemp::credenciados());
+            $this->syncJson(Posgraduacao::egressosArea($value['codare']));
             #$this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
+
         }
-       
+
         return 0;
     }
-   
+
     private function syncJson($pessoas){
         foreach($pessoas as $pessoa) {
-            
+
             $lattes = LattesModel::where('codpes',$pessoa['codpes'])->first();
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
             if(Lattes::obterArray($pessoa['codpes'])){
                 $info_lattes = [];
-                
+
                 putenv('REPLICADO_SYBASE=1');
                 $info_lattes['nome'] = Pessoa::dump($pessoa['codpes'])['nompes'];
                 $info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($pessoa['codpes']);
@@ -94,7 +82,7 @@ class ReplicadoSyncCommand extends Command
 
                 putenv('REPLICADO_SYBASE=0');
                 $info_lattes['id_lattes'] = Lattes::id($pessoa['codpes']);
-                $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], null) ; 
+                $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], null) ;
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
                 $info_lattes['resumo'] = Lattes::retornarResumoCV($pessoa['codpes'], 'pt', null);
                 $info_lattes['livros'] = Lattes::listarLivrosPublicados($pessoa['codpes'], null, 'anual', -1, null);
@@ -105,13 +93,16 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['trabalhos_anais'] = Lattes::listarTrabalhosAnais($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['outras_producoes_bibliograficas'] = Lattes::listarOutrasProducoesBibliograficas($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['trabalhos_tecnicos'] = Lattes::listarTrabalhosTecnicos($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['ultima_formacao'] = Lattes::retornarFormacaoAcademica($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], null, 'anual', -1, null);
                 #$info_lattes['organizacao_evento'] = Lattes::getOrganizacaoEvento($egresso['codpes'], null, 'anual', -1, null);
                 #$info_lattes['outras_producoes_tecnicas'] = Lattes::getOutrasProducoesTecnicas($egresso['codpes'], null, 'anual', -1, null);
 
                 $lattes->codpes = $pessoa['codpes'];
                 $lattes->json = json_encode($info_lattes);
                 $lattes->save();
-                
+
                 # talvez não precise
                 if(!$lattes->json){
                     echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";erro no json_encode\n";

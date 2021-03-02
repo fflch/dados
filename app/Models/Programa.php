@@ -52,9 +52,7 @@ class Programa extends Model
 
             $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'] ?? '';
             if($tipo_pessoa == 'egresso'){
-                $pessoas[$i]['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : '';
-            } 
-            if($tipo_pessoa == 'egresso'){
+                $pessoas[$i]['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : '';            
                 $pessoas[$i]['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? $lattes['ultimo_vinculo_profissional'] : '';
             }
             
@@ -81,6 +79,13 @@ class Programa extends Model
     
                 $pessoas[$i]['total_trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['total_trabalhos_tecnicos'] = $pessoas[$i]['total_trabalhos_tecnicos'] ? count($pessoas[$i]['total_trabalhos_tecnicos']): '0';
+
+                $pessoas[$i]['total_ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? Programa::filtrar($lattes['ultima_formacao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_ultima_formacao'] = $pessoas[$i]['total_ultima_formacao'] ? count($pessoas[$i]['total_ultima_formacao']): '0';
+
+                $pessoas[$i]['total_ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['total_ultimo_vinculo_profissional'] = $pessoas[$i]['total_ultimo_vinculo_profissional'] ? count($pessoas[$i]['total_ultimo_vinculo_profissional']): '0';
+
             }else{
                 $pessoas[$i]['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -116,10 +121,15 @@ class Programa extends Model
         $content['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-
+        
         if($tipo_pessoa == 'docente'){
             $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
             $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
+        }
+
+        if($tipo_pessoa == 'egresso'){
+            $content['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : null;
+            $content['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         }
         return $content;
     }
