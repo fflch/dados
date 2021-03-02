@@ -60,22 +60,21 @@ class ReplicadoSyncCommand extends Command
             $this->syncJson(Posgraduacao::egressosArea($value['codare']));
             #$this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
 
-            dd('morri');
         }
-       
+
         return 0;
     }
-   
+
     private function syncJson($pessoas){
         foreach($pessoas as $pessoa) {
-            
+
             $lattes = LattesModel::where('codpes',$pessoa['codpes'])->first();
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
             if(Lattes::obterArray($pessoa['codpes'])){
                 $info_lattes = [];
-                
+
                 putenv('REPLICADO_SYBASE=1');
                 $info_lattes['nome'] = Pessoa::dump($pessoa['codpes'])['nompes'];
                 $info_lattes['orientandos'] = Posgraduacao::obterOrientandosAtivos($pessoa['codpes']);
@@ -83,7 +82,7 @@ class ReplicadoSyncCommand extends Command
 
                 putenv('REPLICADO_SYBASE=0');
                 $info_lattes['id_lattes'] = Lattes::id($pessoa['codpes']);
-                $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], null) ; 
+                $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], null) ;
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
                 $info_lattes['resumo'] = Lattes::retornarResumoCV($pessoa['codpes'], 'pt', null);
                 $info_lattes['livros'] = Lattes::listarLivrosPublicados($pessoa['codpes'], null, 'anual', -1, null);
@@ -103,7 +102,7 @@ class ReplicadoSyncCommand extends Command
                 $lattes->codpes = $pessoa['codpes'];
                 $lattes->json = json_encode($info_lattes);
                 $lattes->save();
-                
+
                 # talvez não precise
                 if(!$lattes->json){
                     echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";erro no json_encode\n";
