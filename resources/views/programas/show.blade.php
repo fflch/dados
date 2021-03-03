@@ -29,6 +29,11 @@
           <th scope="col" class="text-center">Trabalhos em anais</th>
           <th scope="col" class="text-center">Outras produções bibliográficas</th>
           <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
+          <th scope="col" class="text-center">Organização de Eventos</th>
+          <th scope="col" class="text-center">Curso de curta duração ministrado</th>
+          <th scope="col" class="text-center">Relatório de pesquisa</th>
+          <th scope="col" class="text-center">Matérial didático ou institucional</th>
+          <th scope="col" class="text-center">Outras Produções Técnicas</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
           @if($tipo_pessoa == "egressos")
@@ -113,6 +118,51 @@
             @if($pessoa['total_trabalhos_tecnicos'] != 0 || $pessoa['total_trabalhos_tecnicos'] != '0')
               <a href="{{$pessoa['href']}}&section=trabalhos_tecnicos">
                 {{$pessoa['total_trabalhos_tecnicos']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_organizacao_evento'] != 0 || $pessoa['total_organizacao_evento'] != '0')
+              <a href="{{$pessoa['href']}}&section=organizacao_evento">
+                {{$pessoa['total_organizacao_evento']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_curso_curta_duracao'] != 0 || $pessoa['total_curso_curta_duracao'] != '0')
+              <a href="{{$pessoa['href']}}&section=curso_curta_duracao">
+                {{$pessoa['total_curso_curta_duracao']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_relatorio_pesquisa'] != 0 || $pessoa['total_relatorio_pesquisa'] != '0')
+              <a href="{{$pessoa['href']}}&section=relatorio_pesquisa">
+                {{$pessoa['total_relatorio_pesquisa']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_material_didatico'] != 0 || $pessoa['total_material_didatico'] != '0')
+              <a href="{{$pessoa['href']}}&section=material_didatico">
+                {{$pessoa['total_material_didatico']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_outras_producoes_tecnicas'] != 0 || $pessoa['total_outras_producoes_tecnicas'] != '0')
+              <a href="{{$pessoa['href']}}&section=outras_producoes_tecnicas">
+                {{$pessoa['total_outras_producoes_tecnicas']}}
               </a>
             @else
                 -

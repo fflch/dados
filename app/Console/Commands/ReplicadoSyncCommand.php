@@ -45,6 +45,8 @@ class ReplicadoSyncCommand extends Command
     {
         $programas = Posgraduacao::programas(8);
 
+        
+
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
@@ -55,11 +57,12 @@ class ReplicadoSyncCommand extends Command
             $programa->codare = $value['codare'];
             $programa->json = json_encode($programas[$key]);
             $programa->save();
-
-            #$this->syncJson(ReplicadoTemp::credenciados());
+        }
+        $this->syncJson(ReplicadoTemp::credenciados());
+        
+        foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']));
-            #$this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
-
+            $this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
         }
 
         return 0;
@@ -67,6 +70,9 @@ class ReplicadoSyncCommand extends Command
 
     private function syncJson($pessoas){
         foreach($pessoas as $pessoa) {
+
+            if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
+
 
             $lattes = LattesModel::where('codpes',$pessoa['codpes'])->first();
             if(!$lattes) {
@@ -96,8 +102,11 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['ultima_formacao'] = Lattes::retornarFormacaoAcademica($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], null, 'anual', -1, null);
-                #$info_lattes['organizacao_evento'] = Lattes::getOrganizacaoEvento($egresso['codpes'], null, 'anual', -1, null);
-                #$info_lattes['outras_producoes_tecnicas'] = Lattes::getOutrasProducoesTecnicas($egresso['codpes'], null, 'anual', -1, null);
+                $info_lattes['organizacao_evento'] = Lattes::listarOrganizacaoEvento($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['outras_producoes_tecnicas'] = Lattes::listarOutrasProducoesTecnicas($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['curso_curta_duracao'] = Lattes::listarCursosCurtaDuracao($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['relatorio_pesquisa'] = Lattes::listarRelatorioPesquisa($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['material_didatico'] = Lattes::listarMaterialDidaticoInstrucional($pessoa['codpes'], null, 'anual', -1, null);
 
                 $lattes->codpes = $pessoa['codpes'];
                 $lattes->json = json_encode($info_lattes);

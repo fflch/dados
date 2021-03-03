@@ -308,7 +308,170 @@
                     @include ('programas.partials.autores')
                         
                     {!! $value['TITULO'] !!}. 
-                    {!! $value["ANO"] !!}
+                    {!! $value["ANO"] !!} (<?= ucfirst(strtolower($value['TIPO'])) ?>)
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+
+      @if($content['organizacao_evento'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseorganizacao_evento" aria-controls="collapseorganizacao_evento"
+                {{$section_show == 'organizacao_evento' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Organização de eventos: {{count($content['organizacao_evento'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'organizacao_evento' ?  'show' : ''}}" id="collapseorganizacao_evento">
+                @foreach($content['organizacao_evento'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @include ('programas.partials.autores')
+                        
+                        
+                        {!! $value['TITULO'] !!}. 
+                        {{ $value["ANO"] }} ({{ $value["INSTITUICAO-PROMOTORA"] }})
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+     
+     
+      @if($content['curso_curta_duracao'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapsecurso_curta_duracao" aria-controls="collapsecurso_curta_duracao"
+                {{$section_show == 'curso_curta_duracao' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Curso de curta duração ministrado: {{count($content['curso_curta_duracao'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'curso_curta_duracao' ?  'show' : ''}}" id="collapsecurso_curta_duracao">
+                @foreach($content['curso_curta_duracao'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @include ('programas.partials.autores')
+                        
+                        
+                        {!! ($value['TITULO']) !!}. 
+                        {{ $value["ANO"] }}  ({{$value['INSTITUICAO-PROMOTORA-DO-CURSO']}})
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+     
+     
+      @if($content['relatorio_pesquisa'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapserelatorio_pesquisa" aria-controls="collapserelatorio_pesquisa"
+                {{$section_show == 'relatorio_pesquisa' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Relatório de Pesquisa: {{count($content['relatorio_pesquisa'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'relatorio_pesquisa' ?  'show' : ''}}" id="collapserelatorio_pesquisa">
+                @foreach($content['relatorio_pesquisa'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @include ('programas.partials.autores')
+                        
+                        
+                        {!! ($value['TITULO']) !!}. 
+                        {{ $value["ANO"] }}  
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+      
+      
+      @if($content['material_didatico'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapsematerial_didatico" aria-controls="collapsematerial_didatico"
+                {{$section_show == 'material_didatico' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Desenvolvimento de material didático ou instrucional: {{count($content['material_didatico'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'material_didatico' ?  'show' : ''}}" id="collapsematerial_didatico">
+                @foreach($content['material_didatico'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @include ('programas.partials.autores')
+                        
+                        
+                        {!! ($value['TITULO']) !!}. 
+                        {{ $value["ANO"] }}  (<?= ucfirst(strtolower($value['NATUREZA'])) ?>)
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+     
+      @if($content['outras_producoes_tecnicas'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseoutras_producoes_tecnicas" aria-controls="collapseoutras_producoes_tecnicas"
+                {{$section_show == 'outras_producoes_tecnicas' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Outras produções técnicas: {{count($content['outras_producoes_tecnicas'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'outras_producoes_tecnicas' ?  'show' : ''}}" id="collapseoutras_producoes_tecnicas">
+                @foreach($content['outras_producoes_tecnicas'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @include ('programas.partials.autores')
+                        
+                        
+                        {!! ($value['TITULO']) !!}. 
+                        {{ $value["ANO"] }}  - <?= ucfirst(strtolower($value['NATUREZA'])) ?>
 
                     </li>
                 @endforeach

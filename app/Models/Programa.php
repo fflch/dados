@@ -86,6 +86,22 @@ class Programa extends Model
                 $pessoas[$i]['total_ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['total_ultimo_vinculo_profissional'] = $pessoas[$i]['total_ultimo_vinculo_profissional'] ? count($pessoas[$i]['total_ultimo_vinculo_profissional']): '0';
 
+                $pessoas[$i]['total_organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_organizacao_evento'] = $pessoas[$i]['total_organizacao_evento'] ? count($pessoas[$i]['total_organizacao_evento']): '0';
+
+                $pessoas[$i]['total_curso_curta_duracao'] = Programa::hasValue($lattes,'curso_curta_duracao') ? Programa::filtrar($lattes['curso_curta_duracao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_curso_curta_duracao'] = $pessoas[$i]['total_curso_curta_duracao'] ? count($pessoas[$i]['total_curso_curta_duracao']): '0';
+                
+                $pessoas[$i]['total_relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_relatorio_pesquisa'] = $pessoas[$i]['total_relatorio_pesquisa'] ? count($pessoas[$i]['total_relatorio_pesquisa']): '0';
+                
+                $pessoas[$i]['total_material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_material_didatico'] = $pessoas[$i]['total_material_didatico'] ? count($pessoas[$i]['total_material_didatico']): '0';
+
+                $pessoas[$i]['total_outras_producoes_tecnicas'] = Programa::hasValue($lattes,'outras_producoes_tecnicas') ? Programa::filtrar($lattes['outras_producoes_tecnicas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_outras_producoes_tecnicas'] = $pessoas[$i]['total_outras_producoes_tecnicas'] ? count($pessoas[$i]['total_outras_producoes_tecnicas']): '0';
+                
+        
             }else{
                 $pessoas[$i]['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -95,7 +111,14 @@ class Programa extends Model
                 $pessoas[$i]['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                $pessoas[$i]['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['outras_producoes_tecnicas'] = Programa::hasValue($lattes,'outras_producoes_tecnicas') ? Programa::filtrar($lattes['outras_producoes_tecnicas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['curso_curta_duracao'] = Programa::hasValue($lattes,'curso_curta_duracao') ? Programa::filtrar($lattes['curso_curta_duracao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 
+        
             }
             array_push($aux_pessoas, $pessoas[$i]);
 
@@ -121,10 +144,18 @@ class Programa extends Model
         $content['outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['outras_producoes_tecnicas'] = Programa::hasValue($lattes,'outras_producoes_tecnicas') ? Programa::filtrar($lattes['outras_producoes_tecnicas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['curso_curta_duracao'] = Programa::hasValue($lattes,'curso_curta_duracao') ? Programa::filtrar($lattes['curso_curta_duracao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
+
+
         if($tipo_pessoa == 'docente'){
-            $content['orientandos'] = Posgraduacao::obterOrientandosAtivos($codpes);
-            $content['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($codpes);
+            $content['orientandos'] = Programa::hasValue($lattes,'orientandos') ? $lattes['orientandos'] : null;
+            $content['orientandos_concluidos'] = Programa::hasValue($lattes,'orientandos_concluidos') ? $lattes['orientandos_concluidos'] : null;
         }
 
         if($tipo_pessoa == 'egresso'){
