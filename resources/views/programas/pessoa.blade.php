@@ -555,7 +555,11 @@
                             @if($row['nivpgm'] == 'ME') 
                                 <td>Mestrado</td>
                             @endif 
-                            <td>{{ $row['dtadfapgm'] }}</td>
+                            @if(isset($row['dtadfapgm']))
+                            <td> 
+                                {{Carbon\Carbon::parse($row['dtadfapgm'])->format('d/m/Y')}}
+                            </td>
+                            @endif
                         </tr>
                     @endforeach 
                     </table>
