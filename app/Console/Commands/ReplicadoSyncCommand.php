@@ -123,3 +123,4 @@ class ReplicadoSyncCommand extends Command
     }
 
 }
+
