@@ -360,3 +360,5 @@ Route::get('/pessoas', [PessoaController::class, 'index']);
 # Pesquisa
 Route::get('/pesquisa', [PesquisaController::class, 'index']);
 Route::get('/iniciacao_cientifica', [PesquisaController::class, 'iniciacao_cientifica']);
+Route::get('/pesquisadores_colaboradores', [PesquisaController::class, 'pesquisadores_colab']);
+Route::get('/pesquisa_pos_doutorandos', [PesquisaController::class, 'pesquisa_pos_doutorandos']);

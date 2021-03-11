@@ -9,6 +9,8 @@ use Uspdev\Replicado\Posgraduacao;
 use App\Models\Lattes as LattesModel;
 use App\Utils\ReplicadoTemp;
 use App\Models\Programa;
+use App\Models\ComissaoPesquisa;
+
 
 class ReplicadoSyncCommand extends Command
 {
@@ -43,6 +45,11 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+
+        $this->sync_comissao_pesquisa();
+        return;
+
+
         $programas = Posgraduacao::programas(8);
 
         
@@ -66,6 +73,39 @@ class ReplicadoSyncCommand extends Command
         }
 
         return 0;
+    }
+
+
+    private function sync_comissao_pesquisa(){
+
+        $iniciacao_cientifica = Pessoa::listarIniciaoCientificaAtiva();
+        if($iniciacao_cientifica){
+            foreach($iniciacao_cientifica as $ic){
+                $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->first();
+                if(!$comissao) $comissao = new ComissaoPesquisa;
+    
+                $comissao->codproj = $ic['cod_projeto'];
+                $comissao->codpes_discente = $ic['aluno'];
+                $comissao->nome_discente= $ic['nome_aluno'];
+                $comissao->codpes_supervisor= $ic['orientador'];
+                $comissao->nome_supervisor= $ic['nome_orientador'];
+                $comissao->titulo_pesquisa= $ic['titulo_pesquisa'];
+                $comissao->data_ini = !empty($ic['data_ini']) ? $ic['data_ini'] : null;
+                $comissao->data_fim = !empty($ic['data_fim']) ? $ic['data_fim'] : null;
+                $comissao->ano_proj = $ic['ano_projeto'];
+                $comissao->bolsa = null;
+                $comissao->cod_departamento = null;
+                $comissao->sigla_departamento = $ic['sigla_departamento'];
+                $comissao->nome_departamento = $ic['departamento'];
+                $comissao->cod_curso= null;
+                $comissao->nome_curso= null;
+                $comissao->cod_area= null;
+                $comissao->nome_area= null;
+
+                $comissao->save();
+            }
+        }
+        
     }
 
     private function syncJson($pessoas){

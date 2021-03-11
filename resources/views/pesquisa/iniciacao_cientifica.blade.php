@@ -29,8 +29,8 @@
         <tr>
         
           <td class="first-col">
-              @if(isset($ic['nome_aluno']) && $ic['nome_aluno'] != null)
-                {{$ic['nome_aluno']}}
+              @if(isset($ic['nome_discente']) && $ic['nome_discente'] != null)
+                {{$ic['nome_discente']}}
               @else
                 -
               @endif
@@ -45,8 +45,8 @@
           </td>
 
           <td >
-              @if(isset($ic['nome_orientador']) && $ic['nome_orientador'] != null)
-                {{$ic['nome_orientador']}}
+              @if(isset($ic['nome_supervisor']) && $ic['nome_supervisor'] != null)
+                {{$ic['nome_supervisor']}}
               @else
                 -
               @endif
@@ -58,9 +58,9 @@
                 &&
                 (!isset($ic['data_fim']) || $ic['data_fim'] == null)
                 &&
-                (isset($ic['ano_projeto']) && $ic['ano_projeto'] != null)
+                (isset($ic['ano_proj']) && $ic['ano_proj'] != null)
                 )
-                  {{$ic['ano_projeto']}}  
+                  {{$ic['ano_proj']}}  
               @elseif(isset($ic['data_ini']) && $ic['data_ini'] != null)
                   {{ date("d/m/Y",strtotime($ic['data_ini'])) }} - 
                 @if(isset($ic['data_fim']) && $ic['data_fim'] != null)

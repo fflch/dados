@@ -32,7 +32,7 @@
           
           <th scope="col">{{ $filtro == 'departamento' ? 'Departamento' : 'Curso'}} </th>
           
-          <th scope="col">IC (com bolsa)</th>
+          <th scope="col" class="text-center">IC (com bolsa)</th>
           <th scope="col" class="text-center">IC (sem bolsa)</th>
           
           
@@ -50,7 +50,7 @@
                 <td>
                     {{ $item['nome_departamento'] }}
                 </td>
-                <td>
+                <td class="text-center">
                     @if($item['ic'] > 0)
                       <a href="/iniciacao_cientifica?departamento={{$key}}">
                         {{$item['ic']}}
@@ -59,7 +59,7 @@
                       0
                     @endif
                 </td>
-                <td>
+                <td class="text-center">
                   @if($item['ic'] > 0)
                     <a href="/iniciacao_cientifica?departamento={{$key}}">
                       {{$item['ic']}}
@@ -68,23 +68,30 @@
                     0
                   @endif
                 </td>
-                <td>
+                <td class="text-center">
                     0
                 </td>
-                <td>
+                <td class="text-center">
                     0
                 </td>
-                <td>
+                <td class="text-center">
+                  
+                  @if($item['pesquisadores_colab'] > 0)
+                    <a href="/pesquisadores_colaboradores?departamento={{$key}}">
+                      {{$item['pesquisadores_colab']}}
+                    </a>
+                  @else
                     0
+                  @endif
                 </td>
-                <td>
+                <td class="text-center">
                     0
                 </td>
               </tr>
             @endforeach
           @else
             <tr>
-              <td>
+              <td >
                   XXXXXXXXXXXXXXX
               </td>
               <td>

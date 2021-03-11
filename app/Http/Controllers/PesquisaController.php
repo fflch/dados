@@ -8,6 +8,7 @@ use Uspdev\Replicado\Pessoa;
 use App\Utils\ReplicadoTemp;
 use App\Models\Lattes as LattesModel;
 use App\Models\Programa;
+use App\Models\ComissaoPesquisa;
 
 class PesquisaController extends Controller
 {
@@ -33,9 +34,14 @@ class PesquisaController extends Controller
         foreach($aux_departamentos as $key=>$dep){
             $departamentos[$key] = [];
             $departamentos[$key]['nome_departamento'] = $dep;
-            $departamentos[$key]['ic'] = Pessoa::listarIniciaoCientificaAtiva($key);
-            $departamentos[$key]['ic'] = is_array($departamentos[$key]['ic']) ? count($departamentos[$key]['ic']) : 0;
+            
+            $departamentos[$key]['ic'] = ComissaoPesquisa::where('sigla_departamento',$key)->get()->count();
+            
+            $departamentos[$key]['pesquisadores_colab'] = Pessoa::listarPesquisadoresColaboradoresAtivos($key);
+            $departamentos[$key]['pesquisadores_colab'] = is_array($departamentos[$key]['pesquisadores_colab']) ? count($departamentos[$key]['pesquisadores_colab']) : 0;
+        
         }
+        
       
 
         return view('pesquisa.index',[
@@ -61,7 +67,8 @@ class PesquisaController extends Controller
 
         if(isset($request->departamento)){
             $nome_departamento = $aux_departamentos[$request->departamento];
-            $iniciacao_cientifica = Pessoa::listarIniciaoCientificaAtiva($request->departamento);
+            $iniciacao_cientifica = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->get()->toArray();
+            //dd($iniciacao_cientifica);
             $iniciacao_cientifica = $iniciacao_cientifica ?? null ;
         }
         
@@ -73,97 +80,64 @@ class PesquisaController extends Controller
         ]);
     }
     
-    public function listarDocentes($codare, Request $request) {
-        $filtro = Programa::getFiltro($request);        
-        $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $credenciados = ReplicadoTemp::credenciados($codare);
-        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
-        $titulo = "Docentes credenciados ao programa de " .$programa['nomcur'] .": " .count($credenciados);
+    public function pesquisadores_colab(Request $request){
 
+        $aux_departamentos = ['FLA' => 'Antropologia',
+                          'FLP' => 'Ciência Política',
+                          'FLF' => 'Filosofia',
+                          'FLH' => 'História',
+                          'FLC' => 'Letras Clássicas e Vernáculas',
+                          'FLM' => 'Letras Modernas',
+                          'FLO' => 'Letras Orientais',
+                          'FLL' => 'Linguística',
+                          'FSL' => 'Sociologia',
+                          'FLT' => 'Teoria Literária e Literatura Comparada',
+                          'FLG' => 'Geografia'
+                        ];
+
+        if(isset($request->departamento)){
+            $nome_departamento = $aux_departamentos[$request->departamento];
+            $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos($request->departamento);
+            $pesquisadores_colab = $pesquisadores_colab ?? null;
+        }
         
-        return view('programas.show',[
-            'pessoas' => $credenciados,
-            'programa' => $programa,
-            'filtro' => $filtro,
-            'titulo' => $titulo,
-            'form_action' => "/programas/docentes/$codare",
-            'tipo_pessoa' => "docentes"
-
+        
+        return view('pesquisa.pesquisadores_colab',[
+            'filtro' => $request->filtro,
+            'pesquisadores_colab' => $pesquisadores_colab,
+            'nome_departamento' => $nome_departamento,
         ]);
     }
     
-    public function listarDiscentes($codare, Request $request) {
-        $filtro = Programa::getFiltro($request);        
-        $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $discentes = Posgraduacao::obterAtivosPorArea($codare, 8); 
-        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
-        $titulo = "Discentes ativos ao programa de ". $programa['nomcur'].": ".count($discentes);
+    public function pesquisa_pos_doutorandos(Request $request){
+        dd(Pessoa::listarPesquisaPosDoutorandos());
 
-        return view('programas.show',[
-            'pessoas' => $discentes,
-            'programa' => $programa,
-            'filtro' => $filtro,
-            'titulo' => $titulo,
-            'form_action' => "/programas/discentes/$codare",
-            'tipo_pessoa' => "discentes"
+        $aux_departamentos = ['FLA' => 'Antropologia',
+                          'FLP' => 'Ciência Política',
+                          'FLF' => 'Filosofia',
+                          'FLH' => 'História',
+                          'FLC' => 'Letras Clássicas e Vernáculas',
+                          'FLM' => 'Letras Modernas',
+                          'FLO' => 'Letras Orientais',
+                          'FLL' => 'Linguística',
+                          'FSL' => 'Sociologia',
+                          'FLT' => 'Teoria Literária e Literatura Comparada',
+                          'FLG' => 'Geografia'
+                        ];
 
-        ]);
-    }
-
-    public function listarEgressos($codare, Request $request) {
-        $filtro = Programa::getFiltro($request);        
-        $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $egressos = Posgraduacao::egressosArea($codare, 8); 
-        $content_egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
-        $titulo = "Egressos do programa de ".$programa['nomcur'].": ".count($egressos);
+        if(isset($request->departamento)){
+            $nome_departamento = $aux_departamentos[$request->departamento];
+            $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos($request->departamento);
+            $pesquisadores_colab = $pesquisadores_colab ?? null;
+        }
         
-        return view('programas.show',[
-            'pessoas' => $content_egressos,
-            'programa' => $programa,
-            'filtro' => $filtro,
-            'titulo' => $titulo,
-            'form_action' => "/programas/egressos/$codare",
-            'tipo_pessoa' => "egressos"
+        
+        return view('pesquisa.pesquisadores_colab',[
+            'filtro' => $request->filtro,
+            'pesquisadores_colab' => $pesquisadores_colab,
+            'nome_departamento' => $nome_departamento,
         ]);
     }
     
-    public function docente($codpes, Request $request) {
-        $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
-        $section_show = request()->section ?? '';
-        
-    
-        return view('programas.pessoa',[
-            'content' => $content,
-            'section_show' => $section_show,
-            'filtro' => $filtro,
-            'form_action' => "/programas/docente/$codpes"
-        ]);
-    }
-
-    public function discente($codpes, Request $request) {
-        $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, false, 'discente');
-        $section_show = request()->section ?? '';
-        
-        return view('programas.pessoa',[
-            'content' => $content,
-            'section_show' => $section_show,
-            'filtro' => $filtro,
-            'form_action' => "/programas/discente/$codpes"
-        ]);
-    }
-
-    public function egresso($codpes, Request $request) {
-        $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, false, 'egresso');
-        $section_show = request()->section ?? '';
-        
-        return view('programas.pessoa',[
-            'content' => $content,
-            'section_show' => $section_show,
-            'filtro' => $filtro,
-            'form_action' => "/programas/egresso/$codpes"
-        ]);
-    }
+  
 }
