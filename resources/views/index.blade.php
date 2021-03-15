@@ -228,7 +228,7 @@
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/programas">Exportar produção dos programas</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/defesas">Defesas</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/pesquisa">Pesquisa</a></li>
+            
        </ul>
     </div>
 </div>
