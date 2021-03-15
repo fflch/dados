@@ -134,6 +134,8 @@ class Programa extends Model
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
 
+        $content['id_lattes'] = $lattes['id_lattes'] ?? null;
+        $content['orcid'] = $lattes['orcid'] ?? null;
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];

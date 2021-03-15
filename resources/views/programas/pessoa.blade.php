@@ -2,6 +2,8 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
 @endsection
 
 @section('content')
@@ -31,6 +33,21 @@
                   <ul class="list-group">
                     <li class="list-group-item">
                       <p>{!! $content['resumo'] !!}</p>
+                      <p>&nbsp;</p>
+                      <p>
+                            <b>Links: &nbsp;</b>
+                            @if($content['id_lattes'] != null)
+                                <a target="_blank" href="http://lattes.cnpq.br/{{$content['id_lattes']}}">
+                                <i class="ai ai-lattes ai-2x f-20"></i></a>
+                            @endif
+                            &nbsp;
+                            @if($content['orcid'] != null)
+                                <a target="_blank" href="{{$content['orcid']}}">
+                                <i class="ai ai-orcid ai-2x f-20"></i>
+                                </a>
+                            @endif
+                      </p>
+
                     </li>
                   </ul>
               </div>

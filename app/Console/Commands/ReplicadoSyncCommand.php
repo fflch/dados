@@ -45,9 +45,7 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
-
-        $this->sync_comissao_pesquisa();
-        return;
+        
 
 
         $programas = Posgraduacao::programas(8);
@@ -65,6 +63,7 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
         }
+        
         $this->syncJson(ReplicadoTemp::credenciados());
         
         foreach($programas as $value) {
@@ -97,10 +96,12 @@ class ReplicadoSyncCommand extends Command
                 $comissao->cod_departamento = null;
                 $comissao->sigla_departamento = $ic['sigla_departamento'];
                 $comissao->nome_departamento = $ic['departamento'];
-                $comissao->cod_curso= null;
-                $comissao->nome_curso= null;
-                $comissao->cod_area= null;
-                $comissao->nome_area= null;
+                $comissao->cod_curso= $ic['codcur'];
+                $comissao->nome_curso= $ic['nome_curso'];
+                $comissao->cod_area= $ic['codare'];
+                $comissao->nome_area= $ic['nome_programa'];
+                $comissao->tipo= 'IC';
+
 
                 $comissao->save();
             }
@@ -128,6 +129,7 @@ class ReplicadoSyncCommand extends Command
 
                 putenv('REPLICADO_SYBASE=0');
                 $info_lattes['id_lattes'] = Lattes::id($pessoa['codpes']);
+                $info_lattes['orcid'] = Lattes::retornarOrcidID($pessoa['codpes']);
                 $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], null) ;
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
                 $info_lattes['resumo'] = Lattes::retornarResumoCV($pessoa['codpes'], 'pt', null);
