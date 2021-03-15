@@ -45,8 +45,6 @@ class ReplicadoSyncCommand extends Command
     {
         $programas = Posgraduacao::programas(8);
 
-        
-
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;

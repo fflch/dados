@@ -69,18 +69,46 @@ class ProgramaController extends Controller
             'tipo_pessoa' => "egressos"
         ]);
     }
+
+    private function removerLivros($livros, $isbn){
+        foreach($livros as $key=>$value){
+            if(in_array($value['ISBN'], $isbn)){
+                    unset($livros[$key]);
+            }
+        }
+        return $livros;
+    }
+
+    private function definirDestaqueLivro($livros, $isbn){
+        $destaques = [];
+        foreach($livros as $key=>$value){
+            if(in_array($value['ISBN'], $isbn)){
+                $destaque = $livros[$key];
+                $destaque['destaque'] = true;
+                unset($livros[$key]);
+                array_push($destaques, $destaque);
+            }            
+        }
+        foreach($destaques as $destaque){
+            array_unshift($livros, $destaque);
+        }
+        return $livros;
+    }
     
     public function docente($codpes, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
         $section_show = request()->section ?? '';
+
+        $content['livros'] = $this->removerLivros($content['livros'], ['9788575063712', '9788575063279']);
+        $content['livros'] = $this->definirDestaqueLivro($content['livros'], ['9788538709015', '9788577321162', '9788531413025']);
         
-    
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
-            'form_action' => "/programas/docente/$codpes"
+            'form_action' => "/programas/docente/$codpes",
+            'codpes' => $codpes
         ]);
     }
 
