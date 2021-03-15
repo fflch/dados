@@ -45,7 +45,6 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
-        
 
 
         $programas = Posgraduacao::programas(8);

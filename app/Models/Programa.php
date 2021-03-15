@@ -146,7 +146,7 @@ class Programa extends Model
          * Busca os livros de destaque (especificados a partir da demanada do docente e através do ISBN) entre todos os livros do docente.
          * Os seguintes ISBNs '9788538709015', '9788577321162', '9788531413025' são livros do docente Paulo Martins
          */
-        $destaques = Programa::definirDestaqueLivro($aux_livros_destaques, ['9788538709015', '9788577321162', '9788531413025']);
+        $destaques = $aux_livros_destaques != null ? Programa::definirDestaqueLivro($aux_livros_destaques, ['9788538709015', '9788577321162', '9788531413025']) : null;
         /**
          * Tira da exibição alguns livros sem relevância acadêmica (especificados a partir da demanada do docente e através do ISBN) entre todos os livros do docente.
          * Os seguintes ISBNs ['9788575063712', '9788575063279'] são livros do docente Paulo Martins
@@ -155,20 +155,24 @@ class Programa extends Model
         /*
             Inclusão dos livros em destaque para serem removidos da lista de livros filtrados, pois estes livros destacados serão exibidos independentemente do filtro.
         */
-        foreach($destaques as $d){
-            if(isset($d['ISBN']) && !empty($d['ISBN']) && $d['ISBN'] != null){
-                $remover_livros[] = $d['ISBN'];
+        if(is_array($destaques)){
+            foreach($destaques as $d){
+                if(isset($d['ISBN']) && !empty($d['ISBN']) && $d['ISBN'] != null){
+                    $remover_livros[] = $d['ISBN'];
+                }
             }
         }
         $livros = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        $livros = Programa::removerLivros($livros, $remover_livros);
+        $livros = is_array($livros) && count($livros) > 0 ? Programa::removerLivros($livros, $remover_livros) : null;
         /*
             Inclusão dos livros em destaque no começo da lista de livros
          */
-        foreach($destaques as $d){
-            array_unshift($livros, $d); //coloca o elemento na primeira posição do array
+        if(is_array($destaques)){
+            foreach($destaques as $d){
+                array_unshift($livros, $d); //coloca o elemento na primeira posição do array
+            }
         }
-        $content['livros'] = $livros;
+        $content['livros'] = $livros ?? null;
 
         $content['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
