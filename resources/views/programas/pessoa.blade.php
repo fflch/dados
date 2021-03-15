@@ -78,6 +78,10 @@
               <ul class="list-group collapse in {{ $section_show == 'livros' ?  'show' : ''}}" id="collapseLivrosPublicados">
                   @foreach($content['livros'] as $key => $value)
                       <li class="list-group-item">
+                      @if(isset($value['destaque']) && $value['destaque'] == true)
+                      Destaque: 
+                      @endif
+
                       @include ('programas.partials.autores')
 
                         {!! $value["TITULO-DO-LIVRO"] !!}. 

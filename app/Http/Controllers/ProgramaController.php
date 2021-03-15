@@ -70,17 +70,18 @@ class ProgramaController extends Controller
         ]);
     }
     
+    
     public function docente($codpes, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
         $section_show = request()->section ?? '';
-        
-    
+
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
-            'form_action' => "/programas/docente/$codpes"
+            'form_action' => "/programas/docente/$codpes",
+            'codpes' => $codpes
         ]);
     }
 
