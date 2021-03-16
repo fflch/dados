@@ -78,6 +78,10 @@
               <ul class="list-group collapse in {{ $section_show == 'livros' ?  'show' : ''}}" id="collapseLivrosPublicados">
                   @foreach($content['livros'] as $key => $value)
                       <li class="list-group-item">
+                      @if(isset($value['destaque']) && $value['destaque'] == true)
+                      Destaque: 
+                      @endif
+
                       @include ('programas.partials.autores')
 
                         {!! $value["TITULO-DO-LIVRO"] !!}. 
@@ -434,12 +438,12 @@
             <ul class="list-group collapse in  {{ $section_show == 'material_didatico' ?  'show' : ''}}" id="collapsematerial_didatico">
                 @foreach($content['material_didatico'] as $key=>$value)
                     <li class="list-group-item">
-                         
+
                         @include ('programas.partials.autores')
-                        
-                        
+                
                         {!! ($value['TITULO']) !!}. 
                         {{ $value["ANO"] }}  (<?= ucfirst(strtolower($value['NATUREZA'])) ?>)
+                        
 
                     </li>
                 @endforeach
@@ -555,7 +559,11 @@
                             @if($row['nivpgm'] == 'ME') 
                                 <td>Mestrado</td>
                             @endif 
-                            <td>{{ $row['dtadfapgm'] }}</td>
+                            @if(isset($row['dtadfapgm']))
+                            <td> 
+                                {{Carbon\Carbon::parse($row['dtadfapgm'])->format('d/m/Y')}}
+                            </td>
+                            @endif
                         </tr>
                     @endforeach 
                     </table>
