@@ -12,34 +12,64 @@ use App\Models\ComissaoPesquisa;
 
 class PesquisaController extends Controller
 {
-    public function index(Request $request){
-        
-        $aux_departamentos = ['FLA' => 'Antropologia',
-                          'FLP' => 'Ciência Política',
-                          'FLF' => 'Filosofia',
-                          'FLH' => 'História',
-                          'FLC' => 'Letras Clássicas e Vernáculas',
-                          'FLM' => 'Letras Modernas',
-                          'FLO' => 'Letras Orientais',
-                          'FLL' => 'Linguística',
-                          'FSL' => 'Sociologia',
-                          'FLT' => 'Teoria Literária e Literatura Comparada',
-                          'FLG' => 'Geografia'
-                        ];
+    public $aux_departamentos = ['FLA' => 'Antropologia',
+        'FLP' => 'Ciência Política',
+        'FLF' => 'Filosofia',
+        'FLH' => 'História',
+        'FLC' => 'Letras Clássicas e Vernáculas',
+        'FLM' => 'Letras Modernas',
+        'FLO' => 'Letras Orientais',
+        'FLL' => 'Linguística',
+        'FSL' => 'Sociologia',
+        'FLT' => 'Teoria Literária e Literatura Comparada',
+        'FLG' => 'Geografia'
+    ];
 
-        
+    public $aux_cursos = [
+        8010 => 'Filosofia',
+        8021 => 'Geografia',
+        8030 => 'História',
+        8040 => 'Ciências Sociais',
+        8051 => 'Letras',
+    ];
+
+    public function index(Request $request){
         $departamentos = [];
-        
+        $curso = [];
+        if($request->filtro == 'departamento'){
+            
        
-        foreach($aux_departamentos as $key=>$dep){
-            $departamentos[$key] = [];
-            $departamentos[$key]['nome_departamento'] = $dep;
+            foreach($this->aux_departamentos as $key=>$dep){
+                $departamentos[$key] = [];
+                $departamentos[$key]['nome_departamento'] = $dep;
+                
+                $departamentos[$key]['ic_com_bolsa'] = ComissaoPesquisa::where('sigla_departamento',$key)->where('bolsa', 'true')->where('tipo', 'IC')->get()->count();
+                $departamentos[$key]['ic_sem_bolsa'] = ComissaoPesquisa::where('sigla_departamento',$key)->where('bolsa', 'false')->where('tipo', 'IC')->get()->count();
+                
+                $departamentos[$key]['pesquisadores_colab'] = ComissaoPesquisa::where('sigla_departamento',$key)->where('tipo', 'PC')->get()->count();
+                
+                $departamentos[$key]['pesquisas_pos_doutorado_com_bolsa'] = ComissaoPesquisa::where('sigla_departamento',$key)->where('bolsa', 'true')->where('tipo', 'PD')->get()->count();
+                $departamentos[$key]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where('sigla_departamento',$key)->where('bolsa', 'false')->where('tipo', 'PD')->get()->count();
             
-            $departamentos[$key]['ic'] = ComissaoPesquisa::where('sigla_departamento',$key)->get()->count();
+            }
+        }else{
             
-            $departamentos[$key]['pesquisadores_colab'] = Pessoa::listarPesquisadoresColaboradoresAtivos($key);
-            $departamentos[$key]['pesquisadores_colab'] = is_array($departamentos[$key]['pesquisadores_colab']) ? count($departamentos[$key]['pesquisadores_colab']) : 0;
-        
+            
+            
+            foreach($this->aux_cursos as $key=>$c){
+                $curso[$key] = [];
+                $curso[$key]['nome_curso'] = $c;
+                
+                $curso[$key]['ic_com_bolsa'] = ComissaoPesquisa::where('cod_curso',$key)->where('bolsa', 'true')->get()->count();
+                $curso[$key]['ic_sem_bolsa'] = ComissaoPesquisa::where('cod_curso',$key)->where('bolsa', 'false')->get()->count();
+
+                $curso[$key]['pesquisadores_colab'] = ComissaoPesquisa::where('cod_curso',$key)->where('tipo', 'PC')->get()->count();
+
+                $curso[$key]['pesquisas_pos_doutorado_com_bolsa'] = ComissaoPesquisa::where('cod_curso',$key)->where('bolsa', 'true')->where('tipo', 'PD')->get()->count();
+                $curso[$key]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where('cod_curso',$key)->where('bolsa', 'false')->where('tipo', 'PD')->get()->count();
+            
+            
+            }
         }
         
       
@@ -47,58 +77,57 @@ class PesquisaController extends Controller
         return view('pesquisa.index',[
             'filtro' => $request->filtro,
             'departamentos' => $departamentos,
+            'curso' => $curso,
         ]);
     }
     
     public function iniciacao_cientifica(Request $request){
-
-        $aux_departamentos = ['FLA' => 'Antropologia',
-                          'FLP' => 'Ciência Política',
-                          'FLF' => 'Filosofia',
-                          'FLH' => 'História',
-                          'FLC' => 'Letras Clássicas e Vernáculas',
-                          'FLM' => 'Letras Modernas',
-                          'FLO' => 'Letras Orientais',
-                          'FLL' => 'Linguística',
-                          'FSL' => 'Sociologia',
-                          'FLT' => 'Teoria Literária e Literatura Comparada',
-                          'FLG' => 'Geografia'
-                        ];
+        $nome_curso = '';
+        $nome_departamento = '';
 
         if(isset($request->departamento)){
-            $nome_departamento = $aux_departamentos[$request->departamento];
-            $iniciacao_cientifica = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->get()->toArray();
-            //dd($iniciacao_cientifica);
+           
+        
+        
+            $nome_departamento = $this->aux_departamentos[$request->departamento];
+            $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
+            $iniciacao_cientifica = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('bolsa', $bolsa)->where('tipo', 'IC')->get()->toArray();
+       
+            $iniciacao_cientifica = $iniciacao_cientifica ?? null ;
+        }else{
+            
+        
+            $nome_curso = $this->aux_cursos[$request->curso];
+            $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
+            $iniciacao_cientifica = ComissaoPesquisa::where('cod_curso',$request->curso)->where('bolsa', $bolsa)->where('tipo', 'IC')->get()->toArray();
+       
             $iniciacao_cientifica = $iniciacao_cientifica ?? null ;
         }
-        
         
         return view('pesquisa.iniciacao_cientifica',[
             'filtro' => $request->filtro,
             'iniciacao_cientifica' => $iniciacao_cientifica,
             'nome_departamento' => $nome_departamento,
+            'nome_curso' => $nome_curso,
         ]);
     }
     
     public function pesquisadores_colab(Request $request){
-
-        $aux_departamentos = ['FLA' => 'Antropologia',
-                          'FLP' => 'Ciência Política',
-                          'FLF' => 'Filosofia',
-                          'FLH' => 'História',
-                          'FLC' => 'Letras Clássicas e Vernáculas',
-                          'FLM' => 'Letras Modernas',
-                          'FLO' => 'Letras Orientais',
-                          'FLL' => 'Linguística',
-                          'FSL' => 'Sociologia',
-                          'FLT' => 'Teoria Literária e Literatura Comparada',
-                          'FLG' => 'Geografia'
-                        ];
-
+        $nome_departamento = '';
+        $nome_curso = '';
         if(isset($request->departamento)){
-            $nome_departamento = $aux_departamentos[$request->departamento];
-            $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos($request->departamento);
+            
+
+            $nome_departamento = $this->aux_departamentos[$request->departamento];
+            $pesquisadores_colab = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('tipo', 'PC')->get()->toArray();
             $pesquisadores_colab = $pesquisadores_colab ?? null;
+        }else{
+            
+        
+            $nome_curso = $this->aux_cursos[$request->curso];
+            $pesquisadores_colab = ComissaoPesquisa::where('cod_curso',$request->curso)->where('tipo', 'PC')->get()->toArray();
+            $pesquisadores_colab = $pesquisadores_colab ?? null;
+
         }
         
         
@@ -106,36 +135,36 @@ class PesquisaController extends Controller
             'filtro' => $request->filtro,
             'pesquisadores_colab' => $pesquisadores_colab,
             'nome_departamento' => $nome_departamento,
+            'nome_curso' => $nome_curso,
         ]);
     }
     
     public function pesquisa_pos_doutorandos(Request $request){
-        dd(Pessoa::listarPesquisaPosDoutorandos());
-
-        $aux_departamentos = ['FLA' => 'Antropologia',
-                          'FLP' => 'Ciência Política',
-                          'FLF' => 'Filosofia',
-                          'FLH' => 'História',
-                          'FLC' => 'Letras Clássicas e Vernáculas',
-                          'FLM' => 'Letras Modernas',
-                          'FLO' => 'Letras Orientais',
-                          'FLL' => 'Linguística',
-                          'FSL' => 'Sociologia',
-                          'FLT' => 'Teoria Literária e Literatura Comparada',
-                          'FLG' => 'Geografia'
-                        ];
+        $nome_curso = '';
+        $nome_departamento = '';
 
         if(isset($request->departamento)){
-            $nome_departamento = $aux_departamentos[$request->departamento];
-            $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos($request->departamento);
-            $pesquisadores_colab = $pesquisadores_colab ?? null;
+            
+        
+            $nome_departamento = $this->aux_departamentos[$request->departamento];
+            $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
+
+            $pd = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('bolsa', $bolsa)->where('tipo', 'PD')->get()->toArray();
+            $pd = $pd ?? null;
+        }else{
+            
+            $nome_curso = $this->aux_cursos[$request->curso];
+            $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
+            $pd = ComissaoPesquisa::where('cod_curso',$request->curso)->where('bolsa', $bolsa)->where('tipo', 'PD')->get()->toArray();
+       
+            $pd = $pd ?? null ;
         }
         
-        
-        return view('pesquisa.pesquisadores_colab',[
+        return view('pesquisa.pesquisas_pos_doutorando',[
             'filtro' => $request->filtro,
-            'pesquisadores_colab' => $pesquisadores_colab,
+            'pesquisas_pos_doutorando' => $pd,
             'nome_departamento' => $nome_departamento,
+            'nome_curso' => $nome_curso,
         ]);
     }
     
