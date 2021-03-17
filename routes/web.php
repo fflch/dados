@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\DefesaController;
 use App\Http\Controllers\PessoaController;
+use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\AtivosController;
 use App\Http\Controllers\AtivosPorCursoGradController;
 use App\Http\Controllers\AtivosMicrosNotesController;
@@ -355,3 +356,9 @@ Route::get('/defesas', [DefesaController::class, 'index']);
 
 # Pessoas
 Route::get('/pessoas', [PessoaController::class, 'index']);
+
+# Pesquisa
+Route::get('/pesquisa', [PesquisaController::class, 'index']);
+Route::get('/iniciacao_cientifica', [PesquisaController::class, 'iniciacao_cientifica']);
+Route::get('/pesquisadores_colaboradores', [PesquisaController::class, 'pesquisadores_colab']);
+Route::get('/pesquisa_pos_doutorandos', [PesquisaController::class, 'pesquisa_pos_doutorandos']);

@@ -9,6 +9,8 @@ use Uspdev\Replicado\Posgraduacao;
 use App\Models\Lattes as LattesModel;
 use App\Utils\ReplicadoTemp;
 use App\Models\Programa;
+use App\Models\ComissaoPesquisa;
+
 
 class ReplicadoSyncCommand extends Command
 {
@@ -43,6 +45,8 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+
+
         $programas = Posgraduacao::programas(8);
 
         foreach($programas as $key=>$value) {
@@ -56,6 +60,7 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
         }
+        
         $this->syncJson(ReplicadoTemp::credenciados());
         
         foreach($programas as $value) {
@@ -64,6 +69,41 @@ class ReplicadoSyncCommand extends Command
         }
 
         return 0;
+    }
+
+
+    private function sync_comissao_pesquisa(){
+
+        $iniciacao_cientifica = Pessoa::listarIniciaoCientificaAtiva();
+        if($iniciacao_cientifica){
+            foreach($iniciacao_cientifica as $ic){
+                $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->first();
+                if(!$comissao) $comissao = new ComissaoPesquisa;
+    
+                $comissao->codproj = $ic['cod_projeto'];
+                $comissao->codpes_discente = $ic['aluno'];
+                $comissao->nome_discente= $ic['nome_aluno'];
+                $comissao->codpes_supervisor= $ic['orientador'];
+                $comissao->nome_supervisor= $ic['nome_orientador'];
+                $comissao->titulo_pesquisa= $ic['titulo_pesquisa'];
+                $comissao->data_ini = !empty($ic['data_ini']) ? $ic['data_ini'] : null;
+                $comissao->data_fim = !empty($ic['data_fim']) ? $ic['data_fim'] : null;
+                $comissao->ano_proj = $ic['ano_projeto'];
+                $comissao->bolsa = null;
+                $comissao->cod_departamento = null;
+                $comissao->sigla_departamento = $ic['sigla_departamento'];
+                $comissao->nome_departamento = $ic['departamento'];
+                $comissao->cod_curso= $ic['codcur'];
+                $comissao->nome_curso= $ic['nome_curso'];
+                $comissao->cod_area= $ic['codare'];
+                $comissao->nome_area= $ic['nome_programa'];
+                $comissao->tipo= 'IC';
+
+
+                $comissao->save();
+            }
+        }
+        
     }
 
     private function syncJson($pessoas){
@@ -86,6 +126,7 @@ class ReplicadoSyncCommand extends Command
 
                 putenv('REPLICADO_SYBASE=0');
                 $info_lattes['id_lattes'] = Lattes::id($pessoa['codpes']);
+                $info_lattes['orcid'] = Lattes::retornarOrcidID($pessoa['codpes']);
                 $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], null) ;
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
                 $info_lattes['resumo'] = Lattes::retornarResumoCV($pessoa['codpes'], 'pt', null);
@@ -121,3 +162,4 @@ class ReplicadoSyncCommand extends Command
     }
 
 }
+
