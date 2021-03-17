@@ -8,30 +8,12 @@ use Uspdev\Replicado\Pessoa;
 use App\Utils\ReplicadoTemp;
 use App\Models\Lattes as LattesModel;
 use App\Models\Programa;
+use App\Utils\Util;
 use App\Models\ComissaoPesquisa;
 
 class PesquisaController extends Controller
 {
-    public $aux_departamentos = ['FLA' => 'Antropologia',
-        'FLP' => 'Ciência Política',
-        'FLF' => 'Filosofia',
-        'FLH' => 'História',
-        'FLC' => 'Letras Clássicas e Vernáculas',
-        'FLM' => 'Letras Modernas',
-        'FLO' => 'Letras Orientais',
-        'FLL' => 'Linguística',
-        'FSL' => 'Sociologia',
-        'FLT' => 'Teoria Literária e Literatura Comparada',
-        'FLG' => 'Geografia'
-    ];
-
-    public $aux_cursos = [
-        8010 => 'Filosofia',
-        8021 => 'Geografia',
-        8030 => 'História',
-        8040 => 'Ciências Sociais',
-        8051 => 'Letras',
-    ];
+    
 
     public function index(Request $request){
         $departamentos = [];
@@ -39,7 +21,7 @@ class PesquisaController extends Controller
         if($request->filtro == 'departamento'){
             
        
-            foreach($this->aux_departamentos as $key=>$dep){
+            foreach(Util::getDepartamentos() as $key=>$dep){
                 $departamentos[$key] = [];
                 $departamentos[$key]['nome_departamento'] = $dep;
                 
@@ -56,7 +38,7 @@ class PesquisaController extends Controller
             
             
             
-            foreach($this->aux_cursos as $key=>$c){
+            foreach(Util::getCursos() as $key=>$c){
                 $curso[$key] = [];
                 $curso[$key]['nome_curso'] = $c;
                 
@@ -89,7 +71,7 @@ class PesquisaController extends Controller
            
         
         
-            $nome_departamento = $this->aux_departamentos[$request->departamento];
+            $nome_departamento = Util::getDepartamentos()[$request->departamento];
             $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
             $iniciacao_cientifica = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('bolsa', $bolsa)->where('tipo', 'IC')->get()->toArray();
        
@@ -97,7 +79,7 @@ class PesquisaController extends Controller
         }else{
             
         
-            $nome_curso = $this->aux_cursos[$request->curso];
+            $nome_curso = Util::getCursos()[$request->curso];
             $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
             $iniciacao_cientifica = ComissaoPesquisa::where('cod_curso',$request->curso)->where('bolsa', $bolsa)->where('tipo', 'IC')->get()->toArray();
        
@@ -118,13 +100,13 @@ class PesquisaController extends Controller
         if(isset($request->departamento)){
             
 
-            $nome_departamento = $this->aux_departamentos[$request->departamento];
+            $nome_departamento = Util::getDepartamentos()[$request->departamento];
             $pesquisadores_colab = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('tipo', 'PC')->get()->toArray();
             $pesquisadores_colab = $pesquisadores_colab ?? null;
         }else{
             
         
-            $nome_curso = $this->aux_cursos[$request->curso];
+            $nome_curso = Util::getCursos()[$request->curso];
             $pesquisadores_colab = ComissaoPesquisa::where('cod_curso',$request->curso)->where('tipo', 'PC')->get()->toArray();
             $pesquisadores_colab = $pesquisadores_colab ?? null;
 
@@ -146,14 +128,14 @@ class PesquisaController extends Controller
         if(isset($request->departamento)){
             
         
-            $nome_departamento = $this->aux_departamentos[$request->departamento];
+            $nome_departamento = Util::getDepartamentos()[$request->departamento];
             $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
 
             $pd = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('bolsa', $bolsa)->where('tipo', 'PD')->get()->toArray();
             $pd = $pd ?? null;
         }else{
             
-            $nome_curso = $this->aux_cursos[$request->curso];
+            $nome_curso = Util::getCursos()[$request->curso];
             $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
             $pd = ComissaoPesquisa::where('cod_curso',$request->curso)->where('bolsa', $bolsa)->where('tipo', 'PD')->get()->toArray();
        
