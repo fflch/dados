@@ -134,10 +134,46 @@ class Programa extends Model
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
 
+        $content['id_lattes'] = $lattes['id_lattes'] ?? null;
+        $content['orcid'] = $lattes['orcid'] ?? null;
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        $content['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        
+        
+        $aux_livros_destaques = Programa::hasValue($lattes,'livros') ? $lattes['livros'] : null; //Pega todos os livros (sem filtrar)
+        /**
+         * Busca os livros de destaque (especificados a partir da demanada do docente e através do ISBN) entre todos os livros do docente.
+         * Os seguintes ISBNs '9788538709015', '9788577321162', '9788531413025' são livros do docente Paulo Martins
+         */
+        $destaques = $aux_livros_destaques != null ? Programa::definirDestaqueLivro($aux_livros_destaques, ['9788538709015', '9788577321162', '9788531413025']) : null;
+        /**
+         * Tira da exibição alguns livros sem relevância acadêmica (especificados a partir da demanada do docente e através do ISBN) entre todos os livros do docente.
+         * Os seguintes ISBNs ['9788575063712', '9788575063279'] são livros do docente Paulo Martins
+         */
+        $remover_livros = ['9788575063712', '9788575063279'];
+        /*
+            Inclusão dos livros em destaque para serem removidos da lista de livros filtrados, pois estes livros destacados serão exibidos independentemente do filtro.
+        */
+        if(is_array($destaques)){
+            foreach($destaques as $d){
+                if(isset($d['ISBN']) && !empty($d['ISBN']) && $d['ISBN'] != null){
+                    $remover_livros[] = $d['ISBN'];
+                }
+            }
+        }
+        $livros = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $livros = is_array($livros) && count($livros) > 0 ? Programa::removerLivros($livros, $remover_livros) : null;
+        /*
+            Inclusão dos livros em destaque no começo da lista de livros
+         */
+        if(is_array($destaques)){
+            foreach($destaques as $d){
+                array_unshift($livros, $d); //coloca o elemento na primeira posição do array
+            }
+        }
+        $content['livros'] = $livros ?? null;
+
         $content['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
@@ -223,4 +259,27 @@ class Programa extends Model
         return false;
     }
 
+
+    private static function removerLivros($livros, $isbn){
+        foreach($livros as $key=>$value){
+            if(in_array($value['ISBN'], $isbn)){
+                    unset($livros[$key]);
+            }
+        }
+        return $livros;
+    }
+
+    private static function definirDestaqueLivro($livros, $isbn){
+        $destaques = [];
+        foreach($livros as $key=>$value){
+            if(in_array($value['ISBN'], $isbn)){
+                $destaque = $livros[$key];
+                $destaque['destaque'] = true;
+                unset($livros[$key]);
+                array_push($destaques, $destaque);
+            }            
+        }
+        
+        return $destaques;
+    }
 }
