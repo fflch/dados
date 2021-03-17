@@ -101,7 +101,10 @@ class Programa extends Model
                 $pessoas[$i]['total_outras_producoes_tecnicas'] = Programa::hasValue($lattes,'outras_producoes_tecnicas') ? Programa::filtrar($lattes['outras_producoes_tecnicas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoas[$i]['total_outras_producoes_tecnicas'] = $pessoas[$i]['total_outras_producoes_tecnicas'] ? count($pessoas[$i]['total_outras_producoes_tecnicas']): '0';
                 
-        
+                $pessoas[$i]['total_projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_projetos_pesquisa'] = $pessoas[$i]['total_projetos_pesquisa'] ? count($pessoas[$i]['total_projetos_pesquisa']): '0';
+                
+            
             }else{
                 $pessoas[$i]['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoas[$i]['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -117,6 +120,7 @@ class Programa extends Model
                 $pessoas[$i]['curso_curta_duracao'] = Programa::hasValue($lattes,'curso_curta_duracao') ? Programa::filtrar($lattes['curso_curta_duracao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoas[$i]['relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoas[$i]['material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 
         
             }
@@ -130,6 +134,7 @@ class Programa extends Model
     }
 
     public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa) {
+        
         $json_lattes = LattesModel::where('codpes',$codpes)->first();
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
@@ -186,6 +191,7 @@ class Programa extends Model
         $content['curso_curta_duracao'] = Programa::hasValue($lattes,'curso_curta_duracao') ? Programa::filtrar($lattes['curso_curta_duracao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
 
 
@@ -199,6 +205,17 @@ class Programa extends Model
             $content['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         }
         return $content;
+    }
+
+    public static function obterOrcid(){
+        $orcid = [];
+        $pessoas = LattesModel::where('codpes', '<>', null)->get()->toArray();
+        foreach($pessoas as $pessoa){
+            $lattes = $pessoa ? json_decode($pessoa['json'],TRUE) : null;
+            $aux_orcid = $lattes['orcid'];
+            $orcid[$pessoa['codpes']] = $aux_orcid;
+        }
+        return $orcid;
     }
 
     public static function getFiltro(Request $request){

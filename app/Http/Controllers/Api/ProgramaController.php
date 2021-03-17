@@ -17,6 +17,12 @@ class ProgramaController extends Controller
             Programa::index()
         );
     }
+    
+    public function obterOrcid(){
+        return response()->json(
+            Programa::obterOrcid()
+        );
+    }
 
     public function listarDocentes($codare, Request $request){
         
