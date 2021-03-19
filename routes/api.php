@@ -18,3 +18,4 @@ Route::get('/programas/egressos/{codare}', [ProgramaController::class, 'listarEg
 Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
 Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
 Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
+Route::get('/obter_orcid', [ProgramaController::class, 'obterOrcid']);
