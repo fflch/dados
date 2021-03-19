@@ -15,15 +15,15 @@ class ProgramaController extends Controller
             'programas' => Programa::index(),
         ]);
     }
-
+    
     public function listarDocentes($codare, Request $request) {
-        $filtro = Programa::getFiltro($request);
+        $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $credenciados = ReplicadoTemp::credenciados($codare);
         $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
         $titulo = "Docentes credenciados ao programa de " .$programa['nomcur'] .": " .count($credenciados);
 
-
+        
         return view('programas.show',[
             'pessoas' => $credenciados,
             'programa' => $programa,
@@ -34,11 +34,11 @@ class ProgramaController extends Controller
 
         ]);
     }
-
+    
     public function listarDiscentes($codare, Request $request) {
-        $filtro = Programa::getFiltro($request);
+        $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $discentes = Posgraduacao::obterAtivosPorArea($codare, 8);
+        $discentes = Posgraduacao::obterAtivosPorArea($codare, 8); 
         $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
         $titulo = "Discentes ativos ao programa de ". $programa['nomcur'].": ".count($discentes);
 
@@ -54,12 +54,12 @@ class ProgramaController extends Controller
     }
 
     public function listarEgressos($codare, Request $request) {
-        $filtro = Programa::getFiltro($request);
+        $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $egressos = Posgraduacao::egressosArea($codare, 8);
+        $egressos = Posgraduacao::egressosArea($codare, 8); 
         $content_egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
         $titulo = "Egressos do programa de ".$programa['nomcur'].": ".count($egressos);
-
+        
         return view('programas.show',[
             'pessoas' => $content_egressos,
             'programa' => $programa,
@@ -69,40 +69,12 @@ class ProgramaController extends Controller
             'tipo_pessoa' => "egressos"
         ]); 
     }
-
-    private function removerLivros($livros, $isbn){
-        foreach($livros as $key=>$value){
-            if(in_array($value['ISBN'], $isbn)){
-                    unset($livros[$key]);
-            }
-        }
-        return $livros;
-    }
-
-    private function definirDestaqueLivro($livros, $isbn){
-        $destaques = [];
-        foreach($livros as $key=>$value){
-            if(in_array($value['ISBN'], $isbn)){
-                $destaque = $livros[$key];
-                $destaque['destaque'] = true;
-                unset($livros[$key]);
-                array_push($destaques, $destaque);
-            }
-        }
-        foreach($destaques as $destaque){
-            array_unshift($livros, $destaque);
-        }
-        return $livros;
-    }
-
-
+    
+    
     public function docente($codpes, Request $request) {
-        $filtro = Programa::getFiltro($request);
+        $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
         $section_show = request()->section ?? '';
-
-        $content['livros'] = $this->removerLivros($content['livros'], ['9788575063712', '9788575063279']);
-        $content['livros'] = $this->definirDestaqueLivro($content['livros'], ['9788538709015', '9788577321162', '9788531413025']);
 
         return view('programas.pessoa',[
             'content' => $content,
@@ -114,10 +86,10 @@ class ProgramaController extends Controller
     }
 
     public function discente($codpes, Request $request) {
-        $filtro = Programa::getFiltro($request);
+        $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro, false, 'discente');
         $section_show = request()->section ?? '';
-
+        
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
@@ -127,10 +99,10 @@ class ProgramaController extends Controller
     }
 
     public function egresso($codpes, Request $request) {
-        $filtro = Programa::getFiltro($request);
+        $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro, false, 'egresso');
         $section_show = request()->section ?? '';
-
+        
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,

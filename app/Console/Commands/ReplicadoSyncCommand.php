@@ -46,10 +46,6 @@ class ReplicadoSyncCommand extends Command
     public function handle()
     {
 
-       
-        //dd(Lattes::listarRadioTV('2339547', null));
-        //var_dump($this->sync_comissao_pesquisa());
-        //return;
 
 
         $programas = Posgraduacao::programas(8);
