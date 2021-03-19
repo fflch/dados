@@ -46,6 +46,11 @@ class ReplicadoSyncCommand extends Command
     public function handle()
     {
 
+       
+        //dd(Lattes::listarRadioTV('2339547', null));
+        //var_dump($this->sync_comissao_pesquisa());
+        //return;
+
 
         $programas = Posgraduacao::programas(8);
 
@@ -76,7 +81,80 @@ class ReplicadoSyncCommand extends Command
 
     private function sync_comissao_pesquisa(){
 
+        //pesquisas de pos doutorandos ativos
+        $pesquisa = Pessoa::listarPesquisaPosDoutorandos();
+        if($pesquisa){
+            foreach($pesquisa as $pd){
+                $comissao = ComissaoPesquisa::where('codproj',$pd['codprj'])->first();
+                if(!$comissao) $comissao = new ComissaoPesquisa;
+    
+                $comissao->codproj = $pd['codprj'];
+                $comissao->codpes_discente = $pd['codpes'];
+                $comissao->nome_discente= $pd['nome_aluno'];
+                $comissao->codpes_supervisor= null;
+                $comissao->nome_supervisor= $pd['supervisor'];
+                $comissao->titulo_pesquisa= $pd['titprj'];
+                $comissao->data_ini = !empty($pd['dtainiprj']) ? $pd['dtainiprj'] : null;
+                $comissao->data_fim = !empty($pd['dtafimprj']) ? $pd['dtafimprj'] : null;
+                $comissao->ano_proj = null;
+                $comissao->bolsa = ($pd['bolsa'] == 'SB' ? 'false' : ($pd['bolsa'] == 'BF' ? 'true' : '') ) ;
+               
+                $comissao->cod_departamento = null;
+                $comissao->sigla_departamento = $pd['sigla_departamento'];
+                $comissao->nome_departamento = $pd['departamento'];
+
+                $curso = $this->retornarCursoGrdPorDepartamento($pd['sigla_departamento']);
+                $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
+                $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
+
+                $comissao->cod_area= null;
+                $comissao->nome_area= null;
+                $comissao->tipo= 'PD';
+                
+                
+                $comissao->save();
+            }
+        }
+        
+        
+        
+        //pesquisadores colaborativos ativos
+        $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos();
+        if($pesquisadores_colab){
+            foreach($pesquisadores_colab as $pc){
+                $comissao = ComissaoPesquisa::where('codproj',$pc['codprj'])->first();
+                if(!$comissao) $comissao = new ComissaoPesquisa;
+    
+                $comissao->codproj = $pc['codprj'];
+                $comissao->codpes_discente = $pc['codpes'];
+                $comissao->nome_discente= $pc['pesquisador'];
+                $comissao->codpes_supervisor= null;
+                $comissao->nome_supervisor= $pc['responsavel'];
+                $comissao->titulo_pesquisa= $pc['titulo_pesquisa'];
+                $comissao->data_ini = !empty($pc['data_ini']) ? $pc['data_ini'] : null;
+                $comissao->data_fim = !empty($pc['data_fim']) ? $pc['data_fim'] : null;
+                $comissao->ano_proj = null;
+                $comissao->bolsa = null;
+                $comissao->cod_departamento = null;
+                $comissao->sigla_departamento = $pc['sigla_departamento'];
+                $comissao->nome_departamento = $pc['departamento'];
+
+                $curso = $this->retornarCursoGrdPorDepartamento($pc['sigla_departamento']);
+                $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
+                $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
+
+                $comissao->cod_area= null;
+                $comissao->nome_area= null;
+                $comissao->tipo= 'PC';
+                
+                
+                $comissao->save();
+            }
+        }
+        
+        //iniciação cientifica
         $iniciacao_cientifica = Pessoa::listarIniciaoCientificaAtiva();
+        
         if($iniciacao_cientifica){
             foreach($iniciacao_cientifica as $ic){
                 $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->first();
@@ -91,25 +169,48 @@ class ReplicadoSyncCommand extends Command
                 $comissao->data_ini = !empty($ic['data_ini']) ? $ic['data_ini'] : null;
                 $comissao->data_fim = !empty($ic['data_fim']) ? $ic['data_fim'] : null;
                 $comissao->ano_proj = $ic['ano_projeto'];
-                $comissao->bolsa = null;
+                $comissao->bolsa = $ic['bolsa'];
                 $comissao->cod_departamento = null;
                 $comissao->sigla_departamento = $ic['sigla_departamento'];
                 $comissao->nome_departamento = $ic['departamento'];
-                $comissao->cod_curso= $ic['codcur'];
-                $comissao->nome_curso= $ic['nome_curso'];
+
+                $curso = $this->retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
+                $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
+                $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
+
                 $comissao->cod_area= $ic['codare'];
                 $comissao->nome_area= $ic['nome_programa'];
                 $comissao->tipo= 'IC';
 
-
+                
                 $comissao->save();
             }
         }
         
     }
 
+    private function retornarCursoGrdPorDepartamento($sigla_departamento){
+        $aux_cursos = [
+            8010 => ['Filosofia', 'FLF'],
+            8021 => ['Geografia', 'FLG'],
+            8030 => ['História', 'FLH'],
+            8040 => ['Ciências Sociais', 'FLA', 'FLP', 'FSL'],
+            8051 => ['Letras', 'FLC', 'FLM', 'FLO', 'FLT', 'FLL'],
+        ];
+        $curso = [];
+        foreach($aux_cursos as $key=>$value){
+            if(in_array($sigla_departamento, $value)){
+                $curso['codcur'] = $key; 
+                $curso['nome_curso'] = $value[0]; 
+            }
+        }
+        return $curso;
+    }
+
     private function syncJson($pessoas){
         foreach($pessoas as $pessoa) {
+
+            var_dump($pessoa['codpes']);
 
             if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
 
@@ -148,6 +249,8 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['curso_curta_duracao'] = Lattes::listarCursosCurtaDuracao($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['relatorio_pesquisa'] = Lattes::listarRelatorioPesquisa($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['material_didatico'] = Lattes::listarMaterialDidaticoInstrucional($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['projetos_pesquisa'] = Lattes::listarProjetosPesquisa($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['radio_tv'] = Lattes::listarRadioTV($pessoa['codpes'], null, 'anual', -1, null);
 
                 $lattes->codpes = $pessoa['codpes'];
                 $lattes->json = json_encode($info_lattes);

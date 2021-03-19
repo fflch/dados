@@ -67,7 +67,7 @@ class ProgramaController extends Controller
             'titulo' => $titulo,
             'form_action' => "/programas/egressos/$codare",
             'tipo_pessoa' => "egressos"
-        ]);
+        ]); 
     }
     
     
