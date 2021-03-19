@@ -469,6 +469,54 @@
      </li>
       @endif
      
+      @if($content['projetos_pesquisa'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseprojetos_pesquisa" aria-controls="collapseprojetos_pesquisa"
+                {{$section_show == 'projetos_pesquisa' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Projetos de Pesquisa: {{count($content['projetos_pesquisa'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'projetos_pesquisa' ?  'show' : ''}}" id="collapseprojetos_pesquisa">
+                @foreach($content['projetos_pesquisa'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        <b>Nome do projeto:</b> {!! ($value['NOME-DO-PROJETO']) !!} ({{ $value["ANO-INICIO"] }}  - 
+                        @if(empty($value["ANO-FIM"]) || $value["ANO-FIM"] == '' || $value["ANO-FIM"] == null)
+                            Atual)
+                        @else
+                            {!! $value["ANO-FIM"] !!})
+                        @endif
+                        <br>
+                        <b>Natureza: </b><?= ucfirst(strtolower($value['NATUREZA'])) ?> <br>
+                        <b>Integrantes: </b>
+                        @foreach($value['EQUIPE-DO-PROJETO'] as $k=>$val)
+                            @if( $k + 1 <  count($value['EQUIPE-DO-PROJETO']))
+                                {!! $val["NOME-COMPLETO"] !!}, 
+                            @elseif (isset($val["NOME-COMPLETO"]) && $val["NOME-COMPLETO"] != null && $val["NOME-COMPLETO"] != "")
+                                {!! $val["NOME-COMPLETO"] !!}.
+                            @endif
+                        @endforeach 
+                        <br>
+                        <b>Descrição: </b>{!! ($value['DESCRICAO-DO-PROJETO']) !!}
+                       
+                         
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+     
+     
       @if($content['outras_producoes_tecnicas'])
       <li class="list-group-item">
         <div class="panel panel-default panel-docente"> 
