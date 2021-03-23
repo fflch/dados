@@ -26,7 +26,14 @@
         @foreach($programas as $programa)
         <tr>
           <td>
-              {{$programa->nomcur }}
+              {{$programa->nomcur }} 
+              <?php if(
+                ($programa->nomcur !== $programa->nomare) 
+              && 
+                (!str_contains($programa->nomcur, ")"))
+                ) 
+                echo "(". $programa->nomare .")";
+              ?>              
            
           </td>
           <td class="text-center">
