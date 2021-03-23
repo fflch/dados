@@ -21,7 +21,7 @@ class CreateComissaoPesquisasTable extends Migration
             $table->string('nome_discente')->nullable();
             $table->integer('codpes_supervisor')->nullable();
             $table->string('nome_supervisor')->nullable();
-            $table->text('titulo_pesquisa')->nullable();
+            $table->string('titulo_pesquisa')->nullable();
             $table->datetime('data_ini')->nullable();
             $table->datetime('data_fim')->nullable();
             $table->integer('ano_proj')->nullable();
@@ -33,7 +33,6 @@ class CreateComissaoPesquisasTable extends Migration
             $table->string('nome_curso')->nullable();
             $table->integer('cod_area')->nullable();
             $table->string('nome_area')->nullable();
-            $table->string('tipo')->nullable();
         });
     }
 
