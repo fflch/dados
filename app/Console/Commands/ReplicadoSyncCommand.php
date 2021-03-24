@@ -86,7 +86,6 @@ class ReplicadoSyncCommand extends Command
             foreach($pesquisa as $pd){
                 $comissao = ComissaoPesquisa::where('codproj',$pd['codprj'])->where('codpes_discente',$pd['codpes'])->first();
                 if(!$comissao) $comissao = new ComissaoPesquisa;
-                var_dump($pd['codpes']);
                 $comissao->codproj = $pd['codprj'];
                 $comissao->codpes_discente = $pd['codpes'];
                 $comissao->nome_discente= $pd['nome_aluno'];
@@ -125,7 +124,6 @@ class ReplicadoSyncCommand extends Command
             foreach($pesquisadores_colab as $pc){
                 $comissao = ComissaoPesquisa::where('codproj',$pc['codprj'])->where('codpes_discente',$pc['codpes'])->first();
                 if(!$comissao) $comissao = new ComissaoPesquisa;
-                var_dump($pc['codpes']);
                 $comissao->codproj = $pc['codprj'];
                 $comissao->codpes_discente = $pc['codpes'];
                 $comissao->nome_discente= $pc['pesquisador'];
@@ -161,7 +159,6 @@ class ReplicadoSyncCommand extends Command
             foreach($iniciacao_cientifica as $ic){
                 $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->where('codpes_discente',$ic['aluno'])->first();
                 if(!$comissao) $comissao = new ComissaoPesquisa;
-                var_dump($ic['aluno']);
                 $comissao->codproj = $ic['cod_projeto'];
                 $comissao->codpes_discente = $ic['aluno'];
                 $comissao->nome_discente= $ic['nome_aluno'];
@@ -202,7 +199,6 @@ class ReplicadoSyncCommand extends Command
                          $comissao = ComissaoPesquisa::where('codpes_discente',$docente['codpes'])->where('titulo_pesquisa',$pesquisa['NOME-DO-PROJETO'] )->first();
                          if(!$comissao) $comissao = new ComissaoPesquisa;
  
-                         var_dump($docente['codpes']);
                          $comissao->titulo_pesquisa = $pesquisa['NOME-DO-PROJETO'];
                          $comissao->codpes_discente = $docente['codpes'];
                          $comissao->nome_discente = $docente['nompes'];
@@ -252,7 +248,6 @@ class ReplicadoSyncCommand extends Command
     private function syncJson($pessoas){
         foreach($pessoas as $pessoa) {
 
-            var_dump($pessoa['codpes']);
 
             if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
 

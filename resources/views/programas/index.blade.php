@@ -26,14 +26,8 @@
         @foreach($programas as $programa)
         <tr>
           <td>
-              {{$programa->nomcur }} 
-              <?php if(
-                ($programa->nomcur !== $programa->nomare) 
-              && 
-                (!str_contains($programa->nomcur, ")"))
-                ) 
-                echo "(". $programa->nomare .")";
-              ?>              
+              {{$programa->nome_curso_area }} 
+                       
            
           </td>
           <td class="text-center">

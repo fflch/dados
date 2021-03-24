@@ -16,14 +16,27 @@ class Programa extends Model
         $programas = [];
         foreach(Programa::all() as $programa){
             $aux_programa = json_decode($programa->json);
-            $total_egresso = 0;
-            if($aux_programa->egressos){
-                foreach($aux_programa->egressos as $qtd_egresso)
+            if($aux_programa){
+                $aux_programa->nome_curso_area = $aux_programa->nomcur;
+                if(
+                    ($aux_programa->nomcur !== $aux_programa->nomare) 
+                    && 
+                    (!str_contains($aux_programa->nomcur, ")"))
+                ){
+                    $aux_programa->nome_curso_area .=  " (". $aux_programa->nomare .")";
+                }
                 
-                    $total_egresso += $qtd_egresso;
+                $total_egresso = 0;
+                if(property_exists($aux_programa,'egressos')){
+                    if($aux_programa->egressos){
+                        foreach($aux_programa->egressos as $qtd_egresso)
+                        
+                        $total_egresso += $qtd_egresso;
+                    }
+                    $aux_programa->total_egressos = $total_egresso;
+                }
+                $programas[] = $aux_programa;
             }
-            $aux_programa->total_egressos = $total_egresso;
-            $programas[] = $aux_programa;
         }
         return $programas;
     }
