@@ -47,7 +47,6 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
-
         
         $this->sync_comissao_pesquisa();
         
@@ -65,6 +64,7 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
         }
+        
         
         $this->syncJson(ReplicadoTemp::credenciados());
         
