@@ -293,6 +293,7 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['material_didatico'] = Lattes::listarMaterialDidaticoInstrucional($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['projetos_pesquisa'] = Lattes::listarProjetosPesquisa($pessoa['codpes'], null, 'anual', -1, null);
                 $info_lattes['radio_tv'] = Lattes::listarRadioTV($pessoa['codpes'], null, 'anual', -1, null);
+                $info_lattes['apresentacao_trabalho'] = Lattes::listarApresentacaoTrabalho($pessoa['codpes'], null, 'anual', -1, null);
 
                 $lattes->codpes = $pessoa['codpes'];
                 $lattes->json = json_encode($info_lattes);

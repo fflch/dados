@@ -28,7 +28,9 @@
           <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
           <th scope="col" class="text-center">Trabalhos em anais</th>
           <th scope="col" class="text-center">Outras produções bibliográficas</th>
-          <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
+          <th scope="col" class="text-center">Trabalhos Técnicos</th>
+          <th scope="col" class="text-center">Apresentações de Trabalho</th>
+          <th scope="col" class="text-center">Programa de Rádio ou TV</th>
           <th scope="col" class="text-center">Organização de Eventos</th>
           <th scope="col" class="text-center">Curso de curta duração ministrado</th>
           <th scope="col" class="text-center">Relatório de pesquisa</th>
@@ -119,6 +121,24 @@
             @if($pessoa['total_trabalhos_tecnicos'] != 0 || $pessoa['total_trabalhos_tecnicos'] != '0')
               <a href="{{$pessoa['href']}}&section=trabalhos_tecnicos">
                 {{$pessoa['total_trabalhos_tecnicos']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_apresentacao_trabalho'] != 0 || $pessoa['total_apresentacao_trabalho'] != '0')
+              <a href="{{$pessoa['href']}}&section=apresentacao_trabalho">
+                {{$pessoa['total_apresentacao_trabalho']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_radio_tv'] != 0 || $pessoa['total_radio_tv'] != '0')
+              <a href="{{$pessoa['href']}}&section=radio_tv">
+                {{$pessoa['total_radio_tv']}}
               </a>
             @else
                 -
