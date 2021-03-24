@@ -33,6 +33,7 @@
           <th scope="col" class="text-center">Curso de curta duração ministrado</th>
           <th scope="col" class="text-center">Relatório de pesquisa</th>
           <th scope="col" class="text-center">Matérial didático ou institucional</th>
+          <th scope="col" class="text-center">Projetos de Pesquisa</th>
           <th scope="col" class="text-center">Outras Produções Técnicas</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
@@ -154,6 +155,15 @@
             @if($pessoa['total_material_didatico'] != 0 || $pessoa['total_material_didatico'] != '0')
               <a href="{{$pessoa['href']}}&section=material_didatico">
                 {{$pessoa['total_material_didatico']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_projetos_pesquisa'] != 0 || $pessoa['total_projetos_pesquisa'] != '0')
+              <a href="{{$pessoa['href']}}&section=projetos_pesquisa">
+                {{$pessoa['total_projetos_pesquisa']}}
               </a>
             @else
                 -

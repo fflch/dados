@@ -11,7 +11,11 @@
 @if(isset($iniciacao_cientifica))
 <div class="card">
   <div class="card-header">
-    <b>Iniciações científicas do departameno de {{$nome_departamento}}</b>
+    @if(!empty($nome_departamento))
+      <b>Iniciações científicas do departameno de {{$nome_departamento}}</b>
+    @else
+      <b>Iniciações científicas do curso de {{$nome_curso}}</b>
+    @endif
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <table class="table pessoas-programa-table">

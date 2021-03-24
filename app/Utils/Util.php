@@ -7,18 +7,19 @@ class Util
 {
 
     const departamentos = [
-        'FLA' => 'Antropologia',
-        'FLP' => 'Ciência Política',
-        'FLF' => 'Filosofia',
-        'FLH' => 'História',
-        'FLC' => 'Letras Clássicas e Vernáculas',
-        'FLM' => 'Letras Modernas',
-        'FLO' => 'Letras Orientais',
-        'FLL' => 'Linguística',
-        'FSL' => 'Sociologia',
-        'FLT' => 'Teoria Literária e Literatura Comparada',
-        'FLG' => 'Geografia'
-    ];
+        'FLA' => [591, 'Antropologia'],
+        'FLP' => [602, 'Ciência Política'],
+        'FLF' => [594, 'Filosofia'],
+        'FLH' => [598, 'História'],
+        'FLC' => [592, 'Letras Clássicas e Vernáculas'],
+        'FLM' => [600, 'Letras Modernas'],
+        'FLO' => [601, 'Letras Orientais'],
+        'FLL' => [599, 'Linguística'],
+        'FSL' => [604, 'Sociologia'],
+        'FLT' => [603, 'Teoria Literária e Literatura Comparada'],
+        'FLG' => [596, 'Geografia']
+    ];    
+
 
     const cursos = [
         8010 => 'Filosofia',
