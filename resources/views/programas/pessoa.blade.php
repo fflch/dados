@@ -314,7 +314,7 @@
                 <h5 role="button" data-toggle="collapse" href="#collapsetrabalhos_tecnicos" aria-controls="collapsetrabalhos_tecnicos"
                 {{$section_show == 'trabalhos_tecnicos' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
                 
-                    Apresentação de trabalhos técnicos: {{count($content['trabalhos_tecnicos'])}}
+                    Trabalhos técnicos: {{count($content['trabalhos_tecnicos'])}}
                     <span class="controller-collapse">
                         <i class="fas fa-plus-square"></i>
                         <i class="fas fa-minus-square"></i>  
@@ -337,7 +337,79 @@
         </div>
      </li>
       @endif
+      
+      @if($content['apresentacao_trabalho'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseapresentacao_trabalho" aria-controls="collapseapresentacao_trabalho"
+                {{$section_show == 'apresentacao_trabalho' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                    Apresentações de Trabalho: {{count($content['apresentacao_trabalho'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'apresentacao_trabalho' ?  'show' : ''}}" id="collapseapresentacao_trabalho">
+                @foreach($content['apresentacao_trabalho'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                    @include ('programas.partials.autores')
+                        
+                    {!! $value['TITULO'] !!}. 
+                    {!! $value["ANO"] !!} 
+                    (<?php 
+                        if($value['TIPO'] == 'SEMINARIO')
+                            echo 'Seminário';
+                        elseif($value['TIPO'] == 'CONFERENCIA')
+                            echo 'Conferência';
+                        else
+                            echo ucfirst(strtolower($value['TIPO']));
+                    ?>)
 
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+
+      @if($content['radio_tv'])
+      <li class="list-group-item">
+        <div class="panel panel-default panel-docente"> 
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseradio_tv" aria-controls="collapseradio_tv"
+                {{$section_show == 'radio_tv' ? "aria-expanded=true" : "aria-expanded=false class=collapsed"}}>
+                
+                Programa de Rádio ou TV: {{count($content['radio_tv'])}}
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            
+            <ul class="list-group collapse in  {{ $section_show == 'radio_tv' ?  'show' : ''}}" id="collapseradio_tv">
+                @foreach($content['radio_tv'] as $key=>$value)
+                    <li class="list-group-item">
+                         
+                        @include ('programas.partials.autores')
+                        
+                        
+                        {!! $value['TITULO'] !!}. 
+                        {{ $value["ANO"] }} ({{ $value["EMISSORA"] }})
+
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+     </li>
+      @endif
+     
       @if($content['organizacao_evento'])
       <li class="list-group-item">
         <div class="panel panel-default panel-docente"> 

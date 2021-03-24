@@ -104,6 +104,13 @@ class Programa extends Model
                 $pessoas[$i]['total_projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoas[$i]['total_projetos_pesquisa'] = $pessoas[$i]['total_projetos_pesquisa'] ? count($pessoas[$i]['total_projetos_pesquisa']): '0';
                 
+                $pessoas[$i]['total_apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_apresentacao_trabalho'] = $pessoas[$i]['total_apresentacao_trabalho'] ? count($pessoas[$i]['total_apresentacao_trabalho']): '0';
+                
+                $pessoas[$i]['total_radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['total_radio_tv'] = $pessoas[$i]['total_radio_tv'] ? count($pessoas[$i]['total_radio_tv']): '0';
+        
+
             
             }else{
                 $pessoas[$i]['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -121,7 +128,9 @@ class Programa extends Model
                 $pessoas[$i]['relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoas[$i]['material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoas[$i]['projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-                
+                $pessoas[$i]['apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+                $pessoas[$i]['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        
         
             }
             array_push($aux_pessoas, $pessoas[$i]);
@@ -192,6 +201,8 @@ class Programa extends Model
         $content['relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
+        $content['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
 
 
@@ -204,6 +215,8 @@ class Programa extends Model
             $content['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : null;
             $content['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         }
+
+        
         return $content;
     }
 

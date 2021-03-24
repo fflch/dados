@@ -8,13 +8,13 @@
 @section('content')
 
 
-@if(isset($pesquisadores_colab))
+@if(isset($pesquisas_pos_doutorando))
 <div class="card">
   <div class="card-header">
     @if(!empty($nome_departamento))
-      <b>Pesquisadores colaboradores do departameno de {{$nome_departamento}}</b>
+      <b>Pesquisas de pós doutorado do departameno de {{$nome_departamento}}</b>
     @else
-      <b>Pesquisadores colaboradores do curso de {{$nome_curso}}</b>
+      <b>Pesquisas de pós doutorado do curso de {{$nome_curso}}</b>
     @endif
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
@@ -28,28 +28,28 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($pesquisadores_colab as $pc)
+        @foreach($pesquisas_pos_doutorando as $pd)
         <tr>
         
           <td class="first-col">
-            @if(isset($pc['nome_discente']) && $pc['nome_discente'] != null)
-              {{$pc['nome_discente']}}
+            @if(isset($pd['nome_discente']) && $pd['nome_discente'] != null)
+              {{$pd['nome_discente']}}
             @else
               -
             @endif
           </td>
 
           <td >
-            @if(isset($pc['titulo_pesquisa']) && $pc['titulo_pesquisa'] != null)
-              {!! $pc['titulo_pesquisa'] !!}
+            @if(isset($pd['titulo_pesquisa']) && $pd['titulo_pesquisa'] != null)
+              {!! $pd['titulo_pesquisa'] !!}
             @else
               -
             @endif
           </td>
 
           <td >
-            @if(isset($pc['nome_supervisor']) && $pc['nome_supervisor'] != null)
-              {{$pc['nome_supervisor']}}
+            @if(isset($pd['nome_supervisor']) && $pd['nome_supervisor'] != null)
+              {{$pd['nome_supervisor']}}
             @else
               -
             @endif
@@ -57,17 +57,17 @@
 
           <td >
               @if(
-                (!isset($pc['data_ini']) || $pc['data_ini'] == null)
+                (!isset($pd['data_ini']) || $pd['data_ini'] == null)
                 &&
-                (!isset($pc['data_fim']) || $pc['data_fim'] == null)
+                (!isset($pd['data_fim']) || $pd['data_fim'] == null)
                 &&
-                (isset($pc['ano_proj']) && $pc['ano_proj'] != null)
+                (isset($pd['ano_proj']) && $pd['ano_proj'] != null)
                 )
-                  {{$pc['ano_proj']}}  
-                @elseif(isset($pc['data_ini']) && $pc['data_ini'] != null)
-                  {{ date("d/m/Y",strtotime($pc['data_ini'])) }} - 
-                @if(isset($pc['data_fim']) && $pc['data_fim'] != null)
-                  {{ date("d/m/Y",strtotime($pc['data_fim'])) }}
+                  {{$pd['ano_proj']}}  
+                @elseif(isset($pd['data_ini']) && $pd['data_ini'] != null)
+                  {{ date("d/m/Y",strtotime($pd['data_ini'])) }} - 
+                @if(isset($pd['data_fim']) && $pd['data_fim'] != null)
+                  {{ date("d/m/Y",strtotime($pd['data_fim'])) }}
                 @else 
                   atual
                 @endif
