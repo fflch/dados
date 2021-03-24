@@ -345,10 +345,10 @@ Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 # Programas
 Route::get('/programas', [ProgramaController::class, 'index']);
 Route::get('/programas/docentes/{codare}', [ProgramaController::class, 'listarDocentes']);
-Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']);
+Route::get('/programas/docente/{id_lattes}', [ProgramaController::class, 'docente']);
 Route::get('/programas/discentes/{codare}', [ProgramaController::class, 'listarDiscentes']);
-Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
-Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
+Route::get('/programas/discente/{id_lattes}', [ProgramaController::class, 'discente']);
+Route::get('/programas/egresso/{id_lattes}', [ProgramaController::class, 'egresso']);
 Route::get('/programas/egressos/{codare}', [ProgramaController::class, 'listarEgressos']);
 
 # Defesas

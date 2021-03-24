@@ -35,20 +35,21 @@ class Programa extends Model
             $json_lattes = LattesModel::where('codpes',$pessoas[$i]['codpes'])->first();
             
             $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null; 
+            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'] ?? '';
 
             if(!$api){
                 if($tipo_pessoa == 'docente'){
-                    $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['codpes'];
+                    $pessoas[$i]['href'] = "/programas/docente/".$pessoas[$i]['id_lattes'];
                 } else if ($tipo_pessoa == 'discente'){
-                    $pessoas[$i]['href'] = "/programas/discente/".$pessoas[$i]['codpes'];
+                    $pessoas[$i]['href'] = "/programas/discente/".$pessoas[$i]['id_lattes'];
                 }
                 else {
-                    $pessoas[$i]['href'] = "/programas/egresso/".$pessoas[$i]['codpes'];
+                    $pessoas[$i]['href'] = "/programas/egresso/".$pessoas[$i]['id_lattes'];
                 }
                 $pessoas[$i]['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 
-            $pessoas[$i]['id_lattes'] = $lattes['id_lattes'] ?? '';
+            
 
             $pessoas[$i]['data_atualizacao'] =  $lattes['data_atualizacao'] ?? '';
             if($tipo_pessoa == 'egresso'){
