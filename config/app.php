@@ -226,7 +226,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
+    
+    # Custom vars
+    'mail_send_logs' => env('MAIL_SEND_LOGS','noreply.fflch@usp.br'), 
 
 ];
