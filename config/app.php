@@ -229,6 +229,6 @@ return [
     ],
     
     # Custom vars
-    'mail_send_logs' => env('MAIL_SEND_LOGS','noreply.fflch@usp.br'), 
+    'mails_to_send_logs' => env('MAILS_TO_SEND_LOGS','mail1@usp.br,mail2@usp.br'),
 
 ];
