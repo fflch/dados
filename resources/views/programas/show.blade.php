@@ -30,11 +30,14 @@
           <th scope="col" class="text-center">Artigo em Jornal ou Revista</th>
           <th scope="col" class="text-center">Trabalhos em anais</th>
           <th scope="col" class="text-center">Outras produções bibliográficas</th>
-          <th scope="col" class="text-center">Apresentação de Trabalhos Técnicos</th>
+          <th scope="col" class="text-center">Trabalhos Técnicos</th>
+          <th scope="col" class="text-center">Apresentações de Trabalho</th>
+          <th scope="col" class="text-center">Programa de Rádio ou TV</th>
           <th scope="col" class="text-center">Organização de Eventos</th>
           <th scope="col" class="text-center">Curso de curta duração ministrado</th>
           <th scope="col" class="text-center">Relatório de pesquisa</th>
           <th scope="col" class="text-center">Matérial didático ou institucional</th>
+          <th scope="col" class="text-center">Projetos de Pesquisa</th>
           <th scope="col" class="text-center">Outras Produções Técnicas</th>
           <th scope="col" class="text-center">Lattes</th>
           <th scope="col" class="text-center">Última Atualização Lattes</th>
@@ -126,6 +129,24 @@
             @endif
           </td>
           <td class="text-center">
+            @if($pessoa['total_apresentacao_trabalho'] != 0 || $pessoa['total_apresentacao_trabalho'] != '0')
+              <a href="{{$pessoa['href']}}&section=apresentacao_trabalho">
+                {{$pessoa['total_apresentacao_trabalho']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_radio_tv'] != 0 || $pessoa['total_radio_tv'] != '0')
+              <a href="{{$pessoa['href']}}&section=radio_tv">
+                {{$pessoa['total_radio_tv']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
             @if($pessoa['total_organizacao_evento'] != 0 || $pessoa['total_organizacao_evento'] != '0')
               <a href="{{$pessoa['href']}}&section=organizacao_evento">
                 {{$pessoa['total_organizacao_evento']}}
@@ -156,6 +177,15 @@
             @if($pessoa['total_material_didatico'] != 0 || $pessoa['total_material_didatico'] != '0')
               <a href="{{$pessoa['href']}}&section=material_didatico">
                 {{$pessoa['total_material_didatico']}}
+              </a>
+            @else
+                -
+            @endif
+          </td>
+          <td class="text-center">
+            @if($pessoa['total_projetos_pesquisa'] != 0 || $pessoa['total_projetos_pesquisa'] != '0')
+              <a href="{{$pessoa['href']}}&section=projetos_pesquisa">
+                {{$pessoa['total_projetos_pesquisa']}}
               </a>
             @else
                 -
