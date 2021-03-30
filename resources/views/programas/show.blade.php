@@ -2,6 +2,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tabelas.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 @endsection('styles')
 
@@ -15,7 +16,8 @@
     <b>{{$titulo}}</b>
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
-    <table class="table pessoas-programa-table">
+    <div class="scroll">
+    <table class="table pessoas-programa-table" style="width: 100%;">
       <thead>
         <tr>
           <th scope="col" class="first-col"><span class="text-first-col">Nome<span></th>
@@ -233,6 +235,7 @@
        
       </tbody>
     </table>  
+    </div>
     
 
   </div>
