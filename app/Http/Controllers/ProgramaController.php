@@ -39,7 +39,7 @@ class ProgramaController extends Controller
     public function listarDiscentes($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $discentes = Posgraduacao::obterAtivosPorArea($codare, 8); 
+        $discentes = Posgraduacao::listarAlunosAtivosPrograma($codare, 8); 
         $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
         $titulo = "Discentes ativos ao programa de ". $programa['nomcur'].": ".count($discentes);
 

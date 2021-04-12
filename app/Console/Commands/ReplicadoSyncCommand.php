@@ -70,7 +70,7 @@ class ReplicadoSyncCommand extends Command
         
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']));
-            $this->syncJson(Posgraduacao::obterAtivosPorArea($value['codare'],8));
+            $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8));
         }
         return 0;
     }

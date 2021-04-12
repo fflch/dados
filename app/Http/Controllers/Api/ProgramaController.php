@@ -38,7 +38,7 @@ class ProgramaController extends Controller
     public function listarDiscentes($codare, Request $request){
         
         $filtro = Programa::getFiltro($request);   
-        $discentes = Posgraduacao::obterAtivosPorArea($codare, 8);      
+        $discentes = Posgraduacao::listarAlunosAtivosPrograma($codare, 8);      
         $discentes = Programa::listarPessoa($codare, $filtro, $discentes, true, 'discente');
 
         return response()->json(
