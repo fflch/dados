@@ -3,6 +3,18 @@
 @section('content')
 
 <div class="card">
+    <div class="card-header"><b></b></div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ config('app.url') }}/programas">Programas de Pós-Graduação</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/defesas">Defesas</a></li>
+            
+            <li class="list-group-item"><a href="{{ config('app.url') }}/pesquisa?filtro=departamento">Pesquisa</a></li>
+       </ul>
+    </div>
+</div>
+
+<div class="card">
     <div class="card-header"><b>Dados gerais do portal: 9</b></div>
     <div class="card-body">
 
@@ -220,19 +232,5 @@
     </div>
     
 </div>
-
-<br>
-<div class="card">
-    <div class="card-header"><b>Exportando dados</b></div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/programas">Exportar produção dos programas</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/defesas">Defesas</a></li>
-            
-            <li class="list-group-item"><a href="{{ config('app.url') }}/pesquisa?filtro=departamento">Pesquisa</a></li>
-       </ul>
-    </div>
-</div>
-
 
 @endsection

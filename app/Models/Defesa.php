@@ -27,6 +27,7 @@ class Defesa extends Model
         # 3. Dados que serão de fato retornados
         $aux = [];
         foreach ($defesas as $defesa) {
+            $data = Carbon::createFromFormat('Y-m-d H:i:s', $defesa['dtadfapgm'])->format('d/m/Y');
             $aux[] = [
                 'nome'   => $defesa['nompes'],
                 'nivel'  => $defesa['nivpgm'],
@@ -35,7 +36,8 @@ class Defesa extends Model
                 'nomcur' => $defesa['nomcur'],
                 'nomare' => $defesa['nomare'],
                 'titulo' => $defesa['tittrb'],
-                'data' => Carbon::createFromFormat('Y-m-d H:i:s', $defesa['dtadfapgm'])->format('d/m/Y'),
+                'data'   => $data,
+                'id'     => md5($defesa['codpes'] + $defesa['codare'] + $defesa['codcur'] + str_replace('/','',$data))
             ];
         }
         $defesas = $aux;
