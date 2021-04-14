@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9457c2c3935a453b36386fec7ab0673f",
+    "content-hash": "ba95c62476cb6fee0fd45f10063227cd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5507,6 +5507,42 @@
             "description": "Classes PHP que consome dados do Replicado USP",
             "homepage": "https://github.com/uspdev/replicado",
             "time": "2021-03-24T18:35:51+00:00"
+        },
+        {
+            "name": "uspdev/utils",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uspdev/utils.git",
+                "reference": "3cb2c5734f5ac77867a389ab9eb808da105fd788"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uspdev/utils/zipball/3cb2c5734f5ac77867a389ab9eb808da105fd788",
+                "reference": "3cb2c5734f5ac77867a389ab9eb808da105fd788",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5 || ^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Uspdev\\Utils\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thiago Gomes Veríssimo",
+                    "email": "verissimotgv@gmail.com"
+                }
+            ],
+            "description": "Diversos métodos estáticos em PHP para as coisas mais úteis ou inúteis...",
+            "time": "2021-04-01T15:11:11+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -21,7 +21,8 @@
         "phpoffice/phpspreadsheet": "^1.12",
         "uspdev/cache": "^0.7.1",
         "uspdev/laravel-usp-theme": "^2.0.2",
-        "uspdev/replicado": "^1.6"
+        "uspdev/replicado": "^1.6",
+        "uspdev/utils": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

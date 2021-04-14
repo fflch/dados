@@ -13,9 +13,9 @@
   <div class="card-body">
 
   <ul>
-  <li>Mestrado: {{ $defesas->where('nivpgm','ME')->count()}} </li>
-  <li>Doutorado: {{ $defesas->where('nivpgm','DO')->count()}}</li>
-  <li>Doutorado Direto: {{ $defesas->where('nivpgm','DD')->count()}}</li>
+  <li>Mestrado: {{ $defesas->where('nivel','ME')->count()}} </li>
+  <li>Doutorado: {{ $defesas->where('nivel','DO')->count()}}</li>
+  <li>Doutorado Direto: {{ $defesas->where('nivel','DD')->count()}}</li>
   </ul>
 
   <form>
