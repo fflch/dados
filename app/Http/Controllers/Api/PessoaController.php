@@ -15,9 +15,9 @@ class PessoaController extends Controller
         );
     }
 
-    public function retornarFalecidosPorPeriodo(PessoaRequest $request){
+    public function listarFalecidosPorPeriodo(PessoaRequest $request){
         return response()->json(
-            \Uspdev\Replicado\Pessoa::retornarFalecidosPorPeriodo($request->dtaini, $request->dtafim)
+            \Uspdev\Replicado\Pessoa::listarFalecidosPorPeriodo($request->dtaini, $request->dtafim)
         );
     }
 }
