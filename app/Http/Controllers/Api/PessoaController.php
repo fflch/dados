@@ -14,4 +14,19 @@ class PessoaController extends Controller
             Pessoa::listar($request->validated())
         );
     }
+    
+
+    public function listarFalecidosPorPeriodo(PessoaRequest $request){
+        return response()->json(
+            \Uspdev\Replicado\Pessoa::listarFalecidosPorPeriodo($request->dtaini, $request->dtafim)
+        );
+    }
+
+    public function listarDocentes(){
+        return response()->json(
+            \Uspdev\Replicado\Pessoa::listarTodosDocentes()
+        );
+    }
+
+
 }

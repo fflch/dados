@@ -19,3 +19,5 @@ Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']
 Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
 Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
 Route::get('/obter_orcid', [ProgramaController::class, 'obterOrcid']);
+Route::get('/listar_falecidos_por_periodo', [PessoaController::class, 'listarFalecidosPorPeriodo']);
+Route::get('/listar_docentes', [PessoaController::class, 'listarDocentes']);
