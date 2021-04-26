@@ -47,13 +47,12 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
-        
-        $this->sync_comissao_pesquisa();
-        
+        $date = date('d-m-Y H:i:s');//inicio comando
+        var_dump($date);   
 
         $programas = Posgraduacao::programas(8);
 
-        foreach($programas as $key=>$value) {
+        foreach($programas as $key=>$value) {//programas
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
 
@@ -65,14 +64,20 @@ class ReplicadoSyncCommand extends Command
             $programa->save();
         }
         
-        
-        $this->syncJson(ReplicadoTemp::credenciados());
+        $this->syncJson(ReplicadoTemp::credenciados());//docentes
+        $date = date('d-m-Y H:i:s'); //fim comando
+        var_dump($date);        
+        return;
+
+        $this->sync_comissao_pesquisa();
         
         foreach($programas as $value) {
-            $this->syncJson(Posgraduacao::egressosArea($value['codare']));
             $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8));
+            $this->syncJson(Posgraduacao::egressosArea($value['codare']));
+            
         }
         return 0;
+
     }
 
 
