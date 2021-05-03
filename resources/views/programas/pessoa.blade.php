@@ -11,7 +11,7 @@
 @include ('programas.partials.search')
 
 <div class="card">
-  <div class="card-header"><h3>{{ $content['nome'] }}</h3></div>
+  <div class="card-header"><h3> @arr([$content,'nome']) </h3></div>
   <div class="card-body">
 
     <ul class="list-group">
@@ -32,17 +32,17 @@
               <div class="panel-body collapse in {{ $section_show == 'resumo' ?  'show' : ''}}" id="collapseResumo">
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <p>{!! $content['resumo'] !!}</p>
+                      <p>@arr([$content,'resumo'])</p>
                       <p>&nbsp;</p>
                       <p>
                             <b>Links: &nbsp;</b>
                             @if($content['id_lattes'] != null)
-                                <a target="_blank" href="http://lattes.cnpq.br/{{$content['id_lattes']}}">
+                                <a target="_blank" href="http://lattes.cnpq.br/@arr([$content,'id_lattes'])">
                                 <i class="ai ai-lattes ai-2x f-20"></i></a>
                             @endif
                             &nbsp;
                             @if($content['orcid'] != null)
-                                <a target="_blank" href="{{$content['orcid']}}">
+                                <a target="_blank" href="@arr([$content,'orcid'])">
                                 <i class="ai ai-orcid ai-2x f-20"></i>
                                 </a>
                             @endif
@@ -70,7 +70,7 @@
               </div>
               <ul class="list-group collapse in  {{ $section_show == 'linhas_pesquisa' ?  'show' : ''}}" id="collapseLinhaPesquisa">
                   @foreach($content['linhas_pesquisa'] as $key => $value)
-                      <li class="list-group-item"> {!! $value !!}  </li> 
+                      <li class="list-group-item"> {!! $value !!}   </li> 
                   @endforeach 
               </ul>
               
@@ -101,10 +101,10 @@
 
                       @include ('programas.partials.autores')
 
-                        {!! $value["TITULO-DO-LIVRO"] !!}. 
-                        {!! $value["CIDADE-DA-EDITORA"] !!}: {!! $value["NOME-DA-EDITORA"] !!},
-                        {!! $value["ANO"] !!}. {!! $value["NUMERO-DE-PAGINAS"] !!}p.  
-                        ISBN: {!! $value["ISBN"] !!}. 
+                        @arr([$value,'TITULO-DO-LIVRO']). 
+                        @arr([$value,'CIDADE-DA-EDITORA']) : @arr([$value,'NOME-DA-EDITORA']),
+                        @arr([$value,'ANO']) . @arr([$value,'NUMERO-DE-PAGINAS'])p.  
+                        ISBN: @arr([$value,'ISBN']). 
                       </li>
                       @endforeach
               </ul>
@@ -136,11 +136,11 @@
                     <li class="list-group-item">
                         @include ('programas.partials.autores')
                         
-                        {!! $value["TITULO-DO-ARTIGO"] !!}
-                        {!! $value['TITULO-DO-PERIODICO-OU-REVISTA'] !!},
-                        v. {!! $value['VOLUME'] !!},
-                        p. {!! $value['PAGINA-INICIAL'] !!} - {!! $value['PAGINA-FINAL'] !!},
-                        {!! $value['ANO'] !!}. ISSN: {!! $value['ISSN'] !!}.
+                        @arr([$value,'TITULO-DO-ARTIGO'])
+                        @arr([$value,'TITULO-DO-PERIODICO-OU-REVISTA']) ,
+                        v. @arr([$value,'VOLUME']) ,
+                        p. @arr([$value,'PAGINA-INICIAL'])  - @arr([$value,'PAGINA-FINAL']) ,
+                        @arr([$value,'ANO']). ISSN: @arr([$value,'ISSN']).
                     </li>
                 @endforeach
             </ul>
@@ -170,11 +170,11 @@
                          
                     @include ('programas.partials.autores')
                                                
-                        {!! $value['TITULO-DO-CAPITULO-DO-LIVRO'] !!}. 
-                        {!! $value['TITULO-DO-LIVRO'] !!},
-                        v. {!! $value['NUMERO-DE-VOLUMES'] !!},
-                        p. {!! $value['PAGINA-INICIAL'] !!} - {!! $value['PAGINA-FINAL'] !!},
-                        {!! $value['ANO'] !!}.
+                        @arr([$value,'TITULO-DO-CAPITULO-DO-LIVRO']). 
+                        @arr([$value,'TITULO-DO-LIVRO']),
+                        v. @arr([$value,'NUMERO-DE-VOLUMES']),
+                        p. @arr([$value,'PAGINA-INICIAL']) - @arr([$value,'PAGINA-FINAL']),
+                        @arr([$value,'ANO']).
                     </li>
                 @endforeach
             </ul>
@@ -203,9 +203,9 @@
                          
                 @include ('programas.partials.autores')
                         
-                        {!! $value['TITULO'] !!}. 
-                        {!! $value['TITULO-DO-JORNAL-OU-REVISTA'] !!},
-                        {!! $value['LOCAL-DE-PUBLICACAO'] !!},
+                        @arr([$value,'TITULO']) . 
+                        @arr([$value,'TITULO-DO-JORNAL-OU-REVISTA']) ,
+                        @arr([$value,'LOCAL-DE-PUBLICACAO']) ,
                         <?php
                             if(isset($value["DATA"])){
                                 $meses = ['', 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; 
@@ -240,21 +240,21 @@
                          
                     @include ('programas.partials.autores')
 
-                        {!! $value['TITULO'] !!}. 
-                        @if($value["NOME-DO-EVENTO"] )
-                        In: {!! $value['NOME-DO-EVENTO'] !!},
-                        {{ $value["ANO"] }}, {!! $value['CIDADE-DO-EVENTO'] !!}.
+                        @arr([$value,'TITULO']). 
+                        @if(isset($value['NOME-DO-EVENTO']) )
+                        In:  @arr([$value,'NOME-DO-EVENTO'])  ,
+                        @arr([$value,'ANO']) ,  @arr([$value,'CIDADE-DO-EVENTO']).
                         @endif
 
-                        {!! $value['TITULO-DOS-ANAIS-OU-PROCEEDINGS'] !!}.
+                        @arr([$value,'TITULO-DOS-ANAIS-OU-PROCEEDINGS']).
 
-                        @if($value["NOME-DA-EDITORA"] )
-                        {!! $value['CIDADE-DA-EDITORA'] !!}: {!! $value['NOME-DA-EDITORA'] !!},
+                        @if(isset($value['NOME-DA-EDITORA']))
+                        @arr([$value,'CIDADE-DA-EDITORA'])  :  @arr([$value,'NOME-DA-EDITORA']),
                         @endif
-                        {{ $value["ANO-DE-REALIZACAO"] }}.
+                        @arr([$value,'ANO-DE-REALIZACAO']).
 
-                        @if($value["PAGINA-INICIAL"] )
-                            p. {{ $value["PAGINA-INICIAL"] }}-{{ $value["PAGINA-FINAL"] }}.
+                        @if(isset($value['PAGINA-INICIAL']))
+                            p.  @arr([$value,'PAGINA-INICIAL'])  - @arr([$value,'PAGINA-FINAL']).
                         @endif
                         
                     </li>
@@ -285,13 +285,13 @@
                          
                     @include ('programas.partials.autores')
                         
-                        {!! $value['TITULO'] !!}. 
-                        {!! $value['CIDADE-DA-EDITORA']!!}:
-                        @if($value["EDITORA"] ){!! $value['EDITORA'] !!},
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'CIDADE-DA-EDITORA']) :
+                        @if(isset($value['EDITORA']) )@arr([$value,'EDITORA']) ,
                         @endif
-                        {!! $value["ANO"] !!}
-                        @if($value["TIPO"] )
-                            ({!! $value['TIPO'] !!})
+                        @arr([$value,'ANO']) 
+                        @if(isset($value['TIPO']) )
+                            (@arr([$value,'TIPO']))
                         @endif
 
                         <?php
@@ -328,8 +328,8 @@
                          
                     @include ('programas.partials.autores')
                         
-                    {!! $value['TITULO'] !!}. 
-                    {!! $value["ANO"] !!} (<?= ucfirst(strtolower($value['TIPO'])) ?>)
+                    @arr([$value,'TITULO']). 
+                    @arr([$value,'ANO']) (<?= isset($value['TIPO']) ? ucfirst(strtolower($value['TIPO'])) : '' ?>)
 
                     </li>
                 @endforeach
@@ -359,14 +359,14 @@
                          
                     @include ('programas.partials.autores')
                         
-                    {!! $value['TITULO'] !!}. 
-                    {!! $value["ANO"] !!} 
+                    @arr([$value,'TITULO']). 
+                    @arr([$value,'ANO'])
                     (<?php 
-                        if($value['TIPO'] == 'SEMINARIO')
+                        if(isset($value['TIPO']) && $value['TIPO'] == 'SEMINARIO')
                             echo 'Seminário';
-                        elseif($value['TIPO'] == 'CONFERENCIA')
+                        elseif(isset($value['TIPO']) && $value['TIPO'] == 'CONFERENCIA')
                             echo 'Conferência';
-                        else
+                        elseif(isset($value['TIPO']) )
                             echo ucfirst(strtolower($value['TIPO']));
                     ?>)
 
@@ -400,8 +400,8 @@
                         @include ('programas.partials.autores')
                         
                         
-                        {!! $value['TITULO'] !!}. 
-                        {{ $value["ANO"] }} ({{ $value["EMISSORA"] }})
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'ANO']) (@arr([$value,'EMISSORA']))
 
                     </li>
                 @endforeach
@@ -432,8 +432,8 @@
                         @include ('programas.partials.autores')
                         
                         
-                        {!! $value['TITULO'] !!}. 
-                        {{ $value["ANO"] }} ({{ $value["INSTITUICAO-PROMOTORA"] }})
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'ANO']) (@arr([$value,'INSTITUICAO-PROMOTORA']))
 
                     </li>
                 @endforeach
@@ -465,8 +465,8 @@
                         @include ('programas.partials.autores')
                         
                         
-                        {!! ($value['TITULO']) !!}. 
-                        {{ $value["ANO"] }}  ({{$value['INSTITUICAO-PROMOTORA-DO-CURSO']}})
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'ANO'])  (@arr([$value,'INSTITUICAO-PROMOTORA-DO-CURSO']))
 
                     </li>
                 @endforeach
@@ -498,8 +498,8 @@
                         @include ('programas.partials.autores')
                         
                         
-                        {!! ($value['TITULO']) !!}. 
-                        {{ $value["ANO"] }}  
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'ANO'])  
 
                     </li>
                 @endforeach
@@ -530,8 +530,8 @@
 
                         @include ('programas.partials.autores')
                 
-                        {!! ($value['TITULO']) !!}. 
-                        {{ $value["ANO"] }}  (<?= ucfirst(strtolower($value['NATUREZA'])) ?>)
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'ANO'])  (<?= isset($value['NATUREZA']) ? ucfirst(strtolower($value['NATUREZA'])) : '' ?>)
                         
 
                     </li>
@@ -560,24 +560,26 @@
                 @foreach($content['projetos_pesquisa'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        <b>Nome do projeto:</b> {!! ($value['NOME-DO-PROJETO']) !!} ({{ $value["ANO-INICIO"] }}  - 
+                        <b>Nome do projeto:</b>  @arr([$value,'NOME-DO-PROJETO']) ( @arr([$value,'ANO-INICIO'])  - 
                         @if(empty($value["ANO-FIM"]) || $value["ANO-FIM"] == '' || $value["ANO-FIM"] == null)
                             Atual)
                         @else
-                            {!! $value["ANO-FIM"] !!})
+                            @arr([$value,'ANO-FIM'])
                         @endif
                         <br>
-                        <b>Natureza: </b><?= ucfirst(strtolower($value['NATUREZA'])) ?> <br>
+                        @if(isset($value['NATUREZA']))
+                            <b>Natureza: </b><?= ucfirst(strtolower($value['NATUREZA'])) ?> <br>
+                        @endif
                         <b>Integrantes: </b>
                         @foreach($value['EQUIPE-DO-PROJETO'] as $k=>$val)
                             @if( $k + 1 <  count($value['EQUIPE-DO-PROJETO']))
-                                {!! $val["NOME-COMPLETO"] !!}, 
+                                @arr([$val,'NOME-COMPLETO']), 
                             @elseif (isset($val["NOME-COMPLETO"]) && $val["NOME-COMPLETO"] != null && $val["NOME-COMPLETO"] != "")
-                                {!! $val["NOME-COMPLETO"] !!}.
+                                @arr([$val,'NOME-COMPLETO']).
                             @endif
                         @endforeach 
                         <br>
-                        <b>Descrição: </b>{!! ($value['DESCRICAO-DO-PROJETO']) !!}
+                        <b>Descrição: </b> @arr([$value,'DESCRICAO-DO-PROJETO'])
                        
                          
 
@@ -611,8 +613,8 @@
                         @include ('programas.partials.autores')
                         
                         
-                        {!! ($value['TITULO']) !!}. 
-                        {{ $value["ANO"] }}  - <?= ucfirst(strtolower($value['NATUREZA'])) ?>
+                        @arr([$value,'TITULO']). 
+                        @arr([$value,'ANO'])  - <?= isset($value['NATUREZA']) ? ucfirst(strtolower($value['NATUREZA'])) : '' ?>
 
                     </li>
                 @endforeach
@@ -732,15 +734,15 @@
                             @if(isset($val["ANO-DE-CONCLUSAO"]))
                             <li class="list-group-item">
                             @if(isset($val['NOME-CURSO']))
-                            Curso: {!! $val['NOME-CURSO'] !!} <br>
+                            Curso: @arr([$value,'NOME-CURSO']) <br>
                             @endif
-                            Nome da Instituição: {!! $val["NOME-INSTITUICAO"] !!} <br>
+                            Nome da Instituição: @arr([$value,'NOME-INSTITUICAO'])  <br>
                             @if(isset($val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO']) && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != null && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != '')
-                            Título: {!! $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] !!} <br> 
+                            Título: @arr([$value,'TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'])  <br> 
                             @endif
                             Ano de conclusão: 
                             @if(isset($val['ANO-DE-CONCLUSAO']) && $val['ANO-DE-CONCLUSAO'] != null && $val['ANO-DE-CONCLUSAO'] != '') 
-                            {!! $val["ANO-DE-CONCLUSAO"] !!} 
+                                @arr([$value,'ANO-DE-CONCLUSAO']) 
                             @else
                             Atual
                             @endif
@@ -773,44 +775,44 @@
             <ul class="list-group collapse in  {{ $section_show == 'ultimo_vinculo_profissional' ?  'show' : ''}}" id="collapseultimo_vinculo_profissional">
                 @foreach($content['ultimo_vinculo_profissional'] as $key=>$value)
                     <li class="list-group-item">
-                        {!! $value['NOME-INSTITUICAO'] !!}:
+                        @arr([$value,'NOME-INSTITUICAO']):
                         <ul class="list-group">
                         @if(isset($value['VINCULOS']['ANO-INICIO']))
                             <li class="list-group-item">
-                                Tipo de vínculo: <?= ucfirst(strtolower($value['VINCULOS']['TIPO-DE-VINCULO'])) ?>
-                                ({!! $value['VINCULOS']['ANO-INICIO'] !!} - 
+                                Tipo de vínculo: <?= isset($value['VINCULOS']['TIPO-DE-VINCULO']) ? ucfirst(strtolower($value['VINCULOS']['TIPO-DE-VINCULO'])) : 'Indefinido' ?>
+                                (@arr([$value,'VINCULOS.ANO-INICIO'])  - 
                                 @if($value['VINCULOS']['ANO-FIM'] == '') Atual
                                 @else 
-                                    {!! $value['VINCULOS']['ANO-FIM'] !!}
+                                    @arr([$value,'VINCULOS.ANO-FIM']) 
                                 @endif
                                 ).
                                 @if(isset($value['VINCULOS']['OUTRAS-INFORMACOES']) && $value['VINCULOS']['OUTRAS-INFORMACOES'] != '' && $value['VINCULOS']['OUTRAS-INFORMACOES'] != null && strlen($value['VINCULOS']['OUTRAS-INFORMACOES']) > 0 )
                                 <br>
-                                    Outras informações: {!! $value['VINCULOS']['OUTRAS-INFORMACOES'] !!}
+                                    Outras informações: @arr([$value,'VINCULOS.OUTRAS-INFORMACOES']) 
                                 @endif
                                 @if(isset($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != '' && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != null && strlen($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) > 0)
                                 <br>
-                                    Outras informações: {!! $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] !!}
+                                    Outras informações: @arr([$value,'VINCULOS.OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) 
                                 @endif                                
                             </li>
                         @else
                             @foreach($value['VINCULOS'] as $val)
                                 @if(isset($val["ANO-INICIO"]))
                                 <li class="list-group-item">
-                                Tipo de vínculo: <?= ucfirst(strtolower($val['TIPO-DE-VINCULO']))?>
-                                ({!! $val['ANO-INICIO'] !!} - 
+                                Tipo de vínculo: <?= isset($val['TIPO-DE-VINCULO']) ? ucfirst(strtolower($val['TIPO-DE-VINCULO'])) : 'Indefinido' ?>
+                                (@arr([$value,'ANO-INICIO']) - 
                                 @if($val['ANO-FIM'] == '') Atual
                                 @else
-                                    {!! $val['ANO-FIM'] !!}
+                                    @arr([$value,'ANO-FIM'])
                                 @endif
                                 ).
                                 @if(isset($value['VINCULOS']['OUTRAS-INFORMACOES']) && $value['VINCULOS']['OUTRAS-INFORMACOES'] != '' && $value['VINCULOS']['OUTRAS-INFORMACOES'] != null && strlen($value['VINCULOS']['OUTRAS-INFORMACOES']) > 0 )
                                 <br>
-                                    Outras informações: {!! $value['VINCULOS']['OUTRAS-INFORMACOES'] !!}
+                                    Outras informações: @arr([$value,'VINCULOS.OUTRAS-INFORMACOES']) 
                                 @endif
                                 @if(isset($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != '' && $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] != null && strlen($value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) > 0)
                                 <br>
-                                    Outras informações: {!! $value['VINCULOS']['OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO'] !!}
+                                    Outras informações: @arr([$value,'VINCULOS.OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO']) 
                                 @endif
                                 </li>
                                 @endif

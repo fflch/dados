@@ -1,8 +1,8 @@
 @foreach($value['AUTORES'] as $k=>$val)
                         
-    @if(strpos($val["NOME-PARA-CITACAO"], ';') !== false)
+    @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
         {!! explode(';', $val["NOME-PARA-CITACAO"])[0] !!}
-    @else 
+    @elseif(isset($val["NOME-PARA-CITACAO"]))
         {!! $val["NOME-PARA-CITACAO"] !!}  
     @endif
 
