@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
         if (\App::environment('production')) {
             \URL::forceScheme('https');
         }
+
+        Blade::directive('arr', function ($array) {
+            return '<?php $var = '.$array.'; echo Arr::get(array_shift($var), end($var), \'\'); ?>';      
+        });
     }
 }
