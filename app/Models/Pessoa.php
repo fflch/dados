@@ -26,7 +26,7 @@ class Pessoa extends Model
     }
 
     public static function listarDocentes(){
-        $retorno = ReplicadoPessoa::listarTodosDocentes();
+        $retorno = ReplicadoPessoa::listarDocentes(null, 'A,P');
         $docentes = [];
         foreach($retorno as $docente){
             $aux = [];

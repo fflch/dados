@@ -12,6 +12,7 @@ use App\Models\Programa;
 use App\Models\ComissaoPesquisa;
 use App\Utils\Util;
 use Uspdev\Replicado\Uteis;
+use App\Models\Pessoa as PessoaModel;
 
 
 class ReplicadoSyncCommand extends Command
@@ -47,9 +48,11 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+        $this->sync_docentes();
+        $this->sync_falecidos_periodo_covid();
         //docentes
         $programas = Posgraduacao::programas(8);
-
+        
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
@@ -68,8 +71,6 @@ class ReplicadoSyncCommand extends Command
 
         $this->sync_comissao_pesquisa();
         
-       
-        
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']));
             $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8));
@@ -77,6 +78,40 @@ class ReplicadoSyncCommand extends Command
         return 0;
     }
 
+
+    private function sync_falecidos_periodo_covid(){
+        $falecidos = Pessoa::listarFalecidosPorPeriodo('2020-02-07', date('Y-m-d'));
+        foreach($falecidos as $falecido){
+            
+            $pessoa = PessoaModel::where('codpes',$falecido['codpes'])->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+            $pessoa->codpes = $falecido['codpes'];
+            $pessoa->nompes = $falecido['nompes'];
+            $pessoa->dtanas = $falecido['dtanas'];
+            $pessoa->dtaflc = $falecido['dtaflc'];
+            $pessoa->sexpes = $falecido['sexpes'];
+
+            $pessoa->save();
+        }        
+    }
+
+    private function sync_docentes(){
+        $docentes = Pessoa::listarDocentes(null, 'A,P');
+        foreach($docentes as $docente){
+            $pessoa = PessoaModel::where('codpes',$docente['codpes'])->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+            
+            $pessoa->codpes = $docente['codpes'];
+            $pessoa->id_lattes = isset($docente['id_lattes']) ? $docente['id_lattes'] : null;
+            $pessoa->sitatl = $docente['sitatl'];
+            $pessoa->nompes = $docente['nompes'];
+            $pessoa->codset = isset($docente['codset']) ? $docente['codset'] : null;
+            $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
+            $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
+            $pessoa->tipo_vinculo = 'Docente';
+            $pessoa->save();
+        }        
+    }
 
     private function sync_comissao_pesquisa(){
 
