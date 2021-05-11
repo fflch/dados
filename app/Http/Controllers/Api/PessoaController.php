@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pessoa;
 use App\Models\Lattes;
+use Uspdev\Replicado\Lattes as LattesReplicado;
 use App\Http\Requests\PessoaRequest;
 
 class PessoaController extends Controller
@@ -26,23 +27,9 @@ class PessoaController extends Controller
 
     public function listarDocentes(){
         $docentes = Pessoa::where('tipo_vinculo', 'Docente')->get()->toArray();
-        $resultado = [];
-
-        foreach($docentes as $docente){
-            $lattes = Lattes::where('codpes', $docente['codpes'])->first();
-            
-            if($lattes != NULL){
-                $lattes = $lattes->toArray();
-                if(isset($lattes['json']) && $lattes['json'] != NULL && $lattes['json'] != ''){
-                    $json = json_decode($lattes['json']);
-                    $docente['id_lattes'] = $json->id_lattes;
-                }
-            } 
-            array_push($resultado, $docente);
-        }
         
         return response()->json(
-            $resultado
+            $docentes
         );
     }
 
