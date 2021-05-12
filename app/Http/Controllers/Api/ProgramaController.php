@@ -28,8 +28,7 @@ class ProgramaController extends Controller
     public function listarDocentes($codare, Request $request){
         
         $filtro = Programa::getFiltro($request);     
-        $docentes = ReplicadoTemp::credenciados($codare);   
-        $docentes = Programa::listarPessoa($codare, $filtro, $docentes, true, 'docente');
+        $docentes = Programa::listarPessoa($codare, $filtro,  true, 'docentes');
         
         return response()->json(
             $docentes
@@ -38,8 +37,7 @@ class ProgramaController extends Controller
     public function listarDiscentes($codare, Request $request){
         
         $filtro = Programa::getFiltro($request);   
-        $discentes = Posgraduacao::listarAlunosAtivosPrograma($codare, 8);      
-        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, true, 'discente');
+        $discentes = Programa::listarPessoa($codare, $filtro, true, 'discentes');
 
         return response()->json(
             $discentes
@@ -48,8 +46,7 @@ class ProgramaController extends Controller
     public function listarEgressos($codare, Request $request){
         
         $filtro = Programa::getFiltro($request);       
-        $egressos = Posgraduacao::egressosArea($codare, 8);  
-        $egressos = Programa::listarPessoa($codare, $filtro, $egressos, true, 'egresso');
+        $egressos = Programa::listarPessoa($codare, $filtro, true, 'egressos');
         
         return response()->json(
             $egressos
@@ -60,7 +57,7 @@ class ProgramaController extends Controller
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
 
         $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, true, 'docente');
+        $content = Programa::obterPessoa($codpes, $filtro, true, 'docentes');
         
         return response()->json(
             $content
@@ -70,7 +67,7 @@ class ProgramaController extends Controller
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
 
         $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, true, 'discente');
+        $content = Programa::obterPessoa($codpes, $filtro, true, 'discentes');
         
         return response()->json(
             $content
@@ -80,7 +77,7 @@ class ProgramaController extends Controller
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
 
         $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, true, 'egresso');
+        $content = Programa::obterPessoa($codpes, $filtro, true, 'egressos');
         
         return response()->json(
             $content

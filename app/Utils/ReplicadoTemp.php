@@ -9,7 +9,7 @@ class ReplicadoTemp
         date_default_timezone_set('America/Sao_Paulo');
         
         
-        $query = "SELECT r.codpes, p.nompes FROM R25CRECREDOC r 
+        $query = "SELECT r.codpes, p.nompes, r.codare FROM R25CRECREDOC r 
                   INNER JOIN PESSOA p ON r.codpes = p.codpes
                   WHERE r.dtavalfim > CONVERT(datetime, :datafim)
                   ";
