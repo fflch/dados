@@ -51,7 +51,7 @@ class ReplicadoSyncCommand extends Command
         
         $this->sync_docentes(); 
        
-        $this->sync_falecidos_periodo_covid();
+       
         
         $programas = Posgraduacao::programas(8);
         
@@ -81,21 +81,6 @@ class ReplicadoSyncCommand extends Command
         return 0;
     }
 
-    private function sync_falecidos_periodo_covid(){
-        $falecidos = Pessoa::listarFalecidosPorPeriodo('2020-02-07', date('Y-m-d'));
-        foreach($falecidos as $falecido){
-            
-            $pessoa = PessoaModel::where('codpes',$falecido['codpes'])->first();
-            if(!$pessoa) $pessoa = new PessoaModel;
-            $pessoa->codpes = $falecido['codpes'];
-            $pessoa->nompes = $falecido['nompes'];
-            $pessoa->dtanas = $falecido['dtanas'];
-            $pessoa->dtaflc = $falecido['dtaflc'];
-            $pessoa->sexpes = $falecido['sexpes'];
-
-            $pessoa->save();
-        }        
-    }
 
     private function sync_docentes(){
         $docentes = Pessoa::listarDocentes(null, 'A,P');
