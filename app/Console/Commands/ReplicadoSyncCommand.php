@@ -273,7 +273,7 @@ class ReplicadoSyncCommand extends Command
             $aux_codare = $codare == null ? $pessoa['codare'] : $codare;
             $nivpgm = isset($pessoa['nivpgm']) ? $pessoa['nivpgm'] : null;
 
-            $lattes = LattesModel::where('codpes',$pessoa['codpes'])->where('codare',$aux_codare)->where('tipo_pessoa',$tipo_pessoa)->where('tipo_pessoa',$nivpgm)->first();
+            $lattes = LattesModel::where('codpes',$pessoa['codpes'])->where('codare',$aux_codare)->where('tipo_pessoa',$tipo_pessoa)->where('nivpgm',$nivpgm)->first();
             if(!$lattes) {
                 $lattes = new LattesModel;
             }

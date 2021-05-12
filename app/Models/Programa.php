@@ -41,7 +41,7 @@ class Programa extends Model
         return $programas;
     }
 
-    public static function listarPessoa($codare, $filtro, $api = false, $tipo_pessoa){
+    public static function listarPessoa($codare, $filtro, $api, $tipo_pessoa){
         $aux_pessoas = [];
 
         $json_lattes = LattesModel::where('codare',(int)$codare)->where('tipo_pessoa', $tipo_pessoa)->get()->toArray();
