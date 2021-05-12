@@ -52,21 +52,8 @@
                     gênero.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosFuncionarios">Totais de funcionários contabilizados por
                     gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradSociais">Totais de alunos da Graduação em Ciências Sociais
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradCurso/8051">Totais de alunos da Graduação por curso
                     contabilizados por gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradFilosofia">Totais de alunos da Graduação em Filosofia
-                    contabilizados
-                    por gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradGeografia">Totais de alunos da Graduação em Geografia
-                    contabilizados
-                    por gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradHistoria">Totais de alunos da Graduação em História
-                    contabilizados
-                    por
-                    gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradLetras">Totais de alunos da Graduação em Letras
-                    contabilizados por
-                    gênero.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão
                     contabilizados
                     por
@@ -103,24 +90,6 @@
                         </a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosCursoPorSemestre/Letras">Total de trancamentos por semestre dos cursos.
                         </a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosSociaisPorSemestre">Total de trancamentos por semestre do
-                    curso de
-                    Ciências Sociais.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosFilosofiaPorSemestre">Total de trancamentos por semestre
-                    do curso
-                    de
-                    Filosofia.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosGeografiaPorSemestre">Total de trancamentos por semestre
-                    do curso
-                    de
-                    Geografia.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosHistoriaPorSemestre">Total de trancamentos por semestre do
-                    curso
-                    de
-                    História.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosLetrasPorSemestre">Total de trancamentos por semestre do
-                    curso de
-                    Letras.</a></li>
         </ul>
     </div>
 </div>

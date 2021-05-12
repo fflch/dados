@@ -5,5 +5,5 @@ JOIN PESSOA p
 ON p.codpes = l.codpes 
 WHERE l.tipvin = 'ALUNOGR' 
     AND l.codundclg = 8 
-    AND s.codcur = 8010 
+    AND s.codcur = __curso__ 
     AND p.sexpes = '__sigla__'

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
+use Uspdev\Replicado\DB;
 
 class TrancamentosCursoSemestralController extends Controller
 {
@@ -17,7 +17,7 @@ class TrancamentosCursoSemestralController extends Controller
     public function __construct(Excel $excel, Request $request)
     {
         $this->excel = $excel;
-        $cache = new Cache();
+        
         $data = [];
         $curso = $request->route()->parameter('curso') ?? 'Letras';
         $this->cursos = [
@@ -62,7 +62,7 @@ class TrancamentosCursoSemestralController extends Controller
         /* Contabiliza trancamentos por semestre. */
         foreach ($semestres as $semestre) {
             $query_por_semestre = str_replace('__semestre__', $semestre, $query);
-            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query_por_semestre);
+            $result = DB::fetch($query_por_semestre);
             $data[$semestre] = $result['computed'];
         }
        
