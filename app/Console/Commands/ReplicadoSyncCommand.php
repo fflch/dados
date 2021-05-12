@@ -48,6 +48,11 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+        
+        $this->sync_docentes(); 
+       
+        $this->sync_falecidos_periodo_covid();
+        
         $programas = Posgraduacao::programas(8);
         
         foreach($programas as $key=>$value) {
@@ -72,12 +77,9 @@ class ReplicadoSyncCommand extends Command
        
         $this->sync_comissao_pesquisa();
 
-        $this->sync_docentes();
-        $this->sync_falecidos_periodo_covid();
 
         return 0;
     }
-
 
     private function sync_falecidos_periodo_covid(){
         $falecidos = Pessoa::listarFalecidosPorPeriodo('2020-02-07', date('Y-m-d'));
@@ -97,18 +99,22 @@ class ReplicadoSyncCommand extends Command
 
     private function sync_docentes(){
         $docentes = Pessoa::listarDocentes(null, 'A,P');
+
         foreach($docentes as $docente){
+            
             $pessoa = PessoaModel::where('codpes',$docente['codpes'])->first();
             if(!$pessoa) $pessoa = new PessoaModel;
             
+            $id_lattes = Lattes::id($docente['codpes']);
+         
             $pessoa->codpes = $docente['codpes'];
-            $pessoa->id_lattes = isset($docente['id_lattes']) ? $docente['id_lattes'] : null;
+            $pessoa->id_lattes = isset($id_lattes) ? $id_lattes : null;
             $pessoa->sitatl = $docente['sitatl'];
             $pessoa->nompes = $docente['nompes'];
             $pessoa->codset = isset($docente['codset']) ? $docente['codset'] : null;
             $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
             $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
-            $pessoa->tipo_vinculo = 'Docente';
+            $pessoa->tipo_vinculo = 'Docente'; 
             $pessoa->save();
         }        
     }
@@ -149,11 +155,7 @@ class ReplicadoSyncCommand extends Command
 
                 $comissao->save();
             }
-        }
-        
-        
-
-         
+        }        
         
         //pesquisadores colaborativos ativos
         $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos();
@@ -183,12 +185,10 @@ class ReplicadoSyncCommand extends Command
                 $comissao->nome_area= null;
                 $comissao->tipo= 'PC';
                 
-                
                 $comissao->save();
             }
         }
 
-        
         //iniciação cientifica
         $iniciacao_cientifica = Pessoa::listarIniciaoCientificaAtiva();
         
@@ -218,13 +218,10 @@ class ReplicadoSyncCommand extends Command
                 $comissao->nome_area= $ic['nome_programa'];
                 $comissao->tipo= 'IC';
 
-        
-
                 $comissao->save();
             }
         }
-
-
+        
          //projetos de pesquisa dos docentes
          putenv('REPLICADO_SYBASE=0');
          foreach(Util::getDepartamentos() as $key=>$value){
