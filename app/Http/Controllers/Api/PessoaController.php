@@ -26,7 +26,7 @@ class PessoaController extends Controller
     }
 
     public function listarDocentes(){
-        $docentes = Pessoa::where('tipo_vinculo', 'Docente')->get()->toArray();
+        $docentes = Pessoa::listarDocentes();
         
         return response()->json(
             $docentes
