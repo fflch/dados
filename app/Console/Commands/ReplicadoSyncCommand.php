@@ -51,8 +51,8 @@ class ReplicadoSyncCommand extends Command
         
         $this->sync_docentes(); 
        
-        $this->sync_falecidos_periodo_covid();
-        //docentes
+       
+        
         $programas = Posgraduacao::programas(8);
         
         foreach($programas as $key=>$value) {
@@ -66,35 +66,21 @@ class ReplicadoSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
         }
-
-        $this->syncJson(ReplicadoTemp::credenciados());
-
-        dd();
-
-        $this->sync_comissao_pesquisa();
         
+        $this->syncJson(ReplicadoTemp::credenciados(), null, 'docentes');
         foreach($programas as $value) {
-            $this->syncJson(Posgraduacao::egressosArea($value['codare']));
-            $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8));
+            $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
         }
+        foreach($programas as $value) {
+            $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
+        }
+       
+        $this->sync_comissao_pesquisa();
+
+
         return 0;
     }
 
-    private function sync_falecidos_periodo_covid(){
-        $falecidos = Pessoa::listarFalecidosPorPeriodo('2020-02-07', date('Y-m-d'));
-        foreach($falecidos as $falecido){
-            
-            $pessoa = PessoaModel::where('codpes',$falecido['codpes'])->first();
-            if(!$pessoa) $pessoa = new PessoaModel;
-            $pessoa->codpes = $falecido['codpes'];
-            $pessoa->nompes = $falecido['nompes'];
-            $pessoa->dtanas = $falecido['dtanas'];
-            $pessoa->dtaflc = $falecido['dtaflc'];
-            $pessoa->sexpes = $falecido['sexpes'];
-
-            $pessoa->save();
-        }        
-    }
 
     private function sync_docentes(){
         $docentes = Pessoa::listarDocentes(null, 'A,P');
@@ -278,13 +264,16 @@ class ReplicadoSyncCommand extends Command
         return $curso;
     }
 
-    private function syncJson($pessoas){
+    private function syncJson($pessoas, $codare = null, $tipo_pessoa = null){
+
         foreach($pessoas as $pessoa) {
-            
+                
             if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
 
+            $aux_codare = $codare == null ? $pessoa['codare'] : $codare;
+            $nivpgm = isset($pessoa['nivpgm']) ? $pessoa['nivpgm'] : null;
 
-            $lattes = LattesModel::where('codpes',$pessoa['codpes'])->first();
+            $lattes = LattesModel::where('codpes',$pessoa['codpes'])->where('codare',$aux_codare)->where('tipo_pessoa',$tipo_pessoa)->where('nivpgm',$nivpgm)->first();
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
@@ -324,14 +313,18 @@ class ReplicadoSyncCommand extends Command
                 $info_lattes['apresentacao_trabalho'] = Lattes::listarApresentacaoTrabalho($pessoa['codpes'], $lattes_array, 'anual', -1, null);
 
                 $lattes->codpes = $pessoa['codpes'];
+                $lattes->tipo_pessoa = $tipo_pessoa;
+                $lattes->codare = $aux_codare;
+                $lattes->nivpgm =  $nivpgm;
                 $lattes->json = json_encode($info_lattes);
                 $lattes->save();
-
-                # talvez não precise
-                if(!$lattes->json){
-                    echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";erro no json_encode\n";
-                }
             } else {
+                $lattes->codpes = $pessoa['codpes'];
+                $lattes->tipo_pessoa = $tipo_pessoa;
+                $lattes->codare = $aux_codare;
+                $lattes->nivpgm =  $nivpgm;
+                $lattes->json = null;
+                $lattes->save();
                 echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";lattes não encontrado\n";
             }
         }

@@ -20,8 +20,7 @@ class ProgramaController extends Controller
     public function listarDocentes($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $credenciados = ReplicadoTemp::credenciados($codare);
-        $credenciados = Programa::listarPessoa($codare, $filtro, $credenciados, false, 'docente');
+        $credenciados = Programa::listarPessoa($codare, $filtro, false, 'docentes');
         $titulo = "Docentes credenciados ao programa de " .$programa['nomcur'] .": " .count($credenciados);
 
         
@@ -39,8 +38,7 @@ class ProgramaController extends Controller
     public function listarDiscentes($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $discentes = Posgraduacao::listarAlunosAtivosPrograma($codare, 8); 
-        $discentes = Programa::listarPessoa($codare, $filtro, $discentes, false, 'discente');
+        $discentes = Programa::listarPessoa($codare, $filtro, false, 'discentes');
         $titulo = "Discentes ativos ao programa de ". $programa['nomcur'].": ".count($discentes);
 
         return view('programas.show',[
@@ -57,9 +55,8 @@ class ProgramaController extends Controller
     public function listarEgressos($codare, Request $request) {
         $filtro = Programa::getFiltro($request);        
         $programa = Posgraduacao::programas(8, null, $codare)[0];
-        $egressos = Posgraduacao::egressosArea($codare, 8); 
-        $content_egressos = Programa::listarPessoa($codare, $filtro, $egressos, false, 'egresso');
-        $titulo = "Egressos do programa de ".$programa['nomcur'].": ".count($egressos);
+        $content_egressos = Programa::listarPessoa($codare, $filtro,  false, 'egressos');
+        $titulo = "Egressos do programa de ".$programa['nomcur'].": ".count($content_egressos);
         
         return view('programas.show',[
             'pessoas' => $content_egressos,
@@ -75,7 +72,7 @@ class ProgramaController extends Controller
     public function docente($id_lattes, Request $request) {
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
         $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro,false, 'docente');
+        $content = Programa::obterPessoa($codpes, $filtro,false, 'docentes');
         $section_show = request()->section ?? '';
 
         return view('programas.pessoa',[
@@ -90,7 +87,7 @@ class ProgramaController extends Controller
     public function discente($id_lattes, Request $request) {
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
         $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, false, 'discente');
+        $content = Programa::obterPessoa($codpes, $filtro, false, 'discentes');
         $section_show = request()->section ?? '';
         
         return view('programas.pessoa',[
@@ -104,7 +101,7 @@ class ProgramaController extends Controller
     public function egresso($id_lattes, Request $request) {
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
         $filtro = Programa::getFiltro($request);        
-        $content = Programa::obterPessoa($codpes, $filtro, false, 'egresso');
+        $content = Programa::obterPessoa($codpes, $filtro, false, 'egressos');
         $section_show = request()->section ?? '';
         
         return view('programas.pessoa',[

@@ -31,9 +31,6 @@ Instalação da biblioteca ***Cache***: [Instalação e configuração](https://
 
 - Acessar o arquivo api.php dentro da pasta routes para consultar o endereço de cada API
 - Adicionar na URL do portal de Dados (https://dados.fflch.usp.br), o prefixo /api/{ENDEREÇO DA API A SER CONSULTADA}
-- Para consultar algumas APIs, como a de falecidos, é preciso passar o endereço da api, mais dois pârametos: a data inicial e a data final (no formato americano Y-m-d), como por exemplo: 
-```sh
-https://dados.fflch.usp.br/api/listar_falecidos_por_periodo?dtaini=2020-02-07&dtafim=2021-05-04
 ```
 - Para consultar a API com as informações de um programa, é necessário passar o último pârametro {codare}, com o código da área de pós graduação:
 ```sh

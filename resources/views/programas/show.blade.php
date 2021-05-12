@@ -62,7 +62,7 @@
           </td>
 
           @if($tipo_pessoa == "egressos")
-          <td class="text-center"> {{$pessoa['nivpgm']}} </td>
+          <td class="text-center"> @arr([$pessoa, 'nivpgm']) </td>
           @endif
 
           <td class="text-center">

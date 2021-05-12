@@ -17,16 +17,10 @@ class PessoaController extends Controller
         );
     }
 
-    public function listarFalecidosPorPeriodo(PessoaRequest $request){
-        $falecidos = Pessoa::whereBetween('dtaflc', [$request->dtaini, $request->dtafim])->get()->toArray();
-        
-        return response()->json(
-            $falecidos            
-        );
-    }
+   
 
     public function listarDocentes(){
-        $docentes = Pessoa::where('tipo_vinculo', 'Docente')->get()->toArray();
+        $docentes = Pessoa::listarDocentes();
         
         return response()->json(
             $docentes
