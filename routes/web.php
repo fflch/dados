@@ -18,11 +18,7 @@ use App\Http\Controllers\AtivosPorGeneroFuncionariosController;
 use App\Http\Controllers\AtivosPosDoutoradoPorCursoController;
 use App\Http\Controllers\AtivosPorDepartamentoFuncionariosController;
 use App\Http\Controllers\AtivosPorProgramaPósController;
-use App\Http\Controllers\AtivosPorGeneroCursoGradSociaisController;
-use App\Http\Controllers\AtivosPorGeneroCursoGradFilosofiaController;
-use App\Http\Controllers\AtivosPorGeneroCursoGradGeografiaController;
-use App\Http\Controllers\AtivosPorGeneroCursoGradHistoriaController;
-use App\Http\Controllers\AtivosPorGeneroCursoGradLetrasController;
+use App\Http\Controllers\AtivosPorGeneroCursoGradController;
 use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
 use App\Http\Controllers\Beneficios2019PorProgramaController;
@@ -48,11 +44,6 @@ use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
 use App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller;
 use App\Http\Controllers\AtivosBolsaLivroController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
-use App\Http\Controllers\TrancamentosSociaisSemestralController;
-use App\Http\Controllers\TrancamentosFilosofiaSemestralController;
-use App\Http\Controllers\TrancamentosGeografiaSemestralController;
-use App\Http\Controllers\TrancamentosHistoriaSemestralController;
-use App\Http\Controllers\TrancamentosLetrasSemestralController;
 use App\Http\Controllers\AlunosEspeciaisPosGrAnoController;
 use App\Http\Controllers\AlunosEspeciaisGrAnoController;
 use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
@@ -122,25 +113,10 @@ Route::get('/ativosFuncionariosDepartamento/export/{format}', [AtivosPorDepartam
 Route::get('/ativosPorProgramaPos', [AtivosPorProgramaPósController::class, 'grafico']);
 Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPósController::class, 'export']);
 
-# totais de alunos da graduação em sociais por gênero
-Route::get('/ativosGradSociais', [AtivosPorGeneroCursoGradSociaisController::class, 'grafico']);
-Route::get('/ativosGradSociais/export/{format}', [AtivosPorGeneroCursoGradSociaisController::class, 'export']);
+# totais de alunos da graduação por gênero e por curso
+Route::get('/ativosGradCurso/{cod_curso}', [AtivosPorGeneroCursoGradController::class, 'grafico']);
+Route::get('/ativosGradCurso/export/{format}/{cod_curso}', [AtivosPorGeneroCursoGradController::class, 'export']);
 
-# totais de alunos da graduação em filosofia por gênero
-Route::get('/ativosGradFilosofia', [AtivosPorGeneroCursoGradFilosofiaController::class, 'grafico']);
-Route::get('/ativosGradFilosofia/export/{format}', [AtivosPorGeneroCursoGradFilosofiaController::class, 'export']);
-
-# totais de alunos da graduação em geografia por gênero
-Route::get('/ativosGradGeografia', [AtivosPorGeneroCursoGradGeografiaController::class, 'grafico']);
-Route::get('/ativosGradGeografia/export/{format}', [AtivosPorGeneroCursoGradGeografiaController::class, 'export']);
-
-# totais de alunos da graduação em história por gênero
-Route::get('/ativosGradHistoria', [AtivosPorGeneroCursoGradHistoriaController::class, 'grafico']);
-Route::get('/ativosGradHistoria/export/{format}', [AtivosPorGeneroCursoGradHistoriaController::class, 'export']);
-
-# totais de alunos da graduação em Letras por gênero
-Route::get('/ativosGradLetras', [AtivosPorGeneroCursoGradLetrasController::class, 'grafico']);
-Route::get('/ativosGradLetras/export/{format}', [AtivosPorGeneroCursoGradLetrasController::class, 'export']);
 
 # totais com algum benefício ativo
 Route::get('/beneficiados', [BeneficiadosController::class, 'grafico']);
@@ -242,25 +218,6 @@ Route::get('/ativosBolsaLivro/export/{format}', [AtivosBolsaLivroController::cla
 Route::get('/trancamentosCursoPorSemestre/{curso}', [TrancamentosCursoSemestralController::class, 'grafico']);
 Route::get('/trancamentosCursoPorSemestre/export/{format}/{curso}', [TrancamentosCursoSemestralController::class, 'export']);
 
-#totais de trancamentos por semestre do curso de Sociais
-Route::get('/trancamentosSociaisPorSemestre', [TrancamentosSociaisSemestralController::class, 'grafico']);
-Route::get('/trancamentosSociaisPorSemestre/export/{format}', [TrancamentosSociaisSemestralController::class, 'export']);
-
-#totais de trancamentos por semestre do curso de Filosofia
-Route::get('/trancamentosFilosofiaPorSemestre', [TrancamentosFilosofiaSemestralController::class, 'grafico']);
-Route::get('/trancamentosFilosofiaPorSemestre/export/{format}', [TrancamentosFilosofiaSemestralController::class, 'export']);
-
-#totais de trancamentos por semestre do curso de Geografia
-Route::get('/trancamentosGeografiaPorSemestre', [TrancamentosGeografiaSemestralController::class, 'grafico']);
-Route::get('/trancamentosGeografiaPorSemestre/export/{format}', [TrancamentosGeografiaSemestralController::class, 'export']);
-
-#totais de trancamentos por semestre do curso de Historia
-Route::get('/trancamentosHistoriaPorSemestre', [TrancamentosHistoriaSemestralController::class, 'grafico']);
-Route::get('/trancamentosHistoriaPorSemestre/export/{format}', [TrancamentosHistoriaSemestralController::class, 'export']);
-
-#totais de trancamentos por semestre do curso de Letras
-Route::get('/trancamentosLetrasPorSemestre', [TrancamentosLetrasSemestralController::class, 'grafico']);
-Route::get('/trancamentosLetrasPorSemestre/export/{format}', [TrancamentosLetrasSemestralController::class, 'export']);
 
 #quantidade de alunos especiais em pós graduação por ano (2010-2010)
 Route::get('/alunosEspeciaisPosGrAno', [AlunosEspeciaisPosGrAnoController::class, 'grafico']);
