@@ -21,9 +21,9 @@ class AlunosAtivosAutodeclaradosController extends Controller
         $data = [];
 
         //tipo de vínculo
-        $vinculos = ['ALUNOGR', 'ALUNOPOS', 'ALUNOCEU', 'ALUNOPD'];
+        $vinculo = ['ALUNOGR', 'ALUNOPOS', 'ALUNOCEU', 'ALUNOPD'];
 
-        $vinculos = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
+        $vinculo = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
 
         $cores = Util::racas;
 
@@ -31,7 +31,7 @@ class AlunosAtivosAutodeclaradosController extends Controller
         foreach ($cores as $cor) {
             $query_por_cor = str_replace('__cor__', $cor, $query);
 
-            $query_por_cor = str_replace('__vinculo__', $vinculos, $query_por_cor);
+            $query_por_cor = str_replace('__vinculo__', $vinculo, $query_por_cor);
 
             $result = DB::fetch($query_por_cor);
             $data[$cor] = $result['computed'];
@@ -50,12 +50,12 @@ class AlunosAtivosAutodeclaradosController extends Controller
             'Parda',
             'Não informado',
         ]);
-        $vinculos = $this->vinculo;
+        $vinculo = $this->vinculo;
         $cores = Util::racas;
 
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('ativosAlunosAutodeclarados', compact('chart', 'vinculos', 'cores'));
+        return view('ativosAlunosAutodeclarados', compact('chart', 'vinculo', 'cores'));
     }
 
     public function export($format)
