@@ -3,30 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
+use Illuminate\Http\Request;
+use App\Utils\Util;
 use App\Exports\DadosExport;
+use Uspdev\Replicado\DB;
 
 class AlunosAtivosAutodeclaradosController extends Controller
 {
     private $data;
     private $excel;
-    public function __construct(Excel $excel)
+    private $vinculo;
+    
+    public function __construct(Excel $excel,Request $request)
     {
         $this->excel = $excel;
-        $cache = new Cache();
         $data = [];
 
-        // Array com código das cores/raça cadastradas no banco. 
-        $cores = ['1', '2', '3', '4', '5', '6'];
+        //tipo de vínculo
+        $vinculos = ['ALUNOGR', 'ALUNOPOS', 'ALUNOCEU', 'ALUNOPD'];
+
+        $vinculos = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
+
+        $cores = Util::racas;
 
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunos_autodeclarados.sql');
-
-        /* Contabiliza alunos da Graduação, Pós Graduação, Pós Doutorado e Cultura e Extensão
-        autodeclarados */
         foreach ($cores as $cor) {
             $query_por_cor = str_replace('__cor__', $cor, $query);
-            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch', $query_por_cor);
+
+            $query_por_cor = str_replace('__vinculo__', $vinculos, $query_por_cor);
+
+            $result = DB::fetch($query_por_cor);
             $data[$cor] = $result['computed'];
         }
         $this->data = $data;
@@ -34,28 +41,28 @@ class AlunosAtivosAutodeclaradosController extends Controller
 
     public function grafico()
     {
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
         $chart = new GenericChart;
         $chart->labels([
             'Indígena',
             'Branca',
-            'Preta / Negra',
+            'Preta/Negra',
             'Amarela',
             'Parda',
-            'Não informada',
+            'Não informado',
         ]);
+        $vinculos = $this->vinculo;
+        $cores = Util::racas;
+
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('ativosAlunosAutodeclarados', compact('chart'));
+        return view('ativosAlunosAutodeclarados', compact('chart', 'vinculos', 'cores'));
     }
 
     public function export($format)
     {
         if ($format == 'excel') {
             $export = new DadosExport([$this->data], array_keys($this->data));
-            return $this->excel->download($export, 'alunos_ativos_autodeclarados.xlsx');
+            return $this->excel->download($export, 'ativos_autodeclarados.xlsx');
         }
     }
 }
