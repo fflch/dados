@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
+
 use Maatwebsite\Excel\Excel;
+use Uspdev\Replicado\DB;
 use App\Exports\DadosExport;
 
 class AtivosGradPaisNascimentoController extends Controller
@@ -13,23 +14,13 @@ class AtivosGradPaisNascimentoController extends Controller
     private $excel;
     public function __construct(Excel $excel){
         $this->excel = $excel;
-        $cache = new Cache();
+
         $data = [];
 
         /* Contabiliza aluno graduação nascidos no br */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_nascidos_br.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Nascidos no Brasil'] = $result['computed'];
-
-        /* Contabiliza aluno graduação não nascido no br */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_nao_nascidos_br.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Estrangeiros'] = $result['computed'];
-
-        /* Contabiliza aluno graduação sem infomações de local de nascimento */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_nascidos_sem_info.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
-        $data['Sem informações'] = $result['computed'];
 
         $this->data = $data;
     }    
