@@ -155,8 +155,8 @@ Route::get('/ativosChefesAdministrativos', [AtivosPorGeneroChefesAdministrativos
 Route::get('/ativosChefesAdministrativos/export/{format}', [AtivosPorGeneroChefesAdministrativosController::class, 'export']);
 
 #totais de alunos ativos da graduação nascidos e não nascidos no br
-Route::get('/ativosGradPaisNasc', [AtivosGradPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosGradPaisNasc/export/{format}', [AtivosGradPaisNascimentoController::class, 'export']);
+Route::get('/ativosPaisNasc', [AtivosGradPaisNascimentoController::class, 'grafico']);
+Route::get('/ativosPaisNasc/export/{format}', [AtivosGradPaisNascimentoController::class, 'export']);
 
 #totais de alunos ativos da pós graduação nascidos e não nascidos no br
 Route::get('/ativosPosPaisNasc', [AtivosPosPaisNascimentoController::class, 'grafico']);

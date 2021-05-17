@@ -7,34 +7,52 @@ use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use Uspdev\Replicado\DB;
 use App\Exports\DadosExport;
+use Illuminate\Http\Request;
 
 class AtivosGradPaisNascimentoController extends Controller
 {
     private $data;
     private $excel;
-    public function __construct(Excel $excel){
+    private $tipo_vinculo;
+
+    public function __construct(Excel $excel, Request $request){
         $this->excel = $excel;
 
         $data = [];
 
-        /* Contabiliza aluno graduação nascidos no br */
+        $vinculos = [
+            0 => 'Aluno de Cultura e Extensão',
+            1 => 'Aluno de Pós-Graduação',
+            2 => 'Aluno de Graduação',
+            3 => 'Pós-doutorando',
+            4 => 'Docente'
+        ];
+
+        $this->tipo_vinculo = $request->route()->parameter('tipo_vinculo') ?? 0;
+
+        /* Contabiliza alunos nascidos e não nascidos no BR */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_nascidos_br.sql');
-        $result = DB::fetch($query);
-        $data['Nascidos no Brasil'] = $result['computed'];
+        foreach ($vinculos as $vinculo){
+            $query_por_vinculo = str_replace('__vinculo__', $vinculo, $query);
+
+            $result = DB::fetch($query_por_vinculo);
+
+            $data[$vinculo] = $result['computed'];    
+        }
 
         $this->data = $data;
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
         $chart = new GenericChart;
 
         $chart->labels(array_keys($this->data));
+
+        $tipo_vinculo = $this->tipo_vinculo;
+
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('ativosGradPaisNasc', compact('chart'));
+        return view('ativosPaisNasc', compact('chart', 'tipo_vinculo'));
     }
 
     public function export($format){
