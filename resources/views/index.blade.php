@@ -147,17 +147,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por cor/raça: 3</b></div>
+    <div class="card-header"><b>Dados por cor/raça: 1</b></div>
     <div class="card-body">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/autodeclaradosGradAtivos">Totais de alunos autodeclarados da Graduação
-                    contabilizados por raça/cor.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/autodeclaradosPosAtivos">Totais de alunos autodeclarados da
-                    Pós-Graduação
-                    contabilizados por raça/cor.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/autodeclaradosCeuAtivos">Totais de alunos autodeclarados da Cultura e
-                    Extensão
-                    Universitária contabilizados por raça/cor.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosAutodeclarados/ALUNOGR">Totais de alunos autodeclarados por raça/cor.</a></li>
         </ul>
     </div>
 </div>
@@ -165,17 +158,16 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por nacionalidade/localidade: 8</b></div>
+    <div class="card-header"><b>Dados por nacionalidade/localidade: 7</b></div>
     <div class="card-body">
         <ul class="list-group">
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradPaisNasc">Totais de alunos brasileiros e estrangeiros da Graduação.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPosPaisNasc">Totais de alunos brasileiros e estrangeiros da Pós Graduação.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPDPaisNasc">Totais de alunos brasileiros e estrangeiros de Pós Doutorado.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPaisNasc">Totais de docentes brasileiros e estrangeiros da FFLCH.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosCeuPaisNasc">Totais de alunos brasileiros e estrangeiros de Cultura e Extensão Universitária.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
-                <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosAutodeclarados">Totais de alunos autodeclarados.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradPaisNasc">Totais de alunos brasileiros e estrangeiros da Graduação.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPosPaisNasc">Totais de alunos brasileiros e estrangeiros da Pós Graduação.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPDPaisNasc">Totais de alunos brasileiros e estrangeiros de Pós Doutorado.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPaisNasc">Totais de docentes brasileiros e estrangeiros da FFLCH.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosCeuPaisNasc">Totais de alunos brasileiros e estrangeiros de Cultura e Extensão Universitária.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
         </ul>
     </div>
 </div>

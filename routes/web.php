@@ -28,9 +28,6 @@ use App\Http\Controllers\AtivosPorGeneroPDController;
 use App\Http\Controllers\ConcluintesGradPorCursoController;
 use App\Http\Controllers\ConcluintesPosPorAnoController;
 use App\Http\Controllers\ConveniosAtivosController;
-use App\Http\Controllers\AutodeclaradosGraducaoController;
-use App\Http\Controllers\AutodeclaradosPosController;
-use App\Http\Controllers\AutodeclaradosCeuController;
 use App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController;
 use App\Http\Controllers\AtivosGradPaisNascimentoController;
 use App\Http\Controllers\AtivosPosPaisNascimentoController;
@@ -117,7 +114,6 @@ Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPósContro
 Route::get('/ativosGradCurso/{cod_curso}', [AtivosPorGeneroCursoGradController::class, 'grafico']);
 Route::get('/ativosGradCurso/export/{format}/{cod_curso}', [AtivosPorGeneroCursoGradController::class, 'export']);
 
-
 # totais com algum benefício ativo
 Route::get('/beneficiados', [BeneficiadosController::class, 'grafico']);
 Route::get('/beneficiados/export/{format}', [BeneficiadosController::class, 'export']);
@@ -153,18 +149,6 @@ Route::get('/concluintesPosPorAno/export/{format}', [ConcluintesPosPorAnoControl
 # totais de convênios ativos
 Route::get('/conveniosAtivos', [ConveniosAtivosController::class, 'grafico']);
 Route::get('/conveniosAtivos/export/{format}', [ConveniosAtivosController::class, 'export']);
-
-# totais com vínculos ativos da graduação, separados por cor/raça
-Route::get('/autodeclaradosGradAtivos', [AutodeclaradosGraducaoController::class, 'grafico']);
-Route::get('/autodeclaradosGradAtivos/export/{format}', [AutodeclaradosGraducaoController::class, 'export']);
-
-# totais com vínculos ativos da pós-graduação, separados por cor/raça
-Route::get('/autodeclaradosPosAtivos', [AutodeclaradosPosController::class, 'grafico']);
-Route::get('/autodeclaradosPosAtivos/export/{format}', [AutodeclaradosPosController::class, 'export']);
-
-# totais com vínculos ativos da cultura e extensão universitária, separados por cor/raça
-Route::get('/autodeclaradosCeuAtivos', [AutodeclaradosCeuController::class, 'grafico']);
-Route::get('/autodeclaradosCeuAtivos/export/{format}', [AutodeclaradosCeuController::class, 'export']);
 
 #totais de chefes administrativos ativos por gênero
 Route::get('/ativosChefesAdministrativos', [AtivosPorGeneroChefesAdministrativosController::class, 'grafico']);
