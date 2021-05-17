@@ -21,7 +21,12 @@ class AlunosAtivosAutodeclaradosController extends Controller
         $data = [];
 
         //tipo de vínculo
-        $vinculo = ['ALUNOGR', 'ALUNOPOS', 'ALUNOCEU', 'ALUNOPD'];
+        $vinculo = [
+            0 => 'ALUNOGR',
+            1 => 'ALUNOPOS',
+            2 => 'ALUNOCEU',
+            3 => 'ALUNOPD'
+        ];
 
         $vinculo = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
 
