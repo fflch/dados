@@ -8,14 +8,11 @@ use Maatwebsite\Excel\Excel;
 use Uspdev\Replicado\DB;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
-use Uspdev\Replicado\Uteis;
-
 class AtivosPaisNascimentoController extends Controller
 {
     private $data;
     private $excel;
     private $tipo_vinculo;
-    private $nome_vinculo;
 
     public function __construct(Excel $excel, Request $request){
         $this->excel = $excel;
@@ -37,14 +34,14 @@ class AtivosPaisNascimentoController extends Controller
         ];
 
         $this->tipo_vinculo = $request->route()->parameter('tipo_vinculo') ?? 0;
-        $this->nome_vinculo = isset($vinculos[$this->tipo_vinculo]) ? $vinculos[$this->tipo_vinculo] : 'Vínculo não encontrado';
+        $nome_vinculo = isset($vinculos[$this->tipo_vinculo]) ? $vinculos[$this->tipo_vinculo] : 'Vínculo não encontrado';
 
         /* Contabiliza alunos e docentes nascidos e não nascidos no BR */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ativos_nacionalidade.sql');
         foreach ($nacionalidades as $nacionalidade){
-            $query_por_vinculo = str_replace('__vinculo__', $this->nome_vinculo, $query);
+            $query_por_vinculo = str_replace('__vinculo__', $nome_vinculo, $query);
 
-            if($this->nome_vinculo == 'SERVIDOR'){
+            if($nome_vinculo == 'SERVIDOR'){
                 $query_por_vinculo = str_replace('__codpasnas__', $nacionalidade['where']." AND lp.tipvinext = 'Docente'", $query_por_vinculo);
             
             } else {
@@ -81,9 +78,8 @@ class AtivosPaisNascimentoController extends Controller
             case 4:
                 $nome_vinculo = 'Docentes';
                 break;
-
             default:
-                $nome_vinculo = "";
+                $nome_vinculo = "Vínculo não encontrado";
         }
 
         $chart->dataset($nome_vinculo. ' - quantidade', 'bar', array_values($this->data));
@@ -91,7 +87,7 @@ class AtivosPaisNascimentoController extends Controller
         return view('ativosPaisNascimento', compact('chart', 'tipo_vinculo', 'nome_vinculo'));
     }
 
-    public function export($format){
+    public function export($format){       
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
             return $this->excel->download($export, 'ativos_nascimento.xlsx');

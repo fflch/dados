@@ -23,7 +23,7 @@
 
     </select> 
 
-<a href="/ativosPaisNascimento/export/excel/{tipo_vinculo}">
+<a href="/ativosPaisNascimento/export/excel/{{$tipo_vinculo}}">
     <i class="fas fa-file-csv"></i> Download Excel</a> 
 
 </div>
