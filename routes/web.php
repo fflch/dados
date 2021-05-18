@@ -29,11 +29,7 @@ use App\Http\Controllers\ConcluintesGradPorCursoController;
 use App\Http\Controllers\ConcluintesPosPorAnoController;
 use App\Http\Controllers\ConveniosAtivosController;
 use App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController;
-use App\Http\Controllers\AtivosGradPaisNascimentoController;
-use App\Http\Controllers\AtivosPosPaisNascimentoController;
-use App\Http\Controllers\AtivosDocentesPaisNascimentoController;
-use App\Http\Controllers\AtivosCeuPaisNascimentoController;
-use App\Http\Controllers\AtivosPDPaisNascimentoController;
+use App\Http\Controllers\AtivosPaisNascimentoController;
 use App\Http\Controllers\AtivosGradPorEstadoController;
 use App\Http\Controllers\AtivosDocentesPorFuncaoController;
 use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
@@ -154,25 +150,9 @@ Route::get('/conveniosAtivos/export/{format}', [ConveniosAtivosController::class
 Route::get('/ativosChefesAdministrativos', [AtivosPorGeneroChefesAdministrativosController::class, 'grafico']);
 Route::get('/ativosChefesAdministrativos/export/{format}', [AtivosPorGeneroChefesAdministrativosController::class, 'export']);
 
-#totais de alunos ativos da graduação nascidos e não nascidos no br
-Route::get('/ativosGradPaisNasc', [AtivosGradPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosGradPaisNasc/export/{format}', [AtivosGradPaisNascimentoController::class, 'export']);
-
-#totais de alunos ativos da pós graduação nascidos e não nascidos no br
-Route::get('/ativosPosPaisNasc', [AtivosPosPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosPosPaisNasc/export/{format}', [AtivosPosPaisNascimentoController::class, 'export']);
-
-#totais de docentes ativos nascidos e não nascidos no br
-Route::get('/ativosDocentesPaisNasc', [AtivosDocentesPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosDocentesPaisNasc/export/{format}', [AtivosDocentesPaisNascimentoController::class, 'export']);
-
-#totais de alunos ativos de cultura e extensão universitária nascidos e não nascidos no br
-Route::get('/ativosCeuPaisNasc', [AtivosCeuPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosCeuPaisNasc/export/{format}', [AtivosCeuPaisNascimentoController::class, 'export']);
-
-#totais de alunos ativos pós doutorado nascidos e não nascidos no br
-Route::get('/ativosPDPaisNasc', [AtivosPDPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosPDPaisNasc/export/{format}', [AtivosPDPaisNascimentoController::class, 'export']);
+#totais de alunos e docentes ativos nascidos e não nascidos no br
+Route::get('/ativosPaisNascimento/{tipo_vinculo}', [AtivosPaisNascimentoController::class, 'grafico']);
+Route::get('/ativosPaisNascimento/export/{format}/{tipo_vinculo}', [AtivosPaisNascimentoController::class, 'export']);
 
 #totais de alunos da Graduação por estado (RG)
 Route::get('/ativosAlunosEstado', [AtivosGradPorEstadoController::class, 'grafico']);
