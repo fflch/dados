@@ -161,11 +161,7 @@
     <div class="card-header"><b>Dados por nacionalidade/localidade: 7</b></div>
     <div class="card-body">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradPaisNasc">Totais de alunos brasileiros e estrangeiros da Graduação.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPosPaisNasc">Totais de alunos brasileiros e estrangeiros da Pós Graduação.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPDPaisNasc">Totais de alunos brasileiros e estrangeiros de Pós Doutorado.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPaisNasc">Totais de docentes brasileiros e estrangeiros da FFLCH.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosCeuPaisNasc">Totais de alunos brasileiros e estrangeiros de Cultura e Extensão Universitária.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPaisNascimento">Totais de alunos e docentes brasileiros e estrangeiros ativos.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
         </ul>
