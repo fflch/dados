@@ -24,10 +24,9 @@ use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
 use App\Http\Controllers\Beneficios2019PorProgramaController;
 use App\Http\Controllers\AtivosPorGeneroCEUController;
-use App\Http\Controllers\ConcluintesGradPorAnoController;
-use App\Http\Controllers\AtivosPorGeneroPDController;
+use App\Http\Controllers\ConcluintesPorAnoController;
 use App\Http\Controllers\ConcluintesGradPorCursoController;
-use App\Http\Controllers\ConcluintesPosPorAnoController;
+use App\Http\Controllers\AtivosPorGeneroPDController;
 use App\Http\Controllers\ConveniosAtivosController;
 use App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController;
 use App\Http\Controllers\AtivosPaisNascimentoController;
@@ -38,9 +37,7 @@ use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
 use App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller;
 use App\Http\Controllers\AtivosBolsaLivroController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
-use App\Http\Controllers\AlunosEspeciaisPosGrAnoController;
-use App\Http\Controllers\AlunosEspeciaisGrAnoController;
-use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
+use App\Http\Controllers\AlunosEspeciaisPorAnoController;
 use App\Http\Controllers\IngressantesMasculinoGeoController;
 use App\Http\Controllers\IngressantesFemininoGeoController;
 use App\Http\Controllers\AtivosPosNivelProgramaController;
@@ -136,9 +133,9 @@ Route::get('/Benef2019Prog/export/{format}', [Beneficios2019PorProgramaControlle
 Route::get('/ativosCulturaExtensao', [AtivosPorGeneroCEUController::class, 'grafico']);
 Route::get('/ativosCulturaExtensao/export/{format}', [AtivosPorGeneroCEUController::class, 'export']);
 
-# série histórica de concluintes da graduação
-Route::get('/concluintesGradPorAno', [ConcluintesGradPorAnoController::class, 'grafico']);
-Route::get('/concluintesGradPorAno/export/{format}', 'ConcluintesGradPorAnoController@export');
+# série histórica de concluintes da graduação e pós-graduação
+Route::get('/concluintesPorAno/{vinculo}', [ConcluintesPorAnoController::class, 'grafico']);
+Route::get('/concluintesPorAno/export/{format}/{vinculo}', [ConcluintesPorAnoController::class, 'export']);
 
 # totais de alunos pós-doutorando por gênero
 Route::get('/ativosPosDoutorado', [AtivosPorGeneroPDController::class, 'grafico']);
@@ -147,10 +144,6 @@ Route::get('/ativosPosDoutorado/export/{format}', [AtivosPorGeneroPDController::
 # concluintes da graduação em {ano}, por curso
 Route::get('/concluintesGradPorCurso/{ano}', [ConcluintesGradPorCursoController::class, 'grafico']);
 Route::get('/concluintesGradPorCurso/export/{format}/{ano}', [ConcluintesGradPorCursoController::class, 'export']);
-
-# série histórica de concluintes da pós-graduação
-Route::get('/concluintesPosPorAno', [ConcluintesPosPorAnoController::class, 'grafico']);
-Route::get('/concluintesPosPorAno/export/{format}', [ConcluintesPosPorAnoController::class, 'export']);
 
 # totais de convênios ativos
 Route::get('/conveniosAtivos', [ConveniosAtivosController::class, 'grafico']);
@@ -193,17 +186,9 @@ Route::get('/trancamentosCursoPorSemestre/{curso}', [TrancamentosCursoSemestralC
 Route::get('/trancamentosCursoPorSemestre/export/{format}/{curso}', [TrancamentosCursoSemestralController::class, 'export']);
 
 
-#quantidade de alunos especiais em pós graduação por ano (2010-2010)
-Route::get('/alunosEspeciaisPosGrAno', [AlunosEspeciaisPosGrAnoController::class, 'grafico']);
-Route::get('/alunosEspeciaisPosGrAno/export/{format}', [AlunosEspeciaisPosGrAnoController::class, 'export']);
-
-#quantidade de alunos especiais da graduação por ano (2010-2010)
-Route::get('/alunosEspeciaisGrAno', [AlunosEspeciaisGrAnoController::class, 'grafico']);
-Route::get('/alunosEspeciaisGrAno/export/{format}', [AlunosEspeciaisGrAnoController::class, 'export']);
-
-#quantidade de alunos especiais da pós-graduação por departamento
-Route::get('/alunosEspeciaisPosGrDpto', [AlunosEspeciaisPosGrDptoController::class, 'grafico']);
-Route::get('/alunosEspeciaisPosGrDpto/export/{format}', [AlunosEspeciaisPosGrDptoController::class, 'export']);
+#quantidade de alunos especiais da graduação e pós graduação por ano (2010-2010)
+Route::get('/alunosEspeciaisPorAno/{vinculo}', [AlunosEspeciaisPorAnoController::class, 'grafico']);
+Route::get('/alunosEspeciaisPorAno/export/{format}/{vinculo}', [AlunosEspeciaisPorAnoController::class, 'export']);
 
 #quantidade de ingressantes do gênero masculino no curso de Geografia 2010-2020
 Route::get('/ingressantesGeoMasculino', [IngressantesMasculinoGeoController::class, 'grafico']);

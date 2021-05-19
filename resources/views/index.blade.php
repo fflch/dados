@@ -90,12 +90,8 @@
                     partir de 2014.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiados">Série histórica: quantidade de alunos com benefícios
                     2010-2020.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesGradPorAno">Série histórica de concluintes da Graduação por
+            <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPorAno/ALUNOGR">Série histórica de concluintes da Graduação e Pós-Graduação por
                     ano a
-                    partir de 2010.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPosPorAno">Série histórica de concluintes da Pós-Graduação
-                    por ano
-                    a
                     partir de 2010.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados
                     por
@@ -106,10 +102,8 @@
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosBolsaLivro">Quantidade de alunos com o benefício Bolsa Livro
                     ativo em
                     2020.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosEspeciaisPosGrAno">Série histórica: quantidade de alunos especiais 
-            de pós-graduação (2010-2020)</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosEspeciaisGrAno">Série histórica: quantidade de alunos especiais 
-            de graduação (2010-2020)</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosEspeciaisPorAno/ALUNOESPGR">Série histórica: quantidade de alunos especiais 
+            de graduação e pós-graduação (2010-2021).</a></li>
         </ul>
     </div>
 </div>
