@@ -57,10 +57,15 @@ use App\Http\Controllers\AtivosProfTitularPorDptoController;
 use App\Http\Controllers\AtivosProfDoutorPorDptoController;
 use App\Http\Controllers\AtivosProfAssociadoPorDptoController;
 use App\Http\Controllers\ExAlunosController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RestritoController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/sobre', [IndexController::class, 'sobre']);
 
+Route::get('login', [LoginController::class, 'redirectToProvider']);
+Route::get('callback', [LoginController::class, 'handleProviderCallback']);
+Route::post('logout', [LoginController::class, 'logout']);
 
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
@@ -284,3 +289,5 @@ Route::get('/iniciacao_cientifica', [PesquisaController::class, 'iniciacao_cient
 Route::get('/pesquisadores_colaboradores', [PesquisaController::class, 'pesquisadores_colab']);
 Route::get('/pesquisa_pos_doutorandos', [PesquisaController::class, 'pesquisa_pos_doutorandos']);
 Route::get('/projetos_pesquisa', [PesquisaController::class, 'projetos_pesquisa']);
+
+Route::get('/restrito', [RestritoController::class, 'restrito']);

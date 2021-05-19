@@ -22,6 +22,7 @@
         "uspdev/cache": "^0.7.1",
         "uspdev/laravel-usp-theme": "^2.0.2",
         "uspdev/replicado": "^1.6",
+        "uspdev/senhaunica-socialite": "^2.0",
         "uspdev/utils": "^1.0"
     },
     "require-dev": {
