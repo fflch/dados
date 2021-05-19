@@ -84,7 +84,7 @@ class AtivosPorDepartamentoController extends Controller
     public function export($format){
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
-            return $this->excel->download($export, 'ativos_por_departamento_funcionarios.xlsx');
+            return $this->excel->download($export, 'ativos_por_departamento.xlsx');
         }
     }
 

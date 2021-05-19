@@ -10,6 +10,7 @@ use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\AtivosController;
 use App\Http\Controllers\AtivosPorCursoGradController;
 use App\Http\Controllers\AtivosMicrosNotesController;
+use App\Http\Controllers\AtivosPorGeneroController;
 use App\Http\Controllers\AtivosPorGeneroGradController;
 use App\Http\Controllers\AtivosPorGeneroPosController;
 use App\Http\Controllers\AtivosPorGeneroDocentesController;
@@ -110,6 +111,10 @@ Route::get('/ativosDepartamento/export/{format}/{tipvin}/{codfnc}', [AtivosPorDe
 # totais de alunos da pós graduação, por programa
 Route::get('/ativosPorProgramaPos', [AtivosPorProgramaPósController::class, 'grafico']);
 Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPósController::class, 'export']);
+
+# totais de alunos da graduação por gênero e por curso
+Route::get('/ativosGenero/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'grafico']);
+Route::get('/ativosGenero/export/{format}/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'export']);
 
 # totais de alunos da graduação por gênero e por curso
 Route::get('/ativosGradCurso/{cod_curso}', [AtivosPorGeneroCursoGradController::class, 'grafico']);

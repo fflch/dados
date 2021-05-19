@@ -7,3 +7,4 @@ WHERE l.tipvin = 'ALUNOGR'
     AND l.codundclg = 8 
     AND s.codcur = __curso__ 
     AND p.sexpes = '__sigla__'
+    
