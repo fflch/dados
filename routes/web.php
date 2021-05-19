@@ -8,15 +8,16 @@ use App\Http\Controllers\DefesaController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\AtivosController;
-use App\Http\Controllers\AtivosPorCursoGradController;
 use App\Http\Controllers\AtivosMicrosNotesController;
+use App\Http\Controllers\AtivosPorGeneroController;
 use App\Http\Controllers\AtivosPorGeneroGradController;
 use App\Http\Controllers\AtivosPorGeneroPosController;
 use App\Http\Controllers\AtivosPorGeneroDocentesController;
 use App\Http\Controllers\AtivosPorGeneroEstagiariosController;
 use App\Http\Controllers\AtivosPorGeneroFuncionariosController;
 use App\Http\Controllers\AtivosPosDoutoradoPorCursoController;
-use App\Http\Controllers\AtivosPorDepartamentoFuncionariosController;
+use App\Http\Controllers\AlunosAtivosPorCursoController;
+use App\Http\Controllers\AtivosPorDepartamentoController;
 use App\Http\Controllers\AtivosPorProgramaPósController;
 use App\Http\Controllers\AtivosPorGeneroCursoGradController;
 use App\Http\Controllers\BeneficiadosController;
@@ -53,9 +54,6 @@ use App\Http\Controllers\IngressantesMasculinoHistoriaController;
 use App\Http\Controllers\IngressantesFemininoHistoriaController;
 use App\Http\Controllers\IngressantesFemininoSociaisController;
 use App\Http\Controllers\IngressantesMasculinoSociaisController;
-use App\Http\Controllers\AtivosProfTitularPorDptoController;
-use App\Http\Controllers\AtivosProfDoutorPorDptoController;
-use App\Http\Controllers\AtivosProfAssociadoPorDptoController;
 use App\Http\Controllers\ExAlunosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RestritoController;
@@ -71,9 +69,7 @@ Route::post('logout', [LoginController::class, 'logout']);
 Route::get('/ativos', [AtivosController::class, 'grafico']);
 Route::get('/ativos/export/{format}', [AtivosController::class, 'export']);
 
-# totais com vínculos ativos da graduação, separados por curso
-Route::get('/ativosPCGrad', [AtivosPorCursoGradController::class, 'grafico']);
-Route::get('/ativosPCGrad/export/{format}', [AtivosPorCursoGradController::class, 'export']);
+
 
 # totais de microcomputadores e notebooks ativos
 Route::get('/ativosMicrosNotes', [AtivosMicrosNotesController::class, 'grafico']);
@@ -103,13 +99,22 @@ Route::get('/ativosFuncionarios/export/{format}', [AtivosPorGeneroFuncionariosCo
 Route::get('/ativosPosDoutPorCurso', [AtivosPosDoutoradoPorCursoController::class, 'grafico'])->name('ativosposdoutoradocurso');
 Route::get('/ativosPosDoutPorCurso/export/{format}', [AtivosPosDoutoradoPorCursoController::class, 'export'])->name('ativosposdoutoradocurso/export/{format}');
 
+# totais de alunos ativo por curso
+Route::get('/alunosAtivosPorCurso/{tipvin}', [AlunosAtivosPorCursoController::class, 'grafico']);
+Route::get('/alunosAtivosPorCurso/export/{format}/{tipvin}', [AlunosAtivosPorCursoController::class, 'export']);
+
 # totais de funcionários, por departamento
-Route::get('/ativosFuncionariosDepartamento', [AtivosPorDepartamentoFuncionariosController::class, 'grafico']);
-Route::get('/ativosFuncionariosDepartamento/export/{format}', [AtivosPorDepartamentoFuncionariosController::class, 'export']);
+Route::get('/ativosDepartamento/{tipvin}/{codfnc}', [AtivosPorDepartamentoController::class, 'grafico']);
+Route::get('/ativosDepartamento/export/{format}/{tipvin}/{codfnc}', [AtivosPorDepartamentoController::class, 'export']);
+
 
 # totais de alunos da pós graduação, por programa
 Route::get('/ativosPorProgramaPos', [AtivosPorProgramaPósController::class, 'grafico']);
 Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPósController::class, 'export']);
+
+# totais de alunos da graduação por gênero e por curso
+Route::get('/ativosGenero/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'grafico']);
+Route::get('/ativosGenero/export/{format}/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'export']);
 
 # totais de alunos da graduação por gênero e por curso
 Route::get('/ativosGradCurso/{cod_curso}', [AtivosPorGeneroCursoGradController::class, 'grafico']);
@@ -251,18 +256,6 @@ Route::get('/ingressantesSociaisMasculino/export/{format}', [IngressantesMasculi
 #quantidade de ingressantes do gênero feminino no curso de Ciências Socias 2010-2020
 Route::get('/ingressantesSociaisFeminino', [IngressantesFemininoSociaisController::class, 'grafico']);
 Route::get('/ingressantesSociaisFeminino/export/{format}', [IngressantesFemininoSociaisController::class, 'export']);
-
-#quantidade de professores titulares ativos, por departamento
-Route::get('/ativosProfTitularDpto', [AtivosProfTitularPorDptoController::class, 'grafico']);
-Route::get('/ativosProfTitularDpto/export/{format}', [AtivosProfTitularPorDptoController::class, 'export']);
-
-#quantidade de professores doutores ativos, por departamento
-Route::get('/ativosProfDoutorDpto', [AtivosProfDoutorPorDptoController::class, 'grafico']);
-Route::get('/ativosProfDoutorDpto/export/{format}', [AtivosProfDoutorPorDptoController::class, 'export']);
-
-#quantidade de professores associados ativos, por departamento
-Route::get('/ativosProfAssociadoDpto', [AtivosProfAssociadoPorDptoController::class, 'grafico']);
-Route::get('/ativosProfAssociadoDpto/export/{format}', [AtivosProfAssociadoPorDptoController::class, 'export']);
 
 #quantidade de Ex alunos de Graduação e Pós-Graduação
 Route::get('/exAlunos', [ExAlunosController::class, 'grafico']);

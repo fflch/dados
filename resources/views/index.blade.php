@@ -15,7 +15,7 @@
 </div>
 
 <div class="card">
-    <div class="card-header"><b>Dados gerais do portal: 9</b></div>
+    <div class="card-header"><b>Dados gerais do portal: 6</b></div>
     <div class="card-body">
 
         <ul class="list-group">
@@ -23,10 +23,7 @@
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosMicrosNotes">Totais de microcomputadores e notebooks.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/conveniosAtivos">Totais de convênios ativos.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosFuncionariosDepartamento">Totais de funcionários contabilizados por departamento.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosProfAssociadoDpto">Totais de Professores Associados contabilizados por departamento.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosProfDoutorDpto">Totais de Professores Doutores contabilizados por departamento.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosProfTitularDpto">Totais de Professores Titulares contabilizados por departamento.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDepartamento/Servidor/0">Totais de funcionários e professores (associados, doutores e titulares) ativos  contabilizados por departamento.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/exAlunos">Total de Ex Alunos da Graduação e da Pós Graduação.</a></li>
         </ul>
 
@@ -36,36 +33,13 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por gênero: 14</b></div>
+    <div class="card-header"><b>Dados por gênero: 1</b></div>
     <div class="card-body">
 
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPGGrad">Totais de pessoas da Graduação contabilizadas por
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGenero/ALUNOGR0/0">Totais de ativos contabilizadas por
                     gênero.</a>
             </li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPGPos">Totais de pessoas da Pós Graduação contabilizadas por
-                    gênero.</a>
-            </li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPGDocentes">Totais de docentes contabilizados por gênero.</a>
-            </li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosEstagiarios">Totais de estagiários contabilizados por
-                    gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosFuncionarios">Totais de funcionários contabilizados por
-                    gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGradCurso/8051">Totais de alunos da Graduação por curso
-                    contabilizados por gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosCulturaExtensao">Totais de alunos de Cultura e Extensão
-                    contabilizados
-                    por
-                    gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPosDoutorado">Totais de alunos de Pós Doutorado contabilizados
-                    por
-                    gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosChefesAdministrativos">Totais de chefes administrativos
-                    contabilizados
-                    por
-                    gênero.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/coordCursosGrad">Totais de coordenadores de cursos de Graduação, contabilizados por gênero.</a></li>
         </ul>
 
     </div>
@@ -74,17 +48,13 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por curso: 8</b></div>
+    <div class="card-header"><b>Dados por curso: 3</b></div>
     <div class="card-body">
 
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPCGrad">Totais de pessoas da Graduação com vínculos ativos,
-                    separadas
-                    por
-                    curso.</a></li>
-            <li class="list-group-item"><a href="{{ route('ativosposdoutoradocurso') }}">Totais de alunos Pós-doutorando
-                    ativos
-                    por curso.</a></li>
+           
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosPorCurso/ALUNOGR">Totais de alunos vínculos ativos,
+                    separados por curso.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesGradPorCurso/{{date('Y')}}">Total de concluintes da Graduação por
                     curso.
                         </a></li>
