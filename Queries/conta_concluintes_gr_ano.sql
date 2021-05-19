@@ -2,7 +2,7 @@ SELECT COUNT (DISTINCT v.codpes)
 FROM VINCULOPESSOAUSP v
     JOIN TITULOPES t
     ON v.codpes = t.codpes
-WHERE v.tipvin = 'ALUNOGR'
+WHERE v.tipvin = '__vinculo__'
     AND v.dtafimvin LIKE '%__ano__%'
     AND v.sitoco LIKE 'Conclu%' -- consulta não funciona com acento
     AND v.codclg = 8
