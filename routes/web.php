@@ -8,7 +8,6 @@ use App\Http\Controllers\DefesaController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\AtivosController;
-use App\Http\Controllers\AtivosPorCursoGradController;
 use App\Http\Controllers\AtivosMicrosNotesController;
 use App\Http\Controllers\AtivosPorGeneroController;
 use App\Http\Controllers\AtivosPorGeneroGradController;
@@ -17,6 +16,7 @@ use App\Http\Controllers\AtivosPorGeneroDocentesController;
 use App\Http\Controllers\AtivosPorGeneroEstagiariosController;
 use App\Http\Controllers\AtivosPorGeneroFuncionariosController;
 use App\Http\Controllers\AtivosPosDoutoradoPorCursoController;
+use App\Http\Controllers\AlunosAtivosPorCursoController;
 use App\Http\Controllers\AtivosPorDepartamentoController;
 use App\Http\Controllers\AtivosPorProgramaPósController;
 use App\Http\Controllers\AtivosPorGeneroCursoGradController;
@@ -71,9 +71,7 @@ Route::get('/sobre', [IndexController::class, 'sobre']);
 Route::get('/ativos', [AtivosController::class, 'grafico']);
 Route::get('/ativos/export/{format}', [AtivosController::class, 'export']);
 
-# totais com vínculos ativos da graduação, separados por curso
-Route::get('/ativosPCGrad', [AtivosPorCursoGradController::class, 'grafico']);
-Route::get('/ativosPCGrad/export/{format}', [AtivosPorCursoGradController::class, 'export']);
+
 
 # totais de microcomputadores e notebooks ativos
 Route::get('/ativosMicrosNotes', [AtivosMicrosNotesController::class, 'grafico']);
@@ -102,6 +100,10 @@ Route::get('/ativosFuncionarios/export/{format}', [AtivosPorGeneroFuncionariosCo
 # totais de alunos de pós-doutorado com programa ativo por curso
 Route::get('/ativosPosDoutPorCurso', [AtivosPosDoutoradoPorCursoController::class, 'grafico'])->name('ativosposdoutoradocurso');
 Route::get('/ativosPosDoutPorCurso/export/{format}', [AtivosPosDoutoradoPorCursoController::class, 'export'])->name('ativosposdoutoradocurso/export/{format}');
+
+# totais de alunos ativo por curso
+Route::get('/alunosAtivosPorCurso/{tipvin}', [AlunosAtivosPorCursoController::class, 'grafico']);
+Route::get('/alunosAtivosPorCurso/export/{format}/{tipvin}', [AlunosAtivosPorCursoController::class, 'export']);
 
 # totais de funcionários, por departamento
 Route::get('/ativosDepartamento/{tipvin}/{codfnc}', [AtivosPorDepartamentoController::class, 'grafico']);

@@ -48,17 +48,13 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por curso: 8</b></div>
+    <div class="card-header"><b>Dados por curso: 3</b></div>
     <div class="card-body">
 
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPCGrad">Totais de pessoas da Graduação com vínculos ativos,
-                    separadas
-                    por
-                    curso.</a></li>
-            <li class="list-group-item"><a href="{{ route('ativosposdoutoradocurso') }}">Totais de alunos Pós-doutorando
-                    ativos
-                    por curso.</a></li>
+           
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosPorCurso/ALUNOGR">Totais de alunos vínculos ativos,
+                    separados por curso.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesGradPorCurso/{{date('Y')}}">Total de concluintes da Graduação por
                     curso.
                         </a></li>

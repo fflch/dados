@@ -1,4 +1,3 @@
--- ALUNOS ATIVOS GRADUAÇÃO SOCIAIS
 SELECT count (distinct l.codpes) FROM LOCALIZAPESSOA l
 join SITALUNOATIVOGR s
 on s.codpes = l.codpes 
