@@ -16,6 +16,11 @@ return [
             'text' => 'Sobre',
             'url'  => '/sobre',
         ],
+        [
+            'text' => 'Restrito',
+            'url'  => '/restrito',
+            'can'  => 'admins'
+        ],
     ],
     'right_menu' => [],
 ];
