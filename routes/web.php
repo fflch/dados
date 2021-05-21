@@ -41,6 +41,7 @@ use App\Http\Controllers\AlunosEspeciaisPorAnoController;
 use App\Http\Controllers\IngressantesMasculinoGeoController;
 use App\Http\Controllers\IngressantesFemininoGeoController;
 use App\Http\Controllers\AtivosPosNivelProgramaController;
+use App\Http\Controllers\CEUController;
 use App\Http\Controllers\OrientadoresPosGRContoller;
 use App\Http\Controllers\CoordCursosGradGeneroController;
 use App\Http\Controllers\IngressantesFemininoLetrasController;
@@ -269,3 +270,5 @@ Route::get('/pesquisa_pos_doutorandos', [PesquisaController::class, 'pesquisa_po
 Route::get('/projetos_pesquisa', [PesquisaController::class, 'projetos_pesquisa']);
 
 Route::get('/restrito', [RestritoController::class, 'restrito']);
+
+Route::get('/restrito/curso_ceu', [CEUController::class, 'listarCurso']);
