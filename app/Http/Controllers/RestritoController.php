@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Utils\Util;
 class RestritoController extends Controller
 {
@@ -10,7 +9,8 @@ class RestritoController extends Controller
     {
         $this->authorize('admins');
         $departamentos = Util::departamentos;
-
-        return view('restrito', compact('departamentos'));
+        $cursos = Util::cursos;
+        
+        return view('restrito', compact('departamentos', 'cursos'));
     }
 }

@@ -272,3 +272,5 @@ Route::get('/projetos_pesquisa', [PesquisaController::class, 'projetos_pesquisa'
 Route::get('/restrito', [RestritoController::class, 'restrito']);
 
 Route::get('/restrito/curso_ceu', [CEUController::class, 'listarCurso']);
+
+Route::get('/restrito/ex_alunos', [ExAlunosController::class, 'listarExAlunos']);
