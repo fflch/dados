@@ -60,8 +60,45 @@
         </div>
     </div>
     </li>
+    <li class="list-group-item">
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseExAlunos"  aria-controls="collapseExAlunos" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha Ex Alunos Graduação
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseExAlunos">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/ex_alunos" method="GET">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" aria-label="Default select example" name="curso">
+                                        <option selected value="">Curso</option>
+                                        @foreach($cursos as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                        <option value="1">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                          </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </li>
 </ul>
 
 
 
-@endsection('content')
+@endsection
