@@ -10,7 +10,8 @@ class RestritoController extends Controller
         $this->authorize('admins');
         $departamentos = Util::departamentos;
         $cursos = Util::cursos;
+        $areas = Util::areas;
         
-        return view('restrito', compact('departamentos', 'cursos'));
+        return view('restrito', compact('departamentos', 'cursos', 'areas'));
     }
 }

@@ -54,11 +54,11 @@ class ExAlunosController extends Controller
         }
     }
 
-    public function listarExAlunos(Excel $excel, Request $request){
+    public function listarExAlunosGr(Excel $excel, Request $request){
         $this->authorize('admins');
         $this->excel = $excel;
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/listar_ex_alunos.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/listar_ex_alunos_gr.sql');
 
         $curso = $request->curso ?? 1;
        
@@ -83,7 +83,40 @@ class ExAlunosController extends Controller
             'Formação'
         ]);
 
-        return $this->excel->download($export, 'Ex_Alunos.xlsx');
+        return $this->excel->download($export, 'Ex_Alunos_Graduacao.xlsx');
+
+    }
+
+    public function listarExAlunosPos(Excel $excel, Request $request){
+        $this->authorize('admins');
+        $this->excel = $excel;
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/listar_ex_alunos_pos.sql');
+
+        $area = $request->area ?? 1;
+       
+        //listar todos as areas de pós
+        if($area == 1){
+            $areas = [];
+            foreach(Util::areas as $key => $area){
+                array_push($areas, $key);
+            }
+            $area = implode(',', $areas);
+        }
+
+        $query = str_replace('__area__',$area, $query);
+
+        $result = DB::fetchAll($query);
+        $data = $result;
+
+        $export = new DadosExport([$data], 
+        [
+            'Email', 
+            'Nome aluno', 
+            'Formação'
+        ]);
+
+        return $this->excel->download($export, 'Ex_Alunos_PosGraduacao.xlsx');
 
     }
 }

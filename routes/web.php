@@ -273,4 +273,6 @@ Route::get('/restrito', [RestritoController::class, 'restrito']);
 
 Route::get('/restrito/curso_ceu', [CEUController::class, 'listarCurso']);
 
-Route::get('/restrito/ex_alunos', [ExAlunosController::class, 'listarExAlunos']);
+Route::get('/restrito/ex_alunos_gr', [ExAlunosController::class, 'listarExAlunosGr']);
+Route::get('/restrito/ex_alunos_pos', [ExAlunosController::class, 'listarExAlunosPos']);
+
