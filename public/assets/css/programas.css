@@ -32,4 +32,17 @@ h5[data-toggle="collapse"] .controller-collapse .fa-minus-square {
   display: table-cell;
   vertical-align: middle !important;
 }
+
+.bg-blue-default{
+  background-color: #273e74;
+}
+.btn-voltar{
+  color: #273e74;
+  font-size: 21px;
+  transition: all 1s;
+}
+.btn-voltar:hover{
+  text-decoration: none;
+  color: #536daa;
+}
 /*# sourceMappingURL=programas.css.map */

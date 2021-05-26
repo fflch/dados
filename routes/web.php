@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\DefesaController;
 use App\Http\Controllers\PessoaController;
@@ -38,8 +36,6 @@ use App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller;
 use App\Http\Controllers\AtivosBolsaLivroController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\AlunosEspeciaisPorAnoController;
-use App\Http\Controllers\IngressantesMasculinoGeoController;
-use App\Http\Controllers\IngressantesFemininoGeoController;
 use App\Http\Controllers\AtivosPosNivelProgramaController;
 use App\Http\Controllers\CEUController;
 use App\Http\Controllers\OrientadoresPosGRContoller;
@@ -52,6 +48,10 @@ use App\Http\Controllers\IngressantesMasculinoHistoriaController;
 use App\Http\Controllers\IngressantesFemininoHistoriaController;
 use App\Http\Controllers\IngressantesFemininoSociaisController;
 use App\Http\Controllers\IngressantesMasculinoSociaisController;
+use App\Http\Controllers\IngressantesMasculinoGeoController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\IngressantesFemininoGeoController;
+use App\Http\Controllers\IniciacaoCientificaController;
 use App\Http\Controllers\ExAlunosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RestritoController;
@@ -264,7 +264,9 @@ Route::get('/pessoas', [PessoaController::class, 'index']);
 
 # Pesquisa
 Route::get('/pesquisa', [PesquisaController::class, 'index']);
-Route::get('/iniciacao_cientifica', [PesquisaController::class, 'iniciacao_cientifica']);
+Route::get('/iniciacao_cientifica', [IniciacaoCientificaController::class, 'iniciacao_cientifica']);
+Route::get('/iniciacao_cientifica/export/{format}', [IniciacaoCientificaController::class, 'export']);
+
 Route::get('/pesquisadores_colaboradores', [PesquisaController::class, 'pesquisadores_colab']);
 Route::get('/pesquisa_pos_doutorandos', [PesquisaController::class, 'pesquisa_pos_doutorandos']);
 Route::get('/projetos_pesquisa', [PesquisaController::class, 'projetos_pesquisa']);

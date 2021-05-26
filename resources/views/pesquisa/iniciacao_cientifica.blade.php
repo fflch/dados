@@ -3,9 +3,25 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-@endsection('styles')
+@endsection
 
 @section('content')
+
+
+
+
+
+
+<div>
+  
+  @include ('pesquisa.partials.return')
+
+  <a class="float-right btn-voltar" href="/iniciacao_cientifica?departamento={{request()->get('departamento')}}&curso={{request()->get('curso')}}&bolsa={{request()->get('bolsa')}}&tipo={{request()->get('tipo')}}&ano={{request()->get('ano')}}&ano_ini={{request()->get('ano_ini')}}&ano_fim={{request()->get('ano_fim')}}&export=true" >
+    <i class="fas fa-file-excel"></i> Download Excel</a> 
+</div>
+<br>
+@include ('pesquisa.partials.search')
+
 
 
 @if(isset($iniciacao_cientifica))
@@ -25,6 +41,9 @@
           <th scope="col" >Título da Pesquisa</th>
           <th scope="col" >Orientador</th>
           <th scope="col" >Período de vigência</th>
+          @if(request()->get('tipo') != 'ativo' )
+          <th scope="col" >Situação</th>
+          @endif
       
         </tr>
       </thead>
@@ -74,6 +93,16 @@
                 @endif
               @endif
           </td>
+
+          @if(request()->get('tipo') != 'ativo' )
+            <td >
+              @if(isset($ic['status_projeto']) && $ic['status_projeto'] != null)
+                {{$ic['status_projeto']}}
+              @else
+                -
+              @endif
+            </td>
+          @endif
           
         </tr>
         @endforeach
@@ -91,3 +120,4 @@
 @section('javascripts_bottom')
   <script src="{{ asset('assets/js/programas.js') }}"></script>
 @endsection 
+

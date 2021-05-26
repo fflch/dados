@@ -7,6 +7,8 @@
 
 @section('content')
 
+@include ('pesquisa.partials.return')
+
 
 @if(isset($pesquisadores_colab))
 <div class="card">
