@@ -81,7 +81,7 @@ class ExAlunosController extends Controller
         } else {
             if($area == 1){
                 $areas = [];
-                foreach(Util::areas as $key => $area){
+                foreach(Util::getAreas() as $key => $area){
                     array_push($areas, $key);
                 }
                 $area = implode(',', $areas);
