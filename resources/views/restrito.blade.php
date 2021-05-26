@@ -90,7 +90,7 @@
                                         <option value="1">Todos</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 curso-area d-none">
                                     <select class="form-control d-none" aria-label="Default select example" name="curso" id="curso">
                                         <option selected value="">Curso</option>
                                         @foreach($cursos as $key => $value)
@@ -108,6 +108,8 @@
                                 </div>
                                 <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
                             </div>
+                            <br>
+                            <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
                           </form>
                     </li>
                 </ul>
