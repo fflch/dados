@@ -1,8 +1,8 @@
-SELECT DISTINCT E.codema, P.nompes, T.titpes
+SELECT DISTINCT E.codema, V.nompes, T.titpes
 FROM TITULOPES T 
-	INNER JOIN PESSOA P ON T.codpes = P.codpes
+    INNER JOIN VINCULOPESSOAUSP V ON T.codpes = V.codpes
     LEFT JOIN EMAILPESSOA E ON T.codpes = E.codpes  
     WHERE T.codorg = 8 
-    AND T.codcur IN (__curso__)
+    __nivel__
     AND E.staatnsen = 'S'
     ORDER BY T.dtatitpes DESC

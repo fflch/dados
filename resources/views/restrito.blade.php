@@ -65,7 +65,7 @@
             <div class="panel-heading">
                 <h5 role="button" data-toggle="collapse" href="#collapseExAlunos"  aria-controls="collapseExAlunos" 
                     aria-expanded="false" class="collapsed">
-                    Planilha Ex Alunos de Graduação
+                    Planilha Ex Alunos
                     <span class="controller-collapse">
                         <i class="fas fa-plus-square"></i>
                         <i class="fas fa-minus-square"></i>  
@@ -75,18 +75,35 @@
             <div class="panel-body collapse in" id="collapseExAlunos">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <form action="/restrito/ex_alunos_gr" method="GET">
+                        <form action="/restrito/ex_alunos" method="GET">
                             <div class="row">
                                 <div class="col-md-1">
                                     <label><b>Filtrar por:</b></label>
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="form-control" aria-label="Default select example" name="curso">
+                                    <select class="form-control" aria-label="Default select example" name="nivel" id="nivel">
+                                        <option selected value="">Nível</option>
+                                            <option value="gr">Graduação</option>
+                                            <option value="pgr">Pós-Graduação</option>
+                                            <option value="me">Pós-Graduação (Mestrado)</option>
+                                            <option value="do">Pós-Graduação (Doutorado)</option>
+                                        <option value="1">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control d-none" aria-label="Default select example" name="curso" id="curso">
                                         <option selected value="">Curso</option>
                                         @foreach($cursos as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                         <option value="1">Todos</option>
+                                    </select>
+                                    <select class="form-control d-none" aria-label="Default select example" name="area" id="area">
+                                        <option selected value="">Área</option>
+                                        @foreach($areas as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                        <option value="1">Todas</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
@@ -97,45 +114,10 @@
             </div>
         </div>
         </li>
-        <li class="list-group-item">
-            <div class="panel panel-default panel-docente">
-                <div class="panel-heading">
-                    <h5 role="button" data-toggle="collapse" href="#collapseExAlunosPos"  aria-controls="collapseExAlunosPos" 
-                        aria-expanded="false" class="collapsed">
-                        Planilha Ex Alunos de Pós-Graduação
-                        <span class="controller-collapse">
-                            <i class="fas fa-plus-square"></i>
-                            <i class="fas fa-minus-square"></i>  
-                        </span>
-                    </h5>
-                </div>
-                <div class="panel-body collapse in" id="collapseExAlunosPos">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <form action="/restrito/ex_alunos_pos" method="GET">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <label><b>Filtrar por:</b></label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select class="form-control" aria-label="Default select example" name="area">
-                                            <option selected value="">Área</option>
-                                            @foreach($areas as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
-                                            <option value="1">Todas</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
-                                </div>
-                              </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </li>
 </ul>
 
-
-
 @endsection
+
+@section('javascripts_bottom')
+  <script src="{{ asset('assets/js/restrito.js') }}"></script>
+@endsection 

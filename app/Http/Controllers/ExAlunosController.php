@@ -54,25 +54,49 @@ class ExAlunosController extends Controller
         }
     }
 
-    public function listarExAlunosGr(Excel $excel, Request $request){
+    public function listarExAlunos(Excel $excel, Request $request){
         $this->authorize('admins');
         $this->excel = $excel;
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/listar_ex_alunos_gr.sql');
+        $query = file_get_contents(__DIR__ . '/../../../Queries/listar_ex_alunos.sql');
 
         $curso = $request->curso ?? 1;
-       
-        //listar todos os cursos de gr
-        if($curso == 1){
-            $cursos = [];
-            foreach(Util::cursos as $key => $curso){
-                array_push($cursos, $key);
+        $area = $request->area ?? 1;
+
+        $nivel = $request->nivel ?? 1;
+
+        if($nivel == 'gr'){
+            //listar todos os cursos de gr
+            if($curso == 1){
+                $cursos = [];
+                foreach(Util::cursos as $key => $curso){
+                    array_push($cursos, $key);
+                }
+                $curso = implode(',', $cursos);
             }
-            $curso = implode(',', $cursos);
-        }
-
-        $query = str_replace('__curso__',$curso, $query);
-
+            $aux = " AND T.codcur IN ($curso)";
+            $query = str_replace('__nivel__',$aux, $query);
+        } else if ($nivel == 1){
+            $query = str_replace('__nivel__',"", $query);
+        } else {
+            if($area == 1){
+                $areas = [];
+                foreach(Util::areas as $key => $area){
+                    array_push($areas, $key);
+                }
+                $area = implode(',', $areas);
+            }
+            $aux = " AND T.codare IN ($area)";
+            if($nivel != 'pgr'){
+                if($nivel == 'do'){
+                    $aux .= " AND V.nivpgm = 'DO'";
+                } else {
+                    $aux .= " AND V.nivpgm = 'ME'";
+                }
+            }
+            $query = str_replace('__nivel__',$aux, $query);
+        } 
+    
         $result = DB::fetchAll($query);
         $data = $result;
 
@@ -87,36 +111,4 @@ class ExAlunosController extends Controller
 
     }
 
-    public function listarExAlunosPos(Excel $excel, Request $request){
-        $this->authorize('admins');
-        $this->excel = $excel;
-
-        $query = file_get_contents(__DIR__ . '/../../../Queries/listar_ex_alunos_pos.sql');
-
-        $area = $request->area ?? 1;
-       
-        //listar todos as areas de pós
-        if($area == 1){
-            $areas = [];
-            foreach(Util::areas as $key => $area){
-                array_push($areas, $key);
-            }
-            $area = implode(',', $areas);
-        }
-
-        $query = str_replace('__area__',$area, $query);
-
-        $result = DB::fetchAll($query);
-        $data = $result;
-
-        $export = new DadosExport([$data], 
-        [
-            'Email', 
-            'Nome aluno', 
-            'Formação'
-        ]);
-
-        return $this->excel->download($export, 'Ex_Alunos_PosGraduacao.xlsx');
-
-    }
 }
