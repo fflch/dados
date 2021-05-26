@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 use Uspdev\Replicado\DB;
+use Carbon\Carbon;
 
 class Util
 {
@@ -80,4 +81,12 @@ class Util
     public static function getCursos() {
         return self::cursos;
     }
+
+    public static function formatarData($formato_atual, $formato_desejado, $data){
+
+         return Carbon::CreateFromFormat($formato_atual, $data)->format($formato_desejado);
+    }
+
+    
+
 }

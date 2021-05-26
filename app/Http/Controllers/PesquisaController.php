@@ -11,9 +11,10 @@ use App\Models\Programa;
 use App\Utils\Util;
 use App\Models\ComissaoPesquisa;
 
+
+
 class PesquisaController extends Controller
 {
-    
 
     public function index(Request $request){
         $departamentos = [];
@@ -151,37 +152,7 @@ class PesquisaController extends Controller
         ]);
     }
     
-    public function iniciacao_cientifica(Request $request){
-        $nome_curso = '';
-        $nome_departamento = '';
 
-        if(isset($request->departamento)){
-           
-        
-        
-            $nome_departamento = Util::getDepartamentos()[$request->departamento][1];
-            $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
-            $iniciacao_cientifica = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('bolsa', $bolsa)->where('tipo', 'IC')->get()->toArray();
-       
-            $iniciacao_cientifica = $iniciacao_cientifica ?? null ;
-        }else{
-            
-        
-            $nome_curso = Util::getCursos()[$request->curso];
-            $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
-            $iniciacao_cientifica = ComissaoPesquisa::where('cod_curso',$request->curso)->where('bolsa', $bolsa)->where('tipo', 'IC')->get()->toArray();
-       
-            $iniciacao_cientifica = $iniciacao_cientifica ?? null ;
-        }
-        
-        return view('pesquisa.iniciacao_cientifica',[
-            'filtro' => $request->filtro,
-            'iniciacao_cientifica' => $iniciacao_cientifica,
-            'nome_departamento' => $nome_departamento,
-            'nome_curso' => $nome_curso,
-        ]);
-    }
-    
     public function pesquisadores_colab(Request $request){
         $nome_departamento = '';
         $nome_curso = '';

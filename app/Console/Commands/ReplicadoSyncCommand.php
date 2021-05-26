@@ -48,6 +48,8 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+
+        $this->sync_comissao_pesquisa();
         
         $this->sync_docentes(); 
        
@@ -75,7 +77,7 @@ class ReplicadoSyncCommand extends Command
             $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
         }
        
-        $this->sync_comissao_pesquisa();
+        
 
 
         return 0;
@@ -107,6 +109,42 @@ class ReplicadoSyncCommand extends Command
     private function sync_comissao_pesquisa(){
 
         putenv('REPLICADO_SYBASE=1');
+
+        //iniciação cientifica
+        $iniciacao_cientifica = Pessoa::listarIniciacaoCientifica(null, -1, null); //traz todas as iniciações cientificas presentes no replicado
+        
+        if($iniciacao_cientifica){
+            foreach($iniciacao_cientifica as $ic){
+                
+                $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->where('codpes_discente',$ic['aluno'])->first();
+                if(!$comissao) $comissao = new ComissaoPesquisa;
+                $comissao->codproj = $ic['cod_projeto'];
+                $comissao->codpes_discente = $ic['aluno'];
+                $comissao->nome_discente= $ic['nome_aluno'];
+                $comissao->codpes_supervisor= $ic['orientador'];
+                $comissao->nome_supervisor= $ic['nome_orientador'];
+                $comissao->titulo_pesquisa= $ic['titulo_pesquisa'];
+                $comissao->data_ini = !empty($ic['data_ini']) ? $ic['data_ini'] : null;
+                $comissao->data_fim = !empty($ic['data_fim']) ? $ic['data_fim'] : null;
+                $comissao->ano_proj = $ic['ano_projeto'];
+                $comissao->bolsa = $ic['bolsa'];
+                $comissao->cod_departamento = null;
+                $comissao->sigla_departamento = $ic['sigla_departamento'];
+                $comissao->nome_departamento = $ic['departamento'];
+                $comissao->status_projeto = $ic['status_projeto'];
+
+                $curso = $this->retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
+                $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
+                $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
+
+                $comissao->cod_area= $ic['codare'];
+                $comissao->nome_area= $ic['nome_programa'];
+                $comissao->tipo= 'IC';
+
+                $comissao->save();
+            }
+        }
+        
     
         //pesquisas de pos doutorandos ativos
         $pesquisa = Pessoa::listarPesquisaPosDoutorandos();
@@ -174,38 +212,7 @@ class ReplicadoSyncCommand extends Command
             }
         }
 
-        //iniciação cientifica
-        $iniciacao_cientifica = Pessoa::listarIniciaoCientificaAtiva();
         
-        if($iniciacao_cientifica){
-            foreach($iniciacao_cientifica as $ic){
-                $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->where('codpes_discente',$ic['aluno'])->first();
-                if(!$comissao) $comissao = new ComissaoPesquisa;
-                $comissao->codproj = $ic['cod_projeto'];
-                $comissao->codpes_discente = $ic['aluno'];
-                $comissao->nome_discente= $ic['nome_aluno'];
-                $comissao->codpes_supervisor= $ic['orientador'];
-                $comissao->nome_supervisor= $ic['nome_orientador'];
-                $comissao->titulo_pesquisa= $ic['titulo_pesquisa'];
-                $comissao->data_ini = !empty($ic['data_ini']) ? $ic['data_ini'] : null;
-                $comissao->data_fim = !empty($ic['data_fim']) ? $ic['data_fim'] : null;
-                $comissao->ano_proj = $ic['ano_projeto'];
-                $comissao->bolsa = $ic['bolsa'];
-                $comissao->cod_departamento = null;
-                $comissao->sigla_departamento = $ic['sigla_departamento'];
-                $comissao->nome_departamento = $ic['departamento'];
-
-                $curso = $this->retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
-                $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
-                $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
-
-                $comissao->cod_area= $ic['codare'];
-                $comissao->nome_area= $ic['nome_programa'];
-                $comissao->tipo= 'IC';
-
-                $comissao->save();
-            }
-        }
         
          //projetos de pesquisa dos docentes
          putenv('REPLICADO_SYBASE=0');

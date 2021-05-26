@@ -43,7 +43,7 @@
       </select>
   </div>
  
-  <input type="submit" value="Buscar" class="btn btn-dark btn-send">
+  <input type="submit" value="Buscar" class="btn btn-dark bg-blue-default btn-send">
 </form>
 
 @if($filtro != 'serie_historica')

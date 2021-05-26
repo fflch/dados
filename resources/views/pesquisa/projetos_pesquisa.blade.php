@@ -7,6 +7,7 @@
 
 @section('content')
 
+@include ('pesquisa.partials.return')
 
 @if(isset($projetos_pesquisa))
 <div class="card">
