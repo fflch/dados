@@ -111,7 +111,7 @@ class ReplicadoSyncCommand extends Command
         putenv('REPLICADO_SYBASE=1');
 
         //iniciação cientifica
-        $iniciacao_cientifica = Pessoa::listarIniciaoCientifica(null, -1, null); //traz todas as iniciações cientificas presentes no replicado
+        $iniciacao_cientifica = Pessoa::listarIniciacaoCientifica(null, -1, null); //traz todas as iniciações cientificas presentes no replicado
         
         if($iniciacao_cientifica){
             foreach($iniciacao_cientifica as $ic){
