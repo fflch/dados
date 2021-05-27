@@ -1,4 +1,4 @@
-SELECT DISTINCT E.codema, V.nompes, T.titpes
+SELECT DISTINCT E.codema, V.codpes, V.nompes, T.titpes
 FROM TITULOPES T 
     INNER JOIN VINCULOPESSOAUSP V ON T.codpes = V.codpes
     LEFT JOIN EMAILPESSOA E ON T.codpes = E.codpes  

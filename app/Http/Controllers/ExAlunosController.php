@@ -103,6 +103,7 @@ class ExAlunosController extends Controller
         $export = new DadosExport([$data], 
         [
             'Email', 
+            'Nusp', 
             'Nome aluno', 
             'Formação'
         ]);
