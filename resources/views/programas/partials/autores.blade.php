@@ -1,3 +1,4 @@
+@if(isset($value['AUTORES']) && is_array($value['AUTORES']))
 @foreach($value['AUTORES'] as $k=>$val)
                         
     @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
@@ -13,3 +14,4 @@
 
     @endif
 @endforeach
+@endif

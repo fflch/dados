@@ -573,9 +573,18 @@
                         <b>Integrantes: </b>
                         @foreach($value['EQUIPE-DO-PROJETO'] as $k=>$val)
                             @if( $k + 1 <  count($value['EQUIPE-DO-PROJETO']))
-                                @arr([$val,'NOME-COMPLETO']), 
-                            @elseif (isset($val["NOME-COMPLETO"]) && $val["NOME-COMPLETO"] != null && $val["NOME-COMPLETO"] != "")
-                                @arr([$val,'NOME-COMPLETO']).
+                                @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
+                                    {!! explode(';', $val["NOME-PARA-CITACAO"])[0] !!}
+                                @elseif(isset($val["NOME-PARA-CITACAO"]))
+                                    {!! $val["NOME-PARA-CITACAO"] !!}  
+                                @endif
+                                , 
+                            @elseif (isset($val["NOME-PARA-CITACAO"]) && $val["NOME-PARA-CITACAO"] != null && $val["NOME-PARA-CITACAO"] != "")
+                            @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
+                                {!! explode(';', $val["NOME-PARA-CITACAO"])[0] !!}
+                            @elseif(isset($val["NOME-PARA-CITACAO"]))
+                                {!! $val["NOME-PARA-CITACAO"] !!}  
+                            @endif .
                             @endif
                         @endforeach 
                         <br>
@@ -645,15 +654,15 @@
                     </tr>
                     @foreach($content['orientandos'] as $row )
                         <tr>
-                            <td>{{ $row['nompes'] }}</td>
-                            <td>{{ $row['nomare'] }}</td>
-                            @if($row['nivpgm'] == 'DO')
+                            <td>@arr( [$row,'nompes'] )</td>
+                            <td>@arr( [$row, 'nomare'] )</td>
+                            @if(isset($row['nivpgm']) && $row['nivpgm'] == 'DO')
                                 <td>Doutorado</td>
                             @endif
-                            @if( $row['nivpgm'] == 'DD')
+                            @if(isset($row['nivpgm']) && $row['nivpgm'] == 'DD')
                                 <td>Doutorado Direto</td>
                             @endif
-                            @if( $row['nivpgm'] == 'ME')
+                            @if(isset($row['nivpgm']) && $row['nivpgm'] == 'ME')
                                 <td>Mestrado</td>
                             @endif
                         </tr>

@@ -171,7 +171,8 @@ class Programa extends Model
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        
+
+            
         
         $aux_livros_destaques = Programa::hasValue($lattes,'livros') ? $lattes['livros'] : null; //Pega todos os livros (sem filtrar)
         /**
@@ -262,15 +263,10 @@ class Programa extends Model
                 $filtro['limit_ini'] = $request->ano_ini;
                 $filtro['limit_fim'] = $request->ano_fim;
                 break;
-            case 'tudo':
+            default:
                 $filtro['tipo'] = 'tudo';
                 $filtro['limit_ini'] = null;
-                $filtro['limit_fim'] = null;
-            break;
-            default:
-                $filtro['tipo'] = 'periodo';
-                $filtro['limit_ini'] = 2017;
-                    $filtro['limit_fim'] = 2020;
+                    $filtro['limit_fim'] = null;
                 break;
         }
         return $filtro;
