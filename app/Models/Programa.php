@@ -128,8 +128,6 @@ class Programa extends Model
                 $pessoa['total_radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_radio_tv'] = $pessoa['total_radio_tv'] ? count($pessoa['total_radio_tv']): '0';
         
-
-            
             }else{
                 $pessoa['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -149,14 +147,16 @@ class Programa extends Model
                 $pessoa['apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
-        
             }
-            array_push($aux_pessoas, $pessoa);
+            if(isset($pessoa['nompes']) && $pessoa['nompes'] != ''){
+                array_push($aux_pessoas, $pessoa);
+            }
 
         }
         usort($aux_pessoas, function ($a, $b) {
             return $a['nompes'] > $b['nompes'];
         });
+
         return $aux_pessoas;
     }
 
