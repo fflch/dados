@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Uspdev\Replicado\Posgraduacao;
-use App\Utils\ReplicadoTemp;
-use App\Models\Lattes as LattesModel;
 use App\Models\Programa;
 use Uspdev\Replicado\Lattes;
 
@@ -22,7 +20,6 @@ class ProgramaController extends Controller
         $programa = Posgraduacao::programas(8, null, $codare)[0];
         $credenciados = Programa::listarPessoa($codare, $filtro, false, 'docentes');
         $titulo = "Docentes credenciados ao programa de " .$programa['nomcur'] .": " .count($credenciados);
-
         
         return view('programas.show',[
             'pessoas' => $credenciados,
@@ -79,7 +76,7 @@ class ProgramaController extends Controller
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
-            'form_action' => "/programas/docente/$codpes",
+            'form_action' => "/programas/docente/$id_lattes",
             'codpes' => $codpes
         ]);
     }
@@ -94,7 +91,7 @@ class ProgramaController extends Controller
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
-            'form_action' => "/programas/discente/$codpes"
+            'form_action' => "/programas/discente/$id_lattes"
         ]);
     }
 
@@ -108,7 +105,7 @@ class ProgramaController extends Controller
             'content' => $content,
             'section_show' => $section_show,
             'filtro' => $filtro,
-            'form_action' => "/programas/egresso/$codpes"
+            'form_action' => "/programas/egresso/$id_lattes"
         ]);
     }
 }

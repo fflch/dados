@@ -128,8 +128,6 @@ class Programa extends Model
                 $pessoa['total_radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_radio_tv'] = $pessoa['total_radio_tv'] ? count($pessoa['total_radio_tv']): '0';
         
-
-            
             }else{
                 $pessoa['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -149,14 +147,16 @@ class Programa extends Model
                 $pessoa['apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
-        
             }
-            array_push($aux_pessoas, $pessoa);
+            if(isset($pessoa['nompes']) && $pessoa['nompes'] != ''){
+                array_push($aux_pessoas, $pessoa);
+            }
 
         }
         usort($aux_pessoas, function ($a, $b) {
             return $a['nompes'] > $b['nompes'];
         });
+
         return $aux_pessoas;
     }
 
@@ -171,7 +171,8 @@ class Programa extends Model
         $content['nome'] = $lattes['nome'];
         $content['resumo'] = $lattes['resumo'];
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'];
-        
+
+            
         
         $aux_livros_destaques = Programa::hasValue($lattes,'livros') ? $lattes['livros'] : null; //Pega todos os livros (sem filtrar)
         /**
@@ -262,15 +263,10 @@ class Programa extends Model
                 $filtro['limit_ini'] = $request->ano_ini;
                 $filtro['limit_fim'] = $request->ano_fim;
                 break;
-            case 'tudo':
+            default:
                 $filtro['tipo'] = 'tudo';
                 $filtro['limit_ini'] = null;
-                $filtro['limit_fim'] = null;
-            break;
-            default:
-                $filtro['tipo'] = 'periodo';
-                $filtro['limit_ini'] = 2017;
-                    $filtro['limit_fim'] = 2020;
+                    $filtro['limit_fim'] = null;
                 break;
         }
         return $filtro;

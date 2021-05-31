@@ -85,6 +85,8 @@ class ReplicadoSyncCommand extends Command
 
 
     private function sync_docentes(){
+        putenv('REPLICADO_SYBASE=1');
+        
         $docentes = Pessoa::listarDocentes(null, 'A,P');
 
         foreach($docentes as $docente){
