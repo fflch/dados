@@ -7,7 +7,7 @@ $right_menu = [
         'target' => '_blank',
         'url'    => config('app.url') . '/logs',
         'align'  => 'right',
-        'can'    => 'admin',
+        'can'    => 'admins',
     ],
 ];
 
