@@ -19,6 +19,7 @@
         "laravel/ui": "^3.0",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "^1.12",
+        "rap2hpoutre/laravel-log-viewer": "^1.7",
         "uspdev/cache": "^0.7.1",
         "uspdev/laravel-usp-theme": "^2.0.2",
         "uspdev/replicado": "^1.6",
