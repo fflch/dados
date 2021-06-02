@@ -21,7 +21,6 @@ use App\Http\Controllers\AtivosPorGeneroCursoGradController;
 use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
 use App\Http\Controllers\Beneficios2019PorProgramaController;
-use App\Http\Controllers\AtivosPorGeneroCEUController;
 use App\Http\Controllers\ConcluintesPorAnoController;
 use App\Http\Controllers\ConcluintesGradPorCursoController;
 use App\Http\Controllers\AtivosPorGeneroPDController;
@@ -55,6 +54,7 @@ use App\Http\Controllers\IniciacaoCientificaController;
 use App\Http\Controllers\ExAlunosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RestritoController;
+use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/sobre', [IndexController::class, 'sobre']);
@@ -66,8 +66,6 @@ Route::post('logout', [LoginController::class, 'logout']);
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
 Route::get('/ativos/export/{format}', [AtivosController::class, 'export']);
-
-
 
 # totais de microcomputadores e notebooks ativos
 Route::get('/ativosMicrosNotes', [AtivosMicrosNotesController::class, 'grafico']);
@@ -129,10 +127,6 @@ Route::get('/ativosBeneficiosConHist/export/{format}', [BeneficiosConcedidosHist
 # benefícios concedidos em 2019, por programa
 Route::get('/Benef2019Prog', [Beneficios2019PorProgramaController::class, 'grafico']);
 Route::get('/Benef2019Prog/export/{format}', [Beneficios2019PorProgramaController::class, 'export']);
-
-# totais de alunos de cultura e extensão por gênero
-Route::get('/ativosCulturaExtensao', [AtivosPorGeneroCEUController::class, 'grafico']);
-Route::get('/ativosCulturaExtensao/export/{format}', [AtivosPorGeneroCEUController::class, 'export']);
 
 # série histórica de concluintes da graduação e pós-graduação
 Route::get('/concluintesPorAno/{vinculo}', [ConcluintesPorAnoController::class, 'grafico']);
@@ -247,6 +241,9 @@ Route::get('/ingressantesSociaisFeminino/export/{format}', [IngressantesFeminino
 Route::get('/exAlunos', [ExAlunosController::class, 'grafico']);
 Route::get('/exAlunos/export/{format}', [ExAlunosController::class, 'export']);
 
+#quantidade de alunos especiais de Pós-Graduação por departamento
+Route::get('/alunosEspeciaisPosGrDpto', [AlunosEspeciaisPosGrDptoController::class, 'grafico']);
+Route::get('/alunosEspeciaisPosGrDpto/export/{format}', [AlunosEspeciaisPosGrDptoController::class, 'export']);
 # Programas
 Route::get('/programas', [ProgramaController::class, 'index']);
 Route::get('/programas/docentes/{codare}', [ProgramaController::class, 'listarDocentes']);
