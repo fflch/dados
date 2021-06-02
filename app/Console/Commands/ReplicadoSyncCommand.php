@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Uspdev\Replicado\Lattes;
 use Uspdev\Replicado\Pessoa;
+use Uspdev\Replicado\Pesquisa;
 use Uspdev\Replicado\Posgraduacao;
 use App\Models\Lattes as LattesModel;
 use App\Utils\ReplicadoTemp;
@@ -113,7 +114,7 @@ class ReplicadoSyncCommand extends Command
         putenv('REPLICADO_SYBASE=1');
 
         //iniciação cientifica
-        $iniciacao_cientifica = Pessoa::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
+        $iniciacao_cientifica = Pesquisa::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
         
         if($iniciacao_cientifica){
             foreach($iniciacao_cientifica as $ic){
@@ -149,7 +150,7 @@ class ReplicadoSyncCommand extends Command
         
     
         //pesquisas de pos doutorandos ativos
-        $pesquisa = Pessoa::listarPesquisaPosDoutorandos();
+        $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
         if($pesquisa){
             foreach($pesquisa as $pd){
                 $comissao = ComissaoPesquisa::where('codproj',$pd['codprj'])->where('codpes_discente',$pd['codpes'])->first();
@@ -183,7 +184,7 @@ class ReplicadoSyncCommand extends Command
         }        
         
         //pesquisadores colaborativos ativos
-        $pesquisadores_colab = Pessoa::listarPesquisadoresColaboradoresAtivos();
+        $pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
         if($pesquisadores_colab){
             foreach($pesquisadores_colab as $pc){
                 $comissao = ComissaoPesquisa::where('codproj',$pc['codprj'])->where('codpes_discente',$pc['codpes'])->first();
