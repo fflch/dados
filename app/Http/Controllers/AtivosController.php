@@ -6,6 +6,7 @@ use App\Charts\GenericChart;
 use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Khill\Lavacharts\Lavacharts;
 
 class AtivosController extends Controller
 {
@@ -76,7 +77,30 @@ class AtivosController extends Controller
         $chart->labels(array_keys($this->data));
         $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('ativos', compact('chart'));
+        ################### ERxemplo
+
+
+        $lava = new Lavacharts; // See note below for Laravel
+
+        $reasons = $lava->DataTable();
+
+        $reasons->addStringColumn('Reasons')
+                ->addNumberColumn('Percent');
+
+        foreach($this->data as $key=>$data) {
+            #dd((int)$data);
+            $reasons->addRow([$key, (int)$data]);
+        }
+        
+        $lava->PieChart('IMDB', $reasons, [
+            'title'  => 'Reasons I visit IMDB',
+            'is3D'   => true,
+
+        ]);
+
+
+
+        return view('ativos', compact('chart','lava'));
     }
 
     public function export($format){
