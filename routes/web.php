@@ -8,7 +8,6 @@ use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\AtivosController;
 use App\Http\Controllers\AtivosMicrosNotesController;
 use App\Http\Controllers\AtivosPorGeneroController;
-use App\Http\Controllers\AtivosPosDoutoradoPorCursoController;
 use App\Http\Controllers\AlunosAtivosPorCursoController;
 use App\Http\Controllers\AtivosPorDepartamentoController;
 use App\Http\Controllers\AtivosPorProgramaPósController;
@@ -63,10 +62,6 @@ Route::get('/ativos/export/{format}', [AtivosController::class, 'export']);
 # totais de microcomputadores e notebooks ativos
 Route::get('/ativosMicrosNotes', [AtivosMicrosNotesController::class, 'grafico']);
 Route::get('/ativosMicrosNotes/export/{format}', [AtivosMicrosNotesController::class, 'export']);
-
-# totais de alunos de pós-doutorado com programa ativo por curso
-Route::get('/ativosPosDoutPorCurso', [AtivosPosDoutoradoPorCursoController::class, 'grafico'])->name('ativosposdoutoradocurso');
-Route::get('/ativosPosDoutPorCurso/export/{format}', [AtivosPosDoutoradoPorCursoController::class, 'export'])->name('ativosposdoutoradocurso/export/{format}');
 
 # totais de alunos ativo por curso
 Route::get('/alunosAtivosPorCurso/{tipvin}', [AlunosAtivosPorCursoController::class, 'grafico']);
