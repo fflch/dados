@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Uspdev\Replicado\Posgraduacao;
 use Illuminate\Http\Request;
 use Uspdev\Replicado\Lattes;
-use App\Utils\ReplicadoTemp;
 use App\Models\Lattes as LattesModel;
 
 class Programa extends Model
