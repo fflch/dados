@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Excel;
 use Illuminate\Http\Request;
 use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
-use Uspdev\Replicado\Pesquisa;
+use Uspdev\Replicado\CEU;
 use App\Utils\Util;
 
 class CEUController extends Controller
@@ -35,7 +35,7 @@ class CEUController extends Controller
             $departamento = [(int)$departamento];
         }
         
-        $result = Pesquisa::listarCursosCEU($ano_inicio, $ano_fim, $departamento);
+        $result = CEU::listarCursos($ano_inicio, $ano_fim, $departamento);
 
         $data = $result;
 
