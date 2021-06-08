@@ -159,11 +159,11 @@ class Programa extends Model
     }
 
     public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa) {
-        
-        $json_lattes = LattesModel::where('codpes',$codpes)->first();
+
+        $json_lattes = LattesModel::where('codpes',$codpes)->where('tipo_pessoa',$tipo_pessoa)->first();
             
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
-
+       
         $content['id_lattes'] = $lattes['id_lattes'] ?? null;
         $content['orcid'] = $lattes['orcid'] ?? null;
         $content['nome'] = $lattes['nome'];
@@ -186,6 +186,7 @@ class Programa extends Model
         /*
             Inclusão dos livros em destaque para serem removidos da lista de livros filtrados, pois estes livros destacados serão exibidos independentemente do filtro.
         */
+        
         if(is_array($destaques)){
             foreach($destaques as $d){
                 if(isset($d['ISBN']) && !empty($d['ISBN']) && $d['ISBN'] != null){
@@ -198,7 +199,8 @@ class Programa extends Model
         /*
             Inclusão dos livros em destaque no começo da lista de livros
          */
-        if(is_array($destaques)){
+       
+        if(is_array($destaques) && is_array($livros)){
             foreach($destaques as $d){
                 array_unshift($livros, $d); //coloca o elemento na primeira posição do array
             }
