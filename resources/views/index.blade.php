@@ -85,12 +85,11 @@
     <div class="card-header"><b>Dados por ano: 9</b></div>
     <div class="card-body">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosBeneficiosConHist">Série histórica de benefícios concedidos por
-                    ano a
-                    partir de 2014.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosBeneficiosConHist?ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica de benefícios concedidos por
+                    ano.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiados">Série histórica: quantidade de alunos com benefícios
                     2010-2020.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPorAno/ALUNOGR">Série histórica de concluintes da Graduação e Pós-Graduação por
+            <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPorAno">Série histórica de concluintes da Graduação e Pós-Graduação por
                     ano a
                     partir de 2010.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados

@@ -1,6 +1,6 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 
 <div>
     <label for="curso" class="form-label">Filtrar por:</label>
@@ -27,14 +27,18 @@
 
 </div>
 
- <br>
+
+<div id="chart-div"></div>
+
+
+{!! $lava->render('PieChart', 'Ativos', 'chart-div') !!}
+
 <center>
-<b>FLA:</b> Antropologia, <b>FLP:</b> Ciência Política, <b>FLF:</b> Filosofia, <b>FLH:</b> História, <b>FLC:</b> Letras Clássicas e Vernáculas, 
-<b>FLM:</b> Letras Modernas,<br> <b>FLO:</b> Letras Orientais, <b>FLL:</b> Linguística, <b>FSL:</b> Sociologia, <b>FLT:</b> Teoria Literária e Literatura Comparada,
-<b>FLG:</b> Geografia.
-</center>
+    <b>FLA:</b> Antropologia, <b>FLP:</b> Ciência Política, <b>FLF:</b> Filosofia, <b>FLH:</b> História, <b>FLC:</b> Letras Clássicas e Vernáculas, 
+    <b>FLM:</b> Letras Modernas,<br> <b>FLO:</b> Letras Orientais, <b>FLL:</b> Linguística, <b>FSL:</b> Sociologia, <b>FLT:</b> Teoria Literária e Literatura Comparada,
+    <b>FLG:</b> Geografia.
+    </center>
+
+
 @endsection
 
-@section('content_footer')
-<center>Quantidade de {{$tipovin_text}} ativos na Faculdade de Filosofia, Letras e Ciências Humanas contabilizados por departamento.</center>
-@endsection

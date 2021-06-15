@@ -9,6 +9,7 @@ use Uspdev\Replicado\DB;
 use Illuminate\Http\Request;
 use App\Utils\Util;
 use Uspdev\Replicado\Uteis;
+use Khill\Lavacharts\Lavacharts;
 
 class AtivosPorGeneroController extends Controller
 {
@@ -86,14 +87,7 @@ class AtivosPorGeneroController extends Controller
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
-        $chart->labels([
-            'Feminino',
-            'Masculino',
-        ]);
+       
         $nome_curso = $this->nome_curso;
         $cod_curso = $this->cod_curso;
         $cursos = Util::cursos;
@@ -103,9 +97,36 @@ class AtivosPorGeneroController extends Controller
                     
         $texto = isset($filtro[$tipvin]['nome']) ? $filtro[$tipvin]['nome'] : 'Não encontrado';
 
-        $chart->dataset($texto .' por Gênero', 'bar', array_values($this->data));
 
-        return view('ativosGenero', compact('chart', 'nome_curso', 'cod_curso', 'cursos', 'filtro', 'tipvin', 'texto'));
+        $lava = new Lavacharts; // See note below for Laravel
+
+        $genero  = $lava->DataTable();
+
+        $formatter = $lava->NumberFormat([ 
+            'pattern' => '#.###',
+        ]);
+        $genero->addStringColumn('Tipo de convênio')
+            ->addNumberColumn('Quantidade', $formatter);
+            
+
+        $genero->addRow(['Feminino', $this->data['F']]);
+        $genero->addRow(['Masculino', $this->data['M']]);
+
+
+        $lava->ColumnChart('Genero', $genero, [
+            'legend' => [
+                'position' => 'top',
+                ' alignment' => 'center',
+                
+            ],
+            'height' => 500,
+            'vAxis' => ['format' => 0],
+            'colors' => ['#273e74']
+
+        ]);
+
+     
+        return view('ativosGenero', compact( 'nome_curso', 'cod_curso', 'cursos', 'filtro', 'tipvin', 'texto', 'lava'));
     }
 
     public function export($format, Request $request)

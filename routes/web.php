@@ -23,7 +23,7 @@ use App\Http\Controllers\AtivosGradPorEstadoController;
 use App\Http\Controllers\AtivosDocentesPorFuncaoController;
 use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
 use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
-use App\Http\Controllers\BeneficiosAtivosGraduacao2020Controller;
+use App\Http\Controllers\BeneficiosAtivosGraduacaoPorAnoController;
 use App\Http\Controllers\AtivosBolsaLivroController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\AlunosEspeciaisPorAnoController;
@@ -92,8 +92,8 @@ Route::get('/Benef2019Prog', [Beneficios2019PorProgramaController::class, 'grafi
 Route::get('/Benef2019Prog/export/{format}', [Beneficios2019PorProgramaController::class, 'export']);
 
 # série histórica de concluintes da graduação e pós-graduação
-Route::get('/concluintesPorAno/{vinculo}', [ConcluintesPorAnoController::class, 'grafico']);
-Route::get('/concluintesPorAno/export/{format}/{vinculo}', [ConcluintesPorAnoController::class, 'export']);
+Route::get('/concluintesPorAno', [ConcluintesPorAnoController::class, 'grafico']);
+Route::get('/concluintesPorAno/export/{format}', [ConcluintesPorAnoController::class, 'export']);
 
 # concluintes da graduação em {ano}, por curso
 Route::get('/concluintesGradPorCurso/{ano}', [ConcluintesGradPorCursoController::class, 'grafico']);
@@ -128,8 +128,8 @@ Route::get('/ativosAlunosGradTipoIngresso', [AlunosAtivosGradTipoIngressoControl
 Route::get('/ativosAlunosGradTipoIngresso/export/{format}', [AlunosAtivosGradTipoIngressoController::class, 'export']);
 
 #totais de alunos da graduação com benefício ativo em 2020
-Route::get('/beneficiosAtivosGraduacao2020', [BeneficiosAtivosGraduacao2020Controller::class, 'grafico']);
-Route::get('/beneficiosAtivosGraduacao2020/export/{format}', [BeneficiosAtivosGraduacao2020Controller::class, 'export']);
+Route::get('/beneficiosAtivosGraduacaoPorAno/{ano}', [BeneficiosAtivosGraduacaoPorAnoController::class, 'grafico']);
+Route::get('/beneficiosAtivosGraduacaoPorAno/export/{format}/{ano}', [BeneficiosAtivosGraduacaoPorAnoController::class, 'export']);
 
 #totais de alunos da com benefício Bolsa Livro ativo em 2020
 Route::get('/ativosBolsaLivro', [AtivosBolsaLivroController::class, 'grafico']);

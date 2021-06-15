@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
 use Illuminate\Http\Request;
 use App\Utils\Util;
 use Uspdev\Replicado\Uteis;
+use Khill\Lavacharts\Lavacharts;
 
 class AtivosPorDepartamentoController extends Controller
 {
@@ -55,10 +55,6 @@ class AtivosPorDepartamentoController extends Controller
     }    
     
     public function grafico(){
-        $chart = new GenericChart;
-
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'pie', array_values($this->data));
         $codfnc = $this->codfnc;
         switch((int)$codfnc){
             case 0:
@@ -76,9 +72,33 @@ class AtivosPorDepartamentoController extends Controller
             default:
                 $tipovin_text = "";
         }
+      
+
+
+        $lava = new Lavacharts; // See note below for Laravel
+
+        $ativos = $lava->DataTable();
+
+        $ativos->addStringColumn('Departamento')
+                ->addNumberColumn('Quantidade');
+
+        foreach($this->data as $key=>$data) {
+            $ativos->addRow([$key, (int)$data]);
+        }
+        
+        $lava->PieChart('Ativos', $ativos, [
+            'title' => 'Quantidade de '.$tipovin_text.' ativos na Faculdade de Filosofia, Letras e Ciências Humanas contabilizados por departamento.',
+            'legend' => [
+                'position' => 'bottom',
+                'alignment' => 'center'
+                
+            ],
+            'height' => 500
+
+        ]);
         
 
-        return view('ativosTipvinDepartamento', compact('chart', 'tipovin_text', 'codfnc'));
+        return view('ativosTipvinDepartamento', compact('codfnc', 'lava'));
     }
 
     public function export($format){
