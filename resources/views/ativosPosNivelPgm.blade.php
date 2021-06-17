@@ -1,10 +1,13 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 <a href="/ativosPosNivelPgm/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a> 
-@endsection
 
-@section('content_footer')
+
 <center>Quantidade de alunos ativos da Pós Graduação na Faculdade de Filosofia, Letras e Ciências Humanas separados pelo nível do Programa.</center>
+
+<div id="chart-div"></div>
+
+{!! $lava->render('ColumnChart', 'Ativos Pós-Graduação', 'chart-div') !!}
 @endsection
