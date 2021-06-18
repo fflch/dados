@@ -42,11 +42,16 @@ class ConveniosAtivosController extends Controller
             $convenios->addRow([$key, (int)$data]);
         }
 
+
+        $max = max($this->data) + 10;
+        $div = $max/10;
+
         $lava->ColumnChart('Convenios', $convenios, [
             'legend' => [
                 'position' => 'top',
                 
             ],
+            'vAxis'=>['ticks'=>range(0,$max, round($div))],
             'height' => 500,
             'colors' => ['#273e74']
 

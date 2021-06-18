@@ -21,7 +21,7 @@
     </select> 
     
 
-    <a href="/ativosDepartamento/export/excel" class="float-right">
+    <a href="/ativosDepartamento/export/excel/{{$tipvin}}/{{$codfnc}}" class="float-right">
         <i class="fas fa-file-excel"></i> Download Excel
     </a>
 

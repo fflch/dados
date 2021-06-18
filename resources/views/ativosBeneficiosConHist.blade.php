@@ -2,13 +2,13 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
-@endsection('styles')
+@endsection
 
 
 @section('content')
 
 <div>
-    <a href="/ativosBeneficiosConHist/export/excel" class="float-right">
+    <a href="/ativosBeneficiosConHist/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}" class="float-right">
         <i class="fas fa-file-excel"></i> Download Excel</a>
     
     <br>

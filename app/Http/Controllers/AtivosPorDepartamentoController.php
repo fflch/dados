@@ -15,6 +15,7 @@ class AtivosPorDepartamentoController extends Controller
     private $data;
     private $excel;
     private $codfnc;
+    private $tipvin;
 
     public function __construct(Excel $excel, Request $request){
         $this->excel = $excel;
@@ -29,6 +30,7 @@ class AtivosPorDepartamentoController extends Controller
 
         $tipvin = $request->route()->parameter('tipvin') ?? ''; //Docente ou Servidor
         if($tipvin != 'Docente' && $tipvin != 'Servidor') $tipvin = '';
+        $this->tipvin = $tipvin;
 
         $this->codfnc = $request->route()->parameter('codfnc') ?? 0;
         
@@ -73,7 +75,7 @@ class AtivosPorDepartamentoController extends Controller
                 $tipovin_text = "";
         }
       
-
+        $tipvin = $this->tipvin;
 
         $lava = new Lavacharts; // See note below for Laravel
 
@@ -98,7 +100,7 @@ class AtivosPorDepartamentoController extends Controller
         ]);
         
 
-        return view('ativosTipvinDepartamento', compact('codfnc', 'lava'));
+        return view('ativosTipvinDepartamento', compact('codfnc', 'lava', 'tipvin'));
     }
 
     public function export($format){

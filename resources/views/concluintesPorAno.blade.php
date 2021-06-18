@@ -50,7 +50,7 @@
     </form>
     
 
-<a href="/concluintesPorAno/export/excel">
+<a href="/concluintesPorAno/export/excel?vinculo={{request()->query("vinculo")}}&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 
 </div>

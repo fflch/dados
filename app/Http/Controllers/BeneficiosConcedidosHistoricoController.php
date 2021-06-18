@@ -36,9 +36,9 @@ class BeneficiosConcedidosHistoricoController extends Controller
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficios_ano.sql');
         /* Contabiliza benefícios concedidos de 2014-2020 */
         foreach($anos as $ano){
-        $query_por_ano = str_replace('__ano__', $ano, $query);
-        $result = DB::fetch($query_por_ano);
-        $data[$ano] = $result['computed'];
+            $query_por_ano = str_replace('__ano__', $ano, $query);
+            $result = DB::fetch($query_por_ano);
+            $data[$ano] = $result['computed'];
         }        
 
         $this->data = $data;
@@ -77,8 +77,9 @@ class BeneficiosConcedidosHistoricoController extends Controller
         return view('ativosBeneficiosConHist', compact('lava', 'anos'));
     }
 
-    public function export($format)
+    public function export( $format)
     {
+
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
             return $this->excel->download($export, 'historico_beneficios_concedidos.xlsx'); 

@@ -112,6 +112,10 @@ class AtivosPorGeneroController extends Controller
         $genero->addRow(['Feminino', $this->data['F']]);
         $genero->addRow(['Masculino', $this->data['M']]);
 
+        
+        $max = max($this->data);
+        $div = $max/10;
+           
 
         $lava->ColumnChart('Genero', $genero, [
             'legend' => [
@@ -119,11 +123,12 @@ class AtivosPorGeneroController extends Controller
                 ' alignment' => 'center',
                 
             ],
+            'vAxis'=>['ticks'=>range(0,$max, round($div))],
             'height' => 500,
-            'vAxis' => ['format' => 0],
             'colors' => ['#273e74']
 
         ]);
+       
 
      
         return view('ativosGenero', compact( 'nome_curso', 'cod_curso', 'cursos', 'filtro', 'tipvin', 'texto', 'lava'));

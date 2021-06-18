@@ -12,26 +12,11 @@ class OrientadoresPosGRContoller extends Controller
 {
     private $data;
     private $excel;
+    private $labels;
     public function __construct(Excel $excel){
         $this->excel = $excel;
         $data = [];
-
-        $areas = ['8134', '8131', '8156', '8158', '8147', '8160', '8142', '8133', '8135', '8136', '8137', '8138', '8161', '8143', '8139', '8149', '8150', '8145', '8144', '8146', '8148', '8132', '8151'];
-
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_orientadores_posgr.sql');
-        
-        /* Contabiliza orientadores credenciados na área de concentração (codare) do programa de pós graduação correspondente*/
-        foreach ($areas as $area){
-            $query_por_area = str_replace('__area__', $area, $query);
-            $result = DB::fetch($query_por_area);
-            $data[$area] = $result['computed'];
-        } 
-
-        $this->data = $data;
-    }
-
-    public function grafico(){
-        $labels = [
+        $this->labels = [
             'AS' => 8134,
             'CP' => 8131,
             'ECLLP' => 8156,
@@ -56,6 +41,24 @@ class OrientadoresPosGRContoller extends Controller
             'DS' => 8132,
             'TLLC' => 8151,
         ];
+
+
+        $areas = ['8134', '8131', '8156', '8158', '8147', '8160', '8142', '8133', '8135', '8136', '8137', '8138', '8161', '8143', '8139', '8149', '8150', '8145', '8144', '8146', '8148', '8132', '8151'];
+
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_orientadores_posgr.sql');
+        
+        /* Contabiliza orientadores credenciados na área de concentração (codare) do programa de pós graduação correspondente*/
+        foreach ($areas as $area){
+            $query_por_area = str_replace('__area__', $area, $query);
+            $result = DB::fetch($query_por_area);
+            $data[$area] = $result['computed'];
+        } 
+
+        $this->data = $data;
+    }
+
+    public function grafico(){
+        $labels = $this->labels;
 
     
         $lava = new Lavacharts; // See note below for Laravel
@@ -85,8 +88,9 @@ class OrientadoresPosGRContoller extends Controller
     }
 
     public function export($format){
+        
         if($format == 'excel') {
-            $export = new DadosExport([$this->data],array_keys($this->data));
+            $export = new DadosExport([$this->data],array_keys($this->labels));
             return $this->excel->download($export, 'orientadores_posgr.xlsx');
         }
     }

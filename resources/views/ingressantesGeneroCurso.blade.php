@@ -1,19 +1,24 @@
 @extends('main')
 
+
+
 @section('content')
 
 <div>
-    <form action="/alunosEspeciaisPorAno" method='get'>
+    <form action="/IngressantesGeneroCurso" method='get'>
 
-        <label for="vinculo" class="form-label">Filtrar por:</label>
-        <select id="vinculo" name="vinculo" class="form-select" >
-            <option @if(request()->query("vinculo") == 'ALUNOESPGR') selected="selected" @endif value="ALUNOESPGR">
-                Aluno Especial de Graduação
-            </option>
-            <option @if(request()->query("vinculo") == 'ALUNOPOSESP') selected="selected" @endif value="ALUNOPOSESP">
-                Aluno Especial de Pós-Graduação
-            </option>
-        </select> 
+        <label for="curso" class="form-label">Filtrar por curso:</label>
+        <select id="curso" class="form-select" name="curso">
+            @foreach($cursos as $key => $cur)
+                <option 
+                    @if($key == request()->query("curso"))
+                        selected="selected"
+                    @endif    
+                value="{{$key}}">
+                    {{ $cur['nome'] }}
+                </option>
+            @endforeach
+        </select>
 
 
         <label for="ano_ini" class="form-label"> de </label>
@@ -46,17 +51,21 @@
     </form>
     
 
-
-    <a href="/alunosEspeciaisPorAno/export/excel?vinculo={{request()->query("vinculo")}}&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
-        <i class="fas fa-file-excel"></i> Download Excel</a>
+    <a href="/IngressantesGeneroCurso/export/excel?curso=Letras&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
+        <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 </div>
 
 
 
+
+<center>
+Quantidade de ingressantes do gênero masculino no curso de {{$nome_curso}} oferecido pela Faculdade de Filosofia, Letras e Ciências Humanas.
+</center>
+
+
 <div id="chart-div"></div>
 
-{!! $lava->render('AreaChart', 'Alunos', 'chart-div') !!}
+{!! $lava->render('LineChart', 'Genero', 'chart-div') !!}
 
-<center>{{$nome_vinculo}} no período de 2010-2020.</center>
 @endsection

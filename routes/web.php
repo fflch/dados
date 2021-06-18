@@ -10,7 +10,7 @@ use App\Http\Controllers\AtivosMicrosNotesController;
 use App\Http\Controllers\AtivosPorGeneroController;
 use App\Http\Controllers\AlunosAtivosPorCursoController;
 use App\Http\Controllers\AtivosPorDepartamentoController;
-use App\Http\Controllers\AtivosPorProgramaPósController;
+use App\Http\Controllers\AtivosPorProgramaPosController;
 use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
 use App\Http\Controllers\Beneficios2019PorProgramaController;
@@ -31,17 +31,8 @@ use App\Http\Controllers\AtivosPosNivelProgramaController;
 use App\Http\Controllers\CEUController;
 use App\Http\Controllers\OrientadoresPosGRContoller;
 use App\Http\Controllers\CoordCursosGradGeneroController;
-use App\Http\Controllers\IngressantesFemininoLetrasController;
-use App\Http\Controllers\IngressantesMasculinoLetrasController;
-use App\Http\Controllers\IngressantesFemininoFilosofiaController;
-use App\Http\Controllers\IngressantesMasculinoFilosofiaController;
-use App\Http\Controllers\IngressantesMasculinoHistoriaController;
-use App\Http\Controllers\IngressantesFemininoHistoriaController;
-use App\Http\Controllers\IngressantesFemininoSociaisController;
-use App\Http\Controllers\IngressantesMasculinoSociaisController;
-use App\Http\Controllers\IngressantesMasculinoGeoController;
+use App\Http\Controllers\IngressantesGeneroCursoController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\IngressantesFemininoGeoController;
 use App\Http\Controllers\IniciacaoCientificaController;
 use App\Http\Controllers\ExAlunosController;
 use App\Http\Controllers\LoginController;
@@ -72,8 +63,8 @@ Route::get('/ativosDepartamento/{tipvin}/{codfnc}', [AtivosPorDepartamentoContro
 Route::get('/ativosDepartamento/export/{format}/{tipvin}/{codfnc}', [AtivosPorDepartamentoController::class, 'export']);
 
 # totais de alunos da pós graduação, por programa
-Route::get('/ativosPorProgramaPos', [AtivosPorProgramaPósController::class, 'grafico']);
-Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPósController::class, 'export']);
+Route::get('/ativosPorProgramaPos', [AtivosPorProgramaPosController::class, 'grafico']);
+Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPosController::class, 'export']);
 
 # totais de alunos da graduação por gênero e por curso
 Route::get('/ativosGenero/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'grafico']);
@@ -141,16 +132,12 @@ Route::get('/trancamentosCursoPorSemestre/export/{format}/{curso}', [Trancamento
 
 
 #quantidade de alunos especiais da graduação e pós graduação por ano (2010-2010)
-Route::get('/alunosEspeciaisPorAno/{vinculo}', [AlunosEspeciaisPorAnoController::class, 'grafico']);
-Route::get('/alunosEspeciaisPorAno/export/{format}/{vinculo}', [AlunosEspeciaisPorAnoController::class, 'export']);
+Route::get('/alunosEspeciaisPorAno', [AlunosEspeciaisPorAnoController::class, 'grafico']);
+Route::get('/alunosEspeciaisPorAno/export/{format}', [AlunosEspeciaisPorAnoController::class, 'export']);
 
 #quantidade de ingressantes do gênero masculino no curso de Geografia 2010-2020
-Route::get('/ingressantesGeoMasculino', [IngressantesMasculinoGeoController::class, 'grafico']);
-Route::get('/ingressantesGeoMasculino/export/{format}', [IngressantesMasculinoGeoController::class, 'export']);
-
-#quantidade de ingressantes do gênero feminino no curso de Geografia 2010-2020
-Route::get('/ingressantesGeoFeminino', [IngressantesFemininoGeoController::class, 'grafico']);
-Route::get('/ingressantesGeoFeminino/export/{format}', [IngressantesFemininoGeoController::class, 'export']);
+Route::get('/IngressantesGeneroCurso', [IngressantesGeneroCursoController::class, 'grafico']);
+Route::get('/IngressantesGeneroCurso/export/{format}', [IngressantesGeneroCursoController::class, 'export']);
 
 #quantidade de alunos ativos da pós graduação, separados pelo nível de programa
 Route::get('ativosPosNivelPgm', [AtivosPosNivelProgramaController::class, 'grafico']);
@@ -163,38 +150,6 @@ Route::get('orientadoresPosGR/export/{format}', [OrientadoresPosGRContoller::cla
 #quantidade de coordenadores de curso de gradução, separados por gênero
 Route::get('coordCursosGrad', [CoordCursosGradGeneroController::class, 'grafico']);
 Route::get('coordCursosGrad/export/{format}', [CoordCursosGradGeneroController::class, 'export']);
-
-#quantidade de ingressantes do gênero feminino no curso de Letras 2010-2020
-Route::get('/ingressantesLetrasFeminino', [IngressantesFemininoLetrasController::class, 'grafico']);
-Route::get('/ingressantesLetrasFeminino/export/{format}', [IngressantesFemininoLetrasController::class, 'export']);
-
-#quantidade de ingressantes do gênero masculino no curso de Letras 2010-2020
-Route::get('/ingressantesLetrasMasculino', [IngressantesMasculinoLetrasController::class, 'grafico']);
-Route::get('/ingressantesLetrasMasculino/export/{format}', [IngressantesMasculinoLetrasController::class, 'export']);
-
-#quantidade de ingressantes do gênero feminino no curso de Filosofia 2010-2020
-Route::get('/ingressantesFilosofiaFeminino', [IngressantesFemininoFilosofiaController::class, 'grafico']);
-Route::get('/ingressantesFilosofiaFeminino/export/{format}', [IngressantesFemininoFilosofiaController::class, 'export']);
-
-#quantidade de ingressantes do gênero masculino no curso de Filosofia 2010-2020
-Route::get('/ingressantesFilosofiaMasculino', [IngressantesMasculinoFilosofiaController::class, 'grafico']);
-Route::get('/ingressantesFilosofiaMasculino/export/{format}', [IngressantesMasculinoFilosofiaController::class, 'export']);
-
-#quantidade de ingressantes do gênero masculino no curso de História 2010-2020
-Route::get('/ingressantesHistoriaMasculino', [IngressantesMasculinoHistoriaController::class, 'grafico']);
-Route::get('/ingressantesHistoriaMasculino/export/{format}', [IngressantesMasculinoHistoriaController::class, 'export']);
-
-#quantidade de ingressantes do gênero feminino no curso de História 2010-2020
-Route::get('/ingressantesHistoriaFeminino', [IngressantesFemininoHistoriaController::class, 'grafico']);
-Route::get('/ingressantesHistoriaFeminino/export/{format}', [IngressantesFemininoHistoriaController::class, 'export']);
-
-#quantidade de ingressantes do gênero masculino no curso de Ciências Sociais 2010-2020
-Route::get('/ingressantesSociaisMasculino', [IngressantesMasculinoSociaisController::class, 'grafico']);
-Route::get('/ingressantesSociaisMasculino/export/{format}', [IngressantesMasculinoSociaisController::class, 'export']);
-
-#quantidade de ingressantes do gênero feminino no curso de Ciências Socias 2010-2020
-Route::get('/ingressantesSociaisFeminino', [IngressantesFemininoSociaisController::class, 'grafico']);
-Route::get('/ingressantesSociaisFeminino/export/{format}', [IngressantesFemininoSociaisController::class, 'export']);
 
 #quantidade de Ex alunos de Graduação e Pós-Graduação
 Route::get('/exAlunos', [ExAlunosController::class, 'grafico']);
