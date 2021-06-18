@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
+use App\Utils\Util;
+use Khill\Lavacharts\Lavacharts;
 class AlunosEspeciaisPosGrDptoController extends Controller
 {
     private $data;
@@ -14,11 +15,12 @@ class AlunosEspeciaisPosGrDptoController extends Controller
     public function __construct(Excel $excel){
         $this->excel = $excel;
         $data = [];
-        $dptos = ['8134', '8131', '8156', '8158', '8147', '8160', '8142', '8133', '8135', '8136', '8137', '8138', '8161', '8143', '8139', '8149', '8150', '8145', '8144', '8146', '8148', '8132', '8151'];
+
+        $dptos = Util::getAreas();
         /* Contabiliza alunos especiais ativos de pós-graduação, por departamento */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunosposgr_especiais_dpto.sql');
-        foreach($dptos as $dpto){
-            $query_por_dpto = str_replace('__dpto__', $dpto, $query);
+        foreach($dptos as $key => $dpto){
+            $query_por_dpto = str_replace('__dpto__', $key, $query);
             $result = DB::fetch($query_por_dpto);
             $data[$dpto] = $result['computed'];
         }
@@ -27,35 +29,25 @@ class AlunosEspeciaisPosGrDptoController extends Controller
     }    
     
     public function grafico(){
-        $chart = new GenericChart;
-        $chart->labels([
-            'AS',
-            'CP',
-            'ECLLP',
-            'EJ',
-            'DELLI',
-            'ET',
-            'FLP',
-            'DF',
-            'GF',
-            'GH',
-            'HE',
-            'HS',
-            'HDOL',
-            'LC',
-            'DL',
-            'LB',
-            'LP',
-            'LELEH',
-            'LLA',
-            'LLF',
-            'LLCI',
-            'DS',
-            'TLLC',
-        ]);
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('alunosEspeciaisPosGrDpto', compact('chart'));
+        $lava = new Lavacharts; 
+        $reasons = $lava->DataTable();
+
+        $reasons->addStringColumn('Reasons')
+                ->addNumberColumn('Percent');
+
+        foreach($this->data as $key=>$data) {
+            $reasons->addRow([$key, (int)$data]);
+        }
+        
+        $lava->PieChart('IMDB', $reasons, [
+            'title'  => 'Quantidade de alunos especiais de Pós-Graduação ativos, por departamento, na Faculdade de Filosofia, Letras e Ciências Humanas.',
+            'is3D'   => true,
+            'height' => 700,
+
+        ]);
+
+        return view('alunosEspeciaisPosGrDpto', compact('lava'));
     }
 
     public function export($format){
