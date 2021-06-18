@@ -1,6 +1,6 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 
 <div>
     <label for="curso" class="form-label">Filtrar por:</label>
@@ -26,14 +26,12 @@
     <a href="/alunosAtivosPorCurso/export/excel/{{$tipvin}}" class="float-right">
         <i class="fas fa-file-excel"></i> Download Excel</a> 
 
-    
-
 </div>
 
-
-
-@endsection
-
-@section('content_footer')
 <center>{{$texto}}</center>
+
+
+<div id="chart-div"></div>
+
+{!! $lava->render('ColumnChart', 'Ativos por curso', 'chart-div') !!}
 @endsection

@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
-use App\Utils\Util;
 use Uspdev\Replicado\DB;
 use Illuminate\Http\Request;
-
+use Khill\Lavacharts\Lavacharts;
 class AlunosAtivosPorCursoController extends Controller
 {
     private $data;
@@ -18,7 +15,6 @@ class AlunosAtivosPorCursoController extends Controller
 
     public function __construct(Excel $excel, Request $request){
         $this->excel = $excel;
-        $cache = new Cache();
         $data = [];
 
         $tipvin = $request->route()->parameter('tipvin') ?? 'Não encontrado';
@@ -52,13 +48,28 @@ class AlunosAtivosPorCursoController extends Controller
     }
 
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
 
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
+        $lava = new Lavacharts; 
+
+        $cursos  = $lava->DataTable();
+
+        $cursos->addStringColumn('Cursos')
+            ->addNumberColumn('Quantidade');
+            
+        foreach($this->data as $key=>$data) {
+            $cursos->addRow([$key, (int)$data]);
+        }
+
+        $lava->ColumnChart('Ativos por curso', $cursos, [
+            'legend' => [
+                'position' => 'top',
+                
+            ],
+            'height' => 500,
+            'colors' => ['#273e74']
+
+        ]);
+
         $tipvin = $this->tipvin;
         if($tipvin == 'ALUNOGR'){
             $texto =  'Quantidade de alunos da graduação ativos na Faculdade de Filosofia, Letras e Ciências Humanas separados por curso.';
@@ -67,7 +78,7 @@ class AlunosAtivosPorCursoController extends Controller
             $texto = 'Quantidade de Pós-doutorando com programa ativo na Faculdade de Filosofia, Letras e Ciências Humanas separados por curso.';
         }
 
-        return view('alunosAtivosPorCurso', compact('chart', 'texto', 'tipvin'));
+        return view('alunosAtivosPorCurso', compact('texto', 'tipvin', 'lava'));
     }
 
     public function export($format, Request $request){
