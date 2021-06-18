@@ -2,48 +2,72 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
 use Uspdev\Replicado\DB;
 use App\Utils\Util;
+use Khill\Lavacharts\Lavacharts;
 
 class ExAlunosController extends Controller
 {
     private $data;
     private $excel;
+    private $vinculos;
 
     public function __construct(Excel $excel)
     {
         $this->excel = $excel;
         $data = [];    
 
+        $this->vinculos = [
+            'EXALUNOGR' => 'Ex-Alunos de Graduação',
+            'EXALUNOPOS0' => 'Ex-Alunos de Pós-Graduação (Mestrado)', 
+            'EXALUNOPOS1' => 'Ex-Alunos de Pós-Graduação (Doutorado)', 
+        ];
+  
         /* Contabiliza ex alunos de Graduação e Pós-Graduação (Mestrado e Doutorado). */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ex_alunosGR.sql');
-        $result = DB::fetch($query);
-        $data['Graduação'] = $result['computed'];
-
-         /* Contabiliza ex alunos de Graduação e Pós-Graduação (Mestrado e Doutorado). */
-         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ex_alunos_mestrado.sql');
-         $result = DB::fetch($query);
-         $data['Mestrado'] = $result['computed'];
-
-         /* Contabiliza ex alunos de Graduação e Pós-Graduação (Mestrado e Doutorado). */
-         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ex_alunos_doutorado.sql');
-         $result = DB::fetch($query);
-         $data['Doutorado'] = $result['computed'];
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ex_alunos.sql');
+        foreach($this->vinculos as $key => $vinculo){
+            if($key == 'EXALUNOGR'){
+                $query_por_vinculo = str_replace('__codcur__', ' AND codcur IS NOT NULL', $query);
+                $query_por_vinculo = str_replace('__grufor__',  "", $query_por_vinculo);
+            }else if ($key == 'EXALUNOPOS0'){
+                $query_por_vinculo = str_replace('__grufor__', ' AND grufor = 3', $query);
+                $query_por_vinculo = str_replace('__codcur__',  "", $query_por_vinculo);
+                
+            } else{
+                $query_por_vinculo = str_replace('__grufor__', ' AND grufor = 4', $query);
+                $query_por_vinculo = str_replace('__codcur__',  "", $query_por_vinculo);
+            }
+            $result = DB::fetch($query_por_vinculo);
+            $data[$vinculo] = $result['computed'];
+        }
        
         $this->data = $data;
     }
 
     public function grafico()
     {
-        $chart = new GenericChart;
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
+        $lava = new Lavacharts; 
 
-        return view('exAlunos', compact('chart'));
+        $reasons = $lava->DataTable();
+
+        $reasons->addStringColumn('Reasons')
+                ->addNumberColumn('Percent');
+
+        foreach($this->data as $key=>$data) {
+            $reasons->addRow([$key, (int)$data]);
+        }
+        
+        $lava->PieChart('Ex Alunos', $reasons, [
+            'title'  => 'Quantidade de Ex Alunos de Graduação e Pós-Graduação (Mestrado e Doutorado) da Faculdade de Filosofia, Letras e Ciências Humanas',
+            'is3D'   => true,
+            'height' => 700
+
+        ]);
+
+        return view('exAlunos', compact('lava'));
     }
 
     public function export($format)
