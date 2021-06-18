@@ -2,48 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use Uspdev\Replicado\DB;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use App\Utils\Util;
 use Khill\Lavacharts\Lavacharts;
-use Uspdev\Replicado\DB;
 
-class AtivosDocentesPorFuncaoController extends Controller
+class AtivosPorProgramaPosController extends Controller
 {
     private $data;
     private $excel;
 
     public function __construct(Excel $excel){
+
         $this->excel = $excel;
-        
+       
         $data = [];
-
-        $tipos = ['Prof Titular', 'Prof Doutor', 'Prof Associado',];
-
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes_funcao.sql');
-
-        foreach ($tipos as $tipo){
-            $query_por_funcao = str_replace('__tipo__', $tipo, $query);
-            $result = DB::fetch($query_por_funcao);
-            $data[$tipo] = $result['computed'];
-        }        
+        foreach(Util::getAreas() as $key=>$area){
+            $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunos_pos_por_programa.sql');
+            $query = str_replace('__codare__', $key, $query);
+            $result = DB::fetch($query);
+            $data[$area] = $result['computed'];
+        }
 
         $this->data = $data;
     }    
     
     public function grafico(){
+
         $lava = new Lavacharts; // See note below for Laravel
 
         $ativos  = $lava->DataTable();
-
-        $formatter = $lava->NumberFormat([ 
-            'pattern' => '#.###',
-        ]);
-        $ativos->addStringColumn('Tipo Vínculo')
+        $ativos->addStringColumn('Programa')
             ->addNumberColumn('Quantidade');
             
-        foreach($this->data as $key=>$data) {
+        foreach($this->data as $key=>$data){ 
             $ativos->addRow([$key, $data]);
         }
+
 
         $lava->ColumnChart('Ativos', $ativos, [
             'legend' => [
@@ -54,16 +50,17 @@ class AtivosDocentesPorFuncaoController extends Controller
             'height' => 500,
             'vAxis' => ['format' => 0],
             'colors' => ['#273e74']
-
         ]);
 
-        return view('ativosDocentesPorFuncao', compact('lava'));
+
+
+        return view('ativosPorProgramaPos', compact('lava'));
     }
 
     public function export($format){
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
-            return $this->excel->download($export, 'docentes_funcao.xlsx');
+            return $this->excel->download($export, 'ativos_por_programa_pós.xlsx'); 
         }
     }
 

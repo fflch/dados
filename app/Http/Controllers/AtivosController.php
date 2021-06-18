@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Khill\Lavacharts\Lavacharts;
+use Uspdev\Replicado\DB;
 
 class AtivosController extends Controller
 {
@@ -15,53 +14,53 @@ class AtivosController extends Controller
 
     public function __construct(Excel $excel){
         $this->excel = $excel;
-        $cache = new Cache();
+      
         $data = [];
 
         /* Contabiliza aluno grad */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr.sql');
 
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Graduação'] = $result['computed'];
 
         /* Contabiliza aluno pós */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunopos.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Pós-Graduação'] = $result['computed'];
 
         /* Contabiliza doutorandos ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_doutorado.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Doutorandos'] = $result['computed'];
 
         /* Contabiliza pessoa externa à USP/ Unidade */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_externos.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Externos'] = $result['computed'];
 
         /* Contabiliza alunos cultura e extensão ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Cultura e Extensão'] = $result['computed'];
 
         /* Contabiliza docentes */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Docentes'] = $result['computed'];
 
         /* Contabiliza funcionários */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Funcionários'] = $result['computed'];
 
         /* Contabiliza pós doutorandos ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_pos_doutorado.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Pós-Doutorandos'] = $result['computed'];
 
         /* Contabiliza estagiários ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_estagiario.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Estagiários'] = $result['computed'];
 
 
@@ -69,38 +68,38 @@ class AtivosController extends Controller
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
+    
+        $lava_col = new Lavacharts; // See note below for Laravel
+
+        $ativos_col = $lava_col->DataTable();
+
+        /**
+         * http://lavacharts.com/api/2.5/Khill/Lavacharts/Formats/NumberFormat.html
          */
-        $chart = new GenericChart;
+        $formatter = $lava_col->NumberFormat([ 
+            'pattern' => '#.###',
+        ]);
+       
 
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
-
-        ################### ERxemplo
-
-
-        $lava = new Lavacharts; // See note below for Laravel
-
-        $reasons = $lava->DataTable();
-
-        $reasons->addStringColumn('Reasons')
-                ->addNumberColumn('Percent');
+        $ativos_col->addStringColumn('Tipo Vínculo')
+                ->addNumberColumn('Quantidade', $formatter);
 
         foreach($this->data as $key=>$data) {
-            #dd((int)$data);
-            $reasons->addRow([$key, (int)$data]);
+            $ativos_col->addRow([$key, (int)$data]);
         }
         
-        $lava->PieChart('IMDB', $reasons, [
-            'title'  => 'Reasons I visit IMDB',
-            'is3D'   => true,
+        $lava_col->ColumnChart('AtivosCOL', $ativos_col, [
+            'legend' => [
+                'position' => 'top',
+                
+            ],
+            'titlePosition' => 'out',
+            'height' => 500,
+            'colors' => ['#273e74']
 
         ]);
 
-
-
-        return view('ativos', compact('chart','lava'));
+        return view('ativos', compact('lava_col'));
     }
 
     public function export($format){
