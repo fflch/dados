@@ -17,12 +17,16 @@ class AtivosDocentesPorFuncaoController extends Controller
         
         $data = [];
 
-        $tipos = ['Prof Titular', 'Prof Doutor', 'Prof Associado',];
+        $tipos = [
+            'Prof Titular' => 'Professores titulares',
+            'Prof Doutor' => 'Professores doutores',
+            'Prof Associado' => 'Professores associados'
+        ];
 
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes_funcao.sql');
 
-        foreach ($tipos as $tipo){
-            $query_por_funcao = str_replace('__tipo__', $tipo, $query);
+        foreach ($tipos as $key => $tipo){
+            $query_por_funcao = str_replace('__tipo__', $key, $query);
             $result = DB::fetch($query_por_funcao);
             $data[$tipo] = $result['computed'];
         }        
@@ -39,7 +43,7 @@ class AtivosDocentesPorFuncaoController extends Controller
             'pattern' => '#.###',
         ]);
         $ativos->addStringColumn('Tipo Vínculo')
-            ->addNumberColumn('Quantidade');
+            ->addNumberColumn('Quantidade de docentes por função');
             
         foreach($this->data as $key=>$data) {
             $ativos->addRow([$key, $data]);

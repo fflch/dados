@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
 use Uspdev\Replicado\DB;
+use Khill\Lavacharts\Lavacharts;
 
 class TrancamentosCursoSemestralController extends Controller
 {
@@ -29,22 +29,21 @@ class TrancamentosCursoSemestralController extends Controller
         ];
         // Array com os totais de trancamentos por semestre. 
         $semestres = [
-            20141,
-            20142,
-            20151,
-            20152,
-            20161,
-            20162,
-            20171,
-            20172,
-            20181,
-            20182,
-            20191,
-            20192,
-            20201,
-            20202,
+            20141 => '1° semestre - 2014',
+            20142 => '2° semestre - 2014',
+            20151 => '1° semestre - 2015',
+            20152 => '2° semestre - 2015',
+            20161 => '1° semestre - 2016',
+            20162 => '2° semestre - 2016',
+            20171 => '1° semestre - 2017',
+            20172 => '2° semestre - 2017',
+            20181 => '1° semestre - 2018',
+            20182 => '2° semestre - 2018',
+            20191 => '1° semestre - 2019',
+            20192 => '2° semestre - 2019',
+            20201 => '1° semestre - 2020',
+            20202 => '2° semestre - 2020',
         ];
-
 
         $query = "SELECT count (distinct l.codpes)
         FROM LOCALIZAPESSOA l
@@ -60,12 +59,11 @@ class TrancamentosCursoSemestralController extends Controller
 
         
         /* Contabiliza trancamentos por semestre. */
-        foreach ($semestres as $semestre) {
-            $query_por_semestre = str_replace('__semestre__', $semestre, $query);
+        foreach ($semestres as $key => $semestre) {
+            $query_por_semestre = str_replace('__semestre__', $key, $query);
             $result = DB::fetch($query_por_semestre);
             $data[$semestre] = $result['computed'];
         }
-       
 
         $this->data = $data;
     }
@@ -73,29 +71,33 @@ class TrancamentosCursoSemestralController extends Controller
     public function grafico($curso)
     {
         $cursos = $this->cursos;
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
-        $chart->labels([
-            '1° semestre - 2014',
-            '2° semestre - 2014',
-            '1° semestre - 2015',
-            '2° semestre - 2015',
-            '1° semestre - 2016',
-            '2° semestre - 2016',
-            '1° semestre - 2017',
-            '2° semestre - 2017',
-            '1° semestre - 2018',
-            '2° semestre - 2018',
-            '1° semestre - 2019',
-            '2° semestre - 2019',
-            '1° semestre - 2020',
-            '2° semestre - 2020',
-        ]);
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
 
-        return view('trancamentosCursoPorSemestre', compact('chart', 'curso', 'cursos'));
+        $lava = new Lavacharts; 
+        $convenios  = $lava->DataTable();
+
+        $convenios->addStringColumn('Tipo de convênio')
+            ->addNumberColumn("Quantidade de trancamentos por semestre no curso de $curso");
+            
+        foreach($this->data as $key=>$data) {
+            $convenios->addRow([$key, (int)$data]);
+        }
+
+
+        $max = max($this->data) + 10;
+        $div = $max/10;
+
+        $lava->ColumnChart('Convenios', $convenios, [
+            'legend' => [
+                'position' => 'top',
+                
+            ],
+            'vAxis'=>['ticks'=>range(0,$max, round($div))],
+            'height' => 500,
+            'colors' => ['#273e74']
+
+        ]);
+
+        return view('trancamentosCursoPorSemestre', compact('curso', 'cursos', 'lava'));
     }
 
     public function export($format, $curso)

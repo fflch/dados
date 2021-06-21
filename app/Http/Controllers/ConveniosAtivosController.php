@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Khill\Lavacharts\Lavacharts;
@@ -31,8 +30,7 @@ class ConveniosAtivosController extends Controller
     }    
     
     public function grafico(){
-        $lava = new Lavacharts; // See note below for Laravel
-
+        $lava = new Lavacharts; 
         $convenios  = $lava->DataTable();
 
         $convenios->addStringColumn('Tipo de convênio')
