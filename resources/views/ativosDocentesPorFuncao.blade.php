@@ -1,12 +1,10 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 <a href="/ativosDocentesPorFuncao/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a> 
-@endsection
 
-@section('content_footer')
-<center>
-Quantidade de professores titulares, doutores e associados ativos na Faculdade de Filosofia, Letras e Ciências Humanas.
-</center>
+<div id="chart-div"></div>
+
+{!! $lava->render('PieChart', 'Docentes por função', 'chart-div') !!}
 @endsection
