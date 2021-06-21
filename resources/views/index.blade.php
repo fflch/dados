@@ -93,9 +93,7 @@
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPorAno/ALUNOGR">Série histórica de concluintes da Graduação e Pós-Graduação por
                     ano a
                     partir de 2010.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados
-                    por
-                    programa.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiosConcedidos/{{date('Y')}}">Quantidade de benefícios concedidos por ano.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiosAtivosGraduacao2020">Quantidade de alunos de Graduação com
                     benefícios
                     (ativos) em 2020.</a></li>
