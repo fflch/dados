@@ -91,7 +91,7 @@
                     2010-2020.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPorAno?vinculo=ALUNOGR&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica de concluintes da Graduação e Pós-Graduação por
                     ano.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiosAtivosGraduacaoPorAno/2020">Quantidade de alunos de Graduação com
+            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiosAtivosGraduacaoPorAno/2021">Quantidade de alunos de Graduação com
                     benefícios
                     (ativos) por ano.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/alunosEspeciaisPorAno?vinculo=ALUNOESPGR&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: quantidade de alunos especiais 
