@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
 use Khill\Lavacharts\Lavacharts;
+use Uspdev\Replicado\DB;
 
 class BeneficiadosController extends Controller
 {
@@ -16,9 +16,7 @@ class BeneficiadosController extends Controller
     public function __construct(Excel $excel, Request $request)
     {
         $this->excel = $excel;
-        $cache = new Cache();
         $data = [];
-
         $anos = [];
 
         $ano_ini = $request->ano_ini ?? date("Y") - 5;
@@ -38,7 +36,7 @@ class BeneficiadosController extends Controller
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_ano.sql');
         foreach($anos as $ano){
             $query_por_ano = str_replace('__ano__', $ano, $query);
-            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_ano);
+            $result = DB::fetch($query_por_ano);
             $data[$ano] = $result['computed'];
         }
 
