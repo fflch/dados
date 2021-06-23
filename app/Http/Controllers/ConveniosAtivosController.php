@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Khill\Lavacharts\Lavacharts;
+use Uspdev\Replicado\DB;
 
 class ConveniosAtivosController extends Controller
 {
@@ -14,32 +14,48 @@ class ConveniosAtivosController extends Controller
 
     public function __construct(Excel $excel){
         $this->excel = $excel;
-        $cache = new Cache();
         $data = [];
 
         /* Contabiliza dos convênios os que são financeiros */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_convenios_fin.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Convenios Financeiros'] = $result['computed'];
 
         /* Contabiliza dos convênios os que são acadêmicos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_convenios_acad.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Convenios Acadêmicos'] = $result['computed'];
 
         $this->data = $data;
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
+        $lava = new Lavacharts; 
+        $convenios  = $lava->DataTable();
 
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
+        $convenios->addStringColumn('Tipo de convênio')
+            ->addNumberColumn('Quantidade');
+            
+        foreach($this->data as $key=>$data) {
+            $convenios->addRow([$key, (int)$data]);
+        }
 
-        return view('conveniosAtivos', compact('chart'));
+
+        $max = max($this->data) + 10;
+        $div = $max/10;
+
+        $lava->ColumnChart('Convenios', $convenios, [
+            'legend' => [
+                'position' => 'top',
+                
+            ],
+            'vAxis'=>['ticks'=>range(0,$max, round($div))],
+            'height' => 500,
+            'colors' => ['#273e74']
+
+        ]);
+
+        return view('conveniosAtivos', compact('lava'));
     }
 
     public function export($format){
