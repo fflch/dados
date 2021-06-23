@@ -1,10 +1,11 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 <a href="/ativosMicrosNotes/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a> 
-@endsection
 
-@section('content_footer')
-<center>Dados relacionados: Quantidade de microcomputadores e notebooks ativos na Faculdade de Filosofia, Letras e Ciências Humanas.</center>
+<div id="chart-div"></div>
+
+{!! $lava->render('ColumnChart', 'MicroNotes', 'chart-div') !!}
+
 @endsection

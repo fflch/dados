@@ -34,7 +34,7 @@ class AtivosDocentesPorFuncaoController extends Controller
     }    
     
     public function grafico(){
-        $lava = new Lavacharts; // See note below for Laravel
+        $lava = new Lavacharts; 
 
         $ativos  = $lava->DataTable();
 
