@@ -37,14 +37,14 @@
 
         <input type="submit" value="buscar" class="btn btn-dark bg-blue-default btn-send">
     </form>
-    
-    <a href="/beneficiados/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
-        <i class="fas fa-file-excel"></i> Download Excel</a>
+
+<a href="/beneficiados/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
+    <i class="fas fa-file-excel"></i> Download Excel</a>
 
 </div>
-
 
 <div id="chart-div"></div>
 
 {!! $lava->render('AreaChart', 'Beneficiados', 'chart-div') !!}
+
 @endsection

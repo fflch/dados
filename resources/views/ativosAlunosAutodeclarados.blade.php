@@ -1,6 +1,6 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 
 <div>
     <label for="vinculo" class="form-label">Filtrar por:</label>
@@ -25,10 +25,10 @@
 <center>Totais de {{$nome_vinculo}} da Faculdade de Filosofia, Letras e Ciências Humanas - FFLCH autodeclarados.</center>
 
 </div>
-@endsection
-
-@section('content_footer')
 
 <center><b>Obs:</b> Foram omitidos os dados de alunos que não dispõem da informação em seu cadastro.</center>
 
+<div id="chart-div"></div>
+
+{!! $lava->render('ColumnChart', 'AtivosCOL', 'chart-div') !!}
 @endsection

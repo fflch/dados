@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
-use Uspdev\Replicado\DB;
 use Khill\Lavacharts\Lavacharts;
+use Uspdev\Replicado\DB;
+
 class AtivosDocentesPorFuncaoController extends Controller
 {
     private $data;
@@ -13,6 +14,7 @@ class AtivosDocentesPorFuncaoController extends Controller
 
     public function __construct(Excel $excel){
         $this->excel = $excel;
+        
         $data = [];
 
         $tipos = [
@@ -34,19 +36,28 @@ class AtivosDocentesPorFuncaoController extends Controller
     
     public function grafico(){
         $lava = new Lavacharts; 
-        $docentes = $lava->DataTable();
 
-        $docentes->addStringColumn('Docentes')
-                ->addNumberColumn('Quantidade');
+        $ativos  = $lava->DataTable();
 
+        $formatter = $lava->NumberFormat([ 
+            'pattern' => '#.###',
+        ]);
+        $ativos->addStringColumn('Tipo Vínculo')
+            ->addNumberColumn('Quantidade de docentes por função');
+            
         foreach($this->data as $key=>$data) {
-            $docentes->addRow([$key, (int)$data]);
+            $ativos->addRow([$key, $data]);
         }
-        
-        $lava->PieChart('Docentes por função', $docentes, [
-            'title'  => 'Quantidade de professores titulares, doutores e associados ativos na Faculdade de Filosofia, Letras e Ciências Humanas.',
-            'is3D'   => true,
-            'height' => 700
+
+        $lava->ColumnChart('Ativos', $ativos, [
+            'legend' => [
+                'position' => 'top',
+                'alignment' => 'center',
+                
+            ],
+            'height' => 500,
+            'vAxis' => ['format' => 0],
+            'colors' => ['#273e74']
 
         ]);
 

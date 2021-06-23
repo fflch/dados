@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Illuminate\Http\Request;
 use Khill\Lavacharts\Lavacharts;
 use Uspdev\Replicado\DB;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+
 class BeneficiadosController extends Controller
 {
     private $data;
@@ -31,7 +31,8 @@ class BeneficiadosController extends Controller
         for ($i = $ano_ini; $i <= $ano_fim ; $i++) { 
             array_push($anos,(int) $i);
         }
-        /* Contabiliza quantidades de alunos com beneficios ativos por ano*/
+
+        /* Contabiliza alunos com beneficios ativos por ano */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_beneficiados_ano.sql');
         foreach($anos as $ano){
             $query_por_ano = str_replace('__ano__', $ano, $query);
@@ -47,20 +48,21 @@ class BeneficiadosController extends Controller
         
         for($year = (int)date("Y"); $year >= 2000; $year--){
             array_push($anos, $year);
-        }        
-        
+        }
+
         $lava = new Lavacharts;
 
         $beneficiados = $lava->DataTable();
 
         $beneficiados->addStringColumn('Ano')
-                ->addNumberColumn('Número de alunos beneficados');
-                foreach($this->data as $key=>$data) {
-                    $beneficiados->addRow([$key, (int)$data]);
-                }
+                ->addNumberColumn('Quantidade de alunos com benefícios');
 
+        foreach($this->data as $key=>$data) {
+            $beneficiados->addRow([$key, $data]);
+        }
+        
         $lava->AreaChart('Beneficiados', $beneficiados, [
-            'title' => "Série histórica: quantidade de alunos com algum tipo de benefício na Faculdade de Filosofia, Letras e Ciências Humanas entre $request->ano_ini - $request->ano_fim.",
+            'title'  => "Série histórica: quantidade de alunos com algum tipo de benefício na Faculdade de Filosofia, Letras e Ciências Humanas entre $request->ano_ini - $request->ano_fim.",
             'legend' => [
                 'position' => 'top',
                 'alignment' => 'center'  

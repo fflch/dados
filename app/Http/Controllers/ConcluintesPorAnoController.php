@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use Uspdev\Replicado\DB;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
+use Khill\Lavacharts\Lavacharts;
 
 class ConcluintesPorAnoController extends Controller
 {
@@ -19,13 +19,19 @@ class ConcluintesPorAnoController extends Controller
     {
         $this->excel = $excel;
         $data = [];
-
-        $anos = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
-
         $anos = [];
+
+        $ano_ini = $request->ano_ini ?? date("Y") - 5;
+        $ano_fim = $request->ano_fim ?? date("Y");
+
+        if($ano_ini > $ano_fim){ 
+            $aux = $ano_fim;
+            $ano_fim = $ano_ini;
+            $ano_ini = $aux;
+        }
         
-        for($year = (int)date("Y"); $year >= 2000; $year--){
-            array_push($anos, $year);
+        for ($i = $ano_ini; $i <= $ano_fim ; $i++) { 
+            array_push($anos,(int) $i);
         }
 
         $vinculos = [
@@ -33,7 +39,7 @@ class ConcluintesPorAnoController extends Controller
             'ALUNOPOS' => 'Aluno de Pós-Graduação',
         ];
 
-        $this->vinculo = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
+        $this->vinculo = $request->vinculo  ?? 'ALUNOGR';
         $this->nome_vinculo = isset($vinculos[$this->vinculo]) ? $vinculos[$this->vinculo] : '"Vínculo não encontrado"';
 
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_concluintes_gr_ano.sql');
@@ -48,26 +54,53 @@ class ConcluintesPorAnoController extends Controller
 
             $data[$ano] = $result['computed'];
         }
-
+        
         $this->data = $data;
     }
 
     public function grafico()
     {
-        $chart = new GenericChart;
+        $anos = [];
+        
+        for($year = (int)date("Y"); $year >= 2000; $year--){
+            array_push($anos, $year);
+        }
 
-        $chart->labels(array_keys($this->data));
         $nome_vinculo = $this->nome_vinculo;
         $vinculo = $this->vinculo;
-        $chart->dataset($nome_vinculo.' - Concluintes por ano', 'line', array_values($this->data));
 
-        return view('concluintesPorAno', compact('chart', 'vinculo', 'nome_vinculo'));
+        $lava = new Lavacharts; // See note below for Laravel
+
+        $concluintes = $lava->DataTable();
+
+        $concluintes->addStringColumn('Ano')
+                ->addNumberColumn('Concluintes');
+
+        foreach($this->data as $key=>$data) {
+            $concluintes->addRow([$key, $data]);
+        }
+        
+        $lava->AreaChart('Concluintes', $concluintes, [
+            'title'  => '',
+            'legend' => [
+                'position' => 'top',
+                'alignment' => 'center'  
+            ],
+            'vAxis' => ['format' => 0],
+            'height' => 500,
+            'colors' => ['#273e74']
+        ]);
+
+
+        return view('concluintesPorAno', compact( 'vinculo', 'nome_vinculo', 'anos', 'lava'));
     }
 
     public function export($format, Request $request)
     {
-        $vinculo = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
-        
+      
+        $vinculo = $this->vinculo  ?? 'ALUNOGR';
+       
+
         if($format == 'excel') {
             $export = new DadosExport([$this->data],array_keys($this->data));
             return $this->excel->download($export, 'concluintes_'.$vinculo.'_por_ano.xlsx'); 

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-
 use Maatwebsite\Excel\Excel;
 use Uspdev\Replicado\DB;
 use App\Exports\DadosExport;
 use Illuminate\Http\Request;
+use Khill\Lavacharts\Lavacharts;
+
+
 class AtivosPaisNascimentoController extends Controller
 {
     private $data;
@@ -56,10 +57,7 @@ class AtivosPaisNascimentoController extends Controller
     }    
     
     public function grafico(){
-        $chart = new GenericChart;
-
-        $chart->labels(array_keys($this->data));
-
+       
         $tipo_vinculo = $this->tipo_vinculo;
 
         switch((int)$tipo_vinculo){
@@ -82,9 +80,36 @@ class AtivosPaisNascimentoController extends Controller
                 $nome_vinculo = "Vínculo não encontrado";
         }
 
-        $chart->dataset($nome_vinculo. ' - quantidade', 'bar', array_values($this->data));
 
-        return view('ativosPaisNascimento', compact('chart', 'tipo_vinculo', 'nome_vinculo'));
+
+        $lava = new Lavacharts; // See note below for Laravel
+
+        $ativos  = $lava->DataTable();
+
+        $formatter = $lava->NumberFormat([ 
+            'pattern' => '#.###',
+        ]);
+        $ativos->addStringColumn('Nacionalidade')
+            ->addNumberColumn($nome_vinculo. ' - quantidade');
+            
+        foreach($this->data as $key=>$data) {
+            $ativos->addRow([$key, $data]);
+        }
+
+
+        $lava->ColumnChart('Ativos', $ativos, [
+            'legend' => [
+                'position' => 'top',
+                'alignment' => 'center',
+                
+            ],
+            'height' => 500,
+            'vAxis' => ['format' => 0],
+            'colors' => ['#273e74']
+
+        ]);
+
+        return view('ativosPaisNascimento', compact('tipo_vinculo', 'nome_vinculo', 'lava'));
     }
 
     public function export($format){       
