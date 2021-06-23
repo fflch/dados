@@ -7,7 +7,6 @@ use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
 use Illuminate\Http\Request;
 use App\Utils\Util;
-use Uspdev\Replicado\Uteis;
 use Khill\Lavacharts\Lavacharts;
 
 class AtivosPorDepartamentoController extends Controller
