@@ -21,7 +21,7 @@ class Pessoa extends Model
 
     public static function listarDocentes(){
         // Falta fazer o filtro das columas - idem no defesas -  não expor todas colunas
-        $docentes = Pessoa::where('tipo_vinculo', 'Docente')->get()->toArray();
+        $docentes = Pessoa::where('tipo_vinculo', 'Docente')->whereIn('codset', [591,602,594,598,592,600,601,599,604,603,596,558])->get()->toArray();
         $retorno = [];
         foreach($docentes as $docente){
             $aux = [
