@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Khill\Lavacharts\Lavacharts;
+use Uspdev\Replicado\DB;
 
 class AtivosDocentesPorFuncaoController extends Controller
 {
@@ -14,16 +14,20 @@ class AtivosDocentesPorFuncaoController extends Controller
 
     public function __construct(Excel $excel){
         $this->excel = $excel;
-        $cache = new Cache();
+        
         $data = [];
 
-        $tipos = ['Prof Titular', 'Prof Doutor', 'Prof Associado',];
+        $tipos = [
+            'Prof Titular' => 'Professores titulares',
+            'Prof Doutor' => 'Professores doutores',
+            'Prof Associado' => 'Professores associados'
+        ];
 
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes_funcao.sql');
 
-        foreach ($tipos as $tipo){
-            $query_por_funcao = str_replace('__tipo__', $tipo, $query);
-            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_funcao);
+        foreach ($tipos as $key => $tipo){
+            $query_por_funcao = str_replace('__tipo__', $key, $query);
+            $result = DB::fetch($query_por_funcao);
             $data[$tipo] = $result['computed'];
         }        
 
@@ -31,15 +35,33 @@ class AtivosDocentesPorFuncaoController extends Controller
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
+        $lava = new Lavacharts; // See note below for Laravel
 
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
+        $ativos  = $lava->DataTable();
 
-        return view('ativosDocentesPorFuncao', compact('chart'));
+        $formatter = $lava->NumberFormat([ 
+            'pattern' => '#.###',
+        ]);
+        $ativos->addStringColumn('Tipo Vínculo')
+            ->addNumberColumn('Quantidade de docentes por função');
+            
+        foreach($this->data as $key=>$data) {
+            $ativos->addRow([$key, $data]);
+        }
+
+        $lava->ColumnChart('Ativos', $ativos, [
+            'legend' => [
+                'position' => 'top',
+                'alignment' => 'center',
+                
+            ],
+            'height' => 500,
+            'vAxis' => ['format' => 0],
+            'colors' => ['#273e74']
+
+        ]);
+
+        return view('ativosDocentesPorFuncao', compact('lava'));
     }
 
     public function export($format){
