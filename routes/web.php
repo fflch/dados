@@ -13,6 +13,7 @@ use App\Http\Controllers\AtivosPorDepartamentoController;
 use App\Http\Controllers\AtivosPorProgramaPosController;
 use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
+use App\Http\Controllers\BeneficiosConcedidosController;
 use App\Http\Controllers\ConcluintesPorAnoController;
 use App\Http\Controllers\ConcluintesGradPorCursoController;
 use App\Http\Controllers\ConveniosAtivosController;
@@ -73,6 +74,10 @@ Route::get('/beneficiados/export/{format}', [BeneficiadosController::class, 'exp
 # série histórica de benefícios concedidos
 Route::get('/ativosBeneficiosConHist', [BeneficiosConcedidosHistoricoController::class, 'grafico']);
 Route::get('/ativosBeneficiosConHist/export/{format}', [BeneficiosConcedidosHistoricoController::class, 'export']);
+
+# benefícios concedidos em 2019, por programa
+Route::get('/beneficiosConcedidos/{ano}', [BeneficiosConcedidosController::class, 'grafico']);
+Route::get('/beneficiosConcedidos/export/{format}/{ano}', [BeneficiosConcedidosController::class, 'export']);
 
 # série histórica de concluintes da graduação e pós-graduação
 Route::get('/concluintesPorAno', [ConcluintesPorAnoController::class, 'grafico']);
