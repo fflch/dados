@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
-use Khill\Lavacharts\Lavacharts;
 use Uspdev\Replicado\DB;
-
+use Khill\Lavacharts\Lavacharts;
 class AtivosDocentesPorFuncaoController extends Controller
 {
     private $data;
