@@ -560,35 +560,40 @@
                 @foreach($content['projetos_pesquisa'] as $key=>$value)
                     <li class="list-group-item">
                          
-                        <b>Nome do projeto:</b>  @arr([$value,'NOME-DO-PROJETO']) ( @arr([$value,'ANO-INICIO'])  - 
+                        <b>Nome do projeto:</b>  @arr([$value,'NOME-DO-PROJETO']) (@arr([$value,'ANO-INICIO'])   
                         @if(empty($value["ANO-FIM"]) || $value["ANO-FIM"] == '' || $value["ANO-FIM"] == null)
                             Atual)
                         @else
-                            @arr([$value,'ANO-FIM'])
+                            - @arr([$value,'ANO-FIM'])
                         @endif
                         <br>
                         @if(isset($value['NATUREZA']))
                             <b>Natureza: </b><?= ucfirst(strtolower($value['NATUREZA'])) ?> <br>
                         @endif
-                        <b>Integrantes: </b>
-                        @foreach($value['EQUIPE-DO-PROJETO'] as $k=>$val)
-                            @if( $k + 1 <  count($value['EQUIPE-DO-PROJETO']))
+                        @if(isset($value['EQUIPE-DO-PROJETO']))
+                            <b>Integrantes: </b>
+                            @foreach($value['EQUIPE-DO-PROJETO'] as $k=>$val)
+                                @if( $k + 1 <  count($value['EQUIPE-DO-PROJETO']))
+                                    @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
+                                        {!! explode(';', $val["NOME-PARA-CITACAO"])[0] !!}
+                                    @elseif(isset($val["NOME-PARA-CITACAO"]))
+                                        {!! $val["NOME-PARA-CITACAO"] !!}  
+                                    @endif
+                                    , 
+                                @elseif (isset($val["NOME-PARA-CITACAO"]) && $val["NOME-PARA-CITACAO"] != null && $val["NOME-PARA-CITACAO"] != "")
                                 @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
                                     {!! explode(';', $val["NOME-PARA-CITACAO"])[0] !!}
                                 @elseif(isset($val["NOME-PARA-CITACAO"]))
                                     {!! $val["NOME-PARA-CITACAO"] !!}  
+                                @endif .
                                 @endif
-                                , 
-                            @elseif (isset($val["NOME-PARA-CITACAO"]) && $val["NOME-PARA-CITACAO"] != null && $val["NOME-PARA-CITACAO"] != "")
-                            @if(isset($val["NOME-PARA-CITACAO"]) && strpos($val["NOME-PARA-CITACAO"], ';') !== false)
-                                {!! explode(';', $val["NOME-PARA-CITACAO"])[0] !!}
-                            @elseif(isset($val["NOME-PARA-CITACAO"]))
-                                {!! $val["NOME-PARA-CITACAO"] !!}  
-                            @endif .
-                            @endif
-                        @endforeach 
+                            @endforeach 
                         <br>
-                        <b>Descrição: </b> @arr([$value,'DESCRICAO-DO-PROJETO'])
+                        @endif
+                        
+                        @if(isset($value['DESCRICAO-DO-PROJETO']) && !empty($value['DESCRICAO-DO-PROJETO']))
+                            <b>Descrição: </b> @arr([$value,'DESCRICAO-DO-PROJETO'])
+                        @endif
                        
                          
 
