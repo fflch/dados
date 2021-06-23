@@ -15,7 +15,7 @@
 </div>
 
 <div class="card">
-    <div class="card-header"><b>Dados gerais do portal: 7</b></div>
+    <div class="card-header"><b>Dados gerais do portal: 6</b></div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativos">Totais de pessoas com vínculos ativos.</a></li>
@@ -23,7 +23,6 @@
             <li class="list-group-item"><a href="{{ config('app.url') }}/conveniosAtivos">Totais de convênios ativos.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDepartamento/Servidor/0">Totais de funcionários e professores (associados, doutores e titulares) ativos  contabilizados por departamento.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosDocentesPorFuncao">Totais de docentes contabilizados por função.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/exAlunos">Total de Ex Alunos da Graduação e da Pós Graduação.</a></li>
         </ul>
 
