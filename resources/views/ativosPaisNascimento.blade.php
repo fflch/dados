@@ -1,7 +1,6 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
-
+@section('content')
 <div>
     <label for="vinculo" class="form-label">Filtrar por:</label>
     <select id="vinculo" class="form-select" onchange="location = this.value;">
@@ -27,9 +26,12 @@
     <i class="fas fa-file-csv"></i> Download Excel</a> 
 
 </div>
-@endsection
 
-@section('content_footer')
+
+<div id="chart-div"></div>
+
+{!! $lava->render('ColumnChart', 'Ativos', 'chart-div') !!}
+
 <center>Distribuição de "{{$nome_vinculo}}" que contabiliza nascidos e não nascidos no Brasil.</center>
 <center>Foram consideradas informações de nascimento, e não de nacionalidade. </center>
 @endsection

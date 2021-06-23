@@ -1,8 +1,18 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+
+@section('content')
 <a href="/orientadoresPosGR/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a>
+    
+<center>
+Quantidade de orientadores credenciados na área de concentração do programa de pós graduação correspondente da Faculdade de Filosofia, Letras e Ciências Humanas.
+</center>
+
+<div id="chart-div"></div>
+{!! $lava->render('ColumnChart', 'Orientadores', 'chart-div') !!}
+
+
 <center>
 <b>AS:</b> Antropologia Social, <b>CP:</b> Ciência Política, <b>ECLLP:</b> Estudos Comparados de Literaturas de Língua Portuguesa,<br>
 <b>EJ:</b> Estudos Judaicos, <b>ELLI:</b> Estudos Lingüísticos e Literários em Inglês, <b>ET:</b> Estudos da Tradução,<br>
@@ -13,10 +23,5 @@
 <b>LLA:</b> Língua e Literatura Alemão, <b>LLF:</b> Língua e Literatura Francesa, <b>LLCI:</b> Língua, Literatura e Cultura Italianas,<br> 
 <b>DS:</b> Sociologia, <b>TLLC:</b> Teoria Literária e Literatura Comparada.
 </center> 
-@endsection
 
-@section('content_footer')
-<center>
-Quantidade de orientadores credenciados na área de concentração do programa de pós graduação correspondente da Faculdade de Filosofia, Letras e Ciências Humanas.
-</center>
 @endsection 

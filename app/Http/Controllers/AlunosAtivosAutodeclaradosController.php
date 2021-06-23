@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use Illuminate\Http\Request;
 use App\Utils\Util;
 use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
 use Uspdev\Replicado\Uteis;
+use Khill\Lavacharts\Lavacharts;
 class AlunosAtivosAutodeclaradosController extends Controller
 {
     private $data;
@@ -35,35 +35,48 @@ class AlunosAtivosAutodeclaradosController extends Controller
         $this->nome_vinculo = isset($vinculos[$this->vinculo]) ? $vinculos[$this->vinculo] : '"Vínculo não encontrado"';
 
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunos_autodeclarados.sql');
-        foreach ($cores as $cor) {
+        foreach ($cores as $key => $cor) {
             $query_por_cor = str_replace('__cor__', $cor, $query);
-
             $query_por_cor = str_replace('__vinculo__', $this->vinculo, $query_por_cor);
-
             $result = DB::fetch($query_por_cor);
-            $data[$cor] = $result['computed'];
+            $data[$key] = $result['computed'];
         }
         $this->data = $data;
     }
 
     public function grafico()
     {
-        $chart = new GenericChart;
-        $chart->labels([
-            'Indígena',
-            'Branca',
-            'Preta/Negra',
-            'Amarela',
-            'Parda',
-            'Não informado',
-        ]);
         $vinculo = $this->vinculo;
         $cores = Util::racas;
         $nome_vinculo = $this->nome_vinculo;
 
-        $chart->dataset($nome_vinculo .' - quantidade', 'bar', array_values($this->data));
+        $lava = new Lavacharts; 
+        $ativos_col = $lava->DataTable();
 
-        return view('ativosAlunosAutodeclarados', compact('chart', 'vinculo', 'cores', 'nome_vinculo'));
+        $formatter = $lava->NumberFormat([ 
+            'pattern' => '#.###',
+        ]);
+       
+        $ativos_col->addStringColumn('Tipo Vínculo')
+                ->addNumberColumn('Quantidade', $formatter);
+
+        foreach($this->data as $key=>$data) {
+            $ativos_col->addRow([$key, (int)$data]);
+        }
+        
+        $lava->ColumnChart('AtivosCOL', $ativos_col, [
+            'legend' => [
+                'position' => 'top',
+                
+            ],
+            'titlePosition' => 'out',
+            'height' => 500,
+            'vAxis' => ['format' => 0],
+            'colors' => ['#273e74']
+
+        ]);
+
+        return view('ativosAlunosAutodeclarados', compact('vinculo', 'cores', 'nome_vinculo', 'lava'));
     }
 
     public function export($format, Request $request)

@@ -4,4 +4,4 @@ FROM LOCALIZAPESSOA l
     on b.codpes = l.codpes
 where b.tipvin IN ('ALUNOGR')
     and b.codbnfalu = __codigo__
-    and b.anoofebnf in (2020, 20201, 20202)
+    and b.anoofebnf in (__ano__) 

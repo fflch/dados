@@ -1,6 +1,6 @@
-@extends('chart')
+@extends('main')
 
-@section('content_top')
+@section('content')
 
     <div>
         <label for="curso" class="form-label">Curso:</label>
@@ -21,11 +21,8 @@
         </a>
     </div>
 
-@endsection
+<div id="chart-div"></div>
 
-@section('content_footer')
-<center>
-<p>Total de trancamentos de matrícula por semestre do curso de {{$cursos[$curso]['nome']}}. </p>
-</center>
+{!! $lava->render('ColumnChart', 'Convenios', 'chart-div') !!}
 @endsection
 
