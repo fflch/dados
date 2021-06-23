@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
