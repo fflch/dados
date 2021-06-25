@@ -54,7 +54,7 @@ class ReplicadoSyncCommand extends Command
         
         $this->sync_docentes(); 
        
-       
+        $this->sync_estagiarios();
         
         $programas = Posgraduacao::programas(8);
         
@@ -77,9 +77,6 @@ class ReplicadoSyncCommand extends Command
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
         }
-       
-        
-
 
         return 0;
     }
@@ -105,6 +102,26 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
             $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
             $pessoa->tipo_vinculo = 'Docente'; 
+            $pessoa->save();
+        }        
+    }
+
+    private function sync_estagiarios(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $estagiarios = Pessoa::estagiarios(8);
+
+        foreach($estagiarios as $estagiario){
+            
+            $pessoa = PessoaModel::where('codpes',$estagiario['codpes'])->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $estagiario['codpes'];
+            $pessoa->nompes = $estagiario['nompes'];
+            $pessoa->codset = isset($estagiario['codset']) ? $estagiario['codset'] : null;
+            $pessoa->nomset = isset($estagiario['nomset']) ? $estagiario['nomset'] : null;
+            $pessoa->email = isset($estagiario['codema']) ? $estagiario['codema'] : null;
+            $pessoa->tipo_vinculo = 'Estagiario'; 
             $pessoa->save();
         }        
     }
@@ -214,8 +231,6 @@ class ReplicadoSyncCommand extends Command
                 $comissao->save();
             }
         }
-
-        
         
          //projetos de pesquisa dos docentes
          putenv('REPLICADO_SYBASE=0');

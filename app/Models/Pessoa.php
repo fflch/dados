@@ -3,11 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Uspdev\Replicado\Pessoa as ReplicadoPessoa;
-use Uspdev\Replicado\Lattes;
 use Uspdev\Utils\Generic;
-
-
 
 class Pessoa extends Model
 {
@@ -35,6 +31,26 @@ class Pessoa extends Model
                 'email'      => $docente['email'],
                 'sitatl'      => $docente['sitatl'],
                 'id_lattes'      => $docente['id_lattes']
+            ];
+            
+            array_push($retorno, $aux);
+        }
+    
+
+        return $retorno;
+    }
+
+    public static function listarEstagiarios(){
+        $estagiarios = Pessoa::where('tipo_vinculo', 'Estagiario')->get()->toArray();
+
+        $retorno = [];
+        foreach($estagiarios as $estagiario){
+            $aux = [
+                'estagiario_id' => Generic::crazyHash($estagiario['codpes']),
+                'nompes'        => $estagiario['nompes'],
+                'codset'      => $estagiario['codset'],
+                'nomset'      => $estagiario['nomset'],
+                'email'      => $estagiario['email'],
             ];
             
             array_push($retorno, $aux);
