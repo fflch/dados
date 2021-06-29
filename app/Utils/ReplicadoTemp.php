@@ -23,4 +23,36 @@ class ReplicadoTemp
         
         return DB::fetchAll($query, $param);
     }
+
+    /**
+     * Método para retornar os monitores ativos da fflch
+     */
+    public static function listarMonitores()
+    {
+        $query = "SELECT DISTINCT t1.codpes, 
+                t3.nompes AS 'Nome',
+                t4.codema AS 'E-mail',
+                t1.dtainiccd AS 'Início da Bolsa',
+                t1.dtafimccd AS 'Fim da Bolsa'
+                
+                FROM BENEFICIOALUCONCEDIDO t1
+                INNER JOIN BENEFICIOALUNO t2
+                ON t1.codbnfalu = t2.codbnfalu
+                
+                INNER JOIN PESSOA t3
+                ON t1.codpes = t3.codpes
+                
+                INNER JOIN EMAILPESSOA t4
+                ON t1.codpes = t4.codpes
+                
+                AND t1.dtafimccd > GETDATE()
+                AND t1.dtacanccd IS NULL
+                AND t2.codbnfalu = 32
+                AND t4.stamtr = 'S'
+                AND t1.codslamon = 22
+                
+                ORDER BY t3.nompes";
+
+        return DB::fetchAll($query);
+    }
 }

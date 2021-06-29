@@ -49,12 +49,13 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
-
         $this->sync_comissao_pesquisa();
         
         $this->sync_docentes(); 
        
         $this->sync_estagiarios();
+
+        $this->sync_monitores();
         
         $programas = Posgraduacao::programas(8);
         
@@ -113,7 +114,7 @@ class ReplicadoSyncCommand extends Command
 
         foreach($estagiarios as $estagiario){
             
-            $pessoa = PessoaModel::where('codpes',$estagiario['codpes'])->first();
+            $pessoa = PessoaModel::where('codpes',$estagiario['codpes'])->where('tipo_vinculo', 'Estagiario')->first();
             if(!$pessoa) $pessoa = new PessoaModel;
          
             $pessoa->codpes = $estagiario['codpes'];
@@ -122,6 +123,27 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nomset = isset($estagiario['nomset']) ? $estagiario['nomset'] : null;
             $pessoa->email = isset($estagiario['codema']) ? $estagiario['codema'] : null;
             $pessoa->tipo_vinculo = 'Estagiario'; 
+            $pessoa->save();
+        }        
+    }
+    
+    private function sync_monitores(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $monitores = ReplicadoTemp::listarMonitores();
+
+        foreach($monitores as $monitor){
+            
+            $pessoa = PessoaModel::where('codpes',$monitor['codpes'])->where('tipo_vinculo', 'Monitor')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $monitor['codpes'];
+            $pessoa->nompes = $monitor['Nome'];
+            $pessoa->email = isset($monitor['E-mail']) ? $monitor['E-mail'] : null;
+            $json = ['bolsa_ini' => $monitor['Início da Bolsa'],
+                    'bolsa_fim' => $monitor['Fim da Bolsa']];
+            $pessoa->json = json_encode($json);
+            $pessoa->tipo_vinculo = 'Monitor'; 
             $pessoa->save();
         }        
     }

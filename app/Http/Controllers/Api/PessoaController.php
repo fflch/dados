@@ -29,6 +29,14 @@ class PessoaController extends Controller
             $estagiarios
         );
     }
+    
+    public function listarMonitores(){
+        $monitores = Pessoa::listarMonitores();
+        
+        return response()->json(
+            $monitores
+        );
+    }
 
 
 }

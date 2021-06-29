@@ -59,4 +59,27 @@ class Pessoa extends Model
 
         return $retorno;
     }
+    
+    public static function listarMonitores(){
+        $monitores = Pessoa::where('tipo_vinculo', 'Monitor')->get()->toArray();
+
+        $retorno = [];
+        foreach($monitores as $monitor){
+            $bolsas = json_decode($monitor['json'], true);
+
+            $aux = [
+                'monitor_id' => Generic::crazyHash($monitor['codpes']),
+                'nompes'        => $monitor['nompes'],
+                'email'      => $monitor['email'],
+                'bolsa_ini'      => $bolsas['bolsa_ini'],
+                'bolsa_fim'      => $bolsas['bolsa_fim'],
+                
+            ];
+            
+            array_push($retorno, $aux);
+        }
+    
+
+        return $retorno;
+    }
 }
