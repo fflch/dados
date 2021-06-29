@@ -13,24 +13,21 @@ use App\Http\Controllers\AtivosPorDepartamentoController;
 use App\Http\Controllers\AtivosPorProgramaPosController;
 use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
-use App\Http\Controllers\Beneficios2019PorProgramaController;
+use App\Http\Controllers\BeneficiosConcedidosController;
 use App\Http\Controllers\ConcluintesPorAnoController;
 use App\Http\Controllers\ConcluintesGradPorCursoController;
 use App\Http\Controllers\ConveniosAtivosController;
-use App\Http\Controllers\AtivosPorGeneroChefesAdministrativosController;
 use App\Http\Controllers\AtivosPaisNascimentoController;
 use App\Http\Controllers\AtivosGradPorEstadoController;
 use App\Http\Controllers\AtivosDocentesPorFuncaoController;
 use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
 use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
 use App\Http\Controllers\BeneficiosAtivosGraduacaoPorAnoController;
-use App\Http\Controllers\AtivosBolsaLivroController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\AlunosEspeciaisPorAnoController;
 use App\Http\Controllers\AtivosPosNivelProgramaController;
 use App\Http\Controllers\CEUController;
 use App\Http\Controllers\OrientadoresPosGRContoller;
-use App\Http\Controllers\CoordCursosGradGeneroController;
 use App\Http\Controllers\IngressantesGeneroCursoController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IniciacaoCientificaController;
@@ -79,8 +76,8 @@ Route::get('/ativosBeneficiosConHist', [BeneficiosConcedidosHistoricoController:
 Route::get('/ativosBeneficiosConHist/export/{format}', [BeneficiosConcedidosHistoricoController::class, 'export']);
 
 # benefícios concedidos em 2019, por programa
-Route::get('/Benef2019Prog', [Beneficios2019PorProgramaController::class, 'grafico']);
-Route::get('/Benef2019Prog/export/{format}', [Beneficios2019PorProgramaController::class, 'export']);
+Route::get('/beneficiosConcedidos/{ano}', [BeneficiosConcedidosController::class, 'grafico']);
+Route::get('/beneficiosConcedidos/export/{format}/{ano}', [BeneficiosConcedidosController::class, 'export']);
 
 # série histórica de concluintes da graduação e pós-graduação
 Route::get('/concluintesPorAno', [ConcluintesPorAnoController::class, 'grafico']);
@@ -93,10 +90,6 @@ Route::get('/concluintesGradPorCurso/export/{format}/{ano}', [ConcluintesGradPor
 # totais de convênios ativos
 Route::get('/conveniosAtivos', [ConveniosAtivosController::class, 'grafico']);
 Route::get('/conveniosAtivos/export/{format}', [ConveniosAtivosController::class, 'export']);
-
-#totais de chefes administrativos ativos por gênero
-Route::get('/ativosChefesAdministrativos', [AtivosPorGeneroChefesAdministrativosController::class, 'grafico']);
-Route::get('/ativosChefesAdministrativos/export/{format}', [AtivosPorGeneroChefesAdministrativosController::class, 'export']);
 
 #totais de alunos e docentes ativos nascidos e não nascidos no br
 Route::get('/ativosPaisNascimento/{tipo_vinculo}', [AtivosPaisNascimentoController::class, 'grafico']);
@@ -122,10 +115,6 @@ Route::get('/ativosAlunosGradTipoIngresso/export/{format}', [AlunosAtivosGradTip
 Route::get('/beneficiosAtivosGraduacaoPorAno/{ano}', [BeneficiosAtivosGraduacaoPorAnoController::class, 'grafico']);
 Route::get('/beneficiosAtivosGraduacaoPorAno/export/{format}/{ano}', [BeneficiosAtivosGraduacaoPorAnoController::class, 'export']);
 
-#totais de alunos da com benefício Bolsa Livro ativo em 2020
-Route::get('/ativosBolsaLivro', [AtivosBolsaLivroController::class, 'grafico']);
-Route::get('/ativosBolsaLivro/export/{format}', [AtivosBolsaLivroController::class, 'export']);
-
 #totais de trancamentos por semestre e por curso
 Route::get('/trancamentosCursoPorSemestre/{curso}', [TrancamentosCursoSemestralController::class, 'grafico']);
 Route::get('/trancamentosCursoPorSemestre/export/{format}/{curso}', [TrancamentosCursoSemestralController::class, 'export']);
@@ -146,10 +135,6 @@ Route::get('ativosPosNivelPgm/export/{format}', [AtivosPosNivelProgramaControlle
 #quantidade de orientadores credenciados, separados pela area de concentração do programa de pós graduação
 Route::get('orientadoresPosGR', [OrientadoresPosGRContoller::class, 'grafico']);
 Route::get('orientadoresPosGR/export/{format}', [OrientadoresPosGRContoller::class, 'export']);
-
-#quantidade de coordenadores de curso de gradução, separados por gênero
-Route::get('coordCursosGrad', [CoordCursosGradGeneroController::class, 'grafico']);
-Route::get('coordCursosGrad/export/{format}', [CoordCursosGradGeneroController::class, 'export']);
 
 #quantidade de Ex alunos de Graduação e Pós-Graduação
 Route::get('/exAlunos', [ExAlunosController::class, 'grafico']);

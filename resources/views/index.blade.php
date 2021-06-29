@@ -86,19 +86,13 @@
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosBeneficiosConHist?ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica de benefícios concedidos por
                     ano.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiados">Série histórica: quantidade de alunos com benefícios
+            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiados?ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: quantidade de alunos com benefícios
                     2010-2020.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesPorAno?vinculo=ALUNOGR&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica de concluintes da Graduação e Pós-Graduação por
                     ano.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/Benef2019Prog">Quantidade de benefícios concedidos em 2019 separados
-                    por
-                    programa.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiosAtivosGraduacaoPorAno/2020">Quantidade de alunos de Graduação com
+            <li class="list-group-item"><a href="{{ config('app.url') }}/beneficiosAtivosGraduacaoPorAno/2021">Quantidade de alunos de Graduação com
                     benefícios
                     (ativos) por ano.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosBolsaLivro">Quantidade de alunos com o benefício Bolsa Livro
-                    ativo em
-                    2020.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/alunosEspeciaisPorAno?vinculo=ALUNOESPGR&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: quantidade de alunos especiais 
             de graduação e pós-graduação.</a></li>
         </ul>

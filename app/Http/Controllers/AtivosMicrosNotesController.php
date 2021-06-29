@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Uspdev\Replicado\DB;
+use Khill\Lavacharts\Lavacharts;
 
 class AtivosMicrosNotesController extends Controller
 {
@@ -14,32 +14,44 @@ class AtivosMicrosNotesController extends Controller
 
     public function __construct(Excel $excel){
         $this->excel = $excel;
-        $cache = new Cache();
         $data = [];
 
         /* Contabiliza microcomputadores */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_micros_ativos.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Microcomputadores'] = $result['computed'];
 
         /* Contabiliza notebooks */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_notes_ativos.sql');
-        $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query);
+        $result = DB::fetch($query);
         $data['Notebooks'] = $result['computed'];
 
         $this->data = $data;
     }    
     
     public function grafico(){
-	/* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
 
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'bar', array_values($this->data));
+        $lava = new Lavacharts; 
+        $note_micro  = $lava->DataTable();
 
-        return view('ativosmicrosnotes', compact('chart'));
+        $note_micro->addStringColumn('Tipo de aparelho')
+            ->addNumberColumn('Quantidade de microcomputadores e notebooks ativos na Faculdade de Filosofia, Letras e Ciências Humanas.');
+            
+        foreach($this->data as $key=>$data) {
+            $note_micro->addRow([$key, (int)$data]);
+        }
+
+        $lava->ColumnChart('MicroNotes', $note_micro, [
+            'legend' => [
+                'position' => 'top',
+                
+            ],
+            'height' => 500,
+            'colors' => ['#273e74']
+
+        ]);
+
+        return view('ativosmicrosnotes', compact('lava'));
     }
 
     public function export($format){
