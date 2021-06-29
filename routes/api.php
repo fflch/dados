@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\DefesaController;
@@ -19,4 +18,5 @@ Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']
 Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
 Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
 Route::get('/obter_orcid', [ProgramaController::class, 'obterOrcid']);
-Route::get('/listar_docentes', [PessoaController::class, 'listarDocentes']);
+Route::get('/docentes', [PessoaController::class, 'listarDocentes']);
+Route::get('/estagiarios', [PessoaController::class, 'listarEstagiarios']);
