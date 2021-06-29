@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\GenericChart;
-use Uspdev\Cache\Cache;
+
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use Khill\Lavacharts\Lavacharts;
+use Uspdev\Replicado\DB;
 
 class AtivosGradPorEstadoController extends Controller
 {
@@ -13,7 +14,7 @@ class AtivosGradPorEstadoController extends Controller
     private $excel;
     public function __construct(Excel $excel){
         $this->excel = $excel;
-        $cache = new Cache();
+        
         $data = [];
 
         $siglas = 
@@ -27,7 +28,7 @@ class AtivosGradPorEstadoController extends Controller
         nascidos no estado escolhido */
         foreach ($siglas as $sigla){
             $query_por_estado = str_replace('__sigla__', $sigla, $query);     
-            $result = $cache->getCached('\Uspdev\Replicado\DB::fetch',$query_por_estado);
+            $result = DB::fetch( $query_por_estado);
             $data[$sigla] = $result['computed'];  
         }            
                 
@@ -35,15 +36,34 @@ class AtivosGradPorEstadoController extends Controller
     }    
     
     public function grafico(){
-        /* Tipos de gráficos:
-         * https://www.highcharts.com/docs/chart-and-series-types/chart-types
-         */
-        $chart = new GenericChart;
+        $lava = new Lavacharts; // See note below for Laravel
 
-        $chart->labels(array_keys($this->data));
-        $chart->dataset('Quantidade', 'pie', array_values($this->data));
+        $alunos = $lava->DataTable();
 
-        return view('ativosAlunosEstado', compact('chart'));
+        $alunos->addStringColumn('City')
+                ->addNumberColumn('Alunos');
+        
+        $alunos_sp = 0;
+        foreach($this->data as $key=>$data){
+            if($key != 'SP'){
+                $alunos->addRow(array('BR-'.$key, $data));
+            }else{
+                $alunos_sp = $data;
+            }
+        }
+
+        $lava->GeoChart('Alunos', $alunos, [
+            'title'  => '',
+            'region' =>  'BR',
+            'resolution' => 'provinces',
+            'height' => 500,
+            'legend' => [
+                'position' => 'bottom',
+                'alignment' => 'center'  
+            ],
+        ]);
+
+        return view('ativosAlunosEstado', compact('lava', 'alunos_sp'));
     }
 
     public function export($format){
