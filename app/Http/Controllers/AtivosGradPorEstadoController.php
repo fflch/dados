@@ -13,6 +13,7 @@ class AtivosGradPorEstadoController extends Controller
     private $excel;
     public function __construct(Excel $excel){
         $this->excel = $excel;
+        
         $data = [];
 
         $siglas = [
@@ -47,10 +48,9 @@ class AtivosGradPorEstadoController extends Controller
 
         /* Contabiliza alunos da Graduação, Pós Graduação, Pós Doutorado e Cultura e Extensão
         nascidos no estado escolhido */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunos_por_estado.sql');
-        foreach ($siglas as $key => $sigla){
-            $query_por_estado = str_replace('__sigla__', $key, $query); 
-            $result = DB::fetch($query_por_estado);
+        foreach ($siglas as $sigla){
+            $query_por_estado = str_replace('__sigla__', $sigla, $query);     
+            $result = DB::fetch( $query_por_estado);
             $data[$sigla] = $result['computed'];  
         }            
 
@@ -58,25 +58,34 @@ class AtivosGradPorEstadoController extends Controller
     }    
 
     public function grafico(){
-        $lava = new Lavacharts; 
+        $lava = new Lavacharts; // See note below for Laravel
 
-        $estados = $lava->DataTable();
+        $alunos = $lava->DataTable();
 
-        $estados->addStringColumn('Estados')
-                ->addNumberColumn('Percent');
-
-        foreach($this->data as $key=>$data) {
-            $estados->addRow([$key, (int)$data]);
-        }
+        $alunos->addStringColumn('City')
+                ->addNumberColumn('Alunos');
         
-        $lava->PieChart('Estados', $estados, [
-            'title'  => 'Quantidade de Alunos de Gradução, Pós Graduação, Pós Doutorado e de Cultura e Extensão da FFLCH por estado.',
-            'is3D'   => true,
-            'height' => 700,
+        $alunos_sp = 0;
+        foreach($this->data as $key=>$data){
+            if($key != 'SP'){
+                $alunos->addRow(array('BR-'.$key, $data));
+            }else{
+                $alunos_sp = $data;
+            }
+        }
 
+        $lava->GeoChart('Alunos', $alunos, [
+            'title'  => '',
+            'region' =>  'BR',
+            'resolution' => 'provinces',
+            'height' => 500,
+            'legend' => [
+                'position' => 'bottom',
+                'alignment' => 'center'  
+            ],
         ]);
 
-        return view('ativosAlunosEstado', compact('lava'));
+        return view('ativosAlunosEstado', compact('lava', 'alunos_sp'));
     }
 
     public function export($format){
