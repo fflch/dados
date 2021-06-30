@@ -37,6 +37,14 @@ class PessoaController extends Controller
             $monitores
         );
     }
+    
+    public function listarServidores(){
+        $servidores = Pessoa::listarServidores();
+        
+        return response()->json(
+            $servidores
+        );
+    }
 
 
 }

@@ -49,6 +49,8 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {
+        
+        
         $this->sync_comissao_pesquisa();
         
         $this->sync_docentes(); 
@@ -56,6 +58,8 @@ class ReplicadoSyncCommand extends Command
         $this->sync_estagiarios();
 
         $this->sync_monitores();
+
+        $this->sync_servidores();
         
         $programas = Posgraduacao::programas(8);
         
@@ -127,6 +131,26 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nomset = isset($estagiario['nomset']) ? $estagiario['nomset'] : null;
             $pessoa->email = isset($estagiario['codema']) ? $estagiario['codema'] : null;
             $pessoa->tipo_vinculo = 'Estagiario'; 
+            $pessoa->save();
+        }        
+    }
+    
+    private function sync_servidores(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $servidores = Pessoa::listarServidores();
+
+        foreach($servidores as $servidor){
+            
+            $pessoa = PessoaModel::where('codpes',$servidor['codpes'])->where('tipo_vinculo', 'Funcionário')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $servidor['codpes'];
+            $pessoa->nompes = $servidor['nompes'];
+            $pessoa->codset = isset($servidor['codset']) ? $servidor['codset'] : null;
+            $pessoa->nomset = isset($servidor['nomset']) ? $servidor['nomset'] : null;
+            $pessoa->email = isset($servidor['codema']) ? $servidor['codema'] : null;
+            $pessoa->tipo_vinculo = 'Funcionário'; 
             $pessoa->save();
         }        
     }

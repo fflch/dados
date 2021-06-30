@@ -59,6 +59,26 @@ class Pessoa extends Model
 
         return $retorno;
     }
+
+    public static function listarServidores(){
+        $servidores = Pessoa::where('tipo_vinculo', 'Funcionário')->get()->toArray();
+
+        $retorno = [];
+        foreach($servidores as $servidor){
+            $aux = [
+                'servidor_id' => Generic::crazyHash($servidor['codpes']),
+                'nompes'        => $servidor['nompes'],
+                'codset'      => $servidor['codset'],
+                'nomset'      => $servidor['nomset'],
+                'email'      => $servidor['email'],
+            ];
+            
+            array_push($retorno, $aux);
+        }
+    
+
+        return $retorno;
+    }
     
     public static function listarMonitores(){
         $monitores = Pessoa::where('tipo_vinculo', 'Monitor')->get()->toArray();
