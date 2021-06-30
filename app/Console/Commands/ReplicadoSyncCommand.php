@@ -71,13 +71,17 @@ class ReplicadoSyncCommand extends Command
             $programa->save();
         }
         
+        
         $this->syncJson(ReplicadoTemp::credenciados(), null, 'docentes');
+
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
         }
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
-        }
+        }        
+
+       
 
         return 0;
     }
