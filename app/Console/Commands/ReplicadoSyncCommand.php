@@ -49,9 +49,9 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {        
-        $this->sync_comissao_pesquisa();
-        
         $this->sync_docentes(); 
+
+        $this->sync_comissao_pesquisa();
        
         $this->sync_estagiarios();
 
@@ -104,6 +104,7 @@ class ReplicadoSyncCommand extends Command
             
             $id_lattes = Lattes::id($docente['codpes']);
          
+
             $pessoa->codpes = $docente['codpes'];
             $pessoa->id_lattes = isset($id_lattes) ? $id_lattes : null;
             $pessoa->sitatl = $docente['sitatl'];
@@ -111,7 +112,12 @@ class ReplicadoSyncCommand extends Command
             $pessoa->codset = isset($docente['codset']) ? $docente['codset'] : null;
             $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
             $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
+            
+            $json = ['nomfnc' => $docente['nomfnc']];
+            $pessoa->json = json_encode($json); 
+            
             $pessoa->tipo_vinculo = 'Docente'; 
+
             $pessoa->save();
         }        
     }
