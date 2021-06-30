@@ -48,9 +48,7 @@ class ReplicadoSyncCommand extends Command
      * @return int
      */
     public function handle()
-    {
-        
-        
+    {        
         $this->sync_comissao_pesquisa();
         
         $this->sync_docentes(); 
@@ -60,6 +58,9 @@ class ReplicadoSyncCommand extends Command
         $this->sync_monitores();
 
         $this->sync_servidores();
+
+        $this->sync_chefes_administrativos();
+
         
         $programas = Posgraduacao::programas(8);
         
@@ -131,6 +132,26 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nomset = isset($estagiario['nomset']) ? $estagiario['nomset'] : null;
             $pessoa->email = isset($estagiario['codema']) ? $estagiario['codema'] : null;
             $pessoa->tipo_vinculo = 'Estagiario'; 
+            $pessoa->save();
+        }        
+    }
+    
+    private function sync_chefes_administrativos(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $chefes = Pessoa::listarChefesAdministrativos();
+
+        foreach($chefes as $chefe){
+            
+            $pessoa = PessoaModel::where('codpes',$chefe['codpes'])->where('tipo_vinculo', 'Chefe Administrativo')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $chefe['codpes'];
+            $pessoa->nompes = $chefe['nompes'];
+            $pessoa->codset = isset($chefe['codset']) ? $chefe['codset'] : null;
+            $pessoa->nomset = isset($chefe['nomset']) ? $chefe['nomset'] : null;
+            $pessoa->email = isset($chefe['codema']) ? $chefe['codema'] : null;
+            $pessoa->tipo_vinculo = 'Chefe Administrativo'; 
             $pessoa->save();
         }        
     }

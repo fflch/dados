@@ -80,6 +80,26 @@ class Pessoa extends Model
         return $retorno;
     }
     
+    public static function listarChefesAdministrativos(){
+        $chefes = Pessoa::where('tipo_vinculo', 'Chefe Administrativo')->get()->toArray();
+
+        $retorno = [];
+        foreach($chefes as $chefe){
+            $aux = [
+                'chefe_id' => Generic::crazyHash($chefe['codpes']),
+                'nompes'        => $chefe['nompes'],
+                'codset'      => $chefe['codset'],
+                'nomset'      => $chefe['nomset'],
+                'email'      => $chefe['email'],
+            ];
+            
+            array_push($retorno, $aux);
+        }
+    
+
+        return $retorno;
+    }
+    
     public static function listarMonitores(){
         $monitores = Pessoa::where('tipo_vinculo', 'Monitor')->get()->toArray();
 

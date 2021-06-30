@@ -45,6 +45,14 @@ class PessoaController extends Controller
             $servidores
         );
     }
+    
+    public function listarChefesAdministrativos(){
+        $chefes = Pessoa::listarChefesAdministrativos();
+        
+        return response()->json(
+            $chefes
+        );
+    }
 
 
 }
