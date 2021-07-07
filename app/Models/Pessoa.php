@@ -20,17 +20,18 @@ class Pessoa extends Model
         $docentes = Pessoa::where('tipo_vinculo', 'Docente')->whereIn('codset', [591,602,594,598,592,600,601,599,604,603,596,558])->get()->toArray();
         $retorno = [];
         foreach($docentes as $docente){
+            $nomefnc = json_decode($docente['json'], true);
+            $nomefnc = $nomefnc['nomfnc'] ?? '';
+
             $aux = [
                 'docente_id' => Generic::crazyHash($docente['codpes']),
                 'nompes'        => $docente['nompes'],
-                'dtanas'       => $docente['dtanas'],
-                'dtaflc'      => $docente['dtaflc'],
-                'sexpes'      => $docente['sexpes'],
                 'codset'      => $docente['codset'],
                 'nomset'      => $docente['nomset'],
                 'email'      => $docente['email'],
                 'sitatl'      => $docente['sitatl'],
-                'id_lattes'      => $docente['id_lattes']
+                'id_lattes'      => $docente['id_lattes'],
+                'nomefnc'      => $nomefnc
             ];
             
             array_push($retorno, $aux);
@@ -51,6 +52,46 @@ class Pessoa extends Model
                 'codset'      => $estagiario['codset'],
                 'nomset'      => $estagiario['nomset'],
                 'email'      => $estagiario['email'],
+            ];
+            
+            array_push($retorno, $aux);
+        }
+    
+
+        return $retorno;
+    }
+
+    public static function listarServidores(){
+        $servidores = Pessoa::where('tipo_vinculo', 'Funcionário')->get()->toArray();
+
+        $retorno = [];
+        foreach($servidores as $servidor){
+            $aux = [
+                'servidor_id' => Generic::crazyHash($servidor['codpes']),
+                'nompes'        => $servidor['nompes'],
+                'codset'      => $servidor['codset'],
+                'nomset'      => $servidor['nomset'],
+                'email'      => $servidor['email'],
+            ];
+            
+            array_push($retorno, $aux);
+        }
+    
+
+        return $retorno;
+    }
+    
+    public static function listarChefesAdministrativos(){
+        $chefes = Pessoa::where('tipo_vinculo', 'Chefe Administrativo')->get()->toArray();
+
+        $retorno = [];
+        foreach($chefes as $chefe){
+            $aux = [
+                'chefe_id' => Generic::crazyHash($chefe['codpes']),
+                'nompes'        => $chefe['nompes'],
+                'codset'      => $chefe['codset'],
+                'nomset'      => $chefe['nomset'],
+                'email'      => $chefe['email'],
             ];
             
             array_push($retorno, $aux);

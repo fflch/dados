@@ -43,14 +43,16 @@ class Programa extends Model
         $aux_pessoas = [];
 
         $json_lattes = LattesModel::where('codare',(int)$codare)->where('tipo_pessoa', $tipo_pessoa)->get()->toArray();
-    
+        
         foreach($json_lattes as $json){
             
             $pessoa = [];
             $lattes = $json['json'] ? json_decode($json['json'],TRUE) : null; 
             $pessoa['id_lattes'] = $lattes['id_lattes'] ?? '';
             $pessoa['nompes'] = $lattes['nome'] ?? '';
-            $pessoa['nivpgm'] = $json['nivpgm'] ?? '';
+            if($tipo_pessoa != 'docentes'){
+                $pessoa['nivpgm'] = $json['nivpgm'] ?? '';
+            }
             
             if(!$api){
                 if($tipo_pessoa == 'docentes'){
