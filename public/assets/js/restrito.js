@@ -20,13 +20,13 @@ $(document).ready(function(){
         
         $("#collapseIntercambio #curso, #collapseIntercambio #setor, #collapseIntercambio #ano, #collapseIntercambio .curso-setor").addClass('d-none');
         if(value == 'alunos_intercambistas' ){
-            $('#collapseIntercambio #curso, #collapseIntercambio .curso-setor').removeClass('d-none');
+            $('#collapseIntercambio #curso, #collapseIntercambio .curso-setor, #collapseIntercambio #ano').removeClass('d-none');
         } else if (value == 'alunos_estrangeiros'){
-            $('#collapseIntercambio #curso, #collapseIntercambio .curso-setor').addClass('d-none');
+            $('#collapseIntercambio #ano').removeClass('d-none');
         } else if (value == 1 || value == ''){
-            $("#collapseIntercambio #curso, #collapseIntercambio #setor, #collapseIntercambio .curso-setor").addClass('d-none');
-        } else{
-            $('#collapseIntercambio #setor, #collapseIntercambio .curso-setor').removeClass('d-none');
+            $("#collapseIntercambio #ano").addClass('d-none');
+        } else if (value == 'docentes_estrangeiros'){
+            $('#collapseIntercambio #setor, #collapseIntercambio .curso-setor, #collapseIntercambio #ano').removeClass('d-none');
         }
     });
 

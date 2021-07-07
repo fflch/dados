@@ -154,14 +154,19 @@
                                             <option value="1">Todos</option>
                                         </select>
                                         <select class="form-control d-none" aria-label="Default select example" name="setor" id="setor">
-                                            <option selected value="">Setor</option>
-                                                @foreach($departamentos as $setor)
-                                                <option value="{{$setor[0]}}">{{$setor[1]}}</option>
-                                                @endforeach
+                                            <option selected value="">Curso</option>
+                                                
+                                                <option value="FLF">Filosofia</option>
+                                                <option value="FLG">Geografia</option>
+                                                <option value="FLH">História</option>
+                                                <option value="'FLA','FLP','FSL'">Ciências Sociais</option>
+                                                <option value="'FLC','FLM','FLO','FLT','FLL'">Letras</option>
+
+                                                
                                             <option value="1">Todos</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 d-none" id="ano">
                                             <select class="form-control" name="ano">
                                                 <option selected value="">Ano</option>
                                                     @for($ano = Date('Y'); $ano >= 2000; $ano--)

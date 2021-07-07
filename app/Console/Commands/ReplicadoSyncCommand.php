@@ -175,7 +175,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->nome_departamento = $ic['departamento'];
                 $comissao->status_projeto = $ic['status_projeto'];
 
-                $curso = $this->retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
+                $curso = Util::retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
@@ -209,7 +209,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->sigla_departamento = $pd['sigla_departamento'];
                 $comissao->nome_departamento = $pd['departamento'];
 
-                $curso = $this->retornarCursoGrdPorDepartamento($pd['sigla_departamento']);
+                $curso = Util::retornarCursoGrdPorDepartamento($pd['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
@@ -242,7 +242,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->sigla_departamento = $pc['sigla_departamento'];
                 $comissao->nome_departamento = $pc['departamento'];
 
-                $curso = $this->retornarCursoGrdPorDepartamento($pc['sigla_departamento']);
+                $curso = Util::retornarCursoGrdPorDepartamento($pc['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
@@ -272,7 +272,7 @@ class ReplicadoSyncCommand extends Command
                          $comissao->data_fim = !empty($pesquisa['ANO-FIM']) ?  $pesquisa['ANO-FIM']."-01-01 00:00:00" : null;
                          $comissao->sigla_departamento = $key;
                          $comissao->nome_departamento = $value[1];
-                         $curso = $this->retornarCursoGrdPorDepartamento($key);
+                         $curso = Util::retornarCursoGrdPorDepartamento($key);
                          $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                          $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
                          $comissao->codpes_supervisor= null;
@@ -291,24 +291,6 @@ class ReplicadoSyncCommand extends Command
              }
          }
         
-    }
-
-    private function retornarCursoGrdPorDepartamento($sigla_departamento){
-        $aux_cursos = [
-            8010 => ['Filosofia', 'FLF'],
-            8021 => ['Geografia', 'FLG'],
-            8030 => ['História', 'FLH'],
-            8040 => ['Ciências Sociais', 'FLA', 'FLP', 'FSL'],
-            8051 => ['Letras', 'FLC', 'FLM', 'FLO', 'FLT', 'FLL'],
-        ];
-        $curso = [];
-        foreach($aux_cursos as $key=>$value){
-            if(in_array($sigla_departamento, $value)){
-                $curso['codcur'] = $key; 
-                $curso['nome_curso'] = $value[0]; 
-            }
-        }
-        return $curso;
     }
 
     private function syncJson($pessoas, $codare = null, $tipo_pessoa = null){
