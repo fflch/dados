@@ -39,6 +39,24 @@ class Util
         'Não informado' => 6
     ];
 
+    public static function retornarCursoGrdPorDepartamento($sigla_departamento){
+        $aux_cursos = [
+            8010 => ['Filosofia', 'FLF'],
+            8021 => ['Geografia', 'FLG'],
+            8030 => ['História', 'FLH'],
+            8040 => ['Ciências Sociais', 'FLA', 'FLP', 'FSL'],
+            8051 => ['Letras', 'FLC', 'FLM', 'FLO', 'FLT', 'FLL'],
+        ];
+        $curso = [];
+        foreach($aux_cursos as $key=>$value){
+            if(in_array($sigla_departamento, $value)){
+                $curso['codcur'] = $key; 
+                $curso['nome_curso'] = $value[0]; 
+            }
+        }
+        return $curso;
+    }
+
     public static function getDepartamentos() {
         return self::departamentos;
     }
@@ -61,6 +79,7 @@ class Util
         return $aux_areas;
         
     }
+
     
 
 }
