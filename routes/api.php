@@ -21,3 +21,5 @@ Route::get('/obter_orcid', [ProgramaController::class, 'obterOrcid']);
 Route::get('/docentes', [PessoaController::class, 'listarDocentes']);
 Route::get('/estagiarios', [PessoaController::class, 'listarEstagiarios']);
 Route::get('/monitores', [PessoaController::class, 'listarMonitores']);
+Route::get('/servidores', [PessoaController::class, 'listarServidores']);
+Route::get('/chefes_administrativos', [PessoaController::class, 'listarChefesAdministrativos']);
