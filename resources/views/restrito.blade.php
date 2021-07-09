@@ -155,14 +155,11 @@
                                         </select>
                                         <select class="form-control d-none" aria-label="Default select example" name="setor" id="setor">
                                             <option selected value="">Curso</option>
-                                                
-                                                <option value="FLF">Filosofia</option>
-                                                <option value="FLG">Geografia</option>
-                                                <option value="FLH">História</option>
-                                                <option value="'FLA','FLP','FSL'">Ciências Sociais</option>
-                                                <option value="'FLC','FLM','FLO','FLT','FLL'">Letras</option>
-
-                                                
+                                            <option value="FLF">Filosofia</option>
+                                            <option value="FLG">Geografia</option>
+                                            <option value="FLH">História</option>
+                                            <option value="'FLA','FLP','FSL'">Ciências Sociais</option>
+                                            <option value="'FLC','FLM','FLO','FLT','FLL'">Letras</option>
                                             <option value="1">Todos</option>
                                         </select>
                                     </div>
@@ -176,12 +173,70 @@
                                     </div>
                                     <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
                                 </div>
+                                <br>
+                                <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
                               </form>
                         </li>
                     </ul>
                 </div>
             </div>
             </li>
+
+            <li class="list-group-item">
+                <div class="panel panel-default panel-docente">
+                    <div class="panel-heading">
+                        <h5 role="button" data-toggle="collapse" href="#collapseTransferencia"  aria-controls="collapseTransferencia" 
+                            aria-expanded="false" class="collapsed">
+                            Planilha Transferência Graduação
+                            <span class="controller-collapse">
+                                <i class="fas fa-plus-square"></i>
+                                <i class="fas fa-minus-square"></i>  
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="panel-body collapse in" id="collapseTransferencia">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <form action="/restrito/transferencia" method="GET">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <label><b>Filtrar por:</b></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select class="form-control" aria-label="Default select example" name="tipo" id="tipo" required>
+                                                <option selected value="">Tipo transferência</option>
+                                                    <option value="Transf USP">Transferência interna</option>
+                                                    <option value="Transf Externa">Transferência externa</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 curso">
+                                            <select class="form-control" aria-label="Default select example" name="curso" id="curso">
+                                                <option selected value="">Curso</option>
+                                                    @foreach($cursos as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                    @endforeach
+                                                <option value="1">Todos</option>
+                                            </select>
+                                    
+                                        </div>
+                                        <div class="col-md-2 " id="ano">
+                                                <select class="form-control" name="ano">
+                                                    <option selected value="">Ano</option>
+                                                        @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                                        <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                                    @endfor
+                                                </select>                        
+                                        </div>
+                                        <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                                    </div>
+                                    <br>
+                                    <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
+                                  </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </li>
 </ul>
 
 @endsection

@@ -135,4 +135,29 @@ class ReplicadoTemp
         return DB::fetchAll($query);
     }
 
+    public static function listarTransferencia($year, $curso, $tipo)
+    {
+        $addquery = '';
+        if ($curso == 1){//todos os cursos
+            $cursos = implode(',', Graduacao::obterCodigosCursos());
+            $addquery = "AND c.codcur IN ({$cursos})";
+        } else {
+            $addquery = "AND c.codcur = $curso";
+        }
+        $query = "SELECT DISTINCT p.codpes, 
+                    p.tiping,
+                    p.dtaing,
+                    c.nomcur 
+                FROM PROGRAMAGR p
+                JOIN HABILPROGGR AS h ON p.codpes = h.codpes
+                JOIN CURSOGR AS c ON h.codcur = c.codcur
+                WHERE p.tiping = '$tipo' 
+                AND p.dtaing LIKE '%$year%'
+                $addquery
+                AND c.codclg = 8";
+
+        return DB::fetchAll($query);
+    }
+
+    
 }
