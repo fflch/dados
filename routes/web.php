@@ -36,6 +36,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RestritoController;
 use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
 use App\Http\Controllers\IntercambioController;
+use App\Http\Controllers\EvasaoController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/sobre', [IndexController::class, 'sobre']);
@@ -175,5 +176,8 @@ Route::get('/restrito/curso_ceu', [CEUController::class, 'listarCurso']);
 Route::get('/restrito/ex_alunos', [ExAlunosController::class, 'listarExAlunos']);
 
 Route::get('/restrito/intercambio', [IntercambioController::class, 'listarIntercambios']);
+
+Route::get('/restrito/evasao', [EvasaoController::class, 'listarEvasao']);
+
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
