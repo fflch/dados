@@ -2,7 +2,8 @@
 
 namespace App\Utils;
 use Uspdev\Replicado\DB;
-
+use Uspdev\Replicado\Graduacao;
+use App\Utils\Util;
 class ReplicadoTemp
 {
     public static function credenciados($codare = null){
@@ -51,10 +52,65 @@ class ReplicadoTemp
                 AND t4.stamtr = 'S'
                 AND t1.codslamon = 22
                 
-                AND (t4.stausp = 'S' OR t4.codema LIKE '%usp.br%')
-
-                ORDER BY t3.nompes";
+                AND (t4.stausp = 'S' OR t4.codema LIKE '%usp.br%')";
 
         return DB::fetchAll($query);
     }
+
+    public static function listarAlunoEstrangeiro(int $year)
+    {
+        $query = "SELECT DISTINCT V.codpes, V.nompes, L.dtainivin from LOCALIZAPESSOA L
+                    JOIN VINCULOPESSOAUSP V ON V.codpes = L.codpes
+                    WHERE L.tipvin = 'ALUNOCONVENIOINT' 
+                    AND L.sitatl = 'A' and L.codundclg = 8
+                    AND L.dtainivin LIKE '%$year%'";
+                    
+        return DB::fetchAll($query);
+    }
+
+    public static function listarAlunosIntercambistas($year, $curso)
+    {
+        $addquery = '';
+        if ($curso == 1){//todos os cursos
+            $cursos = implode(',', Graduacao::obterCodigosCursos());
+            $addquery = "AND V.codcurgrd IN ({$cursos})";
+        } else {
+            $addquery = "AND V.codcurgrd = $curso";
+        }
+        $query = "SELECT DISTINCT I.codpes, V.nompes, I.dtainiitb, C.nomcur from INTERCAMBIOUSPORGAO I
+                    JOIN VINCULOPESSOAUSP V ON I.codpes = V.codpes 
+                    JOIN CURSOGR C ON V.codcurgrd = C.codcur 
+                    WHERE I.codclgrsp = 8 
+                    and I.dtadsialu IS NULL --Data de desistência do aluno.
+                    AND I.dtainiitb LIKE '%$year%'
+                    $addquery";
+
+        return DB::fetchAll($query);
+    }
+
+    public static function listarDocentesEstrangeiros(int $year, $setor)
+    {
+        $addquery = '';
+        if($setor == 1){//todos os setores
+            $setores = [];
+                foreach(Util::departamentos as $key => $setor){
+                    array_push($setores, $key);
+                }
+            $setor = "'".implode("','", $setores)."'";
+            $addquery = "AND s.nomabvset IN ({$setor})";
+        } else {
+            $addquery = "AND s.nomabvset IN ($setor)";
+        }
+        $query = " SELECT DISTINCT i.codpes, l.nompes, i.dtainiatvitb, s.nomabvset from INTERCAMPROFVISITANTE i 
+                    JOIN LOCALIZAPESSOA l ON i.codpes = l.codpes
+                    JOIN SETOR s on i.codsetpesrsp = s.codset 
+                    WHERE l.tipvin = 'PROFVISITINTERNAC'
+                    AND i.dtainiatvitb LIKE '%$year%'
+                    $addquery
+                    ORDER BY l.nompes";
+
+        return DB::fetchAll($query);
+    }
+
+
 }
