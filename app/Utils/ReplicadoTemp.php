@@ -51,9 +51,7 @@ class ReplicadoTemp
                 AND t2.codbnfalu = 32
                 AND t4.stamtr = 'S'
                 AND t1.codslamon = 22
-                
-                AND (t4.stausp = 'S' OR t4.codema LIKE '%usp.br%')
-                
+                                
                 ORDER BY t3.nompes";
 
         return DB::fetchAll($query);

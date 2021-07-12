@@ -53,13 +53,13 @@ class ReplicadoSyncCommand extends Command
 
         $this->sync_docentes(); 
         
+        $this->sync_estagiarios();
+
         $this->sync_monitores();
         
         $this->sync_servidores();
         
         $this->sync_chefes_administrativos();
-
-        $this->sync_estagiarios();
 
         
         $programas = Posgraduacao::programas(8);
@@ -95,9 +95,7 @@ class ReplicadoSyncCommand extends Command
     private function sync_docentes(){
         putenv('REPLICADO_SYBASE=1');
         
-        $aux1 = Pessoa::listarDocentes(null, 'A', $email_usp = true);
-        $aux2 = Pessoa::listarDocentes(null, 'P', $email_usp = false);//Os aposentados não necessariamente tem email usp
-        $docentes = array_merge($aux1, $aux2);
+        $docentes = Pessoa::listarDocentes(null, 'A,P');
         
         $this->sync_pessoas_local_replicado($docentes, 'Docente');
 
@@ -115,8 +113,8 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nompes = $docente['nompes'];
             $pessoa->codset = isset($docente['codset']) ? $docente['codset'] : null;
             $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
-            $pessoa->email = isset($docente['emailusp']) ? $docente['emailusp'] : null;
-            
+            $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
+
             $json = ['nomfnc' => $docente['nomfnc']];
             $pessoa->json = json_encode($json); 
             
@@ -163,7 +161,7 @@ class ReplicadoSyncCommand extends Command
     private function sync_chefes_administrativos(){
         putenv('REPLICADO_SYBASE=1');
         
-        $chefes = Pessoa::designados(8,true,['Servidor']);
+        $chefes = Pessoa::designados(8, ['Servidor']);
         $this->sync_pessoas_local_replicado($chefes, 'Chefe Administrativo');
 
         foreach($chefes as $chefe){
@@ -175,7 +173,7 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nompes = $chefe['nompes'];
             $pessoa->codset = isset($chefe['codset']) ? $chefe['codset'] : null;
             $pessoa->nomset = isset($chefe['nomset']) ? $chefe['nomset'] : null;
-            $pessoa->email = isset($chefe['emailusp']) ? $chefe['emailusp'] : null;
+            $pessoa->email = isset($chefe['codema']) ? $chefe['codema'] : null;
             $pessoa->tipo_vinculo = 'Chefe Administrativo'; 
             $pessoa->save();
         }        
@@ -184,7 +182,7 @@ class ReplicadoSyncCommand extends Command
     private function sync_servidores(){
         putenv('REPLICADO_SYBASE=1');
         
-        $servidores = Pessoa::servidores(8, true);
+        $servidores = Pessoa::servidores(8);
         $this->sync_pessoas_local_replicado($servidores, 'Funcionário');
 
         foreach($servidores as $servidor){
@@ -196,7 +194,7 @@ class ReplicadoSyncCommand extends Command
             $pessoa->nompes = $servidor['nompes'];
             $pessoa->codset = isset($servidor['codset']) ? $servidor['codset'] : null;
             $pessoa->nomset = isset($servidor['nomset']) ? $servidor['nomset'] : null;
-            $pessoa->email = isset($servidor['emailusp']) ? $servidor['emailusp'] : null;
+            $pessoa->email = isset($servidor['codema']) ? $servidor['codema'] : null;
             $pessoa->tipo_vinculo = 'Funcionário'; 
             $pessoa->save();
         }        
