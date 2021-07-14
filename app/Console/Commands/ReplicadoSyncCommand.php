@@ -53,17 +53,16 @@ class ReplicadoSyncCommand extends Command
 
         $this->sync_docentes(); 
         
-        $this->sync_estagiarios();   
-        
+        $this->sync_estagiarios();
+
         $this->sync_monitores();
         
         $this->sync_servidores();
         
         $this->sync_chefes_administrativos();
-        
+
         
         $programas = Posgraduacao::programas(8);
-        
         
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
@@ -97,6 +96,7 @@ class ReplicadoSyncCommand extends Command
         putenv('REPLICADO_SYBASE=1');
         
         $docentes = Pessoa::listarDocentes(null, 'A,P');
+        
         $this->sync_pessoas_local_replicado($docentes, 'Docente');
 
         foreach($docentes as $docente){
@@ -114,7 +114,7 @@ class ReplicadoSyncCommand extends Command
             $pessoa->codset = isset($docente['codset']) ? $docente['codset'] : null;
             $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
             $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
-            
+
             $json = ['nomfnc' => $docente['nomfnc']];
             $pessoa->json = json_encode($json); 
             
@@ -161,7 +161,7 @@ class ReplicadoSyncCommand extends Command
     private function sync_chefes_administrativos(){
         putenv('REPLICADO_SYBASE=1');
         
-        $chefes = ReplicadoTemp::listarChefesAdministrativos();
+        $chefes = Pessoa::designados(8, ['Servidor']);
         $this->sync_pessoas_local_replicado($chefes, 'Chefe Administrativo');
 
         foreach($chefes as $chefe){

@@ -28,7 +28,7 @@ class Pessoa extends Model
                 'nompes'        => $docente['nompes'],
                 'codset'      => $docente['codset'],
                 'nomset'      => $docente['nomset'],
-                'email'      => $docente['email'],
+                'email'      => isset($docente['email']) && str_contains($docente['email'], 'usp.br') ? $docente['email'] : '',
                 'sitatl'      => $docente['sitatl'],
                 'id_lattes'      => $docente['id_lattes'],
                 'nomefnc'      => $nomefnc
@@ -51,7 +51,7 @@ class Pessoa extends Model
                 'nompes'        => $estagiario['nompes'],
                 'codset'      => $estagiario['codset'],
                 'nomset'      => $estagiario['nomset'],
-                'email'      => $estagiario['email'],
+                'email'      => isset($estagiario['email']) && str_contains($estagiario['email'], 'usp.br') ? $estagiario['email'] : '',
             ];
             
             array_push($retorno, $aux);
@@ -71,7 +71,7 @@ class Pessoa extends Model
                 'nompes'        => $servidor['nompes'],
                 'codset'      => $servidor['codset'],
                 'nomset'      => $servidor['nomset'],
-                'email'      => $servidor['email'],
+                'email'      => isset($servidor['email']) && str_contains($servidor['email'], 'usp.br') ? $servidor['email'] : '',
             ];
             
             array_push($retorno, $aux);
@@ -91,7 +91,7 @@ class Pessoa extends Model
                 'nompes'        => $chefe['nompes'],
                 'codset'      => $chefe['codset'],
                 'nomset'      => $chefe['nomset'],
-                'email'      => $chefe['email'],
+                'email'      => isset($chefe['email']) && str_contains($chefe['email'], 'usp.br') ? $chefe['email'] : '',
             ];
             
             array_push($retorno, $aux);
@@ -111,7 +111,7 @@ class Pessoa extends Model
             $aux = [
                 'monitor_id' => Generic::crazyHash($monitor['codpes']),
                 'nompes'        => $monitor['nompes'],
-                'email'      => $monitor['email'],
+                'email'      => isset($monitor['email']) && str_contains($monitor['email'], 'usp.br') ? $monitor['email'] : '',
                 'bolsa_ini'      => $bolsas['bolsa_ini'],
                 'bolsa_fim'      => $bolsas['bolsa_fim'],
                 

@@ -51,7 +51,7 @@ class ReplicadoTemp
                 AND t2.codbnfalu = 32
                 AND t4.stamtr = 'S'
                 AND t1.codslamon = 22
-                
+                                
                 ORDER BY t3.nompes";
 
         return DB::fetchAll($query);
@@ -112,27 +112,5 @@ class ReplicadoTemp
         return DB::fetchAll($query);
     }
 
-   
-    /**
-     * Método para retornar os chefes administrativos da fflch
-     */
-    public static function listarChefesAdministrativos()
-    {
-        $query = "SELECT L.codpes, 
-                L.nompes, 
-                L.nomset, 
-                L.codema
-                from LOCALIZAPESSOA  L
-                WHERE L.tipvinext = 'Servidor Designado' 
-                AND L.codpes 
-                IN (Select codpes 
-                    from LOCALIZAPESSOA  L
-                    where L.tipvinext = 'Servidor' 
-                    and L.codundclg = 8 
-                    and L.sitatl = 'A') 
-                ORDER BY L.nompes";
-
-        return DB::fetchAll($query);
-    }
 
 }
