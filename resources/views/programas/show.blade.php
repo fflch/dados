@@ -13,7 +13,8 @@
 @if(isset($pessoas))
 <div class="card">
   <div class="card-header">
-    <b>{{$titulo}}</b>
+    <b>{{$titulo}}</b><br>
+    @if($tipo_pessoa == "docentes") - Listagem apenas de docentes que estão com os credenciamentos em dia. @endif
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <div class="scroll">
