@@ -113,4 +113,59 @@ class ReplicadoTemp
     }
 
 
+    public static function listarEvasao($year, $curso)
+    {
+        $addquery = '';
+        if ($curso == 1){//todos os cursos Graduação
+            $cursos = implode(',', Graduacao::obterCodigosCursos());
+            $addquery = "AND h.codcur IN ({$cursos})";
+        } else {
+            $addquery = "AND h.codcur = $curso";
+        }
+        $query = "SELECT DISTINCT p.codpes, 
+                    p.tiping, 
+                    p.tipencpgm,
+                    p.dtaing,
+                    p.dtaini,
+                    c.nomcur
+                from PROGRAMAGR p
+                JOIN HABILPROGGR AS h ON p.codpes = h.codpes
+                JOIN CURSOGR AS c ON h.codcur = c.codcur
+                WHERE (p.tipencpgm LIKE '%Abandono%'
+                    OR p.tipencpgm LIKE '%Cancelamento%'
+                    OR p.tipencpgm = 'Encerramento novo ingresso'
+                    OR p.tipencpgm LIKE '%Ingressante sem Frequ%'
+                    OR p.tipencpgm LIKE '%normas de retorno ao Curso%'
+                    OR p.tipencpgm LIKE '%Evas%')
+                AND p.dtaini LIKE '%$year%'
+                AND c.codclg = 8
+                $addquery";
+
+        return DB::fetchAll($query);
+    }    
+
+    public static function listarTransferencia($year, $curso, $tipo)
+    {
+        $addquery = '';
+        if ($curso == 1){//todos os cursos
+            $cursos = implode(',', Graduacao::obterCodigosCursos());
+            $addquery = "AND c.codcur IN ({$cursos})";
+        } else {
+            $addquery = "AND c.codcur = $curso";
+        }
+        $query = "SELECT DISTINCT p.codpes, 
+                    p.tiping,
+                    p.dtaing,
+                    c.nomcur 
+                FROM PROGRAMAGR p
+                JOIN HABILPROGGR AS h ON p.codpes = h.codpes
+                JOIN CURSOGR AS c ON h.codcur = c.codcur
+                WHERE p.tiping = '$tipo' 
+                AND p.dtaing LIKE '%$year%'
+                $addquery
+                AND c.codclg = 8";
+
+        return DB::fetchAll($query);
+    }
+
 }
