@@ -46,6 +46,7 @@ class CEUController extends Controller
             'Departamento', 
             'Nome curso', 
             'Vagas', 
+            'Matriculados',
 	        'Descrição', 
             'Objetivo', 
             'Justificativa', 
