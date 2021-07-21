@@ -31,7 +31,7 @@ class TransferenciaController extends Controller
             'Curso'
         ]);
 
-        return $this->excel->download($export, 'Ex_Alunos_Graduacao.xlsx');
+        return $this->excel->download($export, "$tipo".'_Graduacao.xlsx');
 
     }
 
