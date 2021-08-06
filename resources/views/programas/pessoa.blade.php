@@ -748,17 +748,20 @@
                             @if(isset($val["ANO-DE-CONCLUSAO"]))
                             <li class="list-group-item">
                             @if(isset($val['NOME-CURSO']))
-                            Curso: @arr([$value,'NOME-CURSO']) <br>
+                            Curso: @arr([$val,'NOME-CURSO']) <br>
                             @endif
-                            Nome da Instituição: @arr([$value,'NOME-INSTITUICAO'])  <br>
+                            Nome da Instituição: @arr([$val,'NOME-INSTITUICAO'])  <br>
                             @if(isset($val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO']) && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != null && $val['TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'] != '')
-                            Título: @arr([$value,'TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'])  <br> 
+                            Título: @arr([$val,'TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO'])  <br> 
                             @endif
                             Ano de conclusão: 
                             @if(isset($val['ANO-DE-CONCLUSAO']) && $val['ANO-DE-CONCLUSAO'] != null && $val['ANO-DE-CONCLUSAO'] != '') 
-                                @arr([$value,'ANO-DE-CONCLUSAO']) 
+                                @arr([$val,'ANO-DE-CONCLUSAO']) <br>
                             @else
-                            Atual
+                            Atual <br>
+                            @endif
+                            @if(isset($val['STATUS-DO-CURSO']) && $val['STATUS-DO-CURSO'] != 'CONCLUIDO')
+                            Status do curso: <?= ucfirst(strtolower(Arr::get($val,'STATUS-DO-CURSO',""))) ?>
                             @endif
                             </li>
                             @endif
