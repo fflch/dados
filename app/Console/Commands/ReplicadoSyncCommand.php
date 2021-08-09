@@ -49,6 +49,7 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {       
+        
         $this->sync_comissao_pesquisa();
 
         $this->sync_docentes(); 
@@ -63,7 +64,7 @@ class ReplicadoSyncCommand extends Command
         
         
         $programas = Posgraduacao::programas(8);
-        
+       
         
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
@@ -77,14 +78,13 @@ class ReplicadoSyncCommand extends Command
             $programa->save();
         }
         
-        
-        
         $this->syncJson(ReplicadoTemp::credenciados(), null, 'docentes');
         
-
+        
         foreach($programas as $value) {
-            $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
+            $this->syncJson(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
         }
+        
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
         }        
@@ -382,23 +382,31 @@ class ReplicadoSyncCommand extends Command
     }
 
     private function syncJson($pessoas, $codare = null, $tipo_pessoa = null){
-
-
+       
         if(!is_array($pessoas))return;
 
-        $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        if($tipo_pessoa == 'docentes'){
+            $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        }else{
+            $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->where('codare', $codare)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        }
         $codpes_replicado = array_column($pessoas, 'codpes');
         $diff = array_diff($codpes, $codpes_replicado);
+        
         LattesModel::whereIn('codpes', $diff)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
         
         if($tipo_pessoa != 'docentes'){
-            LattesModel::where('nivpgm',null)->orWhere('nivpgm','')->delete();
+            LattesModel::where(function ($query) {
+                $query->where('nivpgm',null)->orWhere('nivpgm','');
+            })->where('tipo_pessoa', '!=', 'docentes')->delete();
         }
-
+       
         foreach($pessoas as $pessoa) {
+          
             
             if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
 
+           
             if($tipo_pessoa != 'docentes' && empty($pessoa['nivpgm'])) continue;
 
             $aux_codare = $codare == null ? $pessoa['codare'] : $codare;
@@ -411,6 +419,7 @@ class ReplicadoSyncCommand extends Command
                 $lattes = new LattesModel;
             }
             $lattes_array = Lattes::obterArray($pessoa['codpes']);
+           
             if($lattes_array){
                 $info_lattes = [];
 
@@ -450,6 +459,7 @@ class ReplicadoSyncCommand extends Command
                 $lattes->codare = $aux_codare;
                 $lattes->nivpgm =  $nivpgm;
                 $lattes->json = json_encode($info_lattes);
+               
                 $lattes->save();
             } else {
                 $lattes->codpes = $pessoa['codpes'];
@@ -461,6 +471,7 @@ class ReplicadoSyncCommand extends Command
                 echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";lattes não encontrado\n";
             }
         }
+       
     }
 
 }
