@@ -75,7 +75,7 @@ class ReplicadoTemp
             $cursos = implode(',', Graduacao::obterCodigosCursos());
             $addquery = "AND V.codcurgrd IN ({$cursos})";
         } else {
-            $addquery = "AND V.codcurgrd = $curso";
+            $addquery = "AND V.codcurgrd IN ($curso)";
         }
         $query = "SELECT DISTINCT I.codpes, V.nompes, I.dtainiitb, C.nomcur from INTERCAMBIOUSPORGAO I
                     JOIN VINCULOPESSOAUSP V ON I.codpes = V.codpes 
@@ -108,7 +108,7 @@ class ReplicadoTemp
                     AND i.dtainiatvitb LIKE '%$year%'
                     $addquery
                     ORDER BY l.nompes";
-
+   
         return DB::fetchAll($query);
     }
 
@@ -190,4 +190,65 @@ class ReplicadoTemp
         return DB::fetchAll($query);
     }
 
+    public static function listarBolsas($year, $curso)
+    {
+        $addquery = '';
+        if ($curso == 1){//todos os cursos
+            $cursos = implode(',', Graduacao::obterCodigosCursos());
+            $addquery = "AND v.codcurgrd IN ({$cursos})";
+        } else {
+            $addquery = "AND v.codcurgrd = $curso";
+        }
+
+        $query = "SELECT DISTINCT b.codbnfalu, b.nombnfloc  
+        FROM BENEFICIOALUNO b 
+        INNER JOIN BENEFICIOALUCONCEDIDO a ON a.codbnfalu = b.codbnfalu
+        INNER JOIN VINCULOPESSOAUSP v on v.codpes = a.codpes 
+        AND a.anoofebnf in ($year, $year"."1, ".$year."2)
+        AND v.tipvin IN ('ALUNOGR')
+        AND v.codclg = 8
+        AND b.dtadtv IS NULL  
+        $addquery";
+        
+        return DB::fetchAll($query);
+    }
+
+    public static function contarBeneficiantesPorBolsa($year, $curso, $tipo)
+    {
+        $addquery = '';
+        if ($curso == 1){//todos os cursos
+            $cursos = implode(',', Graduacao::obterCodigosCursos());
+            $addquery = "AND v.codcurgrd IN ({$cursos})";
+        } else {
+            $addquery = "AND v.codcurgrd = $curso";
+        }
+        $query = "SELECT count ( b.codpes)
+                 FROM VINCULOPESSOAUSP v
+                    JOIN BENEFICIOALUCONCEDIDO b
+                    ON b.codpes = v.codpes
+                 where v.tipvin IN ('ALUNOGR')
+                    AND b.codbnfalu = $tipo
+                    AND b.anoofebnf in ($year, $year"."1, ".$year."2)
+                    $addquery
+                    AND v.codclg = 8";
+       
+        return DB::fetch($query);
+    }
+
+    public static function listarAlunosAtivosPrograma($codare)
+    {
+        $query = " SELECT DISTINCT l.nompes, l.codpes, v.nivpgm FROM LOCALIZAPESSOA l
+                    JOIN VINCULOPESSOAUSP v ON (l.codpes = v.codpes)
+                    WHERE l.tipvin = 'ALUNOPOS'
+                    AND l.codundclg = convert(int,:codundclg)
+                    AND v.codare = convert(int,:codare)
+                    AND l.sitatl = 'A'
+                    ORDER BY v.nompes ASC ";
+        $param = [
+            'codare' => $codare,
+            'codundclg' => getenv('REPLICADO_CODUNDCLG'),
+        ];
+        
+        return DB::fetchAll($query, $param);
+    }
 }

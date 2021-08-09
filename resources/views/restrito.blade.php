@@ -8,57 +8,57 @@
 
 <ul class="list-group">
     <li class="list-group-item">
-    <div class="panel panel-default panel-docente">
-        <div class="panel-heading">
-            <h5 role="button" data-toggle="collapse" href="#collapseCursoCEU"  aria-controls="collapseCursoCEU" 
-                aria-expanded="false" class="collapsed">
-                Planilha cursos de Cultura e Extensão
-                <span class="controller-collapse">
-                    <i class="fas fa-plus-square"></i>
-                    <i class="fas fa-minus-square"></i>  
-                </span>
-            </h5>
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseCursoCEU"  aria-controls="collapseCursoCEU" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha cursos de Cultura e Extensão
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseCursoCEU">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/curso_ceu" method="GET">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" aria-label="Default select example" name="departamento">
+                                        <option selected value="">Departamento</option>
+                                        @foreach($departamentos as $dpto)
+                                            <option value="{{$dpto[0]}}">{{$dpto[1]}}</option>
+                                        @endforeach
+                                        <option value="1">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" name="ano_inicio">
+                                        <option selected value="">Ano inicio</option>
+                                        @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                        <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                        @endfor
+                                    </select>                        
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" name="ano_fim">
+                                        <option selected value="">Ano fim</option>
+                                        @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                        <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                        @endfor
+                                    </select>                        
+                                </div>
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="panel-body collapse in" id="collapseCursoCEU">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <form action="/restrito/curso_ceu" method="GET">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <label><b>Filtrar por:</b></label>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-control" aria-label="Default select example" name="departamento">
-                                    <option selected value="">Departamento</option>
-                                    @foreach($departamentos as $dpto)
-                                        <option value="{{$dpto[0]}}">{{$dpto[1]}}</option>
-                                    @endforeach
-                                    <option value="1">Todos</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <select class="form-control" name="ano_inicio">
-                                    <option selected value="">Ano inicio</option>
-                                    @for($ano = Date('Y'); $ano >= 2000; $ano--)
-                                    <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
-                                    @endfor
-                                </select>                        
-                            </div>
-                            <div class="col-md-2">
-                                <select class="form-control" name="ano_fim">
-                                    <option selected value="">Ano fim</option>
-                                    @for($ano = Date('Y'); $ano >= 2000; $ano--)
-                                    <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
-                                    @endfor
-                                </select>                        
-                            </div>
-                            <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
-                        </div>
-                      </form>
-                </li>
-            </ul>
-        </div>
-    </div>
     </li>
     <li class="list-group-item">
         <div class="panel panel-default panel-docente">
@@ -110,180 +110,232 @@
                             </div>
                             <br>
                             <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseIntercambio"  aria-controls="collapseIntercambio" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha Intercâmbio
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseIntercambio">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/intercambio" method="GET">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" aria-label="Default select example" name="pessoa" id="pessoa" required>
+                                        <option selected value="">Pessoa</option>
+                                            <option value="alunos_estrangeiros">Alunos estrangeiros</option>
+                                            <option value="alunos_intercambistas">Alunos intercambistas</option>
+                                            <option value="docentes_estrangeiros">Docentes estranheiros</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 curso-setor d-none">
+                                    <select class="form-control d-none" aria-label="Default select example" name="curso" id="curso">
+                                        <option selected value="">Curso</option>
+                                            @foreach($cursos as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        <option value="1">Todos</option>
+                                    </select>
+                                    <select class="form-control d-none" aria-label="Default select example" name="setor" id="setor">
+                                        <option selected value="">Curso</option>
+                                        <option value="'FLF'">Filosofia</option>
+                                        <option value="'FLG'">Geografia</option>
+                                        <option value="'FLH'">História</option>
+                                        <option value="'FLA','FLP','FSL'">Ciências Sociais</option>
+                                        <option value="'FLC','FLM','FLO','FLT','FLL'">Letras</option>
+                                        <option value="1">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-none" id="ano">
+                                        <select class="form-control" name="ano">
+                                            <option selected value="">Ano</option>
+                                                @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                                <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                            @endfor
+                                        </select>                        
+                                </div>
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                            <br>
+                            <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseEvasao"  aria-controls="collapseEvasao" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha Evasão Graduação
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseEvasao">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/evasao" method="GET">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>
+                                <div class="col-md-3 curso">
+                                    <select class="form-control" aria-label="Default select example" name="curso" id="curso">
+                                        <option selected value="">Curso</option>
+                                            @foreach($cursos as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        <option value="1">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2" id="ano">
+                                        <select class="form-control" name="ano">
+                                            <option selected value="">Ano</option>
+                                                @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                                <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                            @endfor
+                                        </select>                        
+                                </div>
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseTransferencia"  aria-controls="collapseTransferencia" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha Transferência Graduação
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseTransferencia">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/transferencia" method="GET">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" aria-label="Default select example" name="tipo" id="tipo" required>
+                                        <option selected value="">Tipo transferência</option>
+                                            <option value="Transf USP">Transferência interna</option>
+                                            <option value="Transf Externa">Transferência externa</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 curso">
+                                    <select class="form-control" aria-label="Default select example" name="curso" id="curso">
+                                        <option selected value="">Curso</option>
+                                            @foreach($cursos as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        <option value="1">Todos</option>
+                                    </select>
+                            
+                                </div>
+                                <div class="col-md-2 " id="ano">
+                                        <select class="form-control" name="ano">
+                                            <option selected value="">Ano</option>
+                                                @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                                <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                            @endfor
+                                        </select>                        
+                                </div>
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                            <br>
+                            <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseBolsas"  aria-controls="collapseBolsas" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha Bolsas Graduação
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseBolsas">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/bolsas" method="GET">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>     
+                                <div class="col-md-3 curso">
+                                    <select class="form-control" aria-label="Default select example" name="curso" id="curso">
+                                        <option selected value="">Curso</option>
+                                            @foreach($cursos as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        <option value="1">Todos</option>
+                                    </select>
+
+                                </div>                                   
+                                <div class="col-md-2 " id="ano">
+                                        <select class="form-control" name="ano">
+                                            <option selected value="">Ano</option>
+                                                @for($ano = Date('Y'); $ano >= 2000; $ano--)
+                                                <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                            @endfor
+                                        </select>                        
+                                </div>
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                            <br>
+                            <span>*O arquivo pode demorar a ser baixado.</span>
                           </form>
                     </li>
                 </ul>
             </div>
         </div>
-        </li>
+    </li>
 
-        <li class="list-group-item">
-            <div class="panel panel-default panel-docente">
-                <div class="panel-heading">
-                    <h5 role="button" data-toggle="collapse" href="#collapseIntercambio"  aria-controls="collapseIntercambio" 
-                        aria-expanded="false" class="collapsed">
-                        Planilha Intercâmbio
-                        <span class="controller-collapse">
-                            <i class="fas fa-plus-square"></i>
-                            <i class="fas fa-minus-square"></i>  
-                        </span>
-                    </h5>
-                </div>
-                <div class="panel-body collapse in" id="collapseIntercambio">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <form action="/restrito/intercambio" method="GET">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <label><b>Filtrar por:</b></label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select class="form-control" aria-label="Default select example" name="pessoa" id="pessoa" required>
-                                            <option selected value="">Pessoa</option>
-                                                <option value="alunos_estrangeiros">Alunos estrangeiros</option>
-                                                <option value="alunos_intercambistas">Alunos intercambistas</option>
-                                                <option value="docentes_estrangeiros">Docentes estranheiros</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 curso-setor d-none">
-                                        <select class="form-control d-none" aria-label="Default select example" name="curso" id="curso">
-                                            <option selected value="">Curso</option>
-                                                @foreach($cursos as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                                @endforeach
-                                            <option value="1">Todos</option>
-                                        </select>
-                                        <select class="form-control d-none" aria-label="Default select example" name="setor" id="setor">
-                                            <option selected value="">Curso</option>
-                                            <option value="FLF">Filosofia</option>
-                                            <option value="FLG">Geografia</option>
-                                            <option value="FLH">História</option>
-                                            <option value="'FLA','FLP','FSL'">Ciências Sociais</option>
-                                            <option value="'FLC','FLM','FLO','FLT','FLL'">Letras</option>
-                                            <option value="1">Todos</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 d-none" id="ano">
-                                            <select class="form-control" name="ano">
-                                                <option selected value="">Ano</option>
-                                                    @for($ano = Date('Y'); $ano >= 2000; $ano--)
-                                                    <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
-                                                @endfor
-                                            </select>                        
-                                    </div>
-                                    <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
-                                </div>
-                                <br>
-                                <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
-                              </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </li>
-
-            <li class="list-group-item">
-                <div class="panel panel-default panel-docente">
-                    <div class="panel-heading">
-                        <h5 role="button" data-toggle="collapse" href="#collapseEvasao"  aria-controls="collapseEvasao" 
-                            aria-expanded="false" class="collapsed">
-                            Planilha Evasão Graduação
-                            <span class="controller-collapse">
-                                <i class="fas fa-plus-square"></i>
-                                <i class="fas fa-minus-square"></i>  
-                            </span>
-                        </h5>
-                    </div>
-                    <div class="panel-body collapse in" id="collapseEvasao">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <form action="/restrito/evasao" method="GET">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <label><b>Filtrar por:</b></label>
-                                        </div>
-                                        <div class="col-md-3 curso">
-                                            <select class="form-control" aria-label="Default select example" name="curso" id="curso">
-                                                <option selected value="">Curso</option>
-                                                    @foreach($cursos as $key => $value)
-                                                    <option value="{{$key}}">{{$value}}</option>
-                                                    @endforeach
-                                                <option value="1">Todos</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2" id="ano">
-                                                <select class="form-control" name="ano">
-                                                    <option selected value="">Ano</option>
-                                                        @for($ano = Date('Y'); $ano >= 2000; $ano--)
-                                                        <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
-                                                    @endfor
-                                                </select>                        
-                                        </div>
-                                        <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
-                                    </div>
-                                  </form>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                </li>
-
-                <li class="list-group-item">
-                    <div class="panel panel-default panel-docente">
-                        <div class="panel-heading">
-                            <h5 role="button" data-toggle="collapse" href="#collapseTransferencia"  aria-controls="collapseTransferencia" 
-                                aria-expanded="false" class="collapsed">
-                                Planilha Transferência Graduação
-                                <span class="controller-collapse">
-                                    <i class="fas fa-plus-square"></i>
-                                    <i class="fas fa-minus-square"></i>  
-                                </span>
-                            </h5>
-                        </div>
-                        <div class="panel-body collapse in" id="collapseTransferencia">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <form action="/restrito/transferencia" method="GET">
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <label><b>Filtrar por:</b></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <select class="form-control" aria-label="Default select example" name="tipo" id="tipo" required>
-                                                    <option selected value="">Tipo transferência</option>
-                                                        <option value="Transf USP">Transferência interna</option>
-                                                        <option value="Transf Externa">Transferência externa</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 curso">
-                                                <select class="form-control" aria-label="Default select example" name="curso" id="curso">
-                                                    <option selected value="">Curso</option>
-                                                        @foreach($cursos as $key => $value)
-                                                        <option value="{{$key}}">{{$value}}</option>
-                                                        @endforeach
-                                                    <option value="1">Todos</option>
-                                                </select>
-                                        
-                                            </div>
-                                            <div class="col-md-2 " id="ano">
-                                                    <select class="form-control" name="ano">
-                                                        <option selected value="">Ano</option>
-                                                            @for($ano = Date('Y'); $ano >= 2000; $ano--)
-                                                            <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
-                                                        @endfor
-                                                    </select>                        
-                                            </div>
-                                            <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
-                                        </div>
-                                        <br>
-                                        <span>*O arquivo pode demorar a ser baixado devido a quantidade de alunos.</span>
-                                      </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    </li>
 </ul>
+
+
 
 @endsection
 

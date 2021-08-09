@@ -14,6 +14,7 @@ use App\Http\Controllers\AtivosPorProgramaPosController;
 use App\Http\Controllers\BeneficiadosController;
 use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
 use App\Http\Controllers\BeneficiosConcedidosController;
+use App\Http\Controllers\BolsasController;
 use App\Http\Controllers\ConcluintesPorAnoController;
 use App\Http\Controllers\ConcluintesGradPorCursoController;
 use App\Http\Controllers\ConveniosAtivosController;
@@ -182,6 +183,8 @@ Route::get('/restrito/intercambio', [IntercambioController::class, 'listarInterc
 Route::get('/restrito/evasao', [EvasaoController::class, 'listarEvasao']);
 
 Route::get('/restrito/transferencia', [TransferenciaController::class, 'listarTransferencia']);
+
+Route::get('/restrito/bolsas', [BolsasController::class, 'listarBolsas']);
 
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
