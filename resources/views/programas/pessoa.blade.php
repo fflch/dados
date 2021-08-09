@@ -253,7 +253,7 @@
                         @endif
                         @arr([$value,'ANO-DE-REALIZACAO']).
 
-                        @if(isset($value['PAGINA-INICIAL']))
+                        @if(isset($value['PAGINA-INICIAL']) && $value['PAGINA-INICIAL'] != '')
                             p.  @arr([$value,'PAGINA-INICIAL'])  - @arr([$value,'PAGINA-FINAL']).
                         @endif
                         
@@ -401,7 +401,10 @@
                         
                         
                         @arr([$value,'TITULO']). 
-                        @arr([$value,'ANO']) (@arr([$value,'EMISSORA']))
+                        @arr([$value,'ANO']) 
+                        @if(isset($value['EMISSORA']) && $value['EMISSORA'] != '')
+                        @arr([$value,'EMISSORA'])
+                        @endif
 
                     </li>
                 @endforeach
