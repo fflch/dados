@@ -37,18 +37,21 @@ class IntercambioController extends Controller
             $result = ReplicadoTemp::listarDocentesEstrangeiros($ano, $setor);
 
             $data = [];
-
-            foreach($result as $r){
-                $aux = [];
-                $aux['codpes'] = $r['codpes'];
-                $aux["nompes"] = $r["nompes"];
-                $aux["dtainiatvitb"] = $r["dtainiatvitb"];
-                
-                $curso_dpto = Util::retornarCursoGrdPorDepartamento($r['nomabvset'])['nome_curso'];
-                $aux['curso'] = $curso_dpto;
-                array_push($data,$aux);
+            
+            if($result){
+                foreach($result as $r){
+                    $aux = [];
+                    $aux['codpes'] = $r['codpes'];
+                    $aux["nompes"] = $r["nompes"];
+                    $aux["dtainiatvitb"] = $r["dtainiatvitb"];
+                    
+                    $curso_dpto = Util::retornarCursoGrdPorDepartamento($r['nomabvset'])['nome_curso'];
+                    $aux['curso'] = $curso_dpto;
+                    array_push($data,$aux);
+                }
             }
             $result = $data;
+           
         }   
 
         $export = new DadosExport([$result], $campos);
