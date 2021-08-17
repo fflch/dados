@@ -33,5 +33,9 @@ return [
             'url'  => '/restrito',
             'can'  => 'admins'
         ],
+        [
+            'text' => 'Api',
+            'url'  => '/docs',
+        ],
     ],
 ];

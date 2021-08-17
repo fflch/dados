@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\DefesaController;
 use App\Http\Controllers\Api\PessoaController;
 use App\Http\Controllers\Api\ProgramaController;
 
+
 Route::get('/defesas', [DefesaController::class, 'index']);
 Route::get('/pessoas', [PessoaController::class, 'index']);
 
@@ -20,3 +21,4 @@ Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente
 Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
 Route::get('/obter_orcid', [ProgramaController::class, 'obterOrcid']);
 Route::get('/listar_docentes', [PessoaController::class, 'listarDocentes']);
+
