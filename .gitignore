@@ -13,3 +13,4 @@ yarn-error.log
 /public/vendor/
 /storage/debugbar/
 .scribe/
+.vscode

@@ -13,3 +13,21 @@ $(document).ready(function(){
     });
 
 });
+
+$(document).ready(function(){
+    $("#collapseIntercambio #pessoa").change(function(){
+        var value = $(this).val();
+        
+        $("#collapseIntercambio #curso, #collapseIntercambio #setor, #collapseIntercambio #ano, #collapseIntercambio .curso-setor").addClass('d-none');
+        if(value == 'alunos_intercambistas' ){
+            $('#collapseIntercambio #curso, #collapseIntercambio .curso-setor, #collapseIntercambio #ano').removeClass('d-none');
+        } else if (value == 'alunos_estrangeiros'){
+            $('#collapseIntercambio #ano').removeClass('d-none');
+        } else if (value == 1 || value == ''){
+            $("#collapseIntercambio #ano").addClass('d-none');
+        } else if (value == 'docentes_estrangeiros'){
+            $('#collapseIntercambio #setor, #collapseIntercambio .curso-setor, #collapseIntercambio #ano').removeClass('d-none');
+        }
+    });
+
+});

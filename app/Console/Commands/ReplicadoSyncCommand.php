@@ -48,15 +48,23 @@ class ReplicadoSyncCommand extends Command
      * @return int
      */
     public function handle()
-    {
-
-        $this->sync_comissao_pesquisa();
+    {       
         
+        $this->sync_comissao_pesquisa();
+
         $this->sync_docentes(); 
-       
-       
+        
+        $this->sync_estagiarios();   
+        
+        $this->sync_monitores();
+        
+        $this->sync_servidores();
+        
+        $this->sync_chefes_administrativos();
+        
         
         $programas = Posgraduacao::programas(8);
+       
         
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
@@ -71,15 +79,15 @@ class ReplicadoSyncCommand extends Command
         }
         
         $this->syncJson(ReplicadoTemp::credenciados(), null, 'docentes');
+        
+        
         foreach($programas as $value) {
-            $this->syncJson(Posgraduacao::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
+            $this->syncJson(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
         }
+        
         foreach($programas as $value) {
             $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
-        }
-       
-        
-
+        }        
 
         return 0;
     }
@@ -89,6 +97,7 @@ class ReplicadoSyncCommand extends Command
         putenv('REPLICADO_SYBASE=1');
         
         $docentes = Pessoa::listarDocentes(null, 'A,P');
+        $this->sync_pessoas_local_replicado($docentes, 'Docente');
 
         foreach($docentes as $docente){
             
@@ -97,6 +106,7 @@ class ReplicadoSyncCommand extends Command
             
             $id_lattes = Lattes::id($docente['codpes']);
          
+
             $pessoa->codpes = $docente['codpes'];
             $pessoa->id_lattes = isset($id_lattes) ? $id_lattes : null;
             $pessoa->sitatl = $docente['sitatl'];
@@ -104,7 +114,110 @@ class ReplicadoSyncCommand extends Command
             $pessoa->codset = isset($docente['codset']) ? $docente['codset'] : null;
             $pessoa->nomset = isset($docente['nomset']) ? $docente['nomset'] : null;
             $pessoa->email = isset($docente['codema']) ? $docente['codema'] : null;
+            
+            $json = ['nomfnc' => $docente['nomfnc']];
+            $pessoa->json = json_encode($json); 
+            
             $pessoa->tipo_vinculo = 'Docente'; 
+
+            $pessoa->save();
+        }        
+    }
+
+    private function sync_estagiarios(){
+        putenv('REPLICADO_SYBASE=1');
+
+        $estagiarios = Pessoa::estagiarios(8);
+        $this->sync_pessoas_local_replicado($estagiarios, 'Estagiario');
+
+        foreach($estagiarios as $estagiario){
+            
+            $pessoa = PessoaModel::where('codpes',$estagiario['codpes'])->where('tipo_vinculo', 'Estagiario')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $estagiario['codpes'];
+            $pessoa->nompes = $estagiario['nompes'];
+            $pessoa->codset = isset($estagiario['codset']) ? $estagiario['codset'] : null;
+            $pessoa->nomset = isset($estagiario['nomset']) ? $estagiario['nomset'] : null;
+            $pessoa->email = isset($estagiario['codema']) ? $estagiario['codema'] : null;
+            $pessoa->tipo_vinculo = 'Estagiario'; 
+            $pessoa->save();
+        }        
+    }
+    
+    /**
+     * Método para sincronizar a tabela pessoas no banco de dados local com o banco do replicado
+     * @param Array $dados_replicado, array que contenha o codpes das pessoas para atualizar os registros
+     * @param String $tipo_vinculo, tipo de vínculo da pessoa conforme cadastrado no banco local 
+     * @return void
+     */
+    private function sync_pessoas_local_replicado($dados_replicado, $tipo_vinculo){
+        $codpes = PessoaModel::select('codpes')->where('tipo_vinculo', $tipo_vinculo)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        $codpes_replicado = array_column($dados_replicado, 'codpes');
+        $diff = array_diff($codpes, $codpes_replicado);
+        PessoaModel::whereIn('codpes', $diff)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+    }
+
+    private function sync_chefes_administrativos(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $chefes = ReplicadoTemp::listarChefesAdministrativos();
+        $this->sync_pessoas_local_replicado($chefes, 'Chefe Administrativo');
+
+        foreach($chefes as $chefe){
+            
+            $pessoa = PessoaModel::where('codpes',$chefe['codpes'])->where('tipo_vinculo', 'Chefe Administrativo')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $chefe['codpes'];
+            $pessoa->nompes = $chefe['nompes'];
+            $pessoa->codset = isset($chefe['codset']) ? $chefe['codset'] : null;
+            $pessoa->nomset = isset($chefe['nomset']) ? $chefe['nomset'] : null;
+            $pessoa->email = isset($chefe['codema']) ? $chefe['codema'] : null;
+            $pessoa->tipo_vinculo = 'Chefe Administrativo'; 
+            $pessoa->save();
+        }        
+    }
+    
+    private function sync_servidores(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $servidores = Pessoa::servidores(8);
+        $this->sync_pessoas_local_replicado($servidores, 'Funcionário');
+
+        foreach($servidores as $servidor){
+            
+            $pessoa = PessoaModel::where('codpes',$servidor['codpes'])->where('tipo_vinculo', 'Funcionário')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $servidor['codpes'];
+            $pessoa->nompes = $servidor['nompes'];
+            $pessoa->codset = isset($servidor['codset']) ? $servidor['codset'] : null;
+            $pessoa->nomset = isset($servidor['nomset']) ? $servidor['nomset'] : null;
+            $pessoa->email = isset($servidor['codema']) ? $servidor['codema'] : null;
+            $pessoa->tipo_vinculo = 'Funcionário'; 
+            $pessoa->save();
+        }        
+    }
+    
+    private function sync_monitores(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $monitores = ReplicadoTemp::listarMonitores();
+        $this->sync_pessoas_local_replicado($monitores, 'Monitor');
+
+        foreach($monitores as $monitor){
+            
+            $pessoa = PessoaModel::where('codpes',$monitor['codpes'])->where('tipo_vinculo', 'Monitor')->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+         
+            $pessoa->codpes = $monitor['codpes'];
+            $pessoa->nompes = $monitor['Nome'];
+            $pessoa->email = isset($monitor['E-mail']) ? $monitor['E-mail'] : null;
+            $json = ['bolsa_ini' => $monitor['Início da Bolsa'],
+                    'bolsa_fim' => $monitor['Fim da Bolsa']];
+            $pessoa->json = json_encode($json);
+            $pessoa->tipo_vinculo = 'Monitor'; 
             $pessoa->save();
         }        
     }
@@ -113,9 +226,24 @@ class ReplicadoSyncCommand extends Command
 
         putenv('REPLICADO_SYBASE=1');
 
+        $codproj = ComissaoPesquisa::select('codproj')->get()->pluck('codproj')->toArray(); //buscando os registros no banco local
+
         //iniciação cientifica
         $iniciacao_cientifica = Pesquisa::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
+        //pesquisas de pos doutorandos ativos
+        $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
+        //pesquisadores colaborativos ativos
+        $pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
+
         
+        $codproj_ic = array_column($iniciacao_cientifica, 'cod_projeto');
+        $codproj_pes = array_column($pesquisa, 'codprj');
+        $codproj_pes_colab = array_column($pesquisadores_colab, 'codprj');
+        $codproj_replicado = array_merge($codproj_ic, $codproj_pes, $codproj_pes_colab);
+       
+        $diff = array_diff($codproj, $codproj_replicado);
+        ComissaoPesquisa::whereIn('codproj', $diff)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+
         if($iniciacao_cientifica){
             foreach($iniciacao_cientifica as $ic){
                 
@@ -136,7 +264,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->nome_departamento = $ic['departamento'];
                 $comissao->status_projeto = $ic['status_projeto'];
 
-                $curso = $this->retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
+                $curso = Util::retornarCursoGrdPorDepartamento($ic['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
@@ -149,8 +277,8 @@ class ReplicadoSyncCommand extends Command
         }
         
     
-        //pesquisas de pos doutorandos ativos
-        $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
+        
+
         if($pesquisa){
             foreach($pesquisa as $pd){
                 $comissao = ComissaoPesquisa::where('codproj',$pd['codprj'])->where('codpes_discente',$pd['codpes'])->first();
@@ -170,7 +298,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->sigla_departamento = $pd['sigla_departamento'];
                 $comissao->nome_departamento = $pd['departamento'];
 
-                $curso = $this->retornarCursoGrdPorDepartamento($pd['sigla_departamento']);
+                $curso = Util::retornarCursoGrdPorDepartamento($pd['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
@@ -183,8 +311,7 @@ class ReplicadoSyncCommand extends Command
             }
         }        
         
-        //pesquisadores colaborativos ativos
-        $pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
+       
         if($pesquisadores_colab){
             foreach($pesquisadores_colab as $pc){
                 $comissao = ComissaoPesquisa::where('codproj',$pc['codprj'])->where('codpes_discente',$pc['codpes'])->first();
@@ -203,7 +330,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->sigla_departamento = $pc['sigla_departamento'];
                 $comissao->nome_departamento = $pc['departamento'];
 
-                $curso = $this->retornarCursoGrdPorDepartamento($pc['sigla_departamento']);
+                $curso = Util::retornarCursoGrdPorDepartamento($pc['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
@@ -214,8 +341,6 @@ class ReplicadoSyncCommand extends Command
                 $comissao->save();
             }
         }
-
-        
         
          //projetos de pesquisa dos docentes
          putenv('REPLICADO_SYBASE=0');
@@ -235,7 +360,7 @@ class ReplicadoSyncCommand extends Command
                          $comissao->data_fim = !empty($pesquisa['ANO-FIM']) ?  $pesquisa['ANO-FIM']."-01-01 00:00:00" : null;
                          $comissao->sigla_departamento = $key;
                          $comissao->nome_departamento = $value[1];
-                         $curso = $this->retornarCursoGrdPorDepartamento($key);
+                         $curso = Util::retornarCursoGrdPorDepartamento($key);
                          $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                          $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
                          $comissao->codpes_supervisor= null;
@@ -256,38 +381,45 @@ class ReplicadoSyncCommand extends Command
         
     }
 
-    private function retornarCursoGrdPorDepartamento($sigla_departamento){
-        $aux_cursos = [
-            8010 => ['Filosofia', 'FLF'],
-            8021 => ['Geografia', 'FLG'],
-            8030 => ['História', 'FLH'],
-            8040 => ['Ciências Sociais', 'FLA', 'FLP', 'FSL'],
-            8051 => ['Letras', 'FLC', 'FLM', 'FLO', 'FLT', 'FLL'],
-        ];
-        $curso = [];
-        foreach($aux_cursos as $key=>$value){
-            if(in_array($sigla_departamento, $value)){
-                $curso['codcur'] = $key; 
-                $curso['nome_curso'] = $value[0]; 
-            }
-        }
-        return $curso;
-    }
-
     private function syncJson($pessoas, $codare = null, $tipo_pessoa = null){
+       
+        if(!is_array($pessoas))return;
 
+        if($tipo_pessoa == 'docentes'){
+            $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        }else{
+            $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->where('codare', $codare)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        }
+        $codpes_replicado = array_column($pessoas, 'codpes');
+        $diff = array_diff($codpes, $codpes_replicado);
+        
+        LattesModel::whereIn('codpes', $diff)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+        
+        if($tipo_pessoa != 'docentes'){
+            LattesModel::where(function ($query) {
+                $query->where('nivpgm',null)->orWhere('nivpgm','');
+            })->where('tipo_pessoa', '!=', 'docentes')->delete();
+        }
+       
         foreach($pessoas as $pessoa) {
-                
+          
+            
             if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
+
+           
+            if($tipo_pessoa != 'docentes' && empty($pessoa['nivpgm'])) continue;
 
             $aux_codare = $codare == null ? $pessoa['codare'] : $codare;
             $nivpgm = isset($pessoa['nivpgm']) ? $pessoa['nivpgm'] : null;
 
+            
             $lattes = LattesModel::where('codpes',$pessoa['codpes'])->where('codare',$aux_codare)->where('tipo_pessoa',$tipo_pessoa)->where('nivpgm',$nivpgm)->first();
+            
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
             $lattes_array = Lattes::obterArray($pessoa['codpes']);
+           
             if($lattes_array){
                 $info_lattes = [];
 
@@ -327,6 +459,7 @@ class ReplicadoSyncCommand extends Command
                 $lattes->codare = $aux_codare;
                 $lattes->nivpgm =  $nivpgm;
                 $lattes->json = json_encode($info_lattes);
+               
                 $lattes->save();
             } else {
                 $lattes->codpes = $pessoa['codpes'];
@@ -338,6 +471,7 @@ class ReplicadoSyncCommand extends Command
                 echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";lattes não encontrado\n";
             }
         }
+       
     }
 
 }
