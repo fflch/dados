@@ -45,4 +45,21 @@ h5[data-toggle="collapse"] .controller-collapse .fa-minus-square {
   text-decoration: none;
   color: #536daa;
 }
+
+.loading{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.1);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.loading .spinner{
+  align-self: center;
+  color: #273e74 !important;
+}
 /*# sourceMappingURL=programas.css.map */
