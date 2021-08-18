@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     $("#collapseExAlunos #nivel").change(function(){
         var value = $(this).val();
         
@@ -12,9 +13,6 @@ $(document).ready(function(){
         }
     });
 
-});
-
-$(document).ready(function(){
     $("#collapseIntercambio #pessoa").change(function(){
         var value = $(this).val();
         
@@ -29,5 +27,12 @@ $(document).ready(function(){
             $('#collapseIntercambio #setor, #collapseIntercambio .curso-setor, #collapseIntercambio #ano').removeClass('d-none');
         }
     });
+    
+    
+
+    
+
+  
+
 
 });

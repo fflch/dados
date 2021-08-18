@@ -341,10 +341,13 @@
 
 
 
-<div id="loading" >    
-    <div id="spinner"  role="status">
+<div id="loading" class="d-none loading">    
+    <div id="spinner" class="spinner-border text-primary spinner"  role="status">
         <span class="sr-only">Loading...</span>
     </div>
+    <span class="texto-ajuda">
+        O arquivo pode demorar a ser baixado devido a quantidade de registros
+    </span>
 </div>
 
 @section('javascripts_bottom')
@@ -355,17 +358,17 @@
         $("form").submit(function (event) {
             event.preventDefault();
 
-            console.log('submit');
             $form = $(this);
             $action = $form.attr('action');
-            console.log($action);
 
-            var formData = {
-                departamento: $("#departamento").val(),
-                ano_inicio: $("#ano_inicio").val(),
-                ano_fim: $("#ano_fim").val()
-            };
+            var formData = {};
+            $($form).find('input, textarea, select').each(function(){
+                var name = $(this).attr('name'); 
+                var value = $(this).val(); 
+                formData[name] = value;
+            }) ;
 
+            
             $.ajax({
                 type: "GET",
                 enctype: 'multipart/form-data',
@@ -375,21 +378,18 @@
                     responseType: 'blob'
                 },
                 beforeSend: function() {
-                    console.log('beforesend');
-                    $('#loading').addClass('loading');
-                    $('#spinner').addClass('spinner-border text-primary spinner');
+                    $('#loading').removeClass('d-none');
+                    $('#loading .texto-ajuda').addClass('animacao-demora-carregamento');
                 },
                 success: function(result) {
-                    console.log('success');
-                    $('#loading').removeClass('loading');
-                    $('#spinner').removeClass('spinner-border text-primary spinner');
-
+                    $('#loading').addClass('d-none');
+                    $('#loading .texto-ajuda').removeClass('animacao-demora-carregamento');
                    
                     var blob = result;
                     var downloadUrl = URL.createObjectURL(blob);
                     var a = document.createElement("a");
                     a.href = downloadUrl;
-                    a.download = "downloadFile.xls";
+                    a.download = "download-portal-dados.xls";
                     document.body.appendChild(a);
                     a.click();
                 }
