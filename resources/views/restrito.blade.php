@@ -28,7 +28,7 @@
                                     <label><b>Filtrar por:</b></label>
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="form-control" aria-label="Default select example" name="departamento">
+                                    <select id="departamento" class="form-control" aria-label="Default select example" name="departamento">
                                         <option selected value="">Departamento</option>
                                         @foreach($departamentos as $dpto)
                                             <option value="{{$dpto[0]}}">{{$dpto[1]}}</option>
@@ -37,7 +37,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <select class="form-control" name="ano_inicio">
+                                    <select id="ano_inicio" class="form-control" name="ano_inicio">
                                         <option selected value="">Ano inicio</option>
                                         @for($ano = Date('Y'); $ano >= 2000; $ano--)
                                         <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
@@ -45,14 +45,14 @@
                                     </select>                        
                                 </div>
                                 <div class="col-md-2">
-                                    <select class="form-control" name="ano_fim">
+                                    <select id="ano_fim" class="form-control" name="ano_fim">
                                         <option selected value="">Ano fim</option>
                                         @for($ano = Date('Y'); $ano >= 2000; $ano--)
                                         <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
                                         @endfor
                                     </select>                        
                                 </div>
-                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                                <div class="col-md-3"><button id="btnEnviarCeu" type="submit" class="btn btn-primary">Baixar</button></div>
                             </div>
                         </form>
                     </li>
@@ -339,6 +339,66 @@
 
 @endsection
 
+
+
+<div id="loading" class="d-none loading">    
+    <div id="spinner" class="spinner-border text-primary spinner"  role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <span class="texto-ajuda">
+        O arquivo pode demorar a ser baixado devido a quantidade de registros
+    </span>
+</div>
+
 @section('javascripts_bottom')
   <script src="{{ asset('assets/js/restrito.js') }}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            event.preventDefault();
+
+            $form = $(this);
+            $action = $form.attr('action');
+
+            var formData = {};
+            $($form).find('input, textarea, select').each(function(){
+                var name = $(this).attr('name'); 
+                var value = $(this).val(); 
+                formData[name] = value;
+            }) ;
+
+            
+            $.ajax({
+                type: "GET",
+                enctype: 'multipart/form-data',
+                url: $action,
+                data: formData,
+                xhrFields:{
+                    responseType: 'blob'
+                },
+                beforeSend: function() {
+                    $('#loading').removeClass('d-none');
+                    $('#loading .texto-ajuda').addClass('animacao-demora-carregamento');
+                },
+                success: function(result) {
+                    $('#loading').addClass('d-none');
+                    $('#loading .texto-ajuda').removeClass('animacao-demora-carregamento');
+                   
+                    var blob = result;
+                    var downloadUrl = URL.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    a.href = downloadUrl;
+                    a.download = "download-portal-dados.xls";
+                    document.body.appendChild(a);
+                    a.click();
+                }
+
+            
+            });
+        });
+    });
+
+  </script>
+
 @endsection 

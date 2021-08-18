@@ -1,3 +1,8 @@
+html, body{
+  min-height: 100vh;
+  height: 100vh;
+}
+
 .f-20 {
   font-size: 20px !important;
 }
@@ -44,5 +49,41 @@ h5[data-toggle="collapse"] .controller-collapse .fa-minus-square {
 .btn-voltar:hover{
   text-decoration: none;
   color: #536daa;
+}
+
+.loading{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.1);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.loading .spinner{
+  align-self: center;
+  color: #273e74 !important;
+}
+.loading .texto-ajuda{
+  position: absolute;
+  top: calc(50% + 40px);
+  color: #000;
+  background: #fff;
+  padding: 1px 5px;
+  border-radius: 9px;
+  opacity: 0;
+}
+.animacao-demora-carregamento{
+  animation-name: texto-ajuda-demora-carregamento;
+  animation-duration: 2s;
+  animation-delay: 7s;
+  animation-fill-mode: forwards;
+}
+@keyframes texto-ajuda-demora-carregamento {
+  0%   {opacity: 0;}
+  100% {opacity: 1;}
 }
 /*# sourceMappingURL=programas.css.map */
