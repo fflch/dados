@@ -2,9 +2,15 @@
 
 @section('content')
 
+<h1 class="text-center">APRESENTAÇÃO</h1>
+<p class="text-center">
+    O Portal de Dados surge a fim de disponibilizar ao público informações atualizadas em tempo real sobre a Faculdade de Filosofia, Letras e Ciências Humans - FFLCH, unidade de ensino, pesquisa e extensão universitária que abrange as áreas de Filosofia, História, Geografia, Letras e Ciências Sociais da Universidade de São Paulo. Os dados disponíveis podem ser acessados através do catálogo a seguir, organizado por categorias:
+</p>
 <div class="card">
-    <div class="card-header"><b></b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosProducaoAcademica"  role="button" aria-expanded="false" aria-controls="collapseDadosProducaoAcademica" ><b>Dados de produção acadêmica: 3</b>  
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+   </div>
+    <div class="card-body collapse"  id="collapseDadosProducaoAcademica">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/programas">Programas de Pós-Graduação</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/defesas">Defesas</a></li>
@@ -14,9 +20,13 @@
     </div>
 </div>
 
+<br>
+
 <div class="card">
-    <div class="card-header"><b>Dados gerais do portal: 6</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosGerais"  role="button" aria-expanded="false" aria-controls="collapseDadosGerais" ><b>Dados gerais do portal: 6</b>  
+         <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosGerais" >
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativos">Totais de pessoas com vínculos ativos.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosMicrosNotes">Totais de microcomputadores e notebooks.</a></li>
@@ -32,8 +42,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por gênero: 1</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosGenero"  role="button" aria-expanded="false" aria-controls="collapseDadosGenero"><b>Dados por gênero: 1</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosGenero">
 
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGenero/ALUNOGR0/0">Totais de ativos contabilizadas por
@@ -47,8 +59,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por curso: 3</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosCurso"  role="button" aria-expanded="false" aria-controls="collapseDadosCurso"><b>Dados por curso: 3</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosCurso">
 
         <ul class="list-group">
            
@@ -66,8 +80,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados pós graduação: 4</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosPGR"  role="button" aria-expanded="false" aria-controls="collapseDadosPGR"><b>Dados pós graduação: 4</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosPGR">
     <ul class="list-group">
         <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPorProgramaPos">Totais de pessoas da Pós-Graduação, separadas por programa.</a></li>
         <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPosNivelPgm">Quantidade de alunos ativos da pós-graduação por nível de programa.</a></li>
@@ -81,8 +97,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por ano: 7</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosAno"  role="button" aria-expanded="false" aria-controls="collapseDadosAno"><b>Dados por ano: 7</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosAno">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosBeneficiosConHist?ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica de benefícios concedidos por
                     ano.</a></li>
@@ -102,8 +120,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por cor/raça: 1</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosRaca"  role="button" aria-expanded="false" aria-controls="collapseDadosRaca"><b>Dados por cor/raça: 1</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosRaca">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosAutodeclarados/ALUNOGR">Totais de alunos autodeclarados por raça/cor.</a></li>
         </ul>
@@ -113,8 +133,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por nacionalidade/localidade: 2</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosNacionalidade"  role="button" aria-expanded="false" aria-controls="collapseDadosNacionalidade"><b>Dados por nacionalidade/localidade: 2</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosNacionalidade">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPaisNascimento/2">Totais de alunos e docentes brasileiros e estrangeiros ativos.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
@@ -125,8 +147,10 @@
 <br>
 
 <div class="card">
-    <div class="card-header"><b>Dados por ingresso: 2</b></div>
-    <div class="card-body">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosIngresso"  role="button" aria-expanded="false" aria-controls="collapseDadosIngresso"><b>Dados por ingresso: 2</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosIngresso">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/IngressantesGeneroCurso?curso=Letras&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: Ingressantes da graduação por curso, gênero e ano</a></li>
@@ -135,4 +159,13 @@
     
 </div>
 
+
 @endsection
+
+@section('javascripts_bottom')
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+@endsection 
