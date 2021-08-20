@@ -160,9 +160,6 @@ Route::get('/programas/egressos/{codare}', [ProgramaController::class, 'listarEg
 # Defesas
 Route::get('/defesas', [DefesaController::class, 'index']);
 
-# Pessoas
-Route::get('/pessoas', [PessoaController::class, 'index']);
-
 # Pesquisa
 Route::get('/pesquisa', [PesquisaController::class, 'index']);
 Route::get('/iniciacao_cientifica', [IniciacaoCientificaController::class, 'iniciacao_cientifica']);

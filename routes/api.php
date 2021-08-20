@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\ProgramaController;
 
 
 Route::get('/defesas', [DefesaController::class, 'index']);
-Route::get('/pessoas', [PessoaController::class, 'index']);
 
 Route::get('/programas', [ProgramaController::class, 'index']);
 Route::get('/programas/{codare}', [ProgramaController::class, 'show']);
