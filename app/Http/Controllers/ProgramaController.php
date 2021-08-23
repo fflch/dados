@@ -72,6 +72,12 @@ class ProgramaController extends Controller
         $content = Programa::obterPessoa($codpes, $filtro,false, 'docentes');
         $section_show = request()->section ?? '';
 
+        
+        if(sizeof($content) == 0){
+            $request->session()->flash('alert-danger', "Dados do docente não encontrados");
+            return redirect("/programas");
+        }
+        
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
@@ -81,12 +87,18 @@ class ProgramaController extends Controller
         ]);
     }
 
+    
     public function discente($id_lattes, Request $request) {
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
         $filtro = Programa::getFiltro($request);        
         $content = Programa::obterPessoa($codpes, $filtro, false, 'discentes');
         $section_show = request()->section ?? '';
         
+        if(sizeof($content) == 0){
+            $request->session()->flash('alert-danger', "Dados do discente não encontrados");
+            return redirect("/programas");
+        }
+
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
@@ -101,6 +113,11 @@ class ProgramaController extends Controller
         $content = Programa::obterPessoa($codpes, $filtro, false, 'egressos');
         $section_show = request()->section ?? '';
         
+        if(sizeof($content) == 0){
+            $request->session()->flash('alert-danger', "Dados do egresso não encontrados");
+            return redirect("/programas");
+        }
+
         return view('programas.pessoa',[
             'content' => $content,
             'section_show' => $section_show,
@@ -108,4 +125,5 @@ class ProgramaController extends Controller
             'form_action' => "/programas/egresso/$id_lattes"
         ]);
     }
+
 }
