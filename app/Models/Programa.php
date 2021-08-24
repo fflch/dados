@@ -154,7 +154,7 @@ class Programa extends Model
 
         }
         usort($aux_pessoas, function ($a, $b) {
-            return $a['nompes'] > $b['nompes'];
+            return $a['nompes'] <=> $b['nompes'];
         });
 
         return $aux_pessoas;
