@@ -9,7 +9,7 @@ use App\Models\Programa;
 use App\Utils\ReplicadoTemp;
 use Uspdev\Replicado\Posgraduacao;
 use Uspdev\Replicado\Lattes;
-
+use App\Models\Lattes as LattesModel;
 
 class ProgramaController extends Controller
 {
@@ -54,6 +54,8 @@ class ProgramaController extends Controller
     }
 
     public function docente($id_lattes, Request $request) {
+
+       
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
 
         $filtro = Programa::getFiltro($request);        
@@ -73,7 +75,7 @@ class ProgramaController extends Controller
             $content
         );
     }
-    public function egresso($id_lattes, Request $request) {
+    public function egresso($id_lattes, Request $request) {       
         $codpes = Lattes::retornarCodpesPorIDLattes($id_lattes);
 
         $filtro = Programa::getFiltro($request);        
