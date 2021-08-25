@@ -135,6 +135,26 @@ class ReplicadoTemp
         return DB::fetchAll($query);
     }
 
+    /**
+     * Método para retornar os chefes de departamento da fflch
+    */
+    public static function listarChefesDepartamento()
+    {
+        $query = "SELECT L.codpes, 
+                L.nompes, 
+                L.nomset, 
+                E.codema
+                from LOCALIZAPESSOA  L
+                JOIN EMAILPESSOA E ON L.codpes = E.codpes
+                WHERE L.nomfnc = 'Ch Depart Ensino' 
+                AND L.codundclg = 8 
+	            AND L.sitatl = 'A'
+                AND E.codema LIKE '%@usp.br%'
+                ORDER BY L.nompes";
+
+        return DB::fetchAll($query);
+    }
+
     public static function listarEvasao($year, $curso)
     {
         $addquery = '';

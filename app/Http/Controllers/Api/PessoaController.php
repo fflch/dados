@@ -19,7 +19,8 @@ class PessoaController extends Controller
         $estagiarios = Pessoa::listarEstagiarios();
         
         return response()->json(
-            $estagiarios
+            $estagiarios,
+            200, [], JSON_UNESCAPED_UNICODE
         );
     }
     
@@ -43,7 +44,17 @@ class PessoaController extends Controller
         $chefes = Pessoa::listarChefesAdministrativos();
         
         return response()->json(
-            $chefes
+            $chefes,
+            200, [], JSON_UNESCAPED_UNICODE
+        );
+    }
+
+    public function listarChefesDepartamento(){
+        $chefes_departamento = Pessoa::listarChefesDepartamento();
+        
+        return response()->json(
+            $chefes_departamento,
+            200, [], JSON_UNESCAPED_UNICODE
         );
     }
 
