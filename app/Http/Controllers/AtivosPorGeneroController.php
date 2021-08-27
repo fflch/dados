@@ -46,6 +46,7 @@ class AtivosPorGeneroController extends Controller
             'ALUNOPD' => ['url' => 'ativosGenero/ALUNOPD/0', 'nome' => 'Alunos de Pós Doutorado'],
             'ALUNOCEU' => ['url' => 'ativosGenero/ALUNOCEU/0', 'nome' => 'Alunos de Cultura e Extensão'],
             'CHEFESADM' => ['url' => 'ativosGenero/CHEFESADM/0', 'nome' => 'Chefes Administrativos'],
+            'CHEFESDPTO' => ['url' => 'ativosGenero/CHEFESDPTO/0', 'nome' => 'Chefes de Departamento'],
             'COORD' => ['url' => 'ativosGenero/COORD/0', 'nome' => 'Coordenadores de Cursos de Graduação'],
         ];
 
@@ -59,6 +60,8 @@ class AtivosPorGeneroController extends Controller
                 $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios_genero.sql');                
             }else if($aux_tipvin == 'CHEFESADM'){
                 $query = file_get_contents(__DIR__ . '/../../../Queries/conta_chefes_administrativos_genero.sql');                
+            }else if($aux_tipvin == 'CHEFESDPTO'){
+                $query = file_get_contents(__DIR__ . '/../../../Queries/conta_chefes_departamento_genero.sql');                
             }else if($aux_tipvin == 'COORD'){
                 $query = file_get_contents(__DIR__ . '/../../../Queries/conta_coordcursosgrad_genero.sql');                
             }

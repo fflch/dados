@@ -89,15 +89,29 @@ class Pessoa extends Model
             $aux = [
                 'chefe_id' => Generic::crazyHash($chefe['codpes']),
                 'nompes'        => $chefe['nompes'],
-                'codset'      => $chefe['codset'],
                 'nomset'      => $chefe['nomset'],
                 'email'      => isset($chefe['email']) && str_contains($chefe['email'], 'usp.br') ? $chefe['email'] : '',
             ];
             
             array_push($retorno, $aux);
         }
-    
+        return $retorno;
+    }
 
+    public static function listarChefesDepartamento(){
+        $chefes_departamento = Pessoa::where('tipo_vinculo', 'Chefe Departamento')->get()->toArray();
+
+        $retorno = [];
+        foreach($chefes_departamento as $chefe){
+            $aux = [
+                'chefe_dpto_id' => Generic::crazyHash($chefe['codpes']),
+                'nompes'        => $chefe['nompes'],
+                'nomset'      => $chefe['nomset'],
+                'email'      => isset($chefe['email']) && str_contains($chefe['email'], 'usp.br') ? $chefe['email'] : '',
+            ];
+            
+            array_push($retorno, $aux);
+        }
         return $retorno;
     }
     
