@@ -21,7 +21,8 @@ class ProgramaController extends Controller
     
     public function obterOrcid(){
         return response()->json(
-            Programa::obterOrcid()
+            Programa::obterOrcid(),
+            200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
     }
 

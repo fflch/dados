@@ -11,7 +11,8 @@ class DefesaController extends Controller
 {
     public function index(DefesaRequest $request){
         return response()->json(
-            Defesa::listar($request->validated())
+            Defesa::listar($request->validated()),
+            200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
     }
 }

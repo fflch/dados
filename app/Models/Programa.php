@@ -160,7 +160,7 @@ class Programa extends Model
         return $aux_pessoas;
     }
 
-    public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa) {
+    public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa = 'docentes') {
 
 
         
@@ -250,8 +250,14 @@ class Programa extends Model
         $pessoas = LattesModel::where('codpes', '<>', null)->get()->toArray();
         foreach($pessoas as $pessoa){
             $lattes = $pessoa ? json_decode($pessoa['json'],TRUE) : null;
-            $aux_orcid = $lattes['orcid'];
-            $orcid[$pessoa['codpes']] = $aux_orcid;
+            if(isset($lattes['orcid']) && $lattes['orcid'] != false && $lattes['orcid'] != ""){
+                $aux = [
+                    'id_lattes' => $lattes['id_lattes'],
+                    'nompes' => $lattes['nome'],
+                    'orcid' => $lattes['orcid'],
+                ];
+                array_push($orcid, $aux);
+            }
         }
         return $orcid;
     }
