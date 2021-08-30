@@ -13,7 +13,7 @@
 <div class="card">
   <div class="card-header">
     @if(!empty($nome_departamento))
-      <b>Pesquisas de pós doutorado do departameno de {{$nome_departamento}}</b>
+      <b>Pesquisas de pós doutorado do departamento de {{$nome_departamento}}</b>
     @else
       <b>Pesquisas de pós doutorado do curso de {{$nome_curso}}</b>
     @endif

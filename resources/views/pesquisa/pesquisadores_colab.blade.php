@@ -14,7 +14,7 @@
 <div class="card">
   <div class="card-header">
     @if(!empty($nome_departamento))
-      <b>Pesquisadores colaboradores do departameno de {{$nome_departamento}}</b>
+      <b>Pesquisadores colaboradores do departamento de {{$nome_departamento}}</b>
     @else
       <b>Pesquisadores colaboradores do curso de {{$nome_curso}}</b>
     @endif
