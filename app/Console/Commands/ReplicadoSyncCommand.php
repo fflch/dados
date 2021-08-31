@@ -287,16 +287,13 @@ class ReplicadoSyncCommand extends Command
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
-                $comissao->cod_area= $ic['codare'];
-                $comissao->nome_area= $ic['nome_programa'];
+                $comissao->cod_area= $ic['codset'];
+                $comissao->nome_area= $ic['nome_setor'];
                 $comissao->tipo= 'IC';
 
                 $comissao->save();
             }
         }
-        
-    
-        
 
         if($pesquisa){
             foreach($pesquisa as $pd){

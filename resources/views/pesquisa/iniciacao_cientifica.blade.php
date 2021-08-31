@@ -28,7 +28,7 @@
 <div class="card">
   <div class="card-header">
     @if(!empty($nome_departamento))
-      <b>Iniciações científicas do departameno de {{$nome_departamento}}</b>
+      <b>Iniciações científicas do departamento de {{$nome_departamento}}</b>
     @else
       <b>Iniciações científicas do curso de {{$nome_curso}}</b>
     @endif
