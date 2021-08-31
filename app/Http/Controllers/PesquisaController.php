@@ -82,7 +82,7 @@ class PesquisaController extends Controller
                 
                 }
                 
-            }else{
+            }else {
                 foreach(Util::getDepartamentos() as $key=>$dep){
                     $serie_historica[$dep[1]] = [];
                     for($ano = $ano_ini; $ano <= $ano_fim; $ano++){

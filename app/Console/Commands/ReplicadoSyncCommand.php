@@ -287,8 +287,6 @@ class ReplicadoSyncCommand extends Command
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
-                $comissao->cod_area= $ic['codset'];
-                $comissao->nome_area= $ic['nome_setor'];
                 $comissao->tipo= 'IC';
 
                 $comissao->save();
@@ -318,11 +316,7 @@ class ReplicadoSyncCommand extends Command
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
 
-                $comissao->cod_area= null;
-                $comissao->nome_area= null;
                 $comissao->tipo= 'PD';
-               
-
                 $comissao->save();
             }
         }        
@@ -349,9 +343,6 @@ class ReplicadoSyncCommand extends Command
                 $curso = Util::retornarCursoGrdPorDepartamento($pc['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
                 $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
-
-                $comissao->cod_area= null;
-                $comissao->nome_area= null;
                 $comissao->tipo= 'PC';
                 
                 $comissao->save();
@@ -385,8 +376,6 @@ class ReplicadoSyncCommand extends Command
                          $comissao->ano_proj = null;
                          $comissao->bolsa = null;
                          $comissao->cod_departamento = null;
-                         $comissao->cod_area= null;
-                         $comissao->nome_area= null;
                          $comissao->tipo= 'PP';
                      
                          $comissao->save();
