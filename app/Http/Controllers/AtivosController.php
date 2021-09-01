@@ -14,19 +14,36 @@ class AtivosController extends Controller
 
     public function __construct(Excel $excel){
         $this->excel = $excel;
-      
         $data = [];
 
-        /* Contabiliza aluno grad */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr.sql');
+        /* Contabiliza alunos grad, pós, cultura e extensão e estagiários */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunogr_ceu_pos_estagiarios.sql');
+        
+        $vinculos = [
+            'ALUNOGR' => 'Graduação',
+            'ALUNOPOS' => 'Pós-Graduação',
+            'ALUNOCEU' => 'Cultura e Extensão',
+            'ESTAGIARIORH' => 'Estagiários'
+        ];
 
-        $result = DB::fetch($query);
-        $data['Graduação'] = $result['computed'];
+        foreach($vinculos as $vinculo=>$key){
+            $query_por_vinculo = str_replace('__tipo__',$vinculo, $query);
+            $result = DB::fetch($query_por_vinculo);
+            $data[$key] = $result['computed'];
+        }
 
-        /* Contabiliza aluno pós */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunopos.sql');
-        $result = DB::fetch($query);
-        $data['Pós-Graduação'] = $result['computed'];
+        /* Contabiliza docentes e funcionários */
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes_funcionarios.sql');
+        $servidores = [
+            'Docente' => 'Docentes',
+            'Servidor' => 'Funcionários'
+        ];
+
+        foreach($servidores as $servidor=>$key){
+            $query_por_vinculo = str_replace('__tipo__', $servidor, $query);
+            $result = DB::fetch($query_por_vinculo);
+            $data[$key] = $result['computed'];
+        }
 
         /* Contabiliza doutorandos ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_doutorado.sql');
@@ -38,49 +55,24 @@ class AtivosController extends Controller
         $result = DB::fetch($query);
         $data['Externos'] = $result['computed'];
 
-        /* Contabiliza alunos cultura e extensão ativos */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunoceu.sql');
-        $result = DB::fetch($query);
-        $data['Cultura e Extensão'] = $result['computed'];
-
-        /* Contabiliza docentes */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_docentes.sql');
-        $result = DB::fetch($query);
-        $data['Docentes'] = $result['computed'];
-
-        /* Contabiliza funcionários */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_funcionarios.sql');
-        $result = DB::fetch($query);
-        $data['Funcionários'] = $result['computed'];
-
         /* Contabiliza pós doutorandos ativos */
         $query = file_get_contents(__DIR__ . '/../../../Queries/conta_aluno_pos_doutorado.sql');
         $result = DB::fetch($query);
         $data['Pós-Doutorandos'] = $result['computed'];
-
-        /* Contabiliza estagiários ativos */
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_estagiario.sql');
-        $result = DB::fetch($query);
-        $data['Estagiários'] = $result['computed'];
-
 
         $this->data = $data;
     }    
     
     public function grafico(){
     
-        $lava_col = new Lavacharts; // See note below for Laravel
+        $lava_col = new Lavacharts; 
 
         $ativos_col = $lava_col->DataTable();
-
-        /**
-         * http://lavacharts.com/api/2.5/Khill/Lavacharts/Formats/NumberFormat.html
-         */
+        
         $formatter = $lava_col->NumberFormat([ 
             'pattern' => '#.###',
         ]);
        
-
         $ativos_col->addStringColumn('Tipo Vínculo')
                 ->addNumberColumn('Quantidade', $formatter);
 
