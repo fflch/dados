@@ -573,7 +573,7 @@
                         @if(isset($value['NATUREZA']))
                             <b>Natureza: </b><?= ucfirst(strtolower($value['NATUREZA'])) ?> <br>
                         @endif
-                        @if(isset($value['EQUIPE-DO-PROJETO']))
+                        @if(isset($value['EQUIPE-DO-PROJETO']) && is_array($value['EQUIPE-DO-PROJETO']) || is_object($value['EQUIPE-DO-PROJETO']))
                             <b>Integrantes: </b>
                             @foreach($value['EQUIPE-DO-PROJETO'] as $k=>$val)
                                 @if( $k + 1 <  count($value['EQUIPE-DO-PROJETO']))
