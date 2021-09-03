@@ -57,7 +57,7 @@
       <tbody>
         @foreach($defesas->sortBy('nomcur') as $defesa)
           <tr>
-            <td><a href="#">{{ $defesa->nome }} </a></td>
+            <td style="color: #213d72"><b>{{ $defesa->nome }} </td>
             <td>{{ $defesa->data }} </td>
             <td>{{ $defesa->nivel }} </td>
             <td>{{ $defesa->nomcur }} </td>
