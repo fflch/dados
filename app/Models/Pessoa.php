@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Uspdev\Utils\Generic;
+use Carbon\Carbon;
 
 class Pessoa extends Model
 {
@@ -126,8 +127,8 @@ class Pessoa extends Model
                 'monitor_id' => Generic::crazyHash($monitor['codpes']),
                 'nompes'        => $monitor['nompes'],
                 'email'      => isset($monitor['email']) && str_contains($monitor['email'], 'usp.br') ? $monitor['email'] : '',
-                'bolsa_ini'      => $bolsas['bolsa_ini'],
-                'bolsa_fim'      => $bolsas['bolsa_fim'],
+                'bolsa_ini'      => Carbon::createFromFormat('Y-m-d H:i:s', $bolsas['bolsa_ini'])->format('d/m/Y'), 
+                'bolsa_fim'      => Carbon::createFromFormat('Y-m-d H:i:s', $bolsas['bolsa_fim'])->format('d/m/Y'),
                 
             ];
             

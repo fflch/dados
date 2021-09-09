@@ -28,7 +28,8 @@ class PessoaController extends Controller
         $monitores = Pessoa::listarMonitores();
         
         return response()->json(
-            $monitores
+            $monitores,
+            200, [], JSON_UNESCAPED_SLASHES 
         );
     }
     
