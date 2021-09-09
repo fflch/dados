@@ -15,7 +15,8 @@ class ProgramaController extends Controller
 {
     public function index(){
         return response()->json(
-            Programa::index()
+            Programa::index(),
+            200, [], JSON_UNESCAPED_UNICODE
         );
     }
     
