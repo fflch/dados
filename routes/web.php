@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\DefesaController;
-use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\AtivosController;
 use App\Http\Controllers\AtivosMicrosNotesController;
@@ -42,7 +41,7 @@ use App\Http\Controllers\TransferenciaController;
 
 
 Route::get('/', [IndexController::class, 'index']);
-Route::get('/sobre', [IndexController::class, 'sobre']);
+Route::get('/contato', [IndexController::class, 'contato']);
 
 Route::get('login', [LoginController::class, 'redirectToProvider']);
 Route::get('callback', [LoginController::class, 'handleProviderCallback']);

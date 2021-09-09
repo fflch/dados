@@ -25,8 +25,8 @@ return [
             'url'  => '/',
         ],
         [
-            'text' => 'Sobre',
-            'url'  => '/sobre',
+            'text' => 'Contato',
+            'url'  => '/contato',
         ],
         [
             'text' => 'Restrito',

@@ -8,7 +8,8 @@ class IndexController extends Controller
         return view('index');
     }
 
-    public function sobre(){
-        return view('sobre');
+    public function contato(){
+        
+        return view('contato');
     }
 }
