@@ -38,6 +38,7 @@ use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
 use App\Http\Controllers\IntercambioController;
 use App\Http\Controllers\EvasaoController;
 use App\Http\Controllers\TransferenciaController;
+use App\Http\Controllers\EstagiariosController;
 
 
 Route::get('/', [IndexController::class, 'index']);
@@ -181,6 +182,8 @@ Route::get('/restrito/evasao', [EvasaoController::class, 'listarEvasao']);
 Route::get('/restrito/transferencia', [TransferenciaController::class, 'listarTransferencia']);
 
 Route::get('/restrito/bolsas', [BolsasController::class, 'listarBolsas']);
+
+Route::get('/restrito/estagiarios', [EstagiariosController::class, 'listarEstagiarios']);
 
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
