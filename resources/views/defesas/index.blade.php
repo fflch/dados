@@ -66,9 +66,10 @@
         @endforeach
       </tbody>
     </table>
-
+    {{$defesas->links()}}
   </div>
 </div>
 
-@endsection('content')
+
+@endsection
 

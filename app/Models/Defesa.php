@@ -51,7 +51,7 @@ class Defesa extends Model
             return (object) $item;
         });
 
-        return collect($defesas);
+        return collect($defesas)->paginate(10);
     }
 
     public static function anos(){
