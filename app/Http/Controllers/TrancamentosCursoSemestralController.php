@@ -13,13 +13,15 @@ class TrancamentosCursoSemestralController extends Controller
     private $data;
     private $excel;
     private $cursos;
+    private $curso;
 
     public function __construct(Excel $excel, Request $request)
     {
         $this->excel = $excel;
         
         $data = [];
-        $curso = $request->route()->parameter('curso') ?? 'Letras';
+        $this->curso = $request->curso ?? 'Letras';
+        
         $this->cursos = [
             'Sociais' => ['nome' => 'Ciências Sociais', 'cod' => '8040'],
             'Filosofia' => ['nome' => 'Filosofia', 'cod' => '8010'],
@@ -27,24 +29,21 @@ class TrancamentosCursoSemestralController extends Controller
             'Historia' => ['nome' => 'História', 'cod' => '8030'],
             'Letras' => ['nome' => 'Letras', 'cod' => '8050, 8051, 8060']
         ];
-        // Array com os totais de trancamentos por semestre. 
-        $semestres = [
-            20141 => '1° semestre - 2014',
-            20142 => '2° semestre - 2014',
-            20151 => '1° semestre - 2015',
-            20152 => '2° semestre - 2015',
-            20161 => '1° semestre - 2016',
-            20162 => '2° semestre - 2016',
-            20171 => '1° semestre - 2017',
-            20172 => '2° semestre - 2017',
-            20181 => '1° semestre - 2018',
-            20182 => '2° semestre - 2018',
-            20191 => '1° semestre - 2019',
-            20192 => '2° semestre - 2019',
-            20201 => '1° semestre - 2020',
-            20202 => '2° semestre - 2020',
-        ];
 
+        $ano_ini = $request->ano_ini ?? date("Y") - 10;
+        $ano_fim = $request->ano_fim ?? date("Y");
+        $semestres = [];
+        if($ano_ini > $ano_fim){  
+            $aux = $ano_fim;
+            $ano_fim = $ano_ini;
+            $ano_ini = $aux;
+        }
+        
+        for ($i = $ano_ini; $i <= $ano_fim ; $i++) { 
+            $semestres[(int)($i . "1")] = "1° semestre - $i";
+            $semestres[(int)($i . "2")] = "2° semestre - $i";
+        }
+        
         $query = "SELECT count (distinct l.codpes)
         FROM LOCALIZAPESSOA l
             JOIN SITALUNOATIVOGR s
@@ -53,7 +52,7 @@ class TrancamentosCursoSemestralController extends Controller
             ON p.codpes = l.codpes
         WHERE l.tipvin = 'ALUNOGR'
             AND l.codundclg = 8
-            AND s.codcur IN (".$this->cursos[$curso]['cod'].")
+            AND s.codcur IN (".$this->cursos[$this->curso]['cod'].")
             AND s.staalu = 'T'
             AND s.anosem = __semestre__";
 
@@ -66,17 +65,25 @@ class TrancamentosCursoSemestralController extends Controller
         }
 
         $this->data = $data;
+        
     }
 
-    public function grafico($curso)
+    public function grafico()
     {
+        $curso = $this->curso;
+        $anos = [];
+        
+        for($year = (int)date("Y"); $year >= 2000; $year--){
+            array_push($anos, $year);
+        }
+
         $cursos = $this->cursos;
 
         $lava = new Lavacharts; 
         $convenios  = $lava->DataTable();
 
         $convenios->addStringColumn('Tipo de convênio')
-            ->addNumberColumn("Quantidade de trancamentos por semestre no curso de $curso");
+            ->addNumberColumn("Quantidade de trancamentos por semestre no curso de " . $curso);
             
         foreach($this->data as $key=>$data) {
             $convenios->addRow([$key, (int)$data]);
@@ -97,14 +104,15 @@ class TrancamentosCursoSemestralController extends Controller
 
         ]);
 
-        return view('trancamentosCursoPorSemestre', compact('curso', 'cursos', 'lava'));
+
+        return view('trancamentosCursoPorSemestre', compact('curso', 'cursos', 'lava', 'anos'));
     }
 
-    public function export($format, $curso)
+    public function export($format, Request $request)
     {
         if ($format == 'excel') {
             $export = new DadosExport([$this->data], array_keys($this->data));
-            return $this->excel->download($export, 'trancamentos_'.strtolower($curso).'_semestral.xlsx');
+            return $this->excel->download($export, 'trancamentos_'.strtolower($this->curso).'_semestral.xlsx');
         }
     }
 }
