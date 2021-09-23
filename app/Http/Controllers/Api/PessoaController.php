@@ -11,7 +11,8 @@ class PessoaController extends Controller
         $docentes = Pessoa::listarDocentes();
         
         return response()->json(
-            $docentes
+            $docentes,
+            200, [], JSON_UNESCAPED_UNICODE
         );
     }
 
