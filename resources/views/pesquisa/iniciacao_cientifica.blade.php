@@ -16,7 +16,7 @@
   
   @include ('pesquisa.partials.return')
 
-  <a class="float-right btn-voltar" href="/iniciacao_cientifica?departamento={{request()->get('departamento')}}&curso={{request()->get('curso')}}&bolsa={{request()->get('bolsa')}}&tipo={{request()->get('tipo')}}&ano={{request()->get('ano')}}&ano_ini={{request()->get('ano_ini')}}&ano_fim={{request()->get('ano_fim')}}&export=true" >
+  <a class="float-right btn-voltar" href="/pesquisa/iniciacao_cientifica?departamento={{request()->get('departamento')}}&curso={{request()->get('curso')}}&bolsa={{request()->get('bolsa')}}&tipo={{request()->get('tipo')}}&ano={{request()->get('ano')}}&ano_ini={{request()->get('ano_ini')}}&ano_fim={{request()->get('ano_fim')}}&export=true" >
     <i class="fas fa-file-excel"></i> Download Excel</a> 
 </div>
 <br>
