@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
         }
         
+        Paginator::useBootstrap(); 
+
         Blade::directive('arr', function ($array) {
             return '<?php $var = '.$array.'; echo Arr::get(array_shift($var), end($var), \'\'); ?>';      
         });
