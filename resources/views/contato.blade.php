@@ -1,5 +1,4 @@
-@extends('laravel-usp-theme::master')
-
+@extends('main')
 @section('content')
 
 <div class="itens-footer footer-dados">
