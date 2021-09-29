@@ -66,7 +66,7 @@
         @endforeach
       </tbody>
     </table>
-    {{$defesas->links()}}
+    
   </div>
 </div>
 
