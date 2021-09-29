@@ -13,17 +13,17 @@ use App\Models\ComissaoPesquisa;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\PesquisaRequest;
 
 class IniciacaoCientificaController extends Controller
 {
     private $excel;
-    private $data;
     private $nome_departamento;
     private $nome_curso;
 
-    public function __construct(Request $request, Excel $excel)
+    public function __construct(Request $request, Excel $excel, Auth $auth)
     {
+
         $this->excel = $excel;
 
         if(isset($request->departamento)){
@@ -32,11 +32,12 @@ class IniciacaoCientificaController extends Controller
             $this->nome_curso = Util::getCursos()[$request->curso];
         }
 
-        $this->data = ComissaoPesquisa::listarIniciacaoCientifica($request);
- 
+
     }
     
-    public function index(Request $request){
+    public function index(PesquisaRequest $request){
+        
+        $data = ComissaoPesquisa::listarIniciacaoCientifica($request, Auth::check());
         
         if ($request->export == "true") {
             $result = [];
@@ -62,9 +63,10 @@ class IniciacaoCientificaController extends Controller
                 $labels[] = 'Curso';
             }
           
-            foreach($this->data as $ic){
+            foreach($data as $ic){
                 $aux = [];
                 $aux[] = $ic['codproj'];
+                
                 if(Auth::check()){
                     $aux[] = $ic['codpes_discente'];          
                 }
@@ -101,7 +103,7 @@ class IniciacaoCientificaController extends Controller
         }else{
             return view('pesquisa.iniciacao_cientifica',[
                 'filtro' => $request->filtro,
-                'iniciacao_cientifica' => $this->data,
+                'iniciacao_cientifica' => $data,
                 'nome_departamento' => $this->nome_departamento,
                 'nome_curso' => $this->nome_curso,
                 ]);

@@ -11,20 +11,20 @@ use App\Models\Programa;
 use App\Utils\Util;
 use App\Models\ComissaoPesquisa;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\PesquisaRequest;
 
 
 class PesquisaController extends Controller
 {
 
-    public function contarPesquisasAtivasPorTipo(Request $request){
+    public function contarPesquisasAtivasPorTipo(PesquisaRequest $request){
         return response()->json(
             ComissaoPesquisa::contarPesquisasAtivasPorTipo($request),
             200, [], JSON_UNESCAPED_UNICODE
         );
     }
 
-    public function listarIniciacaoCientifica(Request $request){
+    public function listarIniciacaoCientifica(PesquisaRequest $request){
         return response()->json(
             ComissaoPesquisa::listarIniciacaoCientifica($request),
             200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE

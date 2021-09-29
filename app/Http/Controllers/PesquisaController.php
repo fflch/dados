@@ -10,13 +10,14 @@ use App\Models\Lattes as LattesModel;
 use App\Models\Programa;
 use App\Utils\Util;
 use App\Models\ComissaoPesquisa;
+use App\Http\Requests\PesquisaRequest;
 
 
 
 class PesquisaController extends Controller
 {
 
-    public function contarPesquisasAtivasPorTipo(Request $request){
+    public function contarPesquisasAtivasPorTipo(PesquisaRequest $request){
         $data = ComissaoPesquisa::contarPesquisasAtivasPorTipo($request);
       
 

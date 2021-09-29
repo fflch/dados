@@ -13,6 +13,7 @@ use App\Models\Programa;
 use App\Utils\Util;
 
 
+
 class ComissaoPesquisa extends Model
 {
     use HasFactory;
@@ -148,7 +149,8 @@ class ComissaoPesquisa extends Model
         return $data;
     }
 
-    public static function listarIniciacaoCientifica(Request $request){
+    public static function listarIniciacaoCientifica(Request $request, bool $isAuthenticated  = false){
+
         $tipo = $request->tipo ?? 'tudo';
         $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
         $limit_fim = null; 
@@ -235,6 +237,11 @@ class ComissaoPesquisa extends Model
                         "nome_curso" => $ic["nome_curso"],
                         "status_projeto" => $ic["status_projeto"],
                        ];
+                       
+                if($isAuthenticated){
+                    $aux['codpes_discente'] = $ic['codpes_discente'];
+                    $aux['codpes_supervisor'] = $ic['codpes_supervisor'];          
+                }
                  array_push($retorno, $aux);
             }
             return $retorno;
