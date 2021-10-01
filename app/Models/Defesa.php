@@ -67,10 +67,8 @@ class Defesa extends Model
                         'doutorado_direto' => $doutorado_direto,
                         'defesas' => $defesas,
                     ];
-
         }
-        
-       
+
     }
 
     public static function anos(){
