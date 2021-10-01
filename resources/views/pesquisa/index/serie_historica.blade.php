@@ -1,4 +1,4 @@
-@foreach ($serie_historica as $key=>$value)
+@foreach ($data as $key=>$value)
     <div class="card">
         <div class="card-header">
         <b>

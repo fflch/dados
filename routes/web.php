@@ -161,13 +161,12 @@ Route::get('/programas/egressos/{codare}', [ProgramaController::class, 'listarEg
 Route::get('/defesas', [DefesaController::class, 'index']);
 
 # Pesquisa
-Route::get('/pesquisa', [PesquisaController::class, 'index']);
-Route::get('/iniciacao_cientifica', [IniciacaoCientificaController::class, 'iniciacao_cientifica']);
-Route::get('/iniciacao_cientifica/export/{format}', [IniciacaoCientificaController::class, 'export']);
+Route::get('/pesquisa', [PesquisaController::class, 'contarPesquisasAtivasPorTipo']);
+Route::get('/pesquisa/iniciacao_cientifica', [IniciacaoCientificaController::class, 'index']);
 
-Route::get('/pesquisadores_colaboradores', [PesquisaController::class, 'pesquisadores_colab']);
-Route::get('/pesquisa_pos_doutorandos', [PesquisaController::class, 'pesquisa_pos_doutorandos']);
-Route::get('/projetos_pesquisa', [PesquisaController::class, 'projetos_pesquisa']);
+Route::get('/pesquisa/pesquisadores_colaboradores', [PesquisaController::class, 'listarPesquisadoresColaboradores']);
+Route::get('/pesquisa/pos_doutorandos', [PesquisaController::class, 'listarPesquisasPosDoutorandos']);
+Route::get('/pesquisa/projetos_pesquisa', [PesquisaController::class, 'listarProjetosPesquisa']);
 
 Route::get('/restrito', [RestritoController::class, 'restrito']);
 

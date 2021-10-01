@@ -1,5 +1,5 @@
 
-<form id="formSearchProducaoPrograma" method="show" action="/iniciacao_cientifica" class="d-flex mb-3">
+<form id="formSearchProducaoPrograma" method="show" action="/pesquisa/iniciacao_cientifica" class="d-flex mb-3">
     <input type="hidden" name="departamento" value="{{ request()->get('departamento') }}">
     <input type="hidden" name="curso" value="{{ request()->get('curso') }}">
     <input type="hidden" name="bolsa" value="{{ request()->get('bolsa') }}">
