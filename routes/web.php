@@ -121,8 +121,8 @@ Route::get('/beneficiosAtivosGraduacaoPorAno/{ano}', [BeneficiosAtivosGraduacaoP
 Route::get('/beneficiosAtivosGraduacaoPorAno/export/{format}/{ano}', [BeneficiosAtivosGraduacaoPorAnoController::class, 'export']);
 
 #totais de trancamentos por semestre e por curso
-Route::get('/trancamentosCursoPorSemestre/{curso}', [TrancamentosCursoSemestralController::class, 'grafico']);
-Route::get('/trancamentosCursoPorSemestre/export/{format}/{curso}', [TrancamentosCursoSemestralController::class, 'export']);
+Route::get('/trancamentosCursoPorSemestre', [TrancamentosCursoSemestralController::class, 'grafico']);
+Route::get('/trancamentosCursoPorSemestre/export/{format}', [TrancamentosCursoSemestralController::class, 'export']);
 
 
 #quantidade de alunos especiais da graduação e pós graduação por ano (2010-2010)

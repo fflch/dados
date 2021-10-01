@@ -71,7 +71,7 @@
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesGradPorCurso/{{date('Y') -1}}">Total de concluintes da Graduação por
                     curso.
                         </a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosCursoPorSemestre/Letras">Total de trancamentos por semestre dos cursos.
+            <li class="list-group-item"><a href="{{ config('app.url') }}/trancamentosCursoPorSemestre">Total de trancamentos por semestre dos cursos.
                         </a></li>
         </ul>
     </div>
