@@ -13,7 +13,10 @@ use App\Models\Programa;
 use App\Models\ComissaoPesquisa;
 use App\Utils\Util;
 use Uspdev\Replicado\Uteis;
+use Carbon\Carbon;
+use Uspdev\Utils\Generic;
 use App\Models\Pessoa as PessoaModel;
+use App\Models\Defesa as DefesaModel;
 
 
 class ReplicadoSyncCommand extends Command
@@ -49,7 +52,8 @@ class ReplicadoSyncCommand extends Command
      */
     public function handle()
     {       
-        
+        $this->sync_defesas();
+
         $this->sync_comissao_pesquisa();
 
         $this->sync_docentes(); 
@@ -145,6 +149,41 @@ class ReplicadoSyncCommand extends Command
         }        
     }
     
+    private function sync_defesas(){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $intervalo = [
+            'inicio' => '1950-01-01',
+            'fim'    => Date('Y') . '-12-31'
+        ];
+        $defesas = Posgraduacao::listarDefesas($intervalo);
+    
+        foreach($defesas as $defesa){
+            $data = Carbon::createFromFormat('Y-m-d H:i:s', $defesa['dtadfapgm'])->format('d/m/Y');
+            $defesa_id = md5($defesa['codpes'] + $defesa['codare'] + $defesa['codcur'] + str_replace('/','',$data));
+            
+            
+            $defesaModel = DefesaModel::where('defesa_id',$defesa_id)->first();
+            if(!$defesaModel) $defesaModel = new DefesaModel;
+            
+         
+        
+            $defesaModel->defesa_id = $defesa_id;
+            $defesaModel->discente_id = Generic::crazyHash($defesa['codpes']);
+            $defesaModel->nompes = $defesa['nompes'];
+            $defesaModel->data_defesa = isset($defesa['dtadfapgm']) ? $defesa['dtadfapgm'] : null;
+            $defesaModel->nivpgm = isset($defesa['nivpgm']) ? $defesa['nivpgm'] : null;
+            $defesaModel->codare = isset($defesa['codare']) ? $defesa['codare'] : null;
+            $defesaModel->nomare = isset($defesa['nomare']) ? $defesa['nomare'] : null;
+            $defesaModel->codcur = isset($defesa['codcur']) ? $defesa['codcur'] : null;
+            $defesaModel->nomcur = isset($defesa['nomcur']) ? $defesa['nomcur'] : null;
+            $defesaModel->titulo = isset($defesa['tittrb']) ? $defesa['tittrb'] : null;
+            $defesaModel->save();
+        }        
+    }
+
+   
+
     /**
      * Método para sincronizar a tabela pessoas no banco de dados local com o banco do replicado
      * @param Array $dados_replicado, array que contenha o codpes das pessoas para atualizar os registros

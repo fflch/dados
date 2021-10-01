@@ -13,9 +13,9 @@
   <div class="card-body">
 
   <ul>
-  <li>Mestrado: {{ $defesas->where('nivel','ME')->count()}} </li>
-  <li>Doutorado: {{ $defesas->where('nivel','DO')->count()}}</li>
-  <li>Doutorado Direto: {{ $defesas->where('nivel','DD')->count()}}</li>
+  <li>Mestrado: {{ $mestrado }} </li>
+  <li>Doutorado: {{ $doutorado }}</li>
+  <li>Doutorado Direto: {{ $doutorado_direto }}</li>
   </ul>
 
   <form>
@@ -57,17 +57,17 @@
       <tbody>
         @foreach($defesas->sortBy('nomcur') as $defesa)
           <tr>
-            <td style="color: #213d72"><b>{{ $defesa->nome }} </td>
-            <td>{{ $defesa->data }} </td>
-            <td>{{ $defesa->nivel }} </td>
+            <td style="color: #213d72"><b>{{ $defesa->nompes }} </td>
+            <td>{{ date('d/m/Y', strtotime($defesa->data_defesa))  }} </td>
+            <td>{{ $defesa->nivpgm }} </td>
             <td>{{ $defesa->nomcur }} </td>
             <td>{!! $defesa->titulo !!} </td>
           </tr>
         @endforeach
       </tbody>
     </table>
-    
   </div>
+  {{ $defesas->appends(request()->query())->links() }}
 </div>
 
 
