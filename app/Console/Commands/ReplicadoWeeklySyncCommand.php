@@ -13,10 +13,6 @@ use App\Models\Programa;
 use App\Models\ComissaoPesquisa;
 use App\Utils\Util;
 use Uspdev\Replicado\Uteis;
-use Carbon\Carbon;
-use Uspdev\Utils\Generic;
-use App\Models\Pessoa as PessoaModel;
-use App\Models\Defesa as DefesaModel;
 
 
 class ReplicadoWeeklySyncCommand extends Command
