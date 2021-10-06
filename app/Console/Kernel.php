@@ -27,8 +27,12 @@ class Kernel extends ConsoleKernel
     {
         $emails = explode(',',config('app.mails_to_send_logs'));
         
-        $schedule->command(ReplicadoSyncCommand::class)
+        $schedule->command(ReplicadoDailySyncCommand::class)
             ->daily()
+            ->emailOutputOnFailure(config('mail.from.address'));
+        
+        $schedule->command(ReplicadoWeeklySyncCommand::class)
+            ->weekly()
             ->emailOutputOnFailure(config('mail.from.address'));
     }
 
