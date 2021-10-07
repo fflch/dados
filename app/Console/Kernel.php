@@ -4,7 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Console\Commands\ReplicadoSyncCommand;
+use App\Console\Commands\ReplicadoDailySyncCommand;
+use App\Console\Commands\ReplicadoWeeklySyncCommand;
 
 class Kernel extends ConsoleKernel
 {
