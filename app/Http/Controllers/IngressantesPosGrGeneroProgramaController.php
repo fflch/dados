@@ -7,18 +7,23 @@ use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use Khill\Lavacharts\Lavacharts;
 use Illuminate\Http\Request;
+use App\Models\Programa as ProgramaModel;
 
-class IngressantesGeneroCursoController extends Controller
+class IngressantesPosGrGeneroProgramaController extends Controller
 {
     private $data;
     private $excel;
     public function __construct(Excel $excel,  Request $request){
+
         $this->excel = $excel;
         $data = [];
         
         $anos = [];
         $ano_ini = $request->ano_ini ?? date("Y") - 5;
         $ano_fim = $request->ano_fim ?? date("Y");
+
+        $nivpgm = $request->nivpgm ? 'AND v.nivpgm = \''.  $request->nivpgm .'\'' : '';
+        
 
         if($ano_ini > $ano_fim){ 
             $aux = $ano_fim;
@@ -30,21 +35,15 @@ class IngressantesGeneroCursoController extends Controller
             array_push($anos,(int) $i);
         }
 
-        $curso = $request->curso ?? 'Letras';
-        $cursos = [
-            'Sociais' => ['nome' => 'Ciências Sociais', 'cod' => '8040'],
-            'Filosofia' => ['nome' => 'Filosofia', 'cod' => '8010'],
-            'Geografia' => ['nome' => 'Geografia', 'cod' => '8021'],
-            'Historia' => ['nome' => 'História', 'cod' => '8030'],
-            'Letras' => ['nome' => 'Letras', 'cod' => '8050, 8051, 8060']
-        ];
+        $codare = $request->codare ?? 8133;
+       
 
-
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ingressantes_curso_genero.sql');
-        /* Contabiliza aluno graduação Geografia - por ano - por gênero*/
+        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ingressantes_pos_graduacao_genero.sql');
         foreach ($anos as $ano){
-            $query = str_replace('__codcur__', $cursos[$curso]['cod'], $query);
+            $query = str_replace('__codare__', $codare, $query);
             $_query = str_replace('__ano__', $ano, $query);
+            $_query = str_replace('__nivpgm__', $nivpgm, $_query);
+           
             
             $query_por_ano_masc = str_replace('__genero__', 'M', $_query);
             
@@ -61,22 +60,23 @@ class IngressantesGeneroCursoController extends Controller
     }
 
     public function grafico(Request $request){
+        
         $anos = [];
         
         for($year = (int)date("Y"); $year >= 2000; $year--){
             array_push($anos, $year);
         }
 
-        $cursos = [
-            'Sociais' => ['nome' => 'Ciências Sociais', 'cod' => '8040'],
-            'Filosofia' => ['nome' => 'Filosofia', 'cod' => '8010'],
-            'Geografia' => ['nome' => 'Geografia', 'cod' => '8021'],
-            'Historia' => ['nome' => 'História', 'cod' => '8030'],
-            'Letras' => ['nome' => 'Letras', 'cod' => '8050, 8051, 8060']
-        ];
+        $aux_programas = ProgramaModel::index();
+        $programas = [];
+        foreach($aux_programas as $programa){
+            $programas[$programa->codare] = $programa->nomare;
+        }
 
-        $curso = $request->curso ?? 'Letras';
-        $nome_curso = $cursos[$curso]['nome'];
+
+        $codare = $request->codare ?? 8133;
+        $nomare = $programas[$codare];
+        $nivpgm = $request->nivpgm ? '('.$request->nivpgm.')' : '';
 
         $lava = new Lavacharts; // See note below for Laravel
         $genero  = $lava->DataTable();
@@ -110,7 +110,7 @@ class IngressantesGeneroCursoController extends Controller
 
         
 
-        return view('ingressantesGeneroCurso', compact('lava', 'anos', 'cursos', 'nome_curso'));
+        return view('ingressantesPosGrGeneroPrograma', compact('lava', 'anos', 'programas', 'nomare', 'nivpgm'));
     }
 
     public function export($format, Request $request){
@@ -128,13 +128,12 @@ class IngressantesGeneroCursoController extends Controller
         array_push($data, $masculino, $feminino);
 
 
-        $curso = $request->curso ?? 'Letras';
         $labels = array_keys($this->data);
         array_unshift($labels, 'Ano');
 
         if($format == 'excel') {
             $export = new DadosExport($data,$labels);
-            return $this->excel->download($export, 'ingressantes_'.$curso .'_por_genero_e_ano.xlsx');
+            return $this->excel->download($export, 'ingressantes_por_genero_e_ano.xlsx');
         }
     }
 }

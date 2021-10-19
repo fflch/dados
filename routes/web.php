@@ -28,7 +28,8 @@ use App\Http\Controllers\AlunosEspeciaisPorAnoController;
 use App\Http\Controllers\AtivosPosNivelProgramaController;
 use App\Http\Controllers\CEUController;
 use App\Http\Controllers\OrientadoresPosGRContoller;
-use App\Http\Controllers\IngressantesGeneroCursoController;
+use App\Http\Controllers\IngressantesGradGeneroCursoController;
+use App\Http\Controllers\IngressantesPosGrGeneroProgramaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IniciacaoCientificaController;
 use App\Http\Controllers\ExAlunosController;
@@ -129,7 +130,17 @@ Route::get('/trancamentosCursoPorSemestre/export/{format}', [TrancamentosCursoSe
 Route::get('/alunosEspeciaisPorAno', [AlunosEspeciaisPorAnoController::class, 'grafico']);
 Route::get('/alunosEspeciaisPorAno/export/{format}', [AlunosEspeciaisPorAnoController::class, 'export']);
 
-#quantidade de ingressantes do gênero masculino no curso de Geografia 2010-2020
+#quantidade de ingressantes por gênero e curso de graduação
+Route::get('/IngressantesGradGeneroCurso', [IngressantesGradGeneroCursoController::class, 'grafico']);
+Route::get('/IngressantesGradGeneroCurso/export/{format}', [IngressantesGradGeneroCursoController::class, 'export']);
+
+
+#quantidade de ingressantes por gênero e programa de pós graduação
+Route::get('/IngressantesPosGrGeneroPrograma', [IngressantesPosGrGeneroProgramaController::class, 'grafico']);
+Route::get('/IngressantesPosGrGeneroPrograma/export/{format}', [IngressantesPosGrGeneroProgramaController::class, 'export']);
+
+
+#quantidade de ingressantes por gênero e programa de pós graduação
 Route::get('/IngressantesGeneroCurso', [IngressantesGeneroCursoController::class, 'grafico']);
 Route::get('/IngressantesGeneroCurso/export/{format}', [IngressantesGeneroCursoController::class, 'export']);
 

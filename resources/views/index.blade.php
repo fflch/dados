@@ -147,13 +147,14 @@
 <br>
 
 <div class="card">
-    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosIngresso"  role="button" aria-expanded="false" aria-controls="collapseDadosIngresso"><b>Dados por ingresso: 2</b>
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosIngresso"  role="button" aria-expanded="false" aria-controls="collapseDadosIngresso"><b>Dados por ingresso: 3</b>
         <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
     </div>
     <div class="card-body collapse"  id="collapseDadosIngresso">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/IngressantesGeneroCurso?curso=Letras&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: Ingressantes da graduação por curso, gênero e ano</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/IngressantesPosGrGeneroPrograma?codare=8133&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}&nivpgm=ME">Série histórica: Ingressantes da pós graduação por programa, gênero e ano</a></li>
         </ul>
     </div>
     

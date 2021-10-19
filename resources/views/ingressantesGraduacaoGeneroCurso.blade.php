@@ -5,7 +5,7 @@
 @section('content')
 
 <div>
-    <form action="/IngressantesGeneroCurso" method='get'>
+    <form action="/IngressantesGradGeneroCurso" method='get'>
 
         <label for="curso" class="form-label">Filtrar por curso:</label>
         <select id="curso" class="form-select" name="curso">
@@ -51,7 +51,7 @@
     </form>
     
 
-    <a href="/IngressantesGeneroCurso/export/excel?curso=Letras&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
+    <a href="/IngressantesGradGeneroCurso/export/excel?curso=Letras&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
         <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 </div>
@@ -60,7 +60,7 @@
 
 
 <center>
-Quantidade de ingressantes do gênero masculino no curso de {{$nome_curso}} oferecido pela Faculdade de Filosofia, Letras e Ciências Humanas.
+Série histórica dos ingressantes do curso de {{$nome_curso}} oferecido pela Faculdade de Filosofia, Letras e Ciências Humanas por gênero.
 </center>
 
 
