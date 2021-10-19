@@ -11,6 +11,7 @@ Instalação da biblioteca ***Cache***: [Instalação e configuração](https://
 - `cp .env.example .env`
 - `php artisan key:generate`
 - `php artisan vendor:publish --provider="Uspdev\UspTheme\ServiceProvider" --tag=assets --force`
+- `php artisan vendor:publish --tag=scribe-themes`
 - `php artisan serve`
 
 
