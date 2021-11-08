@@ -148,7 +148,7 @@ class ReplicadoTemp
                 JOIN EMAILPESSOA E ON L.codpes = E.codpes
                 WHERE L.nomfnc = 'Ch Depart Ensino' 
                 AND L.codundclg = 8 
-	            AND L.sitatl = 'A'
+                AND L.sitatl = 'A'
                 AND E.codema LIKE '%@usp.br%'
                 ORDER BY L.nompes";
 
@@ -257,13 +257,13 @@ class ReplicadoTemp
 
     public static function listarAlunosAtivosPrograma($codare)
     {
-        $query = " SELECT DISTINCT l.nompes, l.codpes, v.nivpgm FROM LOCALIZAPESSOA l
-                    JOIN VINCULOPESSOAUSP v ON (l.codpes = v.codpes)
-                    WHERE l.tipvin = 'ALUNOPOS'
-                    AND l.codundclg = convert(int,:codundclg)
+        $query = "SELECT DISTINCT v.nompes, v.codpes, v.codare, v.nivpgm, v.dtainivin, v.sitatl, p.sexpes , v.tipvin FROM VINCULOPESSOAUSP v
+                    JOIN PESSOA p  ON (p.codpes = v.codpes)
+                    WHERE v.tipvin IN ('ALUNOPOS', 'ALUNOPD')
                     AND v.codare = convert(int,:codare)
-                    AND l.sitatl = 'A'
-                    ORDER BY v.nompes ASC ";
+                    AND v.codclg = convert(int,:codundclg)
+                    AND v.sitatl = 'A'
+                    ORDER BY v.nompes ASC";
         $param = [
             'codare' => $codare,
             'codundclg' => getenv('REPLICADO_CODUNDCLG'),

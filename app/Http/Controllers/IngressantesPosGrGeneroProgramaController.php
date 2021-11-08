@@ -8,6 +8,7 @@ use App\Exports\DadosExport;
 use Khill\Lavacharts\Lavacharts;
 use Illuminate\Http\Request;
 use App\Models\Programa as ProgramaModel;
+use App\Models\Pessoa;
 
 class IngressantesPosGrGeneroProgramaController extends Controller
 {
@@ -22,7 +23,7 @@ class IngressantesPosGrGeneroProgramaController extends Controller
         $ano_ini = $request->ano_ini ?? date("Y") - 5;
         $ano_fim = $request->ano_fim ?? date("Y");
 
-        $nivpgm = $request->nivpgm ? 'AND v.nivpgm = \''.  $request->nivpgm .'\'' : '';
+        $nivpgm = $request->nivpgm ?? false;
         
 
         if($ano_ini > $ano_fim){ 
@@ -38,22 +39,15 @@ class IngressantesPosGrGeneroProgramaController extends Controller
         $codare = $request->codare ?? 8133;
        
 
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_ingressantes_pos_graduacao_genero.sql');
         foreach ($anos as $ano){
-            $query = str_replace('__codare__', $codare, $query);
-            $_query = str_replace('__ano__', $ano, $query);
-            $_query = str_replace('__nivpgm__', $nivpgm, $_query);
-           
             
-            $query_por_ano_masc = str_replace('__genero__', 'M', $_query);
-            
-            $result_mas = DB::fetch($query_por_ano_masc);
-            
-            $query_por_ano_fem = str_replace('__genero__', 'F', $_query);
-            $result_fem = DB::fetch($query_por_ano_fem);
-
-            $data[$ano]['Masculino'] = $result_mas['computed'];
-            $data[$ano]['Feminino'] = $result_fem['computed'];
+            if($nivpgm){
+                $data[$ano]['Masculino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'M')->where('nivpgm', $nivpgm)->get()->count();
+                $data[$ano]['Feminino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'F')->where('nivpgm', $nivpgm)->get()->count();
+            }else{
+                $data[$ano]['Masculino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'M')->get()->count();
+                $data[$ano]['Feminino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'F')->get()->count();
+            }
         } 
 
         $this->data = $data;
