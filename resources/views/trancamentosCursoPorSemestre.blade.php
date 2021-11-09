@@ -49,6 +49,28 @@
                 @endforeach
             </select>
 
+             <label for="periodo" class="form-label">  Período:</label>
+            <select id="periodo" name="periodo" class="form-select">
+                    <option @if(request()->query("periodo") == '' ) selected="selected" @endif value="">
+                        Todos
+                    </option>
+                     <option @if(request()->query("periodo") == 'integral' ) selected="selected" @endif value="integral">
+                        Integral
+                    </option>
+                     <option @if(request()->query("periodo") == 'matutino' ) selected="selected" @endif value="matutino">
+                        Matutino
+                    </option>
+                     <option @if(request()->query("periodo") == 'diurno' ) selected="selected" @endif value="diurno">
+                        Diurno
+                    </option>
+                     <option @if(request()->query("periodo") == 'vespertino' ) selected="selected" @endif value="vespertino">
+                        Vespertino
+                    </option>
+                    <option @if(request()->query("periodo") == 'noturno' ) selected="selected" @endif value="noturno">
+                        Noturno
+                    </option>
+            </select>
+
             <input type="submit" value="buscar" class="btn btn-dark bg-blue-default btn-send">
 
       </form>
