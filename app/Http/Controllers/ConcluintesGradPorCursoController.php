@@ -30,13 +30,13 @@ class ConcluintesGradPorCursoController extends Controller
         ];
 
 
-        $query = "SELECT COUNT (distinct v.codpes)
+        $query = "SELECT COUNT ( v.codpes)
         FROM VINCULOPESSOAUSP v
             JOIN TITULOPES t
             ON v.codpes = t.codpes
         WHERE ( v.tipvin = 'ALUNOGR'
-            AND v.dtafimvin LIKE '%$ano%'
-            AND v.sitoco LIKE 'Conclu%' -- consulta não funciona com acento	
+            AND t.dtafimtitpes LIKE '%$ano%'
+            AND v.sitoco LIKE 'Conclu%' -- consulta não funciona com acento 
             AND v.codclg = 8
             AND t.codcur IN (__curso__))";
 
@@ -97,15 +97,31 @@ class ConcluintesGradPorCursoController extends Controller
 
     public function export($format, $ano)
     {
+
+        $query = "SELECT  v.nompes as 'Nome', t.titpes as 'Formação',  t.dtaingtitpes as 'Data de ingresso no curso', t.dtafimtitpes as 'Data de conclusão', 
+        (CASE t.codhab % 10
+              WHEN 0 THEN 'Integral'
+              WHEN 1 THEN 'Diurno'
+              WHEN 2 THEN 'Matutino'
+              WHEN 3 THEN 'Vespertino'
+              WHEN 4 THEN 'Noturno'
+        END) as 'Periodo'    
+        FROM fflch.dbo.VINCULOPESSOAUSP v
+        JOIN fflch.dbo.TITULOPES t ON v.codpes = t.codpes
+        WHERE v.tipvin = 'ALUNOGR'
+        AND t.dtafimtitpes LIKE '%$ano%'
+        AND v.sitoco LIKE 'Conclu%' -- consulta não funciona com acento 
+        AND v.codclg = 8
+        AND t.codcur IN (8040,8010,8021,8030,8050, 8051, 8060)
+        ORDER BY t.codcur, v.nompes";
+
+        $result = DB::fetchAll($query);
+        
+
+
         if ($format == 'excel') {
-            $table = [
-                'Ciências Sociais' => $this->data['8040'],
-                'Filosofia' => $this->data['8010'],
-                'Geografia' => $this->data['8021'],
-                'História' => $this->data['8030'],
-                'Letras' => $this->data['8050, 8051, 8060']
-            ];
-            $export = new DadosExport([$table], array_keys($table));
+            
+            $export = new DadosExport([$result], array_keys($result[0]));
             return $this->excel->download($export, "concluintes_grad_$ano.xlsx");
         }
     }
