@@ -21,6 +21,8 @@ class TrancamentosCursoSemestralController extends Controller
         
         $data = [];
         $this->curso = $request->curso ?? 'Letras';
+
+        $periodo = $request->periodo ?? '';
         
         $this->cursos = [
             'Sociais' => ['nome' => 'Ciências Sociais', 'cod' => '8040'],
@@ -55,6 +57,10 @@ class TrancamentosCursoSemestralController extends Controller
             AND s.codcur IN (".$this->cursos[$this->curso]['cod'].")
             AND s.staalu = 'T'
             AND s.anosem = __semestre__";
+
+        if($periodo != ''){
+            $query .= " AND s.perhab   = '".$periodo."'";
+        }
 
         
         /* Contabiliza trancamentos por semestre. */
