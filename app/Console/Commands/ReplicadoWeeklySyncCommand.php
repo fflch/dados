@@ -50,16 +50,10 @@ class ReplicadoWeeklySyncCommand extends Command
     public function handle()
     {       
 
-        //$this->sync_comissao_pesquisa();
+        $this->sync_comissao_pesquisa();
 
         $programas = Posgraduacao::programas(8);
 
-        foreach($programas as $value) {
-            
-            $discentes = ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8);
-            $this->sync_alunos_posgr($discentes);
-            dd('ok');
-        }
        
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
