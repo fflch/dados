@@ -106,8 +106,8 @@ class ConcluintesGradPorCursoController extends Controller
               WHEN 3 THEN 'Vespertino'
               WHEN 4 THEN 'Noturno'
         END) as 'Periodo'    
-        FROM fflch.dbo.VINCULOPESSOAUSP v
-        JOIN fflch.dbo.TITULOPES t ON v.codpes = t.codpes
+        FROM VINCULOPESSOAUSP v
+        JOIN TITULOPES t ON v.codpes = t.codpes
         WHERE v.tipvin = 'ALUNOGR'
         AND t.dtafimtitpes LIKE '%$ano%'
         AND v.sitoco LIKE 'Conclu%' -- consulta não funciona com acento 
