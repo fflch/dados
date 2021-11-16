@@ -32,6 +32,9 @@
                 <option @if('DO' == request()->query("nivpgm")) selected="selected" @endif value="DO">
                     Doutorado
                 </option>
+                <option @if("" == request()->query("nivpgm")) selected="selected" @endif value="">
+                    Ambos
+                </option>
             
         </select>
 

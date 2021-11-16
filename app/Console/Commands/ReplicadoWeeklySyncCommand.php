@@ -13,6 +13,7 @@ use App\Models\Programa;
 use App\Models\ComissaoPesquisa;
 use App\Utils\Util;
 use Uspdev\Replicado\Uteis;
+use App\Models\Pessoa as PessoaModel;
 
 
 class ReplicadoWeeklySyncCommand extends Command
@@ -52,6 +53,7 @@ class ReplicadoWeeklySyncCommand extends Command
         $this->sync_comissao_pesquisa();
 
         $programas = Posgraduacao::programas(8);
+
        
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
@@ -69,7 +71,10 @@ class ReplicadoWeeklySyncCommand extends Command
         
         
         foreach($programas as $value) {
-            $this->syncJson(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8), $value['codare'], 'discentes');
+            $discentes = ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8);
+            $this->syncJson($discentes, $value['codare'], 'discentes');  
+            $this->sync_alunos_posgr($discentes);
+            
         }
         
         foreach($programas as $value) {
@@ -77,6 +82,38 @@ class ReplicadoWeeklySyncCommand extends Command
         }        
 
         return 0;
+    }
+
+    private function sync_alunos_posgr($discentes){
+        putenv('REPLICADO_SYBASE=1');
+        
+        $codpes = PessoaModel::select('codpes')->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        $codpes_replicado = array_column($discentes, 'codpes');
+        $diff = array_diff($codpes, $codpes_replicado);
+        PessoaModel::whereIn('codpes', $diff)->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+
+
+        foreach($discentes as $discente){
+            
+            $pessoa = PessoaModel::where('codpes',$discente['codpes'])->first();
+            if(!$pessoa) $pessoa = new PessoaModel;
+            
+            $id_lattes = Lattes::id($discente['codpes']);
+         
+
+            $pessoa->codpes = $discente['codpes'];
+            $pessoa->id_lattes = isset($id_lattes) ? $id_lattes : null;
+            $pessoa->sitatl = $discente['sitatl'];
+            $pessoa->nompes = $discente['nompes'];
+            $pessoa->codare = isset($discente['codare']) ? $discente['codare'] : null;
+            $pessoa->email = isset($discente['codema']) ? $discente['codema'] : null;
+            $pessoa->sexpes = isset($discente['sexpes']) ? $discente['sexpes'] : null;
+            $pessoa->dtainivin = $discente['dtainivin']; 
+            $pessoa->tipo_vinculo = $discente['tipvin'];
+            $pessoa->nivpgm = $discente['nivpgm']; 
+
+            $pessoa->save();
+        }        
     }
 
 
