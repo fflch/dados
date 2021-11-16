@@ -1,6 +1,6 @@
 SELECT count ( b.codpes)
 FROM LOCALIZAPESSOA l
-    join fflch.dbo.BENEFICIOALUCONCEDIDO b
+    join BENEFICIOALUCONCEDIDO b
     on b.codpes = l.codpes
 where b.tipvin IN ('ALUNOGR')
     and b.codbnfalu = __codigo__

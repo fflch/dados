@@ -1,5 +1,5 @@
-SELECT  count(v.codpes) from fflch.dbo.VINCULOPESSOAUSP v
-JOIN fflch.dbo.PESSOA p on p.codpes = v.codpes
+SELECT  count(v.codpes) from VINCULOPESSOAUSP v
+JOIN PESSOA p on p.codpes = v.codpes
 WHERE v.tipvin IN ('ALUNOPOS', 'ALUNOPD')
 AND v.codclg = 8
 __nivpgm__
