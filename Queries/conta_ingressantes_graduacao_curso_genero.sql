@@ -1,7 +1,7 @@
-SELECT COUNT (distinct l.codpes) FROM fflch.dbo.VINCULOPESSOAUSP l
-JOIN fflch.dbo.SITALUNOATIVOGR s
+SELECT COUNT (distinct l.codpes) FROM VINCULOPESSOAUSP l
+JOIN SITALUNOATIVOGR s
 ON s.codpes = l.codpes 
-JOIN fflch.dbo.PESSOA p
+JOIN PESSOA p
 ON p.codpes = l.codpes 
 WHERE l.tipvin = 'ALUNOGR' 
     AND l.codclg = 8 

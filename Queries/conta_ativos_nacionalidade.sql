@@ -1,6 +1,6 @@
 SELECT COUNT(lp.codpes)
-FROM fflch.dbo.LOCALIZAPESSOA lp
-    LEFT JOIN fflch.dbo.COMPLPESSOA cp
+FROM LOCALIZAPESSOA lp
+    LEFT JOIN COMPLPESSOA cp
     ON lp.codpes = cp.codpes
 WHERE lp.tipvin = '__vinculo__'
     AND lp.codundclg = 8
