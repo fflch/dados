@@ -153,7 +153,7 @@
     <div class="card-body collapse"  id="collapseDadosIngresso">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosGradTipoIngresso">Totais de alunos da Graduação por tipo de ingresso.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/IngressantesGeneroCurso?curso=Letras&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: Ingressantes da graduação por curso, gênero e ano</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/IngressantesGradGeneroCurso?curso=Letras&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}">Série histórica: Ingressantes da graduação por curso, gênero e ano</a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/IngressantesPosGrGeneroPrograma?codare=8133&ano_ini={{date('Y') - 5}}&ano_fim={{date('Y')}}&nivpgm=ME">Série histórica: Ingressantes da pós graduação por programa, gênero e ano</a></li>
         </ul>
     </div>

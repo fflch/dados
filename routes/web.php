@@ -140,10 +140,6 @@ Route::get('/IngressantesPosGrGeneroPrograma', [IngressantesPosGrGeneroProgramaC
 Route::get('/IngressantesPosGrGeneroPrograma/export/{format}', [IngressantesPosGrGeneroProgramaController::class, 'export']);
 
 
-#quantidade de ingressantes por gênero e programa de pós graduação
-Route::get('/IngressantesGeneroCurso', [IngressantesGeneroCursoController::class, 'grafico']);
-Route::get('/IngressantesGeneroCurso/export/{format}', [IngressantesGeneroCursoController::class, 'export']);
-
 #quantidade de alunos ativos da pós graduação, separados pelo nível de programa
 Route::get('ativosPosNivelPgm', [AtivosPosNivelProgramaController::class, 'grafico']);
 Route::get('ativosPosNivelPgm/export/{format}', [AtivosPosNivelProgramaController::class, 'export']);
