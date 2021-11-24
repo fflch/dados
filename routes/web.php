@@ -40,6 +40,7 @@ use App\Http\Controllers\IntercambioController;
 use App\Http\Controllers\EvasaoController;
 use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\EstagiariosController;
+use App\Http\Controllers\ColegiadoController;
 
 
 Route::get('/', [IndexController::class, 'index']);
@@ -194,6 +195,9 @@ Route::get('/restrito/transferencia', [TransferenciaController::class, 'listarTr
 Route::get('/restrito/bolsas', [BolsasController::class, 'listarBolsas']);
 
 Route::get('/restrito/estagiarios', [EstagiariosController::class, 'listarEstagiarios']);
+
+Route::get('/colegiados', [ColegiadoController::class, 'index']);
+Route::get('/colegiados/{codclg}', [ColegiadoController::class, 'show']);
 
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
