@@ -6,7 +6,9 @@
       <thead>
         <tr>
           <th scope="col">Titular</th>
+          <th scope="col">Email</th>
           <th scope="col">Suplente</th>
+          <th scope="col">Email</th>
           <th scope="col">Início</th>
           <th scope="col">Fim</th>
         </tr>
@@ -14,9 +16,16 @@
       <tbody>
         @foreach($membros as $membro)
           <tr>
-            <td><b>{{ $membro['tipfncclg'] }} </td>
-            <td style="color: #213d72"><b>{{ \Uspdev\Replicado\Pessoa::nomeCompleto($membro['titular']) }} </td>
-            <td><b>{{ \Uspdev\Replicado\Pessoa::nomeCompleto($membro['suplente']) }} </td>
+            <td style="color: #213d72"><b codpes="{{$membro['titular']}}">[{{$membro['vinculo_titular']}}] {{ $membro['nome_titular'] }} 
+            @if($membro['tipfncclg'] != 'Titular') ({{ $membro['tipfncclg'] }}) @endif </td>
+            <td><b>{{ $membro['email_titular'] }} </td>
+            @if($membro['suplente'] != 0) 
+              <td><b>[{{$membro['vinculo_suplente']}}] {{ $membro['nome_suplente'] }} </td>
+              <td><b>{{ $membro['email_suplente'] }} </td>
+            @else
+              <td><b>-</td>
+              <td><b>-</td>
+            @endif 
             <td>{{ date('d/m/Y', strtotime($membro['dtainimdt'] ))  }} </td>
             <td>{{ date('d/m/Y', strtotime($membro['dtafimmdt'] ))  }} </td>
           </tr>
