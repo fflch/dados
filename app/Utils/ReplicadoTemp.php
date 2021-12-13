@@ -291,22 +291,30 @@ class ReplicadoTemp
     {
         $query = "SELECT tipfnc FROM VINCULOPESSOAUSP WHERE codpes = ".$codpes." and sitatl <> 'D' and tipfnc is not null";
         if(DB::fetchAll($query) != []){
-            $vinculo = DB::fetchAll($query)[0]['tipfnc'];
+            $vinculos = DB::fetchAll($query)[0]['tipfnc'];
         }else{
-            $query = "SELECT tipvin FROM VINCULOPESSOAUSP WHERE codpes = ".$codpes." and sitatl <> 'D'";
+            $query = "SELECT tipvin FROM VINCULOPESSOAUSP WHERE codpes = ".$codpes." and sitatl <> 'D' and dtafimvin  is null";
             $vinculo = DB::fetchAll($query);
             if($vinculo != []){
-                $vinculo = $vinculo[0]['tipvin'];
-                if($vinculo == 'ALUNOGR' || $vinculo == 'ALUNOPD' || $vinculo == 'ALUNOPOS' || $vinculo == 'ALUNOESP' ||
-                    $vinculo == 'ALUNOCEU'){
-                    $vinculo = 'Discente';
-                }    
+                $vinculos = '';
+                foreach($vinculo as $value){
+                    $aux = $value['tipvin'];
+                    if($aux == 'ALUNOGR' || $aux == 'ALUNOPD' || $aux == 'ALUNOPOS' || $aux == 'ALUNOESP' ||
+                    $aux == 'ALUNOCEU'){
+                        $aux = 'Discente';
+                    }
+                    
+                    $vinculos .= ucfirst(strtolower($aux));
+                    if($value['tipvin'] != $vinculo[sizeof($vinculo) - 1]['tipvin']){
+                        $vinculos .= ', ';
+                    }
+                }
             }else{
-                return $codpes;
+                return '-';
             }
             
         }
-        return $vinculo;
+        return $vinculos;
     }
 
 
