@@ -12,7 +12,7 @@
         @foreach($colegiados as $colegiado)
           <tr>
             <td>
-              <a href="/colegiados/{{ $colegiado['codclg'] }}">
+              <a href="/colegiados/{{ $colegiado['codclg'] }}/{{ $colegiado['sglclg'] }}">
                 {{ $colegiado['tipclg'] }} - {{ $colegiado['nomclg'] }} 
               </a>
             </td>

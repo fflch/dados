@@ -14,20 +14,26 @@ class ColegiadoController extends Controller
         ]);
     }
  
-    public function show($codclg){
+    public function show($codclg, $sglclg,  Request $request){
         # TODO: validar $codclg
         
-        $nomeClg = Pessoa::retornarNomeColegiado($codclg);
-        $auxs = Pessoa::listarTitularesDoColegiado($codclg);
+        $nomeClg = Pessoa::retornarNomeColegiado($codclg, $sglclg);
+
+        if(!$nomeClg){
+            $request->session()->flash('alert-danger', "Colegiado não encontrado. Busque pelos colegiados listados abaixo.");
+            return redirect("/colegiados");
+        
+        }
+        $auxs = Pessoa::listarTitularesSuplentesDoColegiado($codclg, $sglclg);
+        
         
         $membros = [];
         foreach($auxs as $aux){
-            $aux['suplente'] = ReplicadoTemp::obterSuplente($aux['titular'], $codclg); 
             $aux['vinculo_titular'] = ReplicadoTemp::obterVinculo((int)$aux['titular']) ;
             $aux['vinculo_suplente'] = $aux['suplente'] != 0 ? ReplicadoTemp::obterVinculo((int)$aux['suplente']) : '-';
             $aux['nome_titular'] = Pessoa::nomeCompleto((int)$aux['titular']) ;
-            $aux['email_titular'] = Pessoa::retornarEmailUsp((int)$aux['titular']) ;
             $aux['nome_suplente'] = Pessoa::nomeCompleto((int)$aux['suplente']) ;
+            $aux['email_titular'] = Pessoa::retornarEmailUsp((int)$aux['titular']) ;
             $aux['email_suplente'] = Pessoa::retornarEmailUsp((int)$aux['suplente']) ;
             $membros[] = $aux;
         }

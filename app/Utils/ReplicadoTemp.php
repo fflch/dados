@@ -273,20 +273,6 @@ class ReplicadoTemp
     }
 
 
-    public static function obterSuplente($codpesttu, $codclg)
-    {
-        $query = "SELECT PARTICIPANTECOLEG.codpes FROM PARTICIPANTECOLEGSUPL
-                  INNER JOIN PARTICIPANTECOLEG ON (PARTICIPANTECOLEGSUPL.codpessup = PARTICIPANTECOLEG.codpes 
-                  and PARTICIPANTECOLEGSUPL.codclgsup = PARTICIPANTECOLEG.codclg and YEAR(PARTICIPANTECOLEGSUPL.dtainimdtsup) = YEAR(PARTICIPANTECOLEG.dtainimdt))
-                  WHERE PARTICIPANTECOLEGSUPL.codpesttu = ".$codpesttu."
-                 and PARTICIPANTECOLEG.codclg  = ".$codclg."
-                and PARTICIPANTECOLEG.dtafimmdt > '".Date('Y-m-d')." 00:00:00'
-                and PARTICIPANTECOLEG.tipfncclg = 'Suplente'";
-               
-       
-        return DB::fetchAll($query)[0]['codpes'] ?? 0;
-    }
-
     public static function obterVinculo($codpes)
     {
         $query = "SELECT tipfnc FROM VINCULOPESSOAUSP WHERE codpes = ".$codpes." and sitatl <> 'D' and tipfnc is not null";
