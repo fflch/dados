@@ -17,6 +17,7 @@ class ColegiadoController extends Controller
     public function show($codclg){
         # TODO: validar $codclg
         
+        $nomeClg = Pessoa::retornarNomeColegiado($codclg);
         $auxs = Pessoa::listarTitularesDoColegiado($codclg);
         
         $membros = [];
@@ -38,7 +39,8 @@ class ColegiadoController extends Controller
         
         return view('colegiados.show',[
             'codclg' => $codclg,
-            'membros' => $membros
+            'membros' => $membros,
+            'nome_colegiado' => $nomeClg
         ]);
     }
     

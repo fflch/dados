@@ -4,6 +4,7 @@
 
   <table class="table">
       <thead>
+        <tr> <th class="text-center border-0" colspan="7">{{$nome_colegiado}}</th> </tr>
         <tr>
           <th scope="col">Titular</th>
           <th scope="col">Vínculo</th>
@@ -30,7 +31,7 @@
               <td>-</td>
               <td>-</td>
             @endif 
-            <td class="text-center">{{ date('d/m/Y', strtotime($membro['dtainimdt'] ))  }} até {{ date('d/m/Y', strtotime($membro['dtafimmdt']))}} </td>
+            <td class="text-center">{{ date('d/m/Y', strtotime($membro['dtainimdt'] ))  }} <br> até <br> {{ date('d/m/Y', strtotime($membro['dtafimmdt']))}} </td>
             
           </tr>
         @endforeach
