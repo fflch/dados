@@ -23,6 +23,19 @@
 <br>
 
 <div class="card">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosInstitucionais"  role="button" aria-expanded="false" aria-controls="collapseDadosInstitucionais" ><b>Dados institucionais: 1</b>  
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+   </div>
+    <div class="card-body collapse"  id="collapseDadosInstitucionais">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ config('app.url') }}/colegiados">Colegiados</a></li>
+       </ul>
+    </div>
+</div>
+
+<br>
+
+<div class="card">
     <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosGerais"  role="button" aria-expanded="false" aria-controls="collapseDadosGerais" ><b>Dados gerais do portal: 6</b>  
          <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
     </div>
