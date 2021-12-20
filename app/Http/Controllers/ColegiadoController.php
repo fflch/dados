@@ -14,8 +14,7 @@ class ColegiadoController extends Controller
         ]);
     }
  
-    public function show($codclg, $sglclg,  Request $request){
-        # TODO: validar $codclg
+    public function show($codclg, $sglclg,  Request $request){     
         
         $nomeClg = Pessoa::retornarNomeColegiado($codclg, $sglclg);
 
@@ -31,16 +30,10 @@ class ColegiadoController extends Controller
         foreach($auxs as $aux){
             $aux['vinculo_titular'] = ReplicadoTemp::obterVinculo((int)$aux['titular']) ;
             $aux['vinculo_suplente'] = $aux['suplente'] != 0 ? ReplicadoTemp::obterVinculo((int)$aux['suplente']) : '-';
-            $aux['nome_titular'] = Pessoa::nomeCompleto((int)$aux['titular']) ;
-            $aux['nome_suplente'] = Pessoa::nomeCompleto((int)$aux['suplente']) ;
             $aux['email_titular'] = Pessoa::retornarEmailUsp((int)$aux['titular']) ;
             $aux['email_suplente'] = Pessoa::retornarEmailUsp((int)$aux['suplente']) ;
             $membros[] = $aux;
         }
-    
-        usort($membros, function ($a, $b){
-            return strcmp($a["nome_titular"], $b["nome_titular"]);
-        });
               
         
         return view('colegiados.show',[
