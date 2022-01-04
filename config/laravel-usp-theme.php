@@ -13,7 +13,6 @@ $right_menu = [
 
 return [
     'title' => config('app.name'),
-    'slogan' => config('app.slogan'),
     'container' => 'container container-fflch',
     'skin' => env('USP_THEME_SKIN', 'uspdev'),
     'app_url' => config('app.url'),
