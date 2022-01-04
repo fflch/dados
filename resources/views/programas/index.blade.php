@@ -36,7 +36,7 @@
   <div class="card-header">
     <b>Total de programas: {{count($programas)}}</b>
   </div>
-  <div class="card-body">
+  <div class="card-body table-responsive-sm">
     <table class="table docentes-programa-table">
       <thead>
         <tr>

@@ -2,6 +2,7 @@
 
 
 @section('styles')
+@parent
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
 @endsection('styles')
 
@@ -52,7 +53,7 @@
     <div class="card-header">
       <b>Pesquisa:</b>
     </div>
-    <div class="card-body">
+    <div class="card-body table-responsive-md table-responsive-sticky-x-sm">
       <table class="table docentes-programa-table">
         <thead>
           <tr>

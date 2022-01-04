@@ -1,5 +1,9 @@
 @extends('laravel-usp-theme::master')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/geral.css') }}">
+@endsection
+
 @section('flash')
     @if ($errors->any())
     <div class="alert alert-danger">
