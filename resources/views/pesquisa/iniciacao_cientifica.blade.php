@@ -34,7 +34,7 @@
     @endif
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
-    <table class="table pessoas-programa-table">
+    <table class="table table-responsive pessoas-programa-table">
       <thead>
         <tr>
           <th scope="col" class="first-col"><span class="text-first-col">Discente<span></th>

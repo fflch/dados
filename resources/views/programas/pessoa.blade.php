@@ -694,7 +694,7 @@
                     </h5>
                 </div>
                 <div class="panel-body collapse in {{ $section_show == 'orientandos_concluidos' ?  'show' : ''}}" id="collapseOrientandosConcluidos">
-                    <table class="table ">
+                    <table class="table table-responsive ">
                     <tr>
                         <td>Nome orientando</td>
                         <td>Área</td>
