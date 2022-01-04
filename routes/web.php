@@ -193,7 +193,7 @@ Route::get('/restrito/bolsas', [BolsasController::class, 'listarBolsas']);
 Route::get('/restrito/estagiarios', [EstagiariosController::class, 'listarEstagiarios']);
 
 Route::get('/colegiados', [ColegiadoController::class, 'index']);
-Route::get('/colegiados/{codclg}', [ColegiadoController::class, 'show']);
+Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
 
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');

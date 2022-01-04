@@ -271,4 +271,38 @@ class ReplicadoTemp
         
         return DB::fetchAll($query, $param);
     }
+
+
+    public static function obterVinculo($codpes)
+    {
+        $query = "SELECT tipfnc FROM VINCULOPESSOAUSP WHERE codpes = ".$codpes." and sitatl <> 'D' and tipfnc is not null";
+        if(DB::fetchAll($query) != []){
+            $vinculos = DB::fetchAll($query)[0]['tipfnc'];
+        }else{
+            $query = "SELECT tipvin FROM VINCULOPESSOAUSP WHERE codpes = ".$codpes." and sitatl <> 'D' and dtafimvin  is null";
+            $vinculo = DB::fetchAll($query);
+            if($vinculo != []){
+                $vinculos = '';
+                foreach($vinculo as $value){
+                    $aux = $value['tipvin'];
+                    if($aux == 'ALUNOGR' || $aux == 'ALUNOPD' || $aux == 'ALUNOPOS' || $aux == 'ALUNOESP' ||
+                    $aux == 'ALUNOCEU'){
+                        $aux = 'Discente';
+                    }
+                    
+                    $vinculos .= ucfirst(strtolower($aux));
+                    if($value['tipvin'] != $vinculo[sizeof($vinculo) - 1]['tipvin']){
+                        $vinculos .= ', ';
+                    }
+                }
+            }else{
+                return '-';
+            }
+            
+        }
+        return $vinculos;
+    }
+
+
+
 }

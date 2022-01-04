@@ -4,21 +4,35 @@
 
   <table class="table">
       <thead>
+        <tr> <th class="text-center border-0" colspan="7">{{$nome_colegiado}}</th> </tr>
         <tr>
           <th scope="col">Titular</th>
+          <th scope="col">Vínculo</th>
+          <th scope="col">Email</th>
           <th scope="col">Suplente</th>
-          <th scope="col">Início</th>
-          <th scope="col">Fim</th>
+          <th scope="col">Vínculo</th>
+          <th scope="col">Email</th>
+          <th scope="col">Vigência</th>
         </tr>
       </thead>
       <tbody>
         @foreach($membros as $membro)
           <tr>
-            <td><b>{{ $membro['tipfncclg'] }} </td>
-            <td style="color: #213d72"><b>{{ \Uspdev\Replicado\Pessoa::nomeCompleto($membro['titular']) }} </td>
-            <td><b>{{ \Uspdev\Replicado\Pessoa::nomeCompleto($membro['suplente']) }} </td>
-            <td>{{ date('d/m/Y', strtotime($membro['dtainimdt'] ))  }} </td>
-            <td>{{ date('d/m/Y', strtotime($membro['dtafimmdt'] ))  }} </td>
+            <td style="color: #213d72"><b codpes="{{$membro['titular']}}"> {{ $membro['nome_titular'] }} 
+            @if($membro['tipfncclg'] != 'Titular') ({{ $membro['tipfncclg'] }}) @endif </b></td>
+            <td>{{$membro['vinculo_titular']}}</td>
+            <td>{{ $membro['email_titular'] }} </td>
+            @if($membro['suplente'] != 0) 
+              <td><b>{{ $membro['nome_suplente'] }}</b> </td>
+              <td>{{$membro['vinculo_suplente']}}</td>
+              <td>{{ $membro['email_suplente'] }} </td>
+            @else
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            @endif 
+            <td class="text-center">{{ date('d/m/Y', strtotime($membro['dtainimdt'] ))  }} <br> até <br> {{ date('d/m/Y', strtotime($membro['dtafimmdt']))}} </td>
+            
           </tr>
         @endforeach
       </tbody>
