@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<a href="/ativos/export/excel">
+<a href="/ativos/export/excel" class="btn-dl-excel">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 
 <center>Quantidade de pessoas com vínculos ativos na unidade.</center>

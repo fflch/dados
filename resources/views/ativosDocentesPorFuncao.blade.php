@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<a href="/ativosDocentesPorFuncao/export/excel">
+<a class="btn-dl-excel" href="/ativosDocentesPorFuncao/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 <center>

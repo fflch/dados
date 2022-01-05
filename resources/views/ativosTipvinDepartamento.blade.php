@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <label for="curso" class="form-label">Filtrar por:</label>
     <select id="curso" class="form-select" onchange="location = this.value;">
         <option @if($codfnc == 0) selected="selected" @endif value="/ativosDepartamento/Servidor/0">
@@ -21,7 +21,7 @@
     </select> 
     
 
-    <a href="/ativosDepartamento/export/excel/{{$tipvin}}/{{$codfnc}}" class="float-right">
+    <a  href="/ativosDepartamento/export/excel/{{$tipvin}}/{{$codfnc}}" class="float-right">
         <i class="fas fa-file-excel"></i> Download Excel
     </a>
 

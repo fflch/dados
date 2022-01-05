@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <label for="curso" class="form-label">Filtrar por:</label>
     <select id="curso" class="form-select" onchange="location = this.value;">
         @foreach($filtro as $key => $value)

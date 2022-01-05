@@ -1,14 +1,15 @@
 @extends('main')
 
 @section('styles')
+    @parent
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
 @endsection
 
 
 @section('content')
 
-<div>
-    <a href="/ativosBeneficiosConHist/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}" class="float-right">
+<div class="content-options">
+    <a  href="/ativosBeneficiosConHist/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}" class="float-right">
         <i class="fas fa-file-excel"></i> Download Excel</a>
     
     <br>

@@ -5,7 +5,7 @@
 @section('content')
 
 
-<div>
+<div class="content-options">
     <label for="ano" class="form-label">Ano:</label>
     <select id="ano" class="form-select" onchange="location = this.value;">
         @foreach($anos as $a)
@@ -20,7 +20,7 @@
     </select>
    
    
-    <a href="/beneficiosAtivosGraduacaoPorAno/export/excel/{{$ano}}" class="float-right">
+    <a  href="/beneficiosAtivosGraduacaoPorAno/export/excel/{{$ano}}" class="float-right">
         <i class="fas fa-file-excel"></i> Download Excel</a>
     <br>
 </div>

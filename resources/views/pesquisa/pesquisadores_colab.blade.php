@@ -2,6 +2,7 @@
 
 
 @section('styles')
+@parent
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 @endsection('styles')

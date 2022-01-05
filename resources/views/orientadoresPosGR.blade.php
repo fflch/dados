@@ -2,7 +2,7 @@
 
 
 @section('content')
-<a href="/orientadoresPosGR/export/excel">
+<a class="btn-dl-excel" href="/orientadoresPosGR/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a>
     
 <center>

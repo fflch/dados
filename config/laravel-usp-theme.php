@@ -22,39 +22,6 @@ return [
     'right_menu' => $right_menu,
     'menu' => [
         [
-            'text' => 'Catálogo',
-            'submenu' => [
-                [
-                    'type' => 'header',
-                    'text' => 'Dados de produção acadêmica',
-                ],
-                [
-                    'text' => 'Programas de Pós-Graduação',
-                    'url' =>  config('app.url') .'/programas',
-                ],
-                [
-                    'text' => 'Defesas',
-                    'url' =>  config('app.url').'/defesas',
-                ],
-                [
-                    'text' => 'Pesquisa',
-                    'url' =>  config('app.url').'/pesquisa?filtro=departamento',
-                ],
-                [
-                    'type' => 'divider',
-                ],
-                [
-                    'type' => 'header',
-                    'text' => 'Dados institucionais',
-                ],
-                [
-                    'text' => 'Colegiados',
-                    'url' =>  config('app.url').'/colegiados',
-                ],
-                
-            ],
-        ],
-        [
             'text' => 'Início',
             'url'  => '/',
         ],

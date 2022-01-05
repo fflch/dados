@@ -86,4 +86,13 @@ h5[data-toggle="collapse"] .controller-collapse .fa-minus-square {
   0%   {opacity: 0;}
   100% {opacity: 1;}
 }
+
+@media(max-width: 769px){
+  .btn-voltar{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+}
+
 /*# sourceMappingURL=programas.css.map */
