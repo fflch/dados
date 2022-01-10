@@ -37,9 +37,11 @@ class ColegiadoController extends Controller
               
         
         return view('colegiados.show',[
+            'sglclg' => $sglclg,
             'codclg' => $codclg,
             'membros' => $membros,
-            'nome_colegiado' => $nomeClg
+            'nome_colegiado' => $nomeClg,
+            
         ]);
     }
     
