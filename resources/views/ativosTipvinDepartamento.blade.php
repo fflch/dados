@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="content-options">
+<div class="content-options overflow-auto">
     <label for="curso" class="form-label">Filtrar por:</label>
     <select id="curso" class="form-select" onchange="location = this.value;">
         <option @if($codfnc == 0) selected="selected" @endif value="/ativosDepartamento/Servidor/0">
