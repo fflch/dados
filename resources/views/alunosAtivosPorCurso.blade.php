@@ -23,7 +23,7 @@
        
     </select>
 
-    <a href="/alunosAtivosPorCurso/export/excel/{{$tipvin}}" class="float-right">
+    <a href="/alunosAtivosPorCurso/export/excel/{{$tipvin}}" class="float-right btn-dl-excel">
         <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 </div>

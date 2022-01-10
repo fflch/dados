@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<a href="/alunosEspeciaisPosGrDpto/export/excel">
+<a class="btn-dl-excel" href="/alunosEspeciaisPosGrDpto/export/excel">
 <i class="fas fa-file-excel"></i> Download Excel</a>
 
 <div id="chart-div"></div>

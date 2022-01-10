@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<a href="/ativosAlunosEstado/export/excel">
+<a class="btn-dl-excel" href="/ativosAlunosEstado/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 
 <center>Quantidade de Alunos de Gradução, Pós Graduação, Pós Doutorado e de Cultura e Extensão da FFLCH por estado.</center>

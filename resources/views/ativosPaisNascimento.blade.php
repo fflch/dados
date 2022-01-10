@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<div>
+<div class="content-options">
     <label for="vinculo" class="form-label">Filtrar por:</label>
     <select id="vinculo" class="form-select" onchange="location = this.value;">
         <option @if($tipo_vinculo == 0) selected="selected" @endif value="/ativosPaisNascimento/0">
@@ -22,7 +22,7 @@
 
     </select> 
 
-<a href="/ativosPaisNascimento/export/excel/{{$tipo_vinculo}}">
+<a  href="/ativosPaisNascimento/export/excel/{{$tipo_vinculo}}">
     <i class="fas fa-file-csv"></i> Download Excel</a> 
 
 </div>

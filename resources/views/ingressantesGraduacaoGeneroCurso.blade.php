@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <form action="/IngressantesGradGeneroCurso" method='get'>
 
         <label for="curso" class="form-label">Filtrar por curso:</label>
@@ -51,7 +51,7 @@
     </form>
     
 
-    <a href="/IngressantesGradGeneroCurso/export/excel?curso=Letras&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
+    <a  href="/IngressantesGradGeneroCurso/export/excel?curso=Letras&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
         <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 </div>

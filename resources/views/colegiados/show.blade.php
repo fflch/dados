@@ -1,10 +1,14 @@
 @extends('main')
 
 @section('content')
+  
+  <p>
+    <h6 class="text-center"><b>{{$nome_colegiado}}</b></h6>
+  </p>
 
-  <table class="table">
+  <table class="table table-responsive">
       <thead>
-        <tr> <th class="text-center border-0" colspan="7">{{$nome_colegiado}}</th> </tr>
+        <!--<tr> <th class="text-center border-0" colspan="7">{{$nome_colegiado}}</th> </tr>-->
         <tr>
           <th scope="col">Titular</th>
           <th scope="col">Vínculo</th>
