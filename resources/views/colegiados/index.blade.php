@@ -13,7 +13,7 @@
           <tr>
             <td>
               <a href="/colegiados/{{ $colegiado['codclg'] }}/{{ $colegiado['sglclg'] }}">
-                {{ $colegiado['tipclg'] }} - {{ $colegiado['nomclg'] }} 
+                {{ $colegiado['tipclg'] }} - {{ $colegiado['nomclg'] }}  ({{ $colegiado['sglclg']}})
               </a>
             </td>
           </tr>
