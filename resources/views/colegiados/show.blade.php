@@ -4,17 +4,7 @@
 
   <table class="table">
       <thead>
-        <tr> 
-          <th class="text-center border-0" colspan="7">
-            <?php $descricao = \App\Utils\Util::obterDescricaoColegiadoPorSigla($sglclg); ?> 
-                @if($codclg == 8 && !empty($descricao))
-                  {{$descricao}} 
-                @else
-                  {{$nome_colegiado}}
-                @endif  
-              
-          </th> 
-        </tr>
+        <tr> <th class="text-center border-0" colspan="7">{{$nome_colegiado}}  ({{$sglclg}})</th> </tr>
         <tr>
           <th scope="col">Titular</th>
           <th scope="col">Vínculo</th>

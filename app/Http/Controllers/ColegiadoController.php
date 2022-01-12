@@ -40,7 +40,7 @@ class ColegiadoController extends Controller
             'sglclg' => $sglclg,
             'codclg' => $codclg,
             'membros' => $membros,
-            'nome_colegiado' => $nomeClg,
+            'nome_colegiado' => $nomeClg
             
         ]);
     }

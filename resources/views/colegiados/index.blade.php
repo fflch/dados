@@ -13,13 +13,7 @@
           <tr>
             <td>
               <a href="/colegiados/{{ $colegiado['codclg'] }}/{{ $colegiado['sglclg'] }}">
-                <?php $descricao = \App\Utils\Util::obterDescricaoColegiadoPorSigla($colegiado['sglclg']); ?>
-                {{ $colegiado['tipclg'] }} - 
-                @if($colegiado['codclg'] == 8 && !empty($descricao))
-                  {{$descricao}} 
-                @else
-                  {{ $colegiado['nomclg'] }}
-                @endif
+                {{ $colegiado['tipclg'] }} - {{ $colegiado['nomclg'] }}  ({{$colegiado['sglclg']}})
               </a>
             </td>
           </tr>
