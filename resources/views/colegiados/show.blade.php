@@ -1,22 +1,14 @@
 @extends('main')
 
 @section('content')
+  
+  <p>
+    <h6 class="text-center"><b>{{$nome_colegiado}}</b></h6>
+  </p>
 
-  <table class="table">
+  <table class="table table-responsive">
       <thead>
-        <tr> 
-          <th class="text-center border-0" colspan="7">
-            <?php $descricao = \App\Utils\Util::obterDescricaoColegiadoPorSigla($sglclg); ?> 
-                @if($codclg == 8 && !empty($descricao))
-                  {{$descricao}} 
-                @else
-                  {{$nome_colegiado}}
-                @endif  
-              
-          </th> 
-        </tr>
-        <tr>
-          <th scope="col">Titular</th>
+        <!--<tr> <th class="text-center border-0" colspan="7">{{$nome_colegiado}}</th> </tr>-->          <th scope="col">Titular</th>
           <th scope="col">Vínculo</th>
           <th scope="col">Email</th>
           <th scope="col">Suplente</th>

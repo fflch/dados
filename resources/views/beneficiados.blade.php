@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <form action="/beneficiados" method='get'>
 
         <label for="ano_ini" class="form-label">Filtrar de </label>
@@ -38,7 +38,7 @@
         <input type="submit" value="buscar" class="btn btn-dark bg-blue-default btn-send">
     </form>
 
-<a href="/beneficiados/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
+<a  href="/beneficiados/export/excel?ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 
 </div>

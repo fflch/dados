@@ -1,4 +1,5 @@
 
+<div class="content-options">
 <form id="formSearchProducaoPrograma" method="show" action="/pesquisa/iniciacao_cientifica" class="d-flex mb-3">
     <input type="hidden" name="departamento" value="{{ request()->get('departamento') }}">
     <input type="hidden" name="curso" value="{{ request()->get('curso') }}">
@@ -32,4 +33,4 @@
     </div>
     <input type="submit" value="Buscar" class="btn btn-dark bg-blue-default btn-send">
   </form>
-  
+</div>

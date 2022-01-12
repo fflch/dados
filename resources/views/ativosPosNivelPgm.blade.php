@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<a href="/ativosPosNivelPgm/export/excel">
+<a class="btn-dl-excel" href="/ativosPosNivelPgm/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 

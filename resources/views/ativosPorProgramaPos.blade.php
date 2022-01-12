@@ -1,8 +1,10 @@
 @extends('main')
 
 @section('content')
-<a href="/ativosPorProgramaPos/export/excel">
-    <i class="fas fa-file-excel"></i> Download Excel</a> 
+<div class="content-options">
+    <a class="btn-dl-excel" href="/ativosPorProgramaPos/export/excel">
+        <i class="fas fa-file-excel"></i> Download Excel</a> 
+</div>
 
 
 <center>Quantidade de alunos ativos da Pós Graduação contabilizados por departamento.</center>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<a href="/ativosAlunosGradTipoIngresso/export/excel">
+<a class="btn-dl-excel"  href="/ativosAlunosGradTipoIngresso/export/excel">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 
 <center>* Foram omitidos os dados de alunos que não dispõem da informação em seu cadastro.</center>

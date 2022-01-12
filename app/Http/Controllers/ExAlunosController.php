@@ -63,7 +63,10 @@ class ExAlunosController extends Controller
         $lava->PieChart('Ex Alunos', $reasons, [
             'title'  => 'Quantidade de Ex Alunos de Graduação e Pós-Graduação (Mestrado e Doutorado) da Faculdade de Filosofia, Letras e Ciências Humanas',
             'is3D'   => true,
-            'height' => 700
+            'height' => 700,
+            'legend' => [
+                'position' => 'bottom',
+            ]
 
         ]);
 

@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <a href="/exAlunos/export/excel/">
+    <a class="btn-dl-excel" href="/exAlunos/export/excel/">
         <i class="fas fa-file-csv"></i> Download Excel</a> 
 </div>
 

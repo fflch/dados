@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <form action="/alunosEspeciaisPorAno" method='get'>
 
         <label for="vinculo" class="form-label">Filtrar por:</label>

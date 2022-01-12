@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-<div>
+<div class="content-options">
     <form action="/concluintesPorAno" method='get'>
 
         <label for="vinculo" class="form-label">Filtrar por:</label>
@@ -50,7 +50,7 @@
     </form>
     
 
-<a href="/concluintesPorAno/export/excel?vinculo={{request()->query("vinculo")}}&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
+<a  href="/concluintesPorAno/export/excel?vinculo={{request()->query("vinculo")}}&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}">
     <i class="fas fa-file-excel"></i> Download Excel</a>
 
 </div>

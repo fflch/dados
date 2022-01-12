@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <label for="ano" class="form-label">Filtrar por ano:</label>
         <select id="ano" class="form-select" onchange="location = this.value;">
             @foreach($anos as $a)

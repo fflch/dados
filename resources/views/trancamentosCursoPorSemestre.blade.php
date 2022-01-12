@@ -1,13 +1,14 @@
 @extends('main')
 
 @section('styles')
+@parent
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
 @endsection
 
 
 @section('content')
 
-    <div>
+    <div class="content-options overflow-auto">
         <form action="/trancamentosCursoPorSemestre" method='get' class="d-inline-block">
             <label for="curso" class="form-label">Curso:</label>
           
@@ -75,7 +76,7 @@
 
       </form>
 
-      <a class="float-right" href="/trancamentosCursoPorSemestre/export/excel?curso={{ request()->query("curso") == null ? 'Letras' : request()->query("curso") }}&ano_ini={{request()->query("ano_ini") == null ? date('Y') - 10 : request()->query("ano_ini") }}&ano_fim={{request()->query("ano_fim") == null ? date('Y') : request()->query("ano_fim") }}"  >
+      <a class="float-right btn-dl-excel"  href="/trancamentosCursoPorSemestre/export/excel?curso={{ request()->query("curso") == null ? 'Letras' : request()->query("curso") }}&ano_ini={{request()->query("ano_ini") == null ? date('Y') - 10 : request()->query("ano_ini") }}&ano_fim={{request()->query("ano_fim") == null ? date('Y') : request()->query("ano_fim") }}"  >
             <i class="fas fa-file-excel"></i> Download Excel
         </a>
 

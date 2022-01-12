@@ -4,11 +4,11 @@
 
 @section('content')
 
-<div>
+<div class="content-options">
     <form action="/IngressantesPosGrGeneroPrograma" method='get'>
 
         <label for="codare" class="form-label">Filtrar por programa:</label>
-        <select id="codare" class="form-select" name="codare">
+        <select id="codare" class="form-select mw-100" name="codare">
             @foreach($programas as $key => $programa)
                 <option 
                     @if($key == request()->query("codare"))
@@ -69,7 +69,7 @@
     </form>
     
 
-    <a href="/IngressantesPosGrGeneroPrograma/export/excel?codare={{request()->query("codare")}}&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}&nivpgm={{request()->query("nivpgm")}}">
+    <a  href="/IngressantesPosGrGeneroPrograma/export/excel?codare={{request()->query("codare")}}&ano_ini={{request()->query("ano_ini")}}&ano_fim={{request()->query("ano_fim")}}&nivpgm={{request()->query("nivpgm")}}">
         <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 </div>
