@@ -72,12 +72,14 @@ class PesquisaController extends Controller
         }else{
             $nome_curso = Util::getCursos()[$request->curso];
         }
-        
         return view('pesquisa.pesquisas_pos_doutorando',[
             'filtro' => $request->filtro,
             'pesquisas_pos_doutorando' => ComissaoPesquisa::listarPesquisasPosDoutorandos($request),
             'nome_departamento' => $nome_departamento,
             'nome_curso' => $nome_curso,
+            'bolsa' => $request->bolsa,
+            'departamento' => $request->departamento,
+            'curso' => $request->curso
         ]);
     }
     

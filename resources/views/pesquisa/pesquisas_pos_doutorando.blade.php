@@ -15,10 +15,11 @@
 <div class="card">
   <div class="card-header">
     @if(!empty($nome_departamento))
-      <b>Pesquisas de pós doutorado do departamento de {{$nome_departamento}}</b>
+      <b>Pesquisas de pós doutorado do departamento de {{$nome_departamento}} </b>
     @else
       <b>Pesquisas de pós doutorado do curso de {{$nome_curso}}</b>
     @endif
+    <a href="{{ config('app.url') }}/api/pesquisa/pos_doutorandos?departamento={{$departamento}}&bolsa={{$bolsa}}&curso={{$curso}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <table class="table table-responsive  pessoas-programa-table">

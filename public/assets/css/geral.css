@@ -2,6 +2,15 @@
     text-align: center;
 }
 
+.export-json{
+    position: absolute;
+    top: 3.5px;
+    right: 10px;
+}
+.export-json img{
+    height: 40px;
+    width: auto;
+}
 @media (max-width:767px){
     .table-responsive-sticky-x-sm{
         padding: 0;
