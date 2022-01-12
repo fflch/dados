@@ -80,21 +80,4 @@ class Util
         
     }
 
-    public static function obterDescricaoColegiadoPorSigla($sigla){
-       
-        $colegiados = [
-            'CCEX' => 'Comissão de Cultura e Extensão',
-            'CG' => 'Comissão de Graduação',
-            'CONGREG' => 'Congregação da Faculdade de Filosofia, Letras e Ciências Humanas ',
-            'CPG' => 'Comissão de Pós Graduação',  
-            'CPq' => 'Comissão de Pesquisa',       
-            'CRInt' => 'Comissão de Cooperação Internacional',    
-            'CTA' => 'Conselho Técnico-Administrativo'  
-        ];
-        return $colegiados[$sigla] ?? '';
-        
-    }
-
-    
-
 }
