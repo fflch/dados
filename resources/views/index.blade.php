@@ -15,7 +15,7 @@
             <li class="list-group-item"><a href="{{ config('app.url') }}/programas">Programas de Pós-Graduação</a>  <a href="{{ config('app.url') }}/api/programas" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a></li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/defesas">Defesas</a> <a href="{{ config('app.url') }}/api/defesas" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a></li>
             
-            <li class="list-group-item"><a href="{{ config('app.url') }}/pesquisa?filtro=departamento">Pesquisa</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/pesquisa?filtro=departamento">Pesquisa</a> <a href="{{ config('app.url') }}/api/pesquisa?filtro=departamento" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a></li>
        </ul>
     </div>
 </div>
