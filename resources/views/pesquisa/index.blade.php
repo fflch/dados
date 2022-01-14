@@ -8,7 +8,7 @@
 
 
 @section('content')
-
+<div class="position-relative">
 <form id="formSearchPesquisa" method="index" action="/pesquisa" class="d-flex mb-3">
   <div class="filtro-select-div">
     <label for="filtro">Filtrar por:</label>
@@ -47,6 +47,8 @@
  
   <input type="submit" value="Buscar" class="btn btn-dark bg-blue-default btn-send">
 </form>
+<a href="{{ config('app.url') }}/api/pesquisa?filtro={{$filtro}}&ano_ini={{request()->ano_ini}}&ano_fim={{request()->ano_fim}}&serie_historica_tipo={{request()->serie_historica_tipo}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+</div>
 
 @if($filtro != 'serie_historica')
   <div class="card">

@@ -1,6 +1,7 @@
 @extends('main')
 
 @section('styles')
+@parent
     <link rel="stylesheet" href="{{ asset('assets/css/programas.css') }}">
 @endsection('styles')
 
@@ -35,6 +36,8 @@
 <div class="card">
   <div class="card-header">
     <b>Total de programas: {{count($programas)}}</b>
+
+    <a href="{{ config('app.url') }}/api/programas" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
   </div>
   <div class="card-body table-responsive-sm">
     <table class="table docentes-programa-table">

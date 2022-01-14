@@ -1,4 +1,4 @@
-
+<div class="position-relative">
 <form id="formSearchProducaoPrograma" method="show" action="{{$form_action}}" class="d-flex mb-3">
     <div class="tipo-select-div">
       <label for="tipo">Filtrar por:</label>
@@ -28,3 +28,5 @@
     <input type="submit" value="Buscar" class="btn btn-dark btn-send">
   </form>
   
+  <a href="{{ config('app.url') }}/api{{$form_action}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+  </div>

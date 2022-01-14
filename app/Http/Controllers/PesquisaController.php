@@ -42,6 +42,8 @@ class PesquisaController extends Controller
             'pesquisadores_colab' => ComissaoPesquisa::listarPesquisadoresColaboradores($request),
             'nome_departamento' => $nome_departamento,
             'nome_curso' => $nome_curso,
+            'departamento' => $request->departamento,
+            'curso' => $request->curso
         ]);
     }
     
@@ -60,6 +62,8 @@ class PesquisaController extends Controller
             'projetos_pesquisa' => ComissaoPesquisa::listarProjetosPesquisa($request),
             'nome_departamento' => $nome_departamento,
             'nome_curso' => $nome_curso,
+            'departamento' => $request->departamento,
+            'curso' => $request->curso
         ]);
     }
     
@@ -72,12 +76,14 @@ class PesquisaController extends Controller
         }else{
             $nome_curso = Util::getCursos()[$request->curso];
         }
-        
         return view('pesquisa.pesquisas_pos_doutorando',[
             'filtro' => $request->filtro,
             'pesquisas_pos_doutorando' => ComissaoPesquisa::listarPesquisasPosDoutorandos($request),
             'nome_departamento' => $nome_departamento,
             'nome_curso' => $nome_curso,
+            'bolsa' => $request->bolsa,
+            'departamento' => $request->departamento,
+            'curso' => $request->curso
         ]);
     }
     

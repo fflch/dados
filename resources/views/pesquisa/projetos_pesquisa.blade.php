@@ -18,6 +18,9 @@
     @else
       <b>Projetos de pesquisa dos docentes do curso de {{$nome_curso}}</b>
     @endif
+
+    <a href="{{ config('app.url') }}/api/pesquisa/projetos_pesquisa?departamento={{$departamento}}&curso={{$curso}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <table class="table table-responsive pessoas-programa-table">
