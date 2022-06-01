@@ -303,6 +303,135 @@ class ReplicadoTemp
         return $vinculos;
     }
 
+     /**
+     * Método para retornar as iniciações científicas 
+     * Permite filtrar por departamento e por periodo.
+     * @param array $departamento - Recebe um array com as siglas dos departamentos desejados. Se for igual a null, a consulta trazerá todos os departamentos.
+     * @param int $ano_ini - ano inicial do período. Se for igual a null retorna todas as iniciações científicas.
+     * @param int $ano_fim - ano final do período
+     * @param bool $somenteAtivos - Se for igual a true retornará as iniciações científicas ativas
+     * @return array
+     */
+    public static function listarIniciacaoCientifica($departamento = null, $ano_ini = null, $ano_fim = null, $somenteAtivos = false){
+        $unidades = getenv('REPLICADO_CODUNDCLG');
+        $query = "SELECT 
+        ic.codprj as cod_projeto,
+        ic.codpesalu as aluno,
+        p1.nompes as nome_aluno,
+        p1.sexpes as genero_aluno,
+        ic.titprj as titulo_pesquisa,
+        ic.codpesrsp as orientador, 
+        p2.nompes as nome_orientador,
+        p2.sexpes as genero_orientador,
+        ic.dtainiprj as data_ini,
+        ic.dtafimprj as data_fim, 
+        ic.anoprj as ano_projeto,
+        s.nomset as departamento,
+        s.nomabvset as sigla_departamento,
+        ic.staprj as status_projeto
+        from 
+        ICTPROJETO ic
+        inner join 
+            PESSOA p1
+            on p1.codpes = ic.codpesalu
+        inner join 
+            PESSOA p2
+            on p2.codpes = ic.codpesrsp
+        inner join 
+            SETOR s ON s.codset = ic.codsetprj 
+        where 
+        ic.codundprj in (__unidades__) 
+        __data__
+        __departamento__ 
+        ORDER BY p1.nompes";
+
+        $query = str_replace('__unidades__',$unidades,$query);
+    
+        $param = [];
+
+        if($departamento != null && sizeof($departamento) > 0){ 
+            if(is_array($departamento) && sizeof($departamento) > 1){
+                $departamento = "'". implode("','", $departamento)."'";
+            }else if(sizeof($departamento) == 1){
+                $departamento = "'". $departamento[0] ."'";
+            }
+            
+            $query = str_replace('__departamento__',"AND s.nomabvset in ($departamento)", $query);
+           
+        }else{
+            $query = str_replace('__departamento__',"", $query);
+        }
+        if($ano_ini != -1 && $ano_ini != null && $ano_fim != null && !empty($ano_ini) && !empty($ano_fim)){
+            $aux = " AND (ic.dtafimprj BETWEEN '".$ano_ini."-01-01' AND '".$ano_fim."-12-31' OR
+                        ic.dtainiprj BETWEEN '".$ano_ini."-01-01' AND '".$ano_fim."-12-31') ";
+            if($somenteAtivos){
+                $aux .= " AND (ic.dtafimprj > GETDATE() or ic.dtafimprj IS NULL)"; 
+            }
+            $query = str_replace('__data__',$aux, $query);
+        }else if($ano_ini == null && !$somenteAtivos){
+            $query = str_replace('__data__','', $query);
+        }else if($somenteAtivos){   
+            $query = str_replace('__data__',"AND (ic.dtafimprj > GETDATE() or ic.dtafimprj IS NULL)", $query); 
+        }
+        
+        
+        
+        $result =  DB::fetchAll($query, $param);
+
+        $iniciacao_cientifica = [];
+        foreach($result as $ic){
+            $curso = Pessoa::retornarCursoPorCodpes($ic['aluno']);
+            $ic['codcur'] =  $curso == null ? null : $curso['codcurgrd'];
+            $ic['nome_curso'] =  $curso == null ? null : $curso['nomcur'];
+            
+            $query_com_autodeclaracao_cor = "SELECT  case codraccor
+            when 1 then 'Indígena'
+            when 2 then 'Branca'
+            when 3 then 'Negra'
+            when 4 then 'Amarela'
+            when 5 then 'Parda'
+            when 6 then 'Não informado'
+            end as raca_cor_aluno from COMPLPESSOA where codpes = convert(int,:codpes)
+            ";
+            $param_com_autodeclaracao_cor = [
+                'codpes' => $ic['aluno'],
+            ];
+            
+            $result =  DB::fetch($query_com_autodeclaracao_cor, $param_com_autodeclaracao_cor);
+           
+            $ic['raca_cor_aluno'] = $result['raca_cor_aluno'] ?? 'Não informado';
+          
+            $query_com_bolsa = "SELECT b.codctgedi, b.dtainibol, b.dtafimbol FROM ICTPROJEDITALBOLSA b
+            inner join ICTPROJETO i on i.codprj = b.codprj 
+            where codundprj in (__unidades__)
+            and codmdl = 1
+            and i.codpesalu  = convert(int,:codpes)
+            and i.codprj = convert(int,:codprj)
+            ";
+
+            $query_com_bolsa = str_replace('__unidades__',$unidades,$query_com_bolsa);   
+
+            $param_com_bolsa = [
+                'codpes' => $ic['aluno'],
+                'codprj' => $ic['cod_projeto'],
+            ];
+            $result =  DB::fetchAll($query_com_bolsa, $param_com_bolsa);
+            if(count($result) == 0){
+                $ic['bolsa'] = 'false';
+                $ic['codctgedi'] = '';
+                $ic['dtainibol'] = null;
+                $ic['dtafimbol'] = null;
+            }else{
+                $ic['bolsa'] = 'true';
+                $ic['codctgedi'] = $result[0]['codctgedi'] == '1' ? 'PIBIC' : 'PIBITI';
+                $ic['dtainibol'] = $result[0]['dtainibol'] ?? null;
+                $ic['dtafimbol'] = $result[0]['dtafimbol'] ??  null;
+            }
+            
+            array_push($iniciacao_cientifica, $ic); 
+        }
+        return $iniciacao_cientifica;
+    }
 
 
 }

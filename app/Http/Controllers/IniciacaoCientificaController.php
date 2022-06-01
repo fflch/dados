@@ -47,16 +47,22 @@ class IniciacaoCientificaController extends Controller
                 $labels[] = 'Nusp aluno';
             }
             $labels[] = 'Nome aluno';
+            $labels[] = 'Gênero aluno';
+            $labels[] = 'Raça/cor aluno';
             $labels[] = 'Título Pesquisa';
             if(Auth::check()){
                 $labels[] = 'Nusp supervisor';
             }
-            $labels[] = 'Nome Supervisor';
+            $labels[] = 'Nome supervisor';
+            $labels[] = 'Gênero supervisor';
             $labels[] = 'Data início';
             $labels[] = 'Data fim';
             $labels[] = 'Ano do projeto';
+            $labels[] = 'Situação do projeto';
             $labels[] = 'Bolsa';
-            $labels[] = 'Situação';
+            $labels[] = 'Data início da bolsa';
+            $labels[] = 'Data fim da bolsa';
+            
             if(isset($request->departamento)){
                 $labels[] = 'Departamento';
             }else{
@@ -71,11 +77,14 @@ class IniciacaoCientificaController extends Controller
                     $aux[] = $ic['codpes_discente'];          
                 }
                 $aux[] = $ic['nome_discente'];
+                $aux[] = $ic['genero_discente'];
+                $aux[] = $ic['raca_cor_discente'];
                 $aux[] = $ic['titulo_pesquisa'];
                 if(Auth::check()){
                     $aux[] = $ic['codpes_supervisor'];          
                 }
                 $aux[] = $ic['nome_supervisor'];
+                $aux[] = $ic['genero_supervisor'];
                 if(isset($ic['data_ini']) && $ic['data_ini'] != null){
                     $aux[] = Util::formatarData('Y-m-d H:i:s', 'd/m/Y', $ic['data_ini']);
                 }else{
@@ -87,8 +96,19 @@ class IniciacaoCientificaController extends Controller
                     $aux[] = '-';
                 }
                 $aux[] = $ic['ano_proj'] ?? '-';
-                $aux[] = $ic['bolsa'] == true ? 'Sim' : 'Não';
                 $aux[] = $ic['status_projeto'] ?? '-';
+                $aux[] = $ic['bolsa'] == true ? 'Sim' : 'Não';
+                if(isset($ic['dtainibol']) && $ic['dtainibol'] != null){
+                    $aux[] = Util::formatarData('Y-m-d', 'd/m/Y', $ic['dtainibol']);
+                }else{
+                    $aux[] = '-';
+                }
+                if(isset($ic['dtafimbol']) && $ic['dtafimbol'] != null){
+                    $aux[] = Util::formatarData('Y-m-d', 'd/m/Y', $ic['dtafimbol']);
+                }else{
+                    $aux[] = '-';
+                }
+               
                 
                 if(isset($request->departamento)){
                     $aux[] = $ic['nome_departamento'];          
