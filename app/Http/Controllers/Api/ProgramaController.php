@@ -10,6 +10,7 @@ use App\Utils\ReplicadoTemp;
 use Uspdev\Replicado\Posgraduacao;
 use Uspdev\Replicado\Lattes;
 use App\Models\Lattes as LattesModel;
+use App\Utils\Util;
 
 class ProgramaController extends Controller
 {
@@ -29,8 +30,17 @@ class ProgramaController extends Controller
 
     public function listarDocentes($codare, Request $request){
         
-        $filtro = Programa::getFiltro($request);     
-        $docentes = Programa::listarPessoa($codare, $filtro,  true, 'docentes');
+        $filtro = Programa::getFiltro($request);   
+        if(isset(Util::departamentos[$codare]) ){
+            $departamento = Programa::where('codare', 0)->get()->first();
+            $json = json_decode($departamento->json, true);
+            $departamento = array_values(array_filter($json, function($a) use ($codare) { return $a['sigla'] == $codare; }))[0];
+            $docentes = Programa::listarPessoa($departamento['codpes_docentes'], $filtro, false, 'docentes', false);
+        }else{
+            $model_programa = Programa::where('codare', $codare)->get()->first();
+            $json = json_decode($model_programa->json, true);
+            $docentes = Programa::listarPessoa($json['docentes'], $filtro, false, 'docentes', false);
+        }
         
         return response()->json(
             $docentes
@@ -38,8 +48,10 @@ class ProgramaController extends Controller
     }
     public function listarDiscentes($codare, Request $request){
         
-        $filtro = Programa::getFiltro($request);   
-        $discentes = Programa::listarPessoa($codare, $filtro, true, 'discentes');
+        $filtro = Programa::getFiltro($request);        
+        $model_programa = Programa::where('codare', $codare)->get()->first();
+        $json = json_decode($model_programa->json, true);
+        $discentes = Programa::listarPessoa($json['discentes'], $filtro, false, 'discentes', false);
 
         return response()->json(
             $discentes
