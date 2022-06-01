@@ -49,58 +49,42 @@ class ReplicadoWeeklySyncCommand extends Command
      */
     public function handle()
     {       
+        if(getenv('REPLICADO_SYBASE') != '1') putenv('REPLICADO_SYBASE=1');
 
         $this->sync_comissao_pesquisa();
 
+        $docentes = array_column(Pessoa::listarDocentes(), 'codpes'); 
+        $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
+        $codpes = array_merge($credenciados, $docentes);
+        $codpes = array_unique($codpes);
+        sort($codpes);
+        
+        $this->syncJson($codpes);
+
         $programas = Posgraduacao::programas(8);
-
-       
-        foreach($programas as $key=>$value) {
-            $programa = Programa::where('codare',$value['codare'])->first();
-            if(!$programa) $programa = new Programa;
-
-            $programas[$key]['docentes'] = count(ReplicadoTemp::credenciados($value['codare']));
-            $programas[$key]['discentes'] = Posgraduacao::contarAtivos($value['codare']);
-            $programas[$key]['egressos'] = Posgraduacao::contarEgressosAreaAgrupadoPorAno($value['codare']);
-            $programa->codare = $value['codare'];
-            $programa->json = json_encode($programas[$key]);
-            $programa->save();
+        foreach($programas as $value) { 
+            $this->sync_alunos_posgr(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8));    
         }
         
-        $this->syncJson(ReplicadoTemp::credenciados(), null, 'docentes');
-        
-        
-        foreach($programas as $value) {
-            $discentes = ReplicadoTemp::listarAlunosAtivosPrograma($value['codare'],8);
-            $this->syncJson($discentes, $value['codare'], 'discentes');  
-            $this->sync_alunos_posgr($discentes);
-            
-        }
-        
-        foreach($programas as $value) {
-            $this->syncJson(Posgraduacao::egressosArea($value['codare']), $value['codare'], 'egressos');
-        }        
-
         return 0;
     }
 
-    private function sync_alunos_posgr($discentes){
-        putenv('REPLICADO_SYBASE=1');
-        
-        $codpes = PessoaModel::select('codpes')->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+    private function sync_alunos_posgr($discentes, $codare){        
+        $codpes = PessoaModel::select('codpes')->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->where('codare',$codare)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
         $codpes_replicado = array_column($discentes, 'codpes');
+        
         $diff = array_diff($codpes, $codpes_replicado);
-        PessoaModel::whereIn('codpes', $diff)->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+        PessoaModel::whereIn('codpes', $diff)->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->where('codare',$codare)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
 
 
         foreach($discentes as $discente){
+            $discente = Uteis::utf8_converter($discente);
             
             $pessoa = PessoaModel::where('codpes',$discente['codpes'])->first();
             if(!$pessoa) $pessoa = new PessoaModel;
             
             $id_lattes = Lattes::id($discente['codpes']);
          
-
             $pessoa->codpes = $discente['codpes'];
             $pessoa->id_lattes = isset($id_lattes) ? $id_lattes : null;
             $pessoa->sitatl = $discente['sitatl'];
@@ -118,13 +102,10 @@ class ReplicadoWeeklySyncCommand extends Command
 
 
     private function sync_comissao_pesquisa(){
-
-        putenv('REPLICADO_SYBASE=1');
-
         $codproj = ComissaoPesquisa::select('codproj')->get()->pluck('codproj')->toArray(); //buscando os registros no banco local
 
         //iniciação cientifica
-        $iniciacao_cientifica = Pesquisa::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
+        $iniciacao_cientifica = ReplicadoTemp::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
         //pesquisas de pos doutorandos ativos
         $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
         //pesquisadores colaborativos ativos
@@ -147,11 +128,16 @@ class ReplicadoWeeklySyncCommand extends Command
                 $comissao->codproj = $ic['cod_projeto'];
                 $comissao->codpes_discente = $ic['aluno'];
                 $comissao->nome_discente= $ic['nome_aluno'];
+                $comissao->genero_discente= $ic['genero_aluno'];
+                $comissao->raca_cor_discente= $ic['raca_cor_aluno'];
                 $comissao->codpes_supervisor= $ic['orientador'];
                 $comissao->nome_supervisor= $ic['nome_orientador'];
+                $comissao->genero_supervisor= $ic['genero_orientador'];
                 $comissao->titulo_pesquisa= $ic['titulo_pesquisa'];
                 $comissao->data_ini = !empty($ic['data_ini']) ? $ic['data_ini'] : null;
                 $comissao->data_fim = !empty($ic['data_fim']) ? $ic['data_fim'] : null;
+                $comissao->dtainibol = !empty($ic['dtainibol']) ? $ic['dtainibol'] : null;
+                $comissao->dtafimbol = !empty($ic['dtafimbol']) ? $ic['dtafimbol'] : null;
                 $comissao->ano_proj = $ic['ano_projeto'];
                 $comissao->bolsa = $ic['bolsa'];
                 $comissao->cod_departamento = null;
@@ -168,6 +154,7 @@ class ReplicadoWeeklySyncCommand extends Command
                 $comissao->save();
             }
         }
+      
 
         if($pesquisa){
             foreach($pesquisa as $pd){
@@ -225,132 +212,34 @@ class ReplicadoWeeklySyncCommand extends Command
             }
         }
         
-         //projetos de pesquisa dos docentes
-         putenv('REPLICADO_SYBASE=0');
-         foreach(Util::getDepartamentos() as $key=>$value){
-             foreach(Pessoa::listarDocentes($value[0]) as $docente){
-                 $pesquisas  = Lattes::listarProjetosPesquisa($docente['codpes'], null, 'anual', -1, null);
-                 $docente = Uteis::utf8_converter($docente);
-                 if(isset($pesquisas) && is_array($pesquisas) && count($pesquisas) > 0){
-                     foreach($pesquisas as $pesquisa){
-                         $comissao = ComissaoPesquisa::where('codpes_discente',$docente['codpes'])->where('titulo_pesquisa',$pesquisa['NOME-DO-PROJETO'] )->first();
-                         if(!$comissao) $comissao = new ComissaoPesquisa;
- 
-                         $comissao->titulo_pesquisa = $pesquisa['NOME-DO-PROJETO'];
-                         $comissao->codpes_discente = $docente['codpes'];
-                         $comissao->nome_discente = $docente['nompes'];
-                         $comissao->data_ini = !empty($pesquisa['ANO-INICIO']) ? $pesquisa['ANO-INICIO']."-01-01 00:00:00" : null;
-                         $comissao->data_fim = !empty($pesquisa['ANO-FIM']) ?  $pesquisa['ANO-FIM']."-01-01 00:00:00" : null;
-                         $comissao->sigla_departamento = $key;
-                         $comissao->nome_departamento = $value[1];
-                         $curso = Util::retornarCursoGrdPorDepartamento($key);
-                         $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
-                         $comissao->nome_curso= isset($curso['nome_curso']) ? $curso['nome_curso'] : null;
-                         $comissao->codpes_supervisor= null;
-                         $comissao->codproj = null;
-                         $comissao->nome_supervisor= null;
-                         $comissao->ano_proj = null;
-                         $comissao->bolsa = null;
-                         $comissao->cod_departamento = null;
-                         $comissao->tipo= 'PP';
-                     
-                         $comissao->save();
-                     }
-                 }
-             }
-         }
-        
     }
 
-    private function syncJson($pessoas, $codare = null, $tipo_pessoa = null){
+    private function syncJson($pessoas){
        
         if(!is_array($pessoas))return;
 
-        if($tipo_pessoa == 'docentes'){
-            $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
-        }else{
-            $codpes = LattesModel::select('codpes')->where('tipo_pessoa',$tipo_pessoa)->where('codare', $codare)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
-        }
-        $codpes_replicado = array_column($pessoas, 'codpes');
-        $diff = array_diff($codpes, $codpes_replicado);
-        
-        LattesModel::whereIn('codpes', $diff)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
-        
-        if($tipo_pessoa != 'docentes'){
-            LattesModel::where(function ($query) {
-                $query->where('nivpgm',null)->orWhere('nivpgm','');
-            })->where('tipo_pessoa', '!=', 'docentes')->delete();
-        }
        
-        foreach($pessoas as $pessoa) {
-          
-            
-            if(!isset($pessoa['codpes']) || empty($pessoa['codpes'])) continue;
+        foreach($pessoas as $codpes) {
 
-           
-            if($tipo_pessoa != 'docentes' && empty($pessoa['nivpgm'])) continue;
-
-            $aux_codare = $codare == null ? $pessoa['codare'] : $codare;
-            $nivpgm = isset($pessoa['nivpgm']) ? $pessoa['nivpgm'] : null;
-
-            
-            $lattes = LattesModel::where('codpes',$pessoa['codpes'])->where('codare',$aux_codare)->where('tipo_pessoa',$tipo_pessoa)->where('nivpgm',$nivpgm)->first();
+            $lattes = LattesModel::where('codpes',$codpes)->first();
             
             if(!$lattes) {
                 $lattes = new LattesModel;
             }
-            $lattes_array = Lattes::obterArray($pessoa['codpes']);
-           
-            if($lattes_array){
+            if(!empty($lattes->json)){
+                $info_lattes = json_decode($lattes->json, true);    
+            }else{
                 $info_lattes = [];
-
-                putenv('REPLICADO_SYBASE=1');
-                $info_lattes['nome'] = Pessoa::dump($pessoa['codpes'])['nompes'];
-                $info_lattes['orientandos'] = Posgraduacao::listarOrientandosAtivos($pessoa['codpes']);
-                $info_lattes['orientandos_concluidos'] = Posgraduacao::obterOrientandosConcluidos($pessoa['codpes']);
-
-                putenv('REPLICADO_SYBASE=0');
-                $info_lattes['id_lattes'] = Lattes::id($pessoa['codpes']);
-                $info_lattes['orcid'] = Lattes::retornarOrcidID($pessoa['codpes'], $lattes_array);
-                $data_atualizacao = Lattes::retornarUltimaAtualizacao($pessoa['codpes'], $lattes_array) ;
-                $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
-                $info_lattes['resumo'] = Lattes::retornarResumoCV($pessoa['codpes'], 'pt', $lattes_array);
-                $info_lattes['livros'] = Lattes::listarLivrosPublicados($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['linhas_pesquisa'] = Lattes::listarLinhasPesquisa($pessoa['codpes'], $lattes_array);
-                $info_lattes['artigos'] = Lattes::listarArtigos($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['capitulos'] = Lattes::listarCapitulosLivros($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['jornal_revista'] = Lattes::listarTextosJornaisRevistas($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['trabalhos_anais'] = Lattes::listarTrabalhosAnais($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['outras_producoes_bibliograficas'] = Lattes::listarOutrasProducoesBibliograficas($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['trabalhos_tecnicos'] = Lattes::listarTrabalhosTecnicos($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['ultima_formacao'] = Lattes::retornarFormacaoAcademica($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['ultimo_vinculo_profissional'] = Lattes::listarFormacaoProfissional($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['organizacao_evento'] = Lattes::listarOrganizacaoEvento($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['outras_producoes_tecnicas'] = Lattes::listarOutrasProducoesTecnicas($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['curso_curta_duracao'] = Lattes::listarCursosCurtaDuracao($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['relatorio_pesquisa'] = Lattes::listarRelatorioPesquisa($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['material_didatico'] = Lattes::listarMaterialDidaticoInstrucional($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['projetos_pesquisa'] = Lattes::listarProjetosPesquisa($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['radio_tv'] = Lattes::listarRadioTV($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-                $info_lattes['apresentacao_trabalho'] = Lattes::listarApresentacaoTrabalho($pessoa['codpes'], $lattes_array, 'anual', -1, null);
-
-                $lattes->codpes = $pessoa['codpes'];
-                $lattes->tipo_pessoa = $tipo_pessoa;
-                $lattes->codare = $aux_codare;
-                $lattes->nivpgm =  $nivpgm;
-                $lattes->json = json_encode($info_lattes);
-               
-                $lattes->save();
-            } else {
-                $lattes->codpes = $pessoa['codpes'];
-                $lattes->tipo_pessoa = $tipo_pessoa;
-                $lattes->codare = $aux_codare;
-                $lattes->nivpgm =  $nivpgm;
-                $lattes->json = null;
-                $lattes->save();
-                echo $pessoa['codpes'] .";". Pessoa::dump($pessoa['codpes'])['nompes'] .";". Lattes::id($pessoa['codpes']) .";lattes não encontrado\n";
             }
+
+            $info_lattes['orientandos'] = Posgraduacao::listarOrientandosAtivos($codpes);
+            $info_lattes['orientandos_concluidos'] = Posgraduacao::listarOrientandosConcluidos($codpes);
+            
+            $lattes->codpes = $codpes;
+            $lattes->json = json_encode(Uteis::utf8_converter($info_lattes));
+            
+            $lattes->save();
+            
         }
        
     }

@@ -47,6 +47,8 @@ class ReplicadoDailySyncCommand extends Command
      */
     public function handle()
     {       
+        if(getenv('REPLICADO_SYBASE') != '1') putenv('REPLICADO_SYBASE=1');
+
         $this->sync_defesas();
 
         $this->sync_docentes(); 
@@ -65,9 +67,7 @@ class ReplicadoDailySyncCommand extends Command
     }
 
 
-    private function sync_docentes(){
-        putenv('REPLICADO_SYBASE=1');
-        
+    private function sync_docentes(){        
         $docentes = Pessoa::listarDocentes(null, 'A,P');
         $this->sync_pessoas_local_replicado($docentes, 'Docente');
 
@@ -97,8 +97,6 @@ class ReplicadoDailySyncCommand extends Command
     }
 
     private function sync_estagiarios(){
-        putenv('REPLICADO_SYBASE=1');
-
         $estagiarios = Pessoa::estagiarios(8);
         $this->sync_pessoas_local_replicado($estagiarios, 'Estagiario');
 
@@ -118,8 +116,6 @@ class ReplicadoDailySyncCommand extends Command
     }
     
     private function sync_defesas(){
-        putenv('REPLICADO_SYBASE=1');
-        
         $intervalo = [
             'inicio' => '1950-01-01',
             'fim'    => Date('Y') . '-12-31'
@@ -164,8 +160,6 @@ class ReplicadoDailySyncCommand extends Command
     }
 
     private function sync_chefes_administrativos(){
-        putenv('REPLICADO_SYBASE=1');
-        
         $chefes = ReplicadoTemp::listarChefesAdministrativos();
         $this->sync_pessoas_local_replicado($chefes, 'Chefe Administrativo');
 
@@ -184,8 +178,6 @@ class ReplicadoDailySyncCommand extends Command
     }
 
     private function sync_chefes_departamento(){
-        putenv('REPLICADO_SYBASE=1');
-        
         $chefes_departamento = ReplicadoTemp::listarChefesDepartamento();
         $this->sync_pessoas_local_replicado($chefes_departamento, 'Chefe Departamento');
 
@@ -204,8 +196,6 @@ class ReplicadoDailySyncCommand extends Command
     }
     
     private function sync_servidores(){
-        putenv('REPLICADO_SYBASE=1');
-        
         $servidores = Pessoa::servidores(8);
         $this->sync_pessoas_local_replicado($servidores, 'Funcionário');
 
@@ -225,8 +215,6 @@ class ReplicadoDailySyncCommand extends Command
     }
     
     private function sync_monitores(){
-        putenv('REPLICADO_SYBASE=1');
-        
         $monitores = ReplicadoTemp::listarMonitores();
         $this->sync_pessoas_local_replicado($monitores, 'Monitor');
 
