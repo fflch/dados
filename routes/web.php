@@ -33,7 +33,6 @@ use App\Http\Controllers\IngressantesPosGrGeneroProgramaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IniciacaoCientificaController;
 use App\Http\Controllers\ExAlunosController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RestritoController;
 use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
 use App\Http\Controllers\IntercambioController;
@@ -45,10 +44,6 @@ use App\Http\Controllers\ColegiadoController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/contato', [IndexController::class, 'contato']);
-
-Route::get('login', [LoginController::class, 'redirectToProvider']);
-Route::get('callback', [LoginController::class, 'handleProviderCallback']);
-Route::post('logout', [LoginController::class, 'logout']);
 
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
