@@ -41,6 +41,7 @@ use App\Http\Controllers\EvasaoController;
 use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\EstagiariosController;
 use App\Http\Controllers\ColegiadoController;
+use App\Http\Controllers\FuvestController;
 
 
 Route::get('/', [IndexController::class, 'index']);
@@ -177,6 +178,8 @@ Route::get('/pesquisa/pos_doutorandos', [PesquisaController::class, 'listarPesqu
 Route::get('/pesquisa/projetos_pesquisa', [PesquisaController::class, 'listarProjetosPesquisa']);
 
 Route::get('/restrito', [RestritoController::class, 'restrito']);
+
+Route::get('/restrito/fuvest/socioeconomico', [FuvestController::class, 'socioeconomico']);
 
 Route::get('/restrito/curso_ceu', [CEUController::class, 'listarCurso']);
 

@@ -303,6 +303,69 @@ class ReplicadoTemp
         return $vinculos;
     }
 
+    public static function obterQuestionarioSocioeconomicoFuvest($ano, $curso){
+        $fuvest_qtnsocioecono = [];
+        
+        $codclg = getenv('REPLICADO_CODUNDCLG');
+        $query_ingressantes = "SELECT v.codpes, v.nompes,
+        (CASE WHEN p.sexpes = 'M' THEN 'Masculino.' ELSE (CASE WHEN p.sexpes = 'F' THEN 'Feminino.' ELSE '' END) END) AS sexpes, 
+        (CASE WHEN c.codraccor = 1 THEN 'Indígena.' ELSE 
+            (CASE WHEN c.codraccor = 2 THEN 'Branca.' ELSE 
+                (CASE WHEN c.codraccor = 3 THEN 'Negra.' ELSE 
+                    (CASE WHEN c.codraccor = 4 THEN 'Amarela.' ELSE
+                        (CASE WHEN c.codraccor = 5 THEN 'Parda.' ELSE '' END) 
+                    END)
+                END)
+            END) 
+        END) AS codraccor
+        FROM VINCULOPESSOAUSP v
+        INNER JOIN PESSOA p ON p.codpes = v.codpes
+        INNER JOIN COMPLPESSOA c ON c.codpes = v.codpes
+        WHERE v.tipvin = 'ALUNOGR' 
+            AND v.codclg = $codclg
+            AND v.codcurgrd  IN ($curso)
+            AND v.sitatl = 'A'
+            AND v.dtainivin LIKE '%$ano%'
+            ORDER BY v.nompes ASC";
+        
+        $ingressantes = DB::fetchAll($query_ingressantes);
+       
+        
+        foreach($ingressantes as $i){
+            $aux = [];
+            $aux["Nome Aluno"] = $i["nompes"];
+            $aux["Nusp"] = $i["codpes"];
+            $query_questoes = "SELECT qp.codqtn , qp.dscqst  FROM fflch.dbo.QUESTOESPESQUISA qp inner join fflch.dbo.QUESTIONARIO q on qp.codqtn = q.codqtn  
+            where q.dtainiqtn <= '$ano-01-01'
+            and q.dtafimqtn  >= '$ano-12-31'
+            or q.nompsq like '%$ano%'";
+            $questoes = DB::fetchAll($query_questoes);
+            foreach($questoes as $q){
+                $aux[$q['dscqst']] = "";
+                if(stripos($q['dscqst'], 'sexo') !== false)
+                    $aux[$q['dscqst']] = $q['dscatn'] ?? $i['sexpes'];
+                else if((stripos($q['dscqst'], 'cor') !== false) || (stripos($q['dscqst'], 'raça') !== false)){
+                    $aux[$q['dscqst']] = $q['dscatn'] ?? $i['codraccor'];
+                }
+            }
+            $query_questionario = "SELECT q.codqtn, q.nompsq , qp.codqst ,  qp.dscqst ,  a.dscatn, r.dtarpa  
+            FROM fflch.dbo.RESPOSTASQUESTAO r 
+            inner join fflch.dbo.QUESTOESPESQUISA qp on qp.codqtn = r.codqtn and r.codqst = qp.codqst  
+            inner join fflch.dbo.ALTERNATIVAQUESTAO a on a.codqtn  = r.codqtn and a.codqst = r.codqst and a.numatnqst = r.numatnqst 
+            inner join fflch.dbo.QUESTIONARIO q on q.codqtn = r.codqtn 
+            where codpes = ".$i['codpes']." and qp.codqtn = " . (isset($questoes[0]['codqtn']) ? $questoes[0]['codqtn'] : 0);
+            
+            $questionario = DB::fetchAll($query_questionario);
+            foreach($questionario as $q){
+                    $aux[$q['dscqst']] = $q['dscatn'] ?? $q['dscqst'];
+            }
+            $aux["Data Resposta"] = isset($questionario[0]['dtarpa']) ? $questionario[0]['dtarpa'] :  ''; 
+           
+            $fuvest_qtnsocioecono[] = $aux;
+        }
+        return ($fuvest_qtnsocioecono);
+    }
+
 
 
 }
