@@ -42,11 +42,11 @@ class IngressantesPosGrGeneroProgramaController extends Controller
         foreach ($anos as $ano){
             
             if($nivpgm){
-                $data[$ano]['Masculino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'M')->where('nivpgm', $nivpgm)->get()->count();
-                $data[$ano]['Feminino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'F')->where('nivpgm', $nivpgm)->get()->count();
+                $data[$ano]['Masculino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'M')->where('nivpgm', $nivpgm)->get()->count();
+                $data[$ano]['Feminino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'F')->where('nivpgm', $nivpgm)->get()->count();
             }else{
-                $data[$ano]['Masculino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'M')->get()->count();
-                $data[$ano]['Feminino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'F')->get()->count();
+                $data[$ano]['Masculino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'M')->get()->count();
+                $data[$ano]['Feminino'] = Pessoa::whereIn('tipo_vinculo', array('ALUNOPOS'))->whereYear('dtainivin', $ano)->where('codare', $codare)->where('sexpes', 'F')->get()->count();
             }
         } 
 
