@@ -61,7 +61,8 @@ class IngressantesPosGrGeneroProgramaController extends Controller
             array_push($anos, $year);
         }
 
-        $aux_programas = ProgramaModel::index();
+        $aux_programas = ProgramaModel::index()[0];
+        
         $programas = [];
         foreach($aux_programas as $programa){
             $programas[$programa->codare] = $programa->nomare;
