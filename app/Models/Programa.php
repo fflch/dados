@@ -28,16 +28,17 @@ class Programa extends Model
     public static function listarPessoa($pessoas, $filtro, $api, $tipo_pessoa, $excel){
         $aux_pessoas = [];
         $codpes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...] 
-
-        
-        $json_lattes = LattesModel::whereIn('codpes', $codpes_pessoas)->groupBy('codpes')->get()->toArray();
+        $codpes_pessoas = implode(',',$codpes_pessoas);
+        $json_lattes = \DB::select("SELECT codpes, `json` FROM lattes WHERE codpes  IN ( $codpes_pessoas )");
        
         foreach($json_lattes as $json){
             //dd(array_filter($pessoas, function($a) use ($json) { return (int)$a['codpes'] == $json['codpes']; }));//retorna o array da pessoa de pessoas
             $pessoa = [];
-            $lattes = $json['json'] ? json_decode($json['json'],TRUE) : null; 
+            
+            $lattes = $json->json ? json_decode($json->json,TRUE) : null; 
             $pessoa['id_lattes'] = $lattes['id_lattes'] ?? '';
-            $pessoa['nompes'] = $lattes['nome'] ?? Pessoa::nomeCompleto($json['codpes'] ?? '');
+            
+            $pessoa['nompes'] = $lattes['nome'] ?? Pessoa::nomeCompleto($json->codpes ?? '');
             
             
             if(!$api && !$excel){
@@ -140,6 +141,7 @@ class Programa extends Model
         }
        
         setlocale(LC_COLLATE, 'pt_BR.utf8'); //ordena corretamente os nomes com acentos
+       
         usort($aux_pessoas, function ($a, $b) {
             return strcoll($a["nompes"], $b["nompes"]);
         });
