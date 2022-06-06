@@ -35,6 +35,10 @@ class Kernel extends ConsoleKernel
         $schedule->command(ReplicadoWeeklySyncCommand::class)
             ->weekly()
             ->emailOutputOnFailure(config('mail.from.address'));
+
+        $schedule->command(ReplicadoLattesSyncCommand::class)
+            ->weekly()
+            ->emailOutputOnFailure(config('mail.from.address'));
     }
 
     /**

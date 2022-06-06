@@ -81,9 +81,9 @@ class ReplicadoLattesSyncCommand extends Command
             $programas[$key]['discentes'] = $discentes[$value['codare']];
             $programas[$key]['egressos'] = $egressos[$value['codare']];
             
-            $programas[$key]['total_docentes'] =  LattesModel::whereIn('codpes', $cred)->groupBy('codpes')->get()->count();
-            $programas[$key]['total_discentes'] = LattesModel::whereIn('codpes', $discentes[$value['codare']])->groupBy('codpes')->get()->count();
-            $programas[$key]['total_egressos'] = LattesModel::whereIn('codpes', $egressos[$value['codare']])->groupBy('codpes')->get()->count();
+            $programas[$key]['total_docentes'] =  LattesModel::whereIn('codpes', $cred)->get()->count();
+            $programas[$key]['total_discentes'] = LattesModel::whereIn('codpes', $discentes[$value['codare']])->get()->count();
+            $programas[$key]['total_egressos'] = LattesModel::whereIn('codpes', $egressos[$value['codare']])->get()->count();
             $programa->codare = $value['codare'];
 
             $programa->json = json_encode($programas[$key]);
@@ -99,7 +99,7 @@ class ReplicadoLattesSyncCommand extends Command
             $aux_departamento['codigo'] = $departamento[0];
             $aux_departamento['nome'] = $departamento[1];
             $aux_departamento['codpes_docentes'] =  array_column(Pessoa::listarDocentes($aux_departamento['codigo']), 'codpes');
-            $aux_departamento['total_docentes'] = LattesModel::whereIn('codpes', $aux_departamento['codpes_docentes'])->groupBy('codpes')->get()->count();
+            $aux_departamento['total_docentes'] = LattesModel::whereIn('codpes', $aux_departamento['codpes_docentes'])->get()->count();
             $departamentos[] = $aux_departamento;
         }
         $departamento = Programa::where('codare',0)->first();
