@@ -338,7 +338,6 @@ class ReplicadoTemp
 
         $ingressantes = DB::fetchAll($query_ingressantes);
 
-
         foreach($ingressantes as $i){
             $aux = [];
             $aux["Nome Aluno"] = $i["nompes"];
