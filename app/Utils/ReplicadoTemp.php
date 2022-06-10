@@ -374,7 +374,7 @@ class ReplicadoTemp
         return ($fuvest_qtnsocioecono);
     }
 
-    /**
+     /**
      * Método para retornar as iniciações científicas
      * Permite filtrar por departamento e por periodo.
      * @param array $departamento - Recebe um array com as siglas dos departamentos desejados. Se for igual a null, a consulta trazerá todos os departamentos.
@@ -426,9 +426,7 @@ class ReplicadoTemp
             }else if(sizeof($departamento) == 1){
                 $departamento = "'". $departamento[0] ."'";
             }
-
             $query = str_replace('__departamento__',"AND s.nomabvset in ($departamento)", $query);
-
         }else{
             $query = str_replace('__departamento__',"", $query);
         }
@@ -444,9 +442,6 @@ class ReplicadoTemp
         }else if($somenteAtivos){
             $query = str_replace('__data__',"AND (ic.dtafimprj > GETDATE() or ic.dtafimprj IS NULL)", $query);
         }
-
-
-
         $result =  DB::fetchAll($query, $param);
 
         $iniciacao_cientifica = [];
@@ -454,7 +449,6 @@ class ReplicadoTemp
             $curso = Pessoa::retornarCursoPorCodpes($ic['aluno']);
             $ic['codcur'] =  $curso == null ? null : $curso['codcurgrd'];
             $ic['nome_curso'] =  $curso == null ? null : $curso['nomcur'];
-
             $query_com_autodeclaracao_cor = "SELECT  case codraccor
             when 1 then 'Indígena'
             when 2 then 'Branca'
@@ -503,7 +497,5 @@ class ReplicadoTemp
         }
         return $iniciacao_cientifica;
     }
-
-
 
 }
