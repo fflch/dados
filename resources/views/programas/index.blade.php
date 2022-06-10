@@ -53,23 +53,53 @@
         @foreach($programas as $programa)
         <tr>
           <td>
-              {{$programa->nome_curso_area }} 
+              {{$programa->nomare }} 
                        
            
           </td>
           <td class="text-center">
             <a href="/programas/docentes/{{$programa->codare}}">
-              {{$programa->docentes }}
+              {{count($programa->docentes) }}
             </a>
           </td>
           <td class="text-center">
             <a href="/programas/discentes/{{$programa->codare}}">
-              {{$programa->discentes }}
+              {{count($programa->discentes) }}
             </a>
           </td>
           <td class="text-center">
             <a href="/programas/egressos/{{$programa->codare}}">
-              {{$programa->total_egressos }}
+              {{count($programa->egressos) }}
+            </a>
+          </td>
+        </tr>
+        
+        @endforeach
+       
+      </tbody>
+    </table>  
+    
+
+  </div>
+  <div class="card-body table-responsive-sm">
+    <table class="table docentes-departamento-table">
+      <thead>
+        <tr>
+          <th scope="col">Departamento</th>
+          <th scope="col" class="text-center">Docentes</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($departamentos as $departamento)
+        <tr>
+          <td>
+              {{$departamento->nome }} 
+                       
+           
+          </td>
+          <td class="text-center">
+            <a href="/programas/docentes/{{$departamento->sigla}}">
+              {{$departamento->total_docentes }}
             </a>
           </td>
         </tr>
