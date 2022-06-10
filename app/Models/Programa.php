@@ -21,26 +21,25 @@ class Programa extends Model
                 $programas[] = json_decode($programa->json);
             }
         }
-        
+
         return [$programas, $departamentos];
     }
 
     public static function listarPessoa($pessoas, $filtro, $api, $tipo_pessoa, $excel){
         $aux_pessoas = [];
-        $codpes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...] 
+        $codpes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...]
         $codpes_pessoas = implode(',',$codpes_pessoas);
         $json_lattes = \DB::select("SELECT codpes, `json` FROM lattes WHERE codpes  IN ( $codpes_pessoas )");
-       
+
         foreach($json_lattes as $json){
-            //dd(array_filter($pessoas, function($a) use ($json) { return (int)$a['codpes'] == $json['codpes']; }));//retorna o array da pessoa de pessoas
             $pessoa = [];
-            
-            $lattes = $json->json ? json_decode($json->json,TRUE) : null; 
+
+            $lattes = $json->json ? json_decode($json->json,TRUE) : null;
             $pessoa['id_lattes'] = $lattes['id_lattes'] ?? '';
-            
+
             $pessoa['nompes'] = $lattes['nome'] ?? Pessoa::nomeCompleto($json->codpes ?? '');
-            
-            
+
+
             if(!$api && !$excel){
                 if($tipo_pessoa == 'docentes'){
                     $pessoa['href'] = "/programas/docente/".$pessoa['id_lattes'];
@@ -53,38 +52,38 @@ class Programa extends Model
                 $pessoa['href'] .= "?tipo=".$filtro['tipo']."&ano=".$filtro['limit_ini']."&ano_ini=".$filtro['limit_ini']."&ano_fim=".$filtro['limit_fim'];
             }
 
-            
+
 
             $pessoa['data_atualizacao'] =  $lattes['data_atualizacao'] ?? '';
-                        
+
             if(!$api){
                 $pessoa['total_livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_livros'] = $pessoa['total_livros'] ? count($pessoa['total_livros']): '0';
-                
+
                 $pessoa['total_artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_artigos'] = $pessoa['total_artigos'] ? count($pessoa['total_artigos']): '0';
-                
+
                 $pessoa['total_capitulos'] = Programa::hasValue($lattes,'capitulos') ? Programa::filtrar($lattes['capitulos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_capitulos'] = $pessoa['total_capitulos'] ? count($pessoa['total_capitulos']): '0';
-                
+
                 $pessoa['total_jornal_revista'] = Programa::hasValue($lattes,'jornal_revista') ? Programa::filtrar($lattes['jornal_revista'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_jornal_revista'] = $pessoa['total_jornal_revista'] ? count($pessoa['total_jornal_revista']): '0';
-                
-              
+
+
                 $pessoa['total_outras_producoes_bibliograficas'] = Programa::hasValue($lattes,'outras_producoes_bibliograficas') ? Programa::filtrar($lattes['outras_producoes_bibliograficas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_outras_producoes_bibliograficas'] = $pessoa['total_outras_producoes_bibliograficas'] ? count($pessoa['total_outras_producoes_bibliograficas']): '0';
-    
-    
+
+
                 $pessoa['total_trabalhos_anais'] = Programa::hasValue($lattes,'trabalhos_anais') ? Programa::filtrar($lattes['trabalhos_anais'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_trabalhos_anais'] = $pessoa['total_trabalhos_anais'] ? count($pessoa['total_trabalhos_anais']): '0';
-    
+
                 $pessoa['total_trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_trabalhos_tecnicos'] = $pessoa['total_trabalhos_tecnicos'] ? count($pessoa['total_trabalhos_tecnicos']): '0';
 
                 if($tipo_pessoa == 'egressos'){
                     $pessoa['total_ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? Programa::filtrar($lattes['ultima_formacao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                     $pessoa['total_ultima_formacao'] = $pessoa['total_ultima_formacao'] ? count($pessoa['total_ultima_formacao']): '0';
-                    
+
                     $pessoa['total_ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                     $pessoa['total_ultimo_vinculo_profissional'] = $pessoa['total_ultimo_vinculo_profissional'] ? count($pessoa['total_ultimo_vinculo_profissional']): '0';
                 }
@@ -94,25 +93,25 @@ class Programa extends Model
 
                 $pessoa['total_curso_curta_duracao'] = Programa::hasValue($lattes,'curso_curta_duracao') ? Programa::filtrar($lattes['curso_curta_duracao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_curso_curta_duracao'] = $pessoa['total_curso_curta_duracao'] ? count($pessoa['total_curso_curta_duracao']): '0';
-                
+
                 $pessoa['total_relatorio_pesquisa'] = Programa::hasValue($lattes,'relatorio_pesquisa') ? Programa::filtrar($lattes['relatorio_pesquisa'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_relatorio_pesquisa'] = $pessoa['total_relatorio_pesquisa'] ? count($pessoa['total_relatorio_pesquisa']): '0';
-                
+
                 $pessoa['total_material_didatico'] = Programa::hasValue($lattes,'material_didatico') ? Programa::filtrar($lattes['material_didatico'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_material_didatico'] = $pessoa['total_material_didatico'] ? count($pessoa['total_material_didatico']): '0';
 
                 $pessoa['total_outras_producoes_tecnicas'] = Programa::hasValue($lattes,'outras_producoes_tecnicas') ? Programa::filtrar($lattes['outras_producoes_tecnicas'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_outras_producoes_tecnicas'] = $pessoa['total_outras_producoes_tecnicas'] ? count($pessoa['total_outras_producoes_tecnicas']): '0';
-                
+
                 $pessoa['total_projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_projetos_pesquisa'] = $pessoa['total_projetos_pesquisa'] ? count($pessoa['total_projetos_pesquisa']): '0';
-                
+
                 $pessoa['total_apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_apresentacao_trabalho'] = $pessoa['total_apresentacao_trabalho'] ? count($pessoa['total_apresentacao_trabalho']): '0';
-                
+
                 $pessoa['total_radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_radio_tv'] = $pessoa['total_radio_tv'] ? count($pessoa['total_radio_tv']): '0';
-        
+
             }else{
                 $pessoa['livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['artigos'] = Programa::hasValue($lattes,'artigos') ? Programa::filtrar($lattes['artigos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
@@ -131,17 +130,17 @@ class Programa extends Model
                 $pessoa['projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        
+
             }
-            
+
             if(isset($pessoa['nompes']) && $pessoa['nompes'] != ''){
                 array_push($aux_pessoas, $pessoa);
             }
 
         }
-       
+
         setlocale(LC_COLLATE, 'pt_BR.utf8'); //ordena corretamente os nomes com acentos
-       
+
         usort($aux_pessoas, function ($a, $b) {
             return strcoll($a["nompes"], $b["nompes"]);
         });
@@ -152,10 +151,10 @@ class Programa extends Model
     public static function obterPessoa($codpes, $filtro, $api = false, $tipo_pessoa = 'docentes') {
 
 
-        
+
 
         $json_lattes = LattesModel::where('codpes',$codpes)->where('tipo_pessoa',$tipo_pessoa)->first();
-            
+
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
         if($lattes == null) return [];
 
@@ -165,8 +164,8 @@ class Programa extends Model
         $content['resumo'] = $lattes['resumo'] ?? '';
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'] ?? '';
 
-            
-        
+
+
         $aux_livros_destaques = Programa::hasValue($lattes,'livros') ? $lattes['livros'] : null; //Pega todos os livros (sem filtrar)
         /**
          * Busca os livros de destaque (especificados a partir da demanada do docente e através do ISBN) entre todos os livros do docente.
@@ -181,7 +180,7 @@ class Programa extends Model
         /*
             Inclusão dos livros em destaque para serem removidos da lista de livros filtrados, pois estes livros destacados serão exibidos independentemente do filtro.
         */
-        
+
         if(is_array($destaques)){
             foreach($destaques as $d){
                 if(isset($d['ISBN']) && !empty($d['ISBN']) && $d['ISBN'] != null){
@@ -194,7 +193,7 @@ class Programa extends Model
         /*
             Inclusão dos livros em destaque no começo da lista de livros
          */
-       
+
         if(is_array($destaques) && is_array($livros)){
             foreach($destaques as $d){
                 array_unshift($livros, $d); //coloca o elemento na primeira posição do array
@@ -217,7 +216,7 @@ class Programa extends Model
         $content['projetos_pesquisa'] = Programa::hasValue($lattes,'projetos_pesquisa') ? Programa::filtrar($lattes['projetos_pesquisa'], 'ANO-INICIO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['apresentacao_trabalho'] = Programa::hasValue($lattes,'apresentacao_trabalho') ? Programa::filtrar($lattes['apresentacao_trabalho'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         $content['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
-        
+
 
 
         if($tipo_pessoa == 'docentes'){
@@ -230,7 +229,7 @@ class Programa extends Model
             $content['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         }
 
-        
+
         return $content;
     }
 
@@ -253,7 +252,7 @@ class Programa extends Model
 
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
-        
+
         $filtro = ['tipo' => $tipo];
         switch($tipo){
             case 'anual':
@@ -283,10 +282,10 @@ class Programa extends Model
             }else if($tipo == 'anual' && isset($item[$campo_ano])){
                 if($limit_ini != -1 &&  (int)$item[$campo_ano] !=  $limit_ini ) continue; //se for diferente do ano determinado, pula para o próximo
             }else if($tipo == 'periodo' && isset($item[$campo_ano])){
-                if($limit_ini != -1 && 
+                if($limit_ini != -1 &&
                     (
                         (int)$item[$campo_ano] < $limit_ini ||
-                        (int)$item[$campo_ano] > $limit_fim 
+                        (int)$item[$campo_ano] > $limit_fim
                     )
                  ) continue;
             }
@@ -322,9 +321,9 @@ class Programa extends Model
                 $destaque['destaque'] = true;
                 unset($livros[$key]);
                 array_push($destaques, $destaque);
-            }            
+            }
         }
-        
+
         return $destaques;
     }
 }
