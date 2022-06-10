@@ -27,11 +27,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $emails = explode(',',config('app.mails_to_send_logs'));
-        
+
         $schedule->command(ReplicadoDailySyncCommand::class)
             ->daily()
             ->emailOutputOnFailure(config('mail.from.address'));
-        
+
         $schedule->command(ReplicadoWeeklySyncCommand::class)
             ->weekly()
             ->emailOutputOnFailure(config('mail.from.address'));
