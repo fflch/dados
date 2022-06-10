@@ -6,55 +6,42 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Uspdev\Replicado\Lattes;
 use App\Models\Lattes as LattesModel;
-
+use Uspdev\Replicado\Pessoa;
+use App\Utils\Util;
+use App\Utils\ReplicadoTemp;
 class Programa extends Model
 {
 
     public static function index(){
         $programas = [];
         foreach(Programa::all() as $programa){
-            $aux_programa = json_decode($programa->json);
-            if($aux_programa){
-                $aux_programa->nome_curso_area = $aux_programa->nomcur;
-                if(
-                    ($aux_programa->nomcur !== $aux_programa->nomare) 
-                    && 
-                    (!str_contains($aux_programa->nomcur, ")"))
-                ){
-                    $aux_programa->nome_curso_area .=  " (". $aux_programa->nomare .")";
-                }
-                
-                $total_egresso = 0;
-                if(property_exists($aux_programa,'egressos')){
-                    if($aux_programa->egressos){
-                        foreach($aux_programa->egressos as $qtd_egresso)
-                        
-                        $total_egresso += $qtd_egresso;
-                    }
-                    $aux_programa->total_egressos = $total_egresso;
-                }
-                $programas[] = $aux_programa;
+            if($programa->codare == 0){
+                $departamentos = json_decode($programa->json);
+            }else{
+                $programas[] = json_decode($programa->json);
             }
         }
-        return $programas;
+        
+        return [$programas, $departamentos];
     }
 
-    public static function listarPessoa($codare, $filtro, $api, $tipo_pessoa){
+    public static function listarPessoa($pessoas, $filtro, $api, $tipo_pessoa, $excel){
         $aux_pessoas = [];
-
-        $json_lattes = LattesModel::where('codare',(int)$codare)->where('tipo_pessoa', $tipo_pessoa)->get()->toArray();
-        
+        $codpes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...] 
+        $codpes_pessoas = implode(',',$codpes_pessoas);
+        $json_lattes = \DB::select("SELECT codpes, `json` FROM lattes WHERE codpes  IN ( $codpes_pessoas )");
+       
         foreach($json_lattes as $json){
-            
+            //dd(array_filter($pessoas, function($a) use ($json) { return (int)$a['codpes'] == $json['codpes']; }));//retorna o array da pessoa de pessoas
             $pessoa = [];
-            $lattes = $json['json'] ? json_decode($json['json'],TRUE) : null; 
-            $pessoa['id_lattes'] = $lattes['id_lattes'] ?? '';
-            $pessoa['nompes'] = $lattes['nome'] ?? '';
-            if($tipo_pessoa != 'docentes'){
-                $pessoa['nivpgm'] = $json['nivpgm'] ?? '';
-            }
             
-            if(!$api){
+            $lattes = $json->json ? json_decode($json->json,TRUE) : null; 
+            $pessoa['id_lattes'] = $lattes['id_lattes'] ?? '';
+            
+            $pessoa['nompes'] = $lattes['nome'] ?? Pessoa::nomeCompleto($json->codpes ?? '');
+            
+            
+            if(!$api && !$excel){
                 if($tipo_pessoa == 'docentes'){
                     $pessoa['href'] = "/programas/docente/".$pessoa['id_lattes'];
                 } else if ($tipo_pessoa == 'discentes'){
@@ -69,11 +56,7 @@ class Programa extends Model
             
 
             $pessoa['data_atualizacao'] =  $lattes['data_atualizacao'] ?? '';
-            if($tipo_pessoa == 'egressos'){
-                $pessoa['ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? $lattes['ultima_formacao'] : '';            
-                $pessoa['ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? $lattes['ultimo_vinculo_profissional'] : '';
-            }
-            
+                        
             if(!$api){
                 $pessoa['total_livros'] = Programa::hasValue($lattes,'livros') ? Programa::filtrar($lattes['livros'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_livros'] = $pessoa['total_livros'] ? count($pessoa['total_livros']): '0';
@@ -98,11 +81,13 @@ class Programa extends Model
                 $pessoa['total_trabalhos_tecnicos'] = Programa::hasValue($lattes,'trabalhos_tecnicos') ? Programa::filtrar($lattes['trabalhos_tecnicos'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
                 $pessoa['total_trabalhos_tecnicos'] = $pessoa['total_trabalhos_tecnicos'] ? count($pessoa['total_trabalhos_tecnicos']): '0';
 
-                $pessoa['total_ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? Programa::filtrar($lattes['ultima_formacao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $pessoa['total_ultima_formacao'] = $pessoa['total_ultima_formacao'] ? count($pessoa['total_ultima_formacao']): '0';
-
-                $pessoa['total_ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
-                $pessoa['total_ultimo_vinculo_profissional'] = $pessoa['total_ultimo_vinculo_profissional'] ? count($pessoa['total_ultimo_vinculo_profissional']): '0';
+                if($tipo_pessoa == 'egressos'){
+                    $pessoa['total_ultima_formacao'] = Programa::hasValue($lattes,'ultima_formacao') ? Programa::filtrar($lattes['ultima_formacao'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                    $pessoa['total_ultima_formacao'] = $pessoa['total_ultima_formacao'] ? count($pessoa['total_ultima_formacao']): '0';
+                    
+                    $pessoa['total_ultimo_vinculo_profissional'] = Programa::hasValue($lattes,'ultimo_vinculo_profissional') ? Programa::filtrar($lattes['ultimo_vinculo_profissional'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : false;
+                    $pessoa['total_ultimo_vinculo_profissional'] = $pessoa['total_ultimo_vinculo_profissional'] ? count($pessoa['total_ultimo_vinculo_profissional']): '0';
+                }
 
                 $pessoa['total_organizacao_evento'] = Programa::hasValue($lattes,'organizacao_evento') ? Programa::filtrar($lattes['organizacao_evento'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
                 $pessoa['total_organizacao_evento'] = $pessoa['total_organizacao_evento'] ? count($pessoa['total_organizacao_evento']): '0';
@@ -148,13 +133,17 @@ class Programa extends Model
                 $pessoa['radio_tv'] = Programa::hasValue($lattes,'radio_tv') ? Programa::filtrar($lattes['radio_tv'], 'ANO',$filtro['tipo'], $filtro['limit_ini'],$filtro['limit_fim']) : null;
         
             }
+            
             if(isset($pessoa['nompes']) && $pessoa['nompes'] != ''){
                 array_push($aux_pessoas, $pessoa);
             }
 
         }
+       
+        setlocale(LC_COLLATE, 'pt_BR.utf8'); //ordena corretamente os nomes com acentos
+       
         usort($aux_pessoas, function ($a, $b) {
-            return $a['nompes'] <=> $b['nompes'];
+            return strcoll($a["nompes"], $b["nompes"]);
         });
 
         return $aux_pessoas;

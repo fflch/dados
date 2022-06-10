@@ -12,9 +12,13 @@
 
 @if(isset($pessoas))
 <div class="card">
+
   <div class="card-header">
     <b>{{$titulo}}</b><br>
     @if($tipo_pessoa == "docentes") - Listagem apenas de docentes que estão com os credenciamentos em dia. @endif
+
+    <a href="{{Request::fullUrl()}}?excel=true" class="float-right btn-dl-excel">
+        <i class="fas fa-file-excel"></i> Download Excel</a> 
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <div class="scroll">
@@ -22,9 +26,6 @@
       <thead>
         <tr>
           <th scope="col" class="first-col"><span class="text-first-col">Nome<span></th>
-          @if($tipo_pessoa == "egressos")
-          <th scope="col" class="text-center">Nível Programa</th>
-          @endif
           <th scope="col" class="text-center">Livros</th>
           <th scope="col" class="text-center">Artigos</th>
           <th scope="col" class="text-center">Capítulos de Livros</th>
@@ -61,10 +62,6 @@
                 </a>
               @endif
           </td>
-
-          @if($tipo_pessoa == "egressos")
-          <td class="text-center"> @arr([$pessoa, 'nivpgm']) </td>
-          @endif
 
           <td class="text-center">
             @if($pessoa['total_livros'] != 0 || $pessoa['total_livros'] != '0')
