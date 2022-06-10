@@ -1,10 +1,10 @@
-SELECT COUNT (distinct l.codpes) FROM VINCULOPESSOAUSP l
+SELECT COUNT (distinct v.codpes) FROM VINCULOPESSOAUSP v
 JOIN SITALUNOATIVOGR s
-ON s.codpes = l.codpes 
+ON s.codpes = v.codpes AND  s.codcur = v.codcurgrd 
 JOIN PESSOA p
-ON p.codpes = l.codpes 
-WHERE l.tipvin = 'ALUNOGR' 
-    AND l.codclg = 8 
+ON p.codpes = v.codpes 
+WHERE v.tipvin = 'ALUNOGR' 
+    AND v.codclg = 8 
     AND s.codcur IN (__codcur__)
     AND p.sexpes = '__genero__'
-    AND l.dtainivin LIKE '%__ano__%'
+    AND v.dtainivin LIKE '%__ano__%'
