@@ -197,7 +197,6 @@ class ReplicadoLattesSyncCommand extends Command
                 $lattes->codpes = $codpes;
                 $lattes->json = null;
                 $lattes->save();
-                echo $codpes .";". Pessoa::dump($codpes)['nompes'] .";lattes não encontrado\n";
             }
 
         }
