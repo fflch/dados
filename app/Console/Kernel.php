@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\ReplicadoDailySyncCommand;
 use App\Console\Commands\ReplicadoWeeklySyncCommand;
+use App\Console\Commands\ReplicadoLattesSyncCommand;
 
 class Kernel extends ConsoleKernel
 {
