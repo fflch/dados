@@ -153,14 +153,14 @@ class Programa extends Model
 
 
 
-        $json_lattes = LattesModel::where('codpes',$codpes)->where('tipo_pessoa',$tipo_pessoa)->first();
+        $json_lattes = LattesModel::where('codpes',$codpes)->first();
 
         $lattes = $json_lattes ? json_decode($json_lattes->json,TRUE) : null;
         if($lattes == null) return [];
 
         $content['id_lattes'] = $lattes['id_lattes'] ?? null;
         $content['orcid'] = $lattes['orcid'] ?? null;
-        $content['nome'] = $lattes['nome'] ?? '';
+        $content['nome'] = Pessoa::nomeCompleto($codpes);
         $content['resumo'] = $lattes['resumo'] ?? '';
         $content['linhas_pesquisa'] = $lattes['linhas_pesquisa'] ?? '';
 
