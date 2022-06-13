@@ -14,6 +14,8 @@ class Programa extends Model
 
     public static function index(){
         $programas = [];
+        $departamentos = [];
+        
         foreach(Programa::all() as $programa){
             if($programa->codare == 0){
                 $departamentos = json_decode($programa->json);
