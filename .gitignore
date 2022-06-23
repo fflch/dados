@@ -14,4 +14,3 @@ yarn-error.log
 /storage/debugbar/
 .scribe/
 .vscode
-composer.lock
