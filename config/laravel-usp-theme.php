@@ -9,6 +9,9 @@ $right_menu = [
         'align'  => 'right',
         'can'    => 'admins',
     ],
+    [
+            'key' => 'senhaunica-socialite',
+    ],
 ];
 
 return [
