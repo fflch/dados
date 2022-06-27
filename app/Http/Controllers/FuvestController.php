@@ -16,7 +16,7 @@ class FuvestController extends Controller
     private $excel;
 
     public function socioeconomico(Excel $excel, Request $request){
-        $this->authorize('admin');
+        $this->authorize('admins');
        
         $this->excel = $excel;
 

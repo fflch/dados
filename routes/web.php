@@ -1,55 +1,50 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProgramaController;
-use App\Http\Controllers\DefesaController;
-use App\Http\Controllers\PesquisaController;
-use App\Http\Controllers\AtivosController;
-use App\Http\Controllers\AtivosMicrosNotesController;
-use App\Http\Controllers\AtivosPorGeneroController;
-use App\Http\Controllers\AlunosAtivosPorCursoController;
-use App\Http\Controllers\AtivosPorDepartamentoController;
-use App\Http\Controllers\AtivosPorProgramaPosController;
-use App\Http\Controllers\BeneficiadosController;
-use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
-use App\Http\Controllers\BeneficiosConcedidosController;
-use App\Http\Controllers\BolsasController;
-use App\Http\Controllers\ConcluintesPorAnoController;
-use App\Http\Controllers\ConcluintesGradPorCursoController;
-use App\Http\Controllers\ConveniosAtivosController;
-use App\Http\Controllers\AtivosPaisNascimentoController;
-use App\Http\Controllers\AtivosGradPorEstadoController;
-use App\Http\Controllers\AtivosDocentesPorFuncaoController;
 use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
 use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
-use App\Http\Controllers\BeneficiosAtivosGraduacaoPorAnoController;
-use App\Http\Controllers\TrancamentosCursoSemestralController;
+use App\Http\Controllers\AlunosAtivosPorCursoController;
 use App\Http\Controllers\AlunosEspeciaisPorAnoController;
+use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
+use App\Http\Controllers\AtivosController;
+use App\Http\Controllers\AtivosDocentesPorFuncaoController;
+use App\Http\Controllers\AtivosGradPorEstadoController;
+use App\Http\Controllers\AtivosMicrosNotesController;
+use App\Http\Controllers\AtivosPaisNascimentoController;
+use App\Http\Controllers\AtivosPorDepartamentoController;
+use App\Http\Controllers\AtivosPorGeneroController;
+use App\Http\Controllers\AtivosPorProgramaPosController;
 use App\Http\Controllers\AtivosPosNivelProgramaController;
+use App\Http\Controllers\BeneficiadosController;
+use App\Http\Controllers\BeneficiosAtivosGraduacaoPorAnoController;
+use App\Http\Controllers\BeneficiosConcedidosController;
+use App\Http\Controllers\BeneficiosConcedidosHistoricoController;
+use App\Http\Controllers\BolsasController;
 use App\Http\Controllers\CEUController;
-use App\Http\Controllers\OrientadoresPosGRContoller;
+use App\Http\Controllers\ColegiadoController;
+use App\Http\Controllers\ConcluintesGradPorCursoController;
+use App\Http\Controllers\ConcluintesPorAnoController;
+use App\Http\Controllers\ConveniosAtivosController;
+use App\Http\Controllers\DefesaController;
+use App\Http\Controllers\ExAlunosController;
+use App\Http\Controllers\EstagiariosController;
+use App\Http\Controllers\EvasaoController;
+use App\Http\Controllers\FuvestController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IngressantesGradGeneroCursoController;
 use App\Http\Controllers\IngressantesPosGrGeneroProgramaController;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IniciacaoCientificaController;
-use App\Http\Controllers\ExAlunosController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RestritoController;
-use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
 use App\Http\Controllers\IntercambioController;
-use App\Http\Controllers\EvasaoController;
+use App\Http\Controllers\OrientadoresPosGRContoller;
+use App\Http\Controllers\PesquisaController;
+use App\Http\Controllers\ProgramaController;
+use App\Http\Controllers\RestritoController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransferenciaController;
-use App\Http\Controllers\EstagiariosController;
-use App\Http\Controllers\ColegiadoController;
-use App\Http\Controllers\FuvestController;
+use App\Http\Controllers\TrancamentosCursoSemestralController;
 
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/contato', [IndexController::class, 'contato']);
-
-Route::get('login', [LoginController::class, 'redirectToProvider']);
-Route::get('callback', [LoginController::class, 'handleProviderCallback']);
-Route::post('logout', [LoginController::class, 'logout']);
 
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
