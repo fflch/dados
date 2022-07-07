@@ -23,12 +23,7 @@ class ProgramaController extends Controller
     }
 
     public function index(){
-        $setores =  Programa::index();
-       
-        return view('programas.index',[
-            'programas' => $setores[0],
-            'departamentos' => $setores[1]
-        ]);
+        return view('programas.index',Programa::index());
     }
 
     

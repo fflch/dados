@@ -50,6 +50,7 @@ class ReplicadoLattesSyncCommand extends Command
 
         if(getenv('REPLICADO_SYBASE') != '0') putenv('REPLICADO_SYBASE=0');
 
+        
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $discentes = [];
@@ -66,11 +67,37 @@ class ReplicadoLattesSyncCommand extends Command
         $codpes = array_unique($codpes);
         sort($codpes);
 
+        
         $this->syncLattes($codpes);
-        //$programas = Posgraduacao::programas(8);
-        $programas = Uteis::utf8_converter($programas);
+         
+        
+        //salvando departamentos em programas
+        $departamentos = [];
+        for($i = 0; $i < sizeof(Util::departamentos); $i++){
+            $departamento = Util::departamentos[array_keys(Util::departamentos)[$i]];
+            $aux_departamento = [];
+            $aux_departamento['sigla'] = array_keys(Util::departamentos)[$i];
+            $aux_departamento['codigo'] = $departamento[0];
+            $aux_departamento['nome'] = $departamento[1];
+            $aux_departamento['codpes_docentes'] =  array_column(Pessoa::listarDocentes($aux_departamento['codigo']), 'codpes');
+            $aux_departamento['id_lattes_docentes'] = $this->listar_id_lattes_por_nusp($aux_departamento['codpes_docentes']);            
+            $aux_departamento['total_docentes'] = LattesModel::whereIn('codpes', $aux_departamento['codpes_docentes'])->get()->count();
+            $departamentos[] = $aux_departamento;
+        }
+        $departamento = Programa::where('codare',0)->first();
+        if(!$departamento) $departamento = new Programa;
+        $departamento->codare = 0;
+        $departamento->json = json_encode($departamentos);
+        $departamento->save();
+        
+        $this->sync_comissao_pesquisa();
+        
 
+        putenv('REPLICADO_SYBASE=1');
 
+        $programas = Posgraduacao::programas(8);
+
+       
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
@@ -79,6 +106,10 @@ class ReplicadoLattesSyncCommand extends Command
             $programas[$key]['docentes'] =  $cred;
             $programas[$key]['discentes'] = $discentes[$value['codare']];
             $programas[$key]['egressos'] = $egressos[$value['codare']];
+
+            $programas[$key]['docentes'] =  $this->listar_id_lattes_por_nusp($cred);
+            $programas[$key]['discentes'] = $this->listar_id_lattes_por_nusp($discentes[$value['codare']]);
+            $programas[$key]['egressos'] = $this->listar_id_lattes_por_nusp($egressos[$value['codare']]);
 
             $programas[$key]['total_docentes'] =  LattesModel::whereIn('codpes', $cred)->get()->count();
             $programas[$key]['total_discentes'] = LattesModel::whereIn('codpes', $discentes[$value['codare']])->get()->count();
@@ -89,29 +120,16 @@ class ReplicadoLattesSyncCommand extends Command
             $programa->save();
         }
 
-        //salvando departamentos em programas
-        $departamentos = [];
-        for($i = 0; $i < sizeof(Util::departamentos); $i++){
-            $departamento = Util::departamentos[array_keys(Util::departamentos)[$i]];
-            $aux_departamento = [];
-            $aux_departamento['sigla'] = array_keys(Util::departamentos)[$i];
-            $aux_departamento['codigo'] = $departamento[0];
-            $aux_departamento['nome'] = $departamento[1];
-            $aux_departamento['codpes_docentes'] =  array_column(Pessoa::listarDocentes($aux_departamento['codigo']), 'codpes');
-            $aux_departamento['total_docentes'] = LattesModel::whereIn('codpes', $aux_departamento['codpes_docentes'])->get()->count();
-            $departamentos[] = $aux_departamento;
-        }
-        $departamento = Programa::where('codare',0)->first();
-        if(!$departamento) $departamento = new Programa;
-        $departamento->codare = 0;
-        $departamento->json = json_encode($departamentos);
-        $departamento->save();
-
-        $this->sync_comissao_pesquisa();
-
-        putenv('REPLICADO_SYBASE=1');
-
         return 0;
+    }
+
+    private function listar_id_lattes_por_nusp($lista_nusp){
+        $codpes_pessoas = implode(',', $lista_nusp); 
+        $id_lattes = \DB::select("SELECT id_lattes FROM lattes WHERE codpes  IN ( $codpes_pessoas )");
+        $lista_id_lattes = [];
+        foreach($id_lattes as $id)
+            $lista_id_lattes[] = $id->id_lattes;
+        return $lista_id_lattes;
     }
 
     private function sync_comissao_pesquisa(){
@@ -164,6 +182,8 @@ class ReplicadoLattesSyncCommand extends Command
                 }
 
                 $info_lattes['id_lattes'] = Lattes::id($codpes);
+                
+
                 $info_lattes['orcid'] = Lattes::retornarOrcidID($codpes, $lattes_array);
                 $data_atualizacao = Lattes::retornarUltimaAtualizacao($codpes, $lattes_array) ;
                 $info_lattes['data_atualizacao'] = $data_atualizacao ? substr($data_atualizacao, 0,2) . '/' . substr($data_atualizacao,2,2) . '/' . substr($data_atualizacao,4,4) : '-';
@@ -188,6 +208,7 @@ class ReplicadoLattesSyncCommand extends Command
                 $info_lattes['radio_tv'] = Lattes::listarRadioTV($codpes, $lattes_array, 'anual', -1, null);
                 $info_lattes['apresentacao_trabalho'] = Lattes::listarApresentacaoTrabalho($codpes, $lattes_array, 'anual', -1, null);
 
+                $lattes->id_lattes = $info_lattes['id_lattes'] ?? null;
                 $lattes->codpes = $codpes;
                 $lattes->json = json_encode($info_lattes);
 

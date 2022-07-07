@@ -15,6 +15,12 @@ use App\Utils\Util;
 class ProgramaController extends Controller
 {
     public function index(){
+        $programas = Programa::index()['programas'];
+        $departamentos = Programa::index()['departamentos'];
+        foreach($departamentos as $dep){
+            unset($dep->codpes_docentes);
+        }
+        
         return response()->json(
             Programa::index(),
             200, [], JSON_UNESCAPED_UNICODE
