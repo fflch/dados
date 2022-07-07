@@ -70,11 +70,11 @@ class ReplicadoWeeklySyncCommand extends Command
     }
 
     private function sync_alunos_posgr($discentes, $codare){
-        $codpes = PessoaModel::select('codpes')->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->where('codare',$codare)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
+        $codpes = PessoaModel::select('codpes')->whereIn('tipo_vinculo', array('ALUNOPOS'))->where('codare',$codare)->get()->pluck('codpes')->toArray(); //buscando os registros no banco local
         $codpes_replicado = array_column($discentes, 'codpes');
 
         $diff = array_diff($codpes, $codpes_replicado);
-        PessoaModel::whereIn('codpes', $diff)->whereIn('tipo_vinculo', array('ALUNOPOS', 'ALUNOPD'))->where('codare',$codare)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+        PessoaModel::whereIn('codpes', $diff)->whereIn('tipo_vinculo', array('ALUNOPOS'))->where('codare',$codare)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
 
 
         foreach($discentes as $discente){
