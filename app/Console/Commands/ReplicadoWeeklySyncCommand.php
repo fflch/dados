@@ -118,7 +118,7 @@ class ReplicadoWeeklySyncCommand extends Command
         $codproj_replicado = array_merge($codproj_ic, $codproj_pes, $codproj_pes_colab);
 
         $diff = array_diff($codproj, $codproj_replicado);
-        ComissaoPesquisa::whereIn('codproj', $diff)->delete();//deletando as diferenças no banco local, para mentê-lo atualizado
+        ComissaoPesquisa::whereIn('codproj', $diff)->delete(); // deletando as diferenças no banco local para mantê-lo atualizado
 
         if($iniciacao_cientifica){
             foreach($iniciacao_cientifica as $ic){
