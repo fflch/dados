@@ -1,6 +1,6 @@
 SELECT  count(v.codpes) from VINCULOPESSOAUSP v
 JOIN PESSOA p on p.codpes = v.codpes
-WHERE v.tipvin IN ('ALUNOPOS', 'ALUNOPD')
+WHERE v.tipvin IN ('ALUNOPOS')
 AND v.codclg = 8
 __nivpgm__
 AND v.codare = __codare__

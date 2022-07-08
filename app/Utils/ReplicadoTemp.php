@@ -267,7 +267,7 @@ class ReplicadoTemp
     {
         $query = "SELECT DISTINCT v.nompes, v.codpes, v.codare, v.nivpgm, v.dtainivin, v.sitatl, p.sexpes , v.tipvin FROM VINCULOPESSOAUSP v
                     JOIN PESSOA p  ON (p.codpes = v.codpes)
-                    WHERE v.tipvin IN ('ALUNOPOS', 'ALUNOPD')
+                    WHERE v.tipvin IN ('ALUNOPOS')
                     AND v.codare = convert(int,:codare)
                     AND v.codclg = convert(int,:codundclg)
                     AND v.sitatl = 'A'
