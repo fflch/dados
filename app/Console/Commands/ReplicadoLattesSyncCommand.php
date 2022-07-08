@@ -50,7 +50,6 @@ class ReplicadoLattesSyncCommand extends Command
 
         if(getenv('REPLICADO_SYBASE') != '0') putenv('REPLICADO_SYBASE=0');
 
-        
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $discentes = [];
@@ -67,10 +66,8 @@ class ReplicadoLattesSyncCommand extends Command
         $codpes = array_unique($codpes);
         sort($codpes);
 
-        
         $this->syncLattes($codpes);
-         
-        
+
         //salvando departamentos em programas
         $departamentos = [];
         for($i = 0; $i < sizeof(Util::departamentos); $i++){
@@ -80,7 +77,7 @@ class ReplicadoLattesSyncCommand extends Command
             $aux_departamento['codigo'] = $departamento[0];
             $aux_departamento['nome'] = $departamento[1];
             $aux_departamento['codpes_docentes'] =  array_column(Pessoa::listarDocentes($aux_departamento['codigo']), 'codpes');
-            $aux_departamento['id_lattes_docentes'] = $this->listar_id_lattes_por_nusp($aux_departamento['codpes_docentes']);            
+            $aux_departamento['id_lattes_docentes'] = $this->listar_id_lattes_por_nusp($aux_departamento['codpes_docentes']);
             $aux_departamento['total_docentes'] = LattesModel::whereIn('codpes', $aux_departamento['codpes_docentes'])->get()->count();
             $departamentos[] = $aux_departamento;
         }
@@ -89,15 +86,13 @@ class ReplicadoLattesSyncCommand extends Command
         $departamento->codare = 0;
         $departamento->json = json_encode($departamentos);
         $departamento->save();
-        
+
         $this->sync_comissao_pesquisa();
-        
 
         putenv('REPLICADO_SYBASE=1');
 
         $programas = Posgraduacao::programas(8);
 
-       
         foreach($programas as $key=>$value) {
             $programa = Programa::where('codare',$value['codare'])->first();
             if(!$programa) $programa = new Programa;
@@ -124,7 +119,7 @@ class ReplicadoLattesSyncCommand extends Command
     }
 
     private function listar_id_lattes_por_nusp($lista_nusp){
-        $codpes_pessoas = implode(',', $lista_nusp); 
+        $codpes_pessoas = implode(',', $lista_nusp);
         $id_lattes = \DB::select("SELECT id_lattes FROM lattes WHERE codpes  IN ( $codpes_pessoas )");
         $lista_id_lattes = [];
         foreach($id_lattes as $id)
@@ -182,7 +177,6 @@ class ReplicadoLattesSyncCommand extends Command
                 }
 
                 $info_lattes['id_lattes'] = Lattes::id($codpes);
-                
 
                 $info_lattes['orcid'] = Lattes::retornarOrcidID($codpes, $lattes_array);
                 $data_atualizacao = Lattes::retornarUltimaAtualizacao($codpes, $lattes_array) ;
