@@ -10,7 +10,7 @@
     {{ Date('Y') }}
   @endif  
   </b>
-  <a href="{{ config('app.url') }}/api/defesas?ano={{request()->ano}}&codcur={{request()->codcur}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+  <a href="{{ config('app.url') }}/api/defesas?ano={{request()->ano ?? date('Y')}}&codcur={{request()->codcur}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
   </div>
   <div class="card-body">
 
