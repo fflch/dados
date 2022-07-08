@@ -466,20 +466,22 @@ class ReplicadoTemp
             $ic['raca_cor_aluno'] = $result['raca_cor_aluno'] ?? 'Não informado';
 
             $query_com_bolsa = "SELECT b.codctgedi, b.dtainibol, b.dtafimbol FROM ICTPROJEDITALBOLSA b
-            inner join ICTPROJETO i on i.codprj = b.codprj
+            inner join ICTPROJETO i on (i.codprj = b.codprj and i.anoprj = b.anoprj)
             where codundprj in (__unidades__)
             and codmdl = 1
             and i.codpesalu  = convert(int,:codpes)
             and i.codprj = convert(int,:codprj)
             ";
 
-            $query_com_bolsa = str_replace('__unidades__',$unidades,$query_com_bolsa);
+            $query_com_bolsa = str_replace('__unidades__', $unidades, $query_com_bolsa);
 
             $param_com_bolsa = [
                 'codpes' => $ic['aluno'],
                 'codprj' => $ic['cod_projeto'],
             ];
+            
             $result =  DB::fetchAll($query_com_bolsa, $param_com_bolsa);
+            
             if(count($result) == 0){
                 $ic['bolsa'] = 'false';
                 $ic['codctgedi'] = '';
