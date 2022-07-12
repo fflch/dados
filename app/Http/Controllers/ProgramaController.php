@@ -29,14 +29,14 @@ class ProgramaController extends Controller
     
     public function listarDocentes($codare, Request $request) {
         $excel = isset($request->excel) ? $request->excel : false;     
-        $filtro = Programa::getFiltro($request);   
+        $filtro = Programa::getFiltro($request);
         if(isset(Util::departamentos[$codare]) ){
             $programa = Util::departamentos[$codare][1];
             $departamento = Programa::where('codare', 0)->get()->first();
             $json = json_decode($departamento->json, true);
             $departamento = array_values(array_filter($json, function($a) use ($codare) { return $a['sigla'] == $codare; }))[0];
-            $credenciados = Programa::listarPessoa($departamento['codpes_docentes'], $filtro, false, 'docentes', $excel);
-            $titulo = "Docentes do departamento de " .$programa .": " .count($credenciados);
+            $credenciados = Programa::listarPessoa($departamento['id_lattes_docentes'], $filtro, false, 'docentes', $excel);
+            $titulo = "Docentes do departamento de " .$programa.": " .count($credenciados);
         }else{
             $programa = Posgraduacao::programas(8, null, $codare)[0];
             $model_programa = Programa::where('codare', $codare)->get()->first();

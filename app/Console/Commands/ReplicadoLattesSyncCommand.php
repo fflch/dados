@@ -46,8 +46,7 @@ class ReplicadoLattesSyncCommand extends Command
      * @return int
      */
     public function handle()
-    {
-
+    {      
         if(getenv('REPLICADO_SYBASE') != '0') putenv('REPLICADO_SYBASE=0');
 
         $docentes = array_column(Pessoa::listarDocentes(null, 'A,P'), 'codpes');
