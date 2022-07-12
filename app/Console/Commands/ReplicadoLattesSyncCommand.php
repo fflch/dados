@@ -50,7 +50,7 @@ class ReplicadoLattesSyncCommand extends Command
 
         if(getenv('REPLICADO_SYBASE') != '0') putenv('REPLICADO_SYBASE=0');
 
-        $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
+        $docentes = array_column(Pessoa::listarDocentes(null, 'A,P'), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $discentes = [];
         $egressos = [];
