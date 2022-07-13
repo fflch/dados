@@ -49,7 +49,7 @@ class ReplicadoLattesSyncCommand extends Command
     {
 
         if(getenv('REPLICADO_SYBASE') != '0') putenv('REPLICADO_SYBASE=0');
-
+/*
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $discentes = [];
@@ -86,9 +86,9 @@ class ReplicadoLattesSyncCommand extends Command
         $departamento->codare = 0;
         $departamento->json = json_encode($departamentos);
         $departamento->save();
-
+*/
         $this->sync_comissao_pesquisa();
-
+/*
         putenv('REPLICADO_SYBASE=1');
 
         $programas = Posgraduacao::programas(8);
@@ -114,7 +114,7 @@ class ReplicadoLattesSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
         }
-
+*/
         return 0;
     }
 

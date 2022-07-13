@@ -52,7 +52,7 @@ class ReplicadoWeeklySyncCommand extends Command
         if(getenv('REPLICADO_SYBASE') != '1') putenv('REPLICADO_SYBASE=1');
 
         $this->sync_comissao_pesquisa();
-
+/*
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $codpes = array_merge($credenciados, $docentes);
@@ -65,7 +65,7 @@ class ReplicadoWeeklySyncCommand extends Command
         foreach($programas as $value) {
             $this->sync_alunos_posgr(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare']),8);
         }
-
+*/
         return 0;
     }
 

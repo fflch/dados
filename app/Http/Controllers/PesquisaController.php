@@ -18,7 +18,7 @@ class PesquisaController extends Controller
 {
 
     public function contarPesquisasAtivasPorTipo(PesquisaRequest $request){
-        $data = ComissaoPesquisa::contarPesquisasAtivasPorTipo($request);
+        $data = ComissaoPesuisa::contarPesquisasAtivasPorTipo($request);
       
 
         return view('pesquisa.index',[

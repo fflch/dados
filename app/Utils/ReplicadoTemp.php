@@ -410,6 +410,7 @@ class ReplicadoTemp
         inner join
             SETOR s ON s.codset = ic.codsetprj
         where
+        ic.staprj in ('Ativo', 'Aprovado') and
         ic.codundprj in (__unidades__)
         __data__
         __departamento__
