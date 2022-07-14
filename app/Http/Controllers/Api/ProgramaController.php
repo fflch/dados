@@ -65,9 +65,11 @@ class ProgramaController extends Controller
     }
     public function listarEgressos($codare, Request $request){
         
-        $filtro = Programa::getFiltro($request);       
-        $egressos = Programa::listarPessoa($codare, $filtro, true, 'egressos');
-        
+        $filtro = Programa::getFiltro($request);        
+        $model_programa = Programa::where('codare', $codare)->get()->first();
+        $json = json_decode($model_programa->json, true);
+        $egressos = Programa::listarPessoa($json['egressos'], $filtro, false, 'egressos', false);
+
         return response()->json(
             $egressos
         );
