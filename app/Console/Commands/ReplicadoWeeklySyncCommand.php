@@ -107,20 +107,21 @@ class ReplicadoWeeklySyncCommand extends Command
         //iniciação cientifica
         $iniciacao_cientifica = ReplicadoTemp::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
         //pesquisas de pos doutorandos ativos
-        $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
+        //$pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
         //pesquisadores colaborativos ativos
-        $pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
+        //$pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
 
 
-        $codproj_ic = array_column($iniciacao_cientifica, 'cod_projeto');
-        $codproj_pes = array_column($pesquisa, 'codprj');
-        $codproj_pes_colab = array_column($pesquisadores_colab, 'codprj');
-        $codproj_replicado = array_merge($codproj_ic, $codproj_pes, $codproj_pes_colab);
+        //$codproj_ic = array_column($iniciacao_cientifica, 'cod_projeto');
+        //$codproj_pes = array_column($pesquisa, 'codprj');
+        //$codproj_pes_colab = array_column($pesquisadores_colab, 'codprj');
+        //$codproj_replicado = array_merge($codproj_ic, $codproj_pes, $codproj_pes_colab);
 
-        $diff = array_diff($codproj, $codproj_replicado);
-        ComissaoPesquisa::whereIn('codproj', $diff)->delete(); // deletando as diferenças no banco local para mantê-lo atualizado
+        //$diff = array_diff($codproj, $codproj_replicado);
+        //ComissaoPesquisa::whereIn('codproj', $diff)->delete(); // deletando as diferenças no banco local para mantê-lo atualizado
 
         if($iniciacao_cientifica){
+            ComissaoPesquisa::where('tipo','IC')->delete();
             foreach($iniciacao_cientifica as $ic){
 
                 $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->where('codpes_discente',$ic['aluno'])->first();
@@ -153,9 +154,13 @@ class ReplicadoWeeklySyncCommand extends Command
 
                 $comissao->save();
             }
+            
+
         }
-
-
+        foreach(ReplicadoTemp::listarICsRepetidasComStatusTransferido() as $excluir){
+            ComissaoPesquisa::where('codproj',$excluir['codproj transferido'])->where('ano_proj',$excluir['anoproj transferido'])->where('tipo','IC')->delete();
+        }
+        /*
         if($pesquisa){
             foreach($pesquisa as $pd){
                 $comissao = ComissaoPesquisa::where('codproj',$pd['codprj'])->where('codpes_discente',$pd['codpes'])->first();
@@ -211,6 +216,7 @@ class ReplicadoWeeklySyncCommand extends Command
                 $comissao->save();
             }
         }
+        */
 
     }
 

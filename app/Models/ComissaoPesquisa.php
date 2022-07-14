@@ -43,7 +43,7 @@ class ComissaoPesquisa extends Model
         }else if($request->filtro  == 'serie_historica' && isset($request->ano_ini) && isset($request->ano_fim)){
             
             $ano_ini = (int)$request->ano_ini ?? date('Y');
-            $ano_fim = (int)$request->ano_fim ?? date('Y');
+            $ano_fim = (int)$request->ano_fim ?? date('Y'); 
             $data_tipo = $request->serie_historica_tipo;
             if($data_tipo == 'curso'){
                 foreach(Util::getCursos() as $key=>$cur){
