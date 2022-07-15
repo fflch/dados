@@ -28,7 +28,14 @@
    </div>
     <div class="card-body collapse"  id="collapseDadosInstitucionais">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/colegiados">Colegiados</a></li>
+            <li class="list-group-item">
+                <a href="{{ config('app.url') }}/colegiados">Colegiados</a>
+                <a href="{{ config('app.url') }}/api/colegiados" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>
+            </li>
        </ul>
     </div>
 </div>

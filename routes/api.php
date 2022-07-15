@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\ColegiadoController;
 use App\Http\Controllers\Api\DefesaController;
 use App\Http\Controllers\Api\PessoaController;
-use App\Http\Controllers\Api\ProgramaController;
 use App\Http\Controllers\Api\PesquisaController;
+use App\Http\Controllers\Api\ProgramaController;
+use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/defesas', [DefesaController::class, 'index']);
@@ -35,5 +36,7 @@ Route::get('/pesquisa/pos_doutorandos', [PesquisaController::class, 'listarPesqu
 Route::get('/pesquisa/projetos_pesquisa', [PesquisaController::class, 'listarProjetosPesquisa']);
 Route::get('/pesquisa/pesquisadores_colaboradores', [PesquisaController::class, 'listarPesquisadoresColaboradores']);
 
-
+#Colegiados
+Route::get('/colegiados', [ColegiadoController::class, 'index']);
+Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
 
