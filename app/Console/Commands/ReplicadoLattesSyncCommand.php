@@ -137,8 +137,7 @@ class ReplicadoLattesSyncCommand extends Command
                  $docente = Uteis::utf8_converter($docente);
                  if(isset($pesquisas) && is_array($pesquisas) && count($pesquisas) > 0){
                      foreach($pesquisas as $pesquisa){
-                         $comissao = ComissaoPesquisa::where('codpes_discente',$docente['codpes'])->where('titulo_pesquisa',$pesquisa['NOME-DO-PROJETO'] )->first();
-                         if(!$comissao) $comissao = new ComissaoPesquisa;
+                         $comissao = new ComissaoPesquisa;
 
                          $comissao->titulo_pesquisa = $pesquisa['NOME-DO-PROJETO'];
                          $comissao->codpes_discente = $docente['codpes'];

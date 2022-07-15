@@ -112,8 +112,7 @@ class ReplicadoWeeklySyncCommand extends Command
 
         if($iniciacao_cientifica){
             foreach($iniciacao_cientifica as $ic){
-                $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->where('codpes_discente',$ic['aluno'])->first();
-                if(!$comissao) $comissao = new ComissaoPesquisa;
+                $comissao = new ComissaoPesquisa;
                 $comissao->codproj = $ic['cod_projeto'];
                 $comissao->codpes_discente = $ic['aluno'];
                 $comissao->nome_discente= $ic['nome_aluno'];
