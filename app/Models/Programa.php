@@ -33,12 +33,13 @@ class Programa extends Model
 
     public static function listarPessoa($pessoas, $filtro, $api, $tipo_pessoa, $excel){
         $aux_pessoas = [];
-        $codpes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...]
-        $codpes_pessoas = array_filter($codpes_pessoas, function($e) {
+        $idLattes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...]
+        
+        $idLattes_pessoas = array_filter($idLattes_pessoas, function($e) {
             return ($e !== null);
         });
-        $codpes_pessoas = implode(',',$codpes_pessoas);
-        $json_lattes = \DB::select("SELECT codpes, `json` FROM lattes WHERE id_lattes  IN ( $codpes_pessoas )");
+        $idLattes_pessoas = implode(',',$idLattes_pessoas);
+        $json_lattes = \DB::select("SELECT codpes, `json` FROM lattes WHERE id_lattes  IN ( $idLattes_pessoas )");
 
         foreach($json_lattes as $json){
             $pessoa = [];
