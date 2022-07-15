@@ -70,16 +70,6 @@
                                                 </ul>
                     
                     <ul id="tocify-header-2" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="teste">
-                    <a href="#teste">TESTE</a>
-                </li>
-                                    <ul id="tocify-subheader-teste" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="teste-GETapi-obter_orcid">
-                        <a href="#teste-GETapi-obter_orcid">TESTE</a>
-                    </li>
-                                                    </ul>
-                            </ul>
-                    <ul id="tocify-header-3" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="dados-de-producao-academica">
                     <a href="#dados-de-producao-academica">Dados de produção acadêmica</a>
                 </li>
@@ -92,7 +82,27 @@
                     </li>
                                                     </ul>
                             </ul>
+                    <ul id="tocify-header-3" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="dados-institucionais">
+                    <a href="#dados-institucionais">Dados institucionais</a>
+                </li>
+                                    <ul id="tocify-subheader-dados-institucionais" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="dados-institucionais-GETapi-colegiados">
+                        <a href="#dados-institucionais-GETapi-colegiados">Listar Colegiados</a>
+                    </li>
+                                                    </ul>
+                            </ul>
                     <ul id="tocify-header-4" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="dados-por-curso">
+                    <a href="#dados-por-curso">Dados por curso</a>
+                </li>
+                                    <ul id="tocify-subheader-dados-por-curso" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="dados-por-curso-GETapi-alunosAtivosPorCurso">
+                        <a href="#dados-por-curso-GETapi-alunosAtivosPorCurso">Alunos Ativos Por Curso</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-5" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="endpoints">
                     <a href="#endpoints">Endpoints</a>
                 </li>
@@ -148,6 +158,19 @@
                                     <li class="tocify-item level-2" data-unique="endpoints-GETapi-pesquisa-pesquisadores_colaboradores">
                         <a href="#endpoints-GETapi-pesquisa-pesquisadores_colaboradores">GET api/pesquisa/pesquisadores_colaboradores</a>
                     </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-colegiados--codclg---sglclg-">
+                        <a href="#endpoints-GETapi-colegiados--codclg---sglclg-">GET api/colegiados/{codclg}/{sglclg}</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-6" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="teste">
+                    <a href="#teste">TESTE</a>
+                </li>
+                                    <ul id="tocify-subheader-teste" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="teste-GETapi-obter_orcid">
+                        <a href="#teste-GETapi-obter_orcid">TESTE</a>
+                    </li>
                                                     </ul>
                             </ul>
         
@@ -177,566 +200,6 @@
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
 
-        <h1 id="teste">TESTE</h1>
-
-    
-
-            <h2 id="teste-GETapi-obter_orcid">TESTE</h2>
-
-<p>
-</p>
-
-<p>teste teset</p>
-
-<span id="example-requests-GETapi-obter_orcid">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/obter_orcid" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/obter_orcid"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-obter_orcid">
-            <blockquote>
-            <p>Example response (500):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary>
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 51
- </code></pre>
-        </details>         <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Undefined index: nome&quot;,
-    &quot;exception&quot;: &quot;ErrorException&quot;,
-    &quot;file&quot;: &quot;/home/ricardo/dados/app/Models/Programa.php&quot;,
-    &quot;line&quot;: 254,
-    &quot;trace&quot;: [
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/app/Models/Programa.php&quot;,
-            &quot;line&quot;: 254,
-            &quot;function&quot;: &quot;handleError&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Bootstrap\\HandleExceptions&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-            &quot;line&quot;: 48,
-            &quot;function&quot;: &quot;obterOrcid&quot;,
-            &quot;class&quot;: &quot;App\\Models\\Programa&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Controller.php&quot;,
-            &quot;line&quot;: 54,
-            &quot;function&quot;: &quot;obterOrcid&quot;,
-            &quot;class&quot;: &quot;App\\Http\\Controllers\\Api\\ProgramaController&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php&quot;,
-            &quot;line&quot;: 45,
-            &quot;function&quot;: &quot;callAction&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Controller&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
-            &quot;line&quot;: 262,
-            &quot;function&quot;: &quot;dispatch&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\ControllerDispatcher&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
-            &quot;line&quot;: 205,
-            &quot;function&quot;: &quot;runController&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 721,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 128,
-            &quot;function&quot;: &quot;Illuminate\\Routing\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php&quot;,
-            &quot;line&quot;: 50,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\SubstituteBindings&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
-            &quot;line&quot;: 127,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
-            &quot;line&quot;: 63,
-            &quot;function&quot;: &quot;handleRequest&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 103,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 723,
-            &quot;function&quot;: &quot;then&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 698,
-            &quot;function&quot;: &quot;runRouteWithinStack&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 662,
-            &quot;function&quot;: &quot;runRoute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 651,
-            &quot;function&quot;: &quot;dispatchToRoute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;dispatch&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 128,
-            &quot;function&quot;: &quot;Illuminate\\Foundation\\Http\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
-            &quot;line&quot;: 60,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Barryvdh\\Debugbar\\Middleware\\InjectDebugbar&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
-            &quot;line&quot;: 21,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php&quot;,
-            &quot;line&quot;: 31,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
-            &quot;line&quot;: 21,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php&quot;,
-            &quot;line&quot;: 40,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TrimStrings&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php&quot;,
-            &quot;line&quot;: 27,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php&quot;,
-            &quot;line&quot;: 86,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fruitcake/laravel-cors/src/HandleCors.php&quot;,
-            &quot;line&quot;: 37,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Fruitcake\\Cors\\HandleCors&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fideloper/proxy/src/TrustProxies.php&quot;,
-            &quot;line&quot;: 57,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Fideloper\\Proxy\\TrustProxies&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 103,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
-            &quot;line&quot;: 142,
-            &quot;function&quot;: &quot;then&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
-            &quot;line&quot;: 111,
-            &quot;function&quot;: &quot;sendRequestThroughRouter&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 299,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 287,
-            &quot;function&quot;: &quot;callLaravelOrLumenRoute&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 89,
-            &quot;function&quot;: &quot;makeApiCall&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 45,
-            &quot;function&quot;: &quot;makeResponseCall&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 35,
-            &quot;function&quot;: &quot;makeResponseCallIfConditionsPass&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
-            &quot;line&quot;: 222,
-            &quot;function&quot;: &quot;__invoke&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
-            &quot;line&quot;: 179,
-            &quot;function&quot;: &quot;iterateThroughStrategies&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
-            &quot;line&quot;: 116,
-            &quot;function&quot;: &quot;fetchResponses&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 123,
-            &quot;function&quot;: &quot;processRoute&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 80,
-            &quot;function&quot;: &quot;extractEndpointsInfoFromLaravelApp&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 56,
-            &quot;function&quot;: &quot;extractEndpointsInfoAndWriteToDisk&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php&quot;,
-            &quot;line&quot;: 55,
-            &quot;function&quot;: &quot;get&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
-            &quot;line&quot;: 36,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Commands\\GenerateDocumentation&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Util.php&quot;,
-            &quot;line&quot;: 40,
-            &quot;function&quot;: &quot;Illuminate\\Container\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
-            &quot;line&quot;: 93,
-            &quot;function&quot;: &quot;unwrapIfClosure&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\Util&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
-            &quot;line&quot;: 37,
-            &quot;function&quot;: &quot;callBoundMethod&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Container.php&quot;,
-            &quot;line&quot;: 653,
-            &quot;function&quot;: &quot;call&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
-            &quot;line&quot;: 136,
-            &quot;function&quot;: &quot;call&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\Container&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Command/Command.php&quot;,
-            &quot;line&quot;: 298,
-            &quot;function&quot;: &quot;execute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
-            &quot;line&quot;: 121,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Command\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
-            &quot;line&quot;: 1024,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
-            &quot;line&quot;: 299,
-            &quot;function&quot;: &quot;doRunCommand&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
-            &quot;line&quot;: 171,
-            &quot;function&quot;: &quot;doRun&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Application.php&quot;,
-            &quot;line&quot;: 94,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php&quot;,
-            &quot;line&quot;: 129,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/artisan&quot;,
-            &quot;line&quot;: 37,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Console\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        }
-    ]
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-obter_orcid" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-obter_orcid"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-obter_orcid"></code></pre>
-</span>
-<span id="execution-error-GETapi-obter_orcid" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-obter_orcid"></code></pre>
-</span>
-<form id="form-GETapi-obter_orcid" data-method="GET"
-      data-path="api/obter_orcid"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-obter_orcid', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-obter_orcid"
-                    onclick="tryItOut('GETapi-obter_orcid');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-obter_orcid"
-                    onclick="cancelTryOut('GETapi-obter_orcid');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-obter_orcid" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/obter_orcid</code></b>
-        </p>
-                    </form>
-
         <h1 id="dados-de-producao-academica">Dados de produção acadêmica</h1>
 
     
@@ -758,8 +221,8 @@ x-ratelimit-remaining: 51
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": \"1963\",
-    \"codcur\": \"8009\"
+    \"ano\": \"2018\",
+    \"codcur\": \"8011\"
 }"
 </code></pre></div>
 
@@ -775,8 +238,8 @@ const headers = {
 };
 
 let body = {
-    "ano": "1963",
-    "codcur": "8009"
+    "ano": "2018",
+    "codcur": "8011"
 };
 
 fetch(url, {
@@ -798,11 +261,454 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 59
+x-ratelimit-remaining: 58
  </code></pre>
         </details>         <pre>
 
-<code class="language-json">[]</code>
+<code class="language-json">[
+    {
+        &quot;discente_id&quot;: &quot;B7A24810A78B&quot;,
+        &quot;defesa_id&quot;: &quot;51b57fbe7d9f4818c8b492ab24bc581c&quot;,
+        &quot;nome&quot;: &quot;Wilson Emanuel Fernandes dos Santos&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;O trabalhador digitalizado: a forma&ccedil;&atilde;o do sujeito neoliberal no setor banc&aacute;rio (2008-2018)&quot;,
+        &quot;titulo&quot;: &quot;O trabalhador digitalizado: a forma&ccedil;&atilde;o do sujeito neoliberal no setor banc&aacute;rio (2008-2018)&quot;,
+        &quot;data&quot;: &quot;05/10/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;A7A2BA85E46A&quot;,
+        &quot;defesa_id&quot;: &quot;8bf860a5f77777cf8acb236f6f5d7ea2&quot;,
+        &quot;nome&quot;: &quot;Mauricio Trindade da Silva&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;M&aacute;rio de Andrade epic&ecirc;ntrico: estudo sobre a sociabilidade do Grupo dos Cinco paulista (1920-1930)&quot;,
+        &quot;titulo&quot;: &quot;M&aacute;rio de Andrade epic&ecirc;ntrico: estudo sobre a sociabilidade do Grupo dos Cinco paulista (1920-1930)&quot;,
+        &quot;data&quot;: &quot;27/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;67A3F6FB19E6&quot;,
+        &quot;defesa_id&quot;: &quot;e4b208ece1c8d0cc0d68f33cae6f7955&quot;,
+        &quot;nome&quot;: &quot;Carlos Henrique Pissardo&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Ang&uacute;stia e capitalismo em &lt;i&gt;A &eacute;tica protestante&lt;/i&gt;&quot;,
+        &quot;titulo&quot;: &quot;Ang&uacute;stia e capitalismo em A &eacute;tica protestante&quot;,
+        &quot;data&quot;: &quot;28/03/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;27A42CFFCC62&quot;,
+        &quot;defesa_id&quot;: &quot;3dd8e1b75c35a77f3370afd8a3f0c2c3&quot;,
+        &quot;nome&quot;: &quot;Pedro Felipe Kirilauskas Mancini&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;As representa&ccedil;&otilde;es de si no &lt;i&gt;Facebook: &lt;/i&gt;estrat&eacute;gias de manipula&ccedil;&atilde;o de impress&otilde;es entre jovens de S&atilde;o Paulo&quot;,
+        &quot;titulo&quot;: &quot;As representa&ccedil;&otilde;es de si no Facebook: estrat&eacute;gias de manipula&ccedil;&atilde;o de impress&otilde;es entre jovens de S&atilde;o Paulo&quot;,
+        &quot;data&quot;: &quot;29/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A5309B6BE7&quot;,
+        &quot;defesa_id&quot;: &quot;745d4cd2e84456821fe0d14de2a598b2&quot;,
+        &quot;nome&quot;: &quot;Renato Abramowicz Santos&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Cartografias pol&iacute;ticas de uma ocupa&ccedil;&atilde;o - cotidiano, territ&oacute;rio e conflito&quot;,
+        &quot;titulo&quot;: &quot;Cartografias pol&iacute;ticas de uma ocupa&ccedil;&atilde;o - cotidiano, territ&oacute;rio e conflito&quot;,
+        &quot;data&quot;: &quot;07/03/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;D7A58EC69FCD&quot;,
+        &quot;defesa_id&quot;: &quot;0e44f16a6038f64ca0035afb889fd197&quot;,
+        &quot;nome&quot;: &quot;Lenin Bicudo Barbara&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Investiga&ccedil;&otilde;es sobre a ignor&acirc;ncia humana: uma introdu&ccedil;&atilde;o aos estudos da ignor&acirc;ncia, acompanhada de um exame sociol&oacute;gico sobre a persist&ecirc;ncia da homeopatia e a consolida&ccedil;&atilde;o do masculinismo ontem e hoje&quot;,
+        &quot;titulo&quot;: &quot;Investiga&ccedil;&otilde;es sobre a ignor&acirc;ncia humana: uma introdu&ccedil;&atilde;o aos estudos da ignor&acirc;ncia, acompanhada de um exame sociol&oacute;gico sobre a persist&ecirc;ncia da homeopatia e a consolida&ccedil;&atilde;o do masculinismo ontem e hoje&quot;,
+        &quot;data&quot;: &quot;04/06/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;17A5CDA7DD31&quot;,
+        &quot;defesa_id&quot;: &quot;b5fd84054b161ae2c00a70f6d2487caa&quot;,
+        &quot;nome&quot;: &quot;Mariana Toledo Ferreira&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Centro(s) e periferia(s) na produ&ccedil;&atilde;o do conhecimento em gen&eacute;tica humana e m&eacute;dica: um olhar a partir do Brasil&quot;,
+        &quot;titulo&quot;: &quot;Centro(s) e periferia(s) na produ&ccedil;&atilde;o do conhecimento em gen&eacute;tica humana e m&eacute;dica: um olhar a partir do Brasil&quot;,
+        &quot;data&quot;: &quot;30/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;07A5CDDA7D70&quot;,
+        &quot;defesa_id&quot;: &quot;f8b9277b25e54a5935c91a28d9fdf33d&quot;,
+        &quot;nome&quot;: &quot;Monise Fernandes Pican&ccedil;o&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Caleidosc&oacute;pio da valora&ccedil;&atilde;o. A HSM Expomanagement e o processo de constitui&ccedil;&atilde;o de seus produtos&quot;,
+        &quot;titulo&quot;: &quot;Caleidosc&oacute;pio da valora&ccedil;&atilde;o. A HSM Expomanagement e o processo de constitui&ccedil;&atilde;o de seus produtos&quot;,
+        &quot;data&quot;: &quot;16/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A5CDE05D77&quot;,
+        &quot;defesa_id&quot;: &quot;6c2cfbe31b609470d65da81406d4b197&quot;,
+        &quot;nome&quot;: &quot;Rafael de Souza&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Cen&aacute;rios de protesto: Mobiliza&ccedil;&atilde;o e espacialidade no ciclo de confronto de junho de 2013&quot;,
+        &quot;titulo&quot;: &quot;Cen&aacute;rios de protesto: Mobiliza&ccedil;&atilde;o e espacialidade no ciclo de confronto de junho de 2013&quot;,
+        &quot;data&quot;: &quot;30/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A60CBEAAD7&quot;,
+        &quot;defesa_id&quot;: &quot;eac1ae03cd15e363d973cfa55d7caebc&quot;,
+        &quot;nome&quot;: &quot;Eduardo Altheman Camargo Santos&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Por uma teoria cr&iacute;tica do neoliberalismo - Marcuse no s&eacute;culo XXI&quot;,
+        &quot;titulo&quot;: &quot;Por uma teoria cr&iacute;tica do neoliberalismo - Marcuse no s&eacute;culo XXI&quot;,
+        &quot;data&quot;: &quot;22/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;37A63AD72393&quot;,
+        &quot;defesa_id&quot;: &quot;ac9c163a07a0ba7b646d5e3806d4da21&quot;,
+        &quot;nome&quot;: &quot;Lilian Verena Hoenigsberg Krohn&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Beber, fazer, vender: forma&ccedil;&atilde;o do mercado de cerveja \&quot;artesanal\&quot; no Brasil&quot;,
+        &quot;titulo&quot;: &quot;Beber, fazer, vender: forma&ccedil;&atilde;o do mercado de cerveja \&quot;artesanal\&quot; no Brasil&quot;,
+        &quot;data&quot;: &quot;14/03/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;37A642C31D53&quot;,
+        &quot;defesa_id&quot;: &quot;79df25f2f15ba55a17e915793397f2de&quot;,
+        &quot;nome&quot;: &quot;Max Luiz Gimenes&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;O 'rosa burgu&ecirc;s da revolu&ccedil;&atilde;o': Antonio Candido e a miss&atilde;o do intelectual no Brasil moderno&quot;,
+        &quot;titulo&quot;: &quot;O 'rosa burgu&ecirc;s da revolu&ccedil;&atilde;o': Antonio Candido e a miss&atilde;o do intelectual no Brasil moderno&quot;,
+        &quot;data&quot;: &quot;02/04/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;D7A64A9D46FD&quot;,
+        &quot;defesa_id&quot;: &quot;f5cde3cc577c9756c88411a9182f0907&quot;,
+        &quot;nome&quot;: &quot;Wellington Pascoal de Mendon&ccedil;a&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;A consagra&ccedil;&atilde;o de Graciliano Ramos&quot;,
+        &quot;titulo&quot;: &quot;A consagra&ccedil;&atilde;o de Graciliano Ramos&quot;,
+        &quot;data&quot;: &quot;19/12/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;57A6CDC1B865&quot;,
+        &quot;defesa_id&quot;: &quot;85dd0bf6bbf7547e36316b33722ef0e1&quot;,
+        &quot;nome&quot;: &quot;Darlan Praxedes Barboza&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;O jovem Prebisch (1901-1943)&quot;,
+        &quot;titulo&quot;: &quot;O jovem Prebisch (1901-1943)&quot;,
+        &quot;data&quot;: &quot;05/12/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;E7A6CDF0789E&quot;,
+        &quot;defesa_id&quot;: &quot;3daea61911ca91c6f38482e147ef92a9&quot;,
+        &quot;nome&quot;: &quot;Jesus Vasquez Meira Perez Junior&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;A expropria&ccedil;&atilde;o psicol&oacute;gica do sujeito no capitalismo tardio e a concep&ccedil;&atilde;o neurocient&iacute;fica de homem&quot;,
+        &quot;titulo&quot;: &quot;A expropria&ccedil;&atilde;o psicol&oacute;gica do sujeito no capitalismo tardio e a concep&ccedil;&atilde;o neurocient&iacute;fica de homem&quot;,
+        &quot;data&quot;: &quot;05/03/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;27A726F8B632&quot;,
+        &quot;defesa_id&quot;: &quot;df335eba285c5bfc35c35994ae0ffa1f&quot;,
+        &quot;nome&quot;: &quot;Roberta Heleno Novello&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;'Bancada da bala': discursos e pr&aacute;ticas sobre puni&ccedil;&atilde;o, crime e inseguran&ccedil;a na Assembleia Legislativa de S&atilde;o Paulo&quot;,
+        &quot;titulo&quot;: &quot;'Bancada da bala': discursos e pr&aacute;ticas sobre puni&ccedil;&atilde;o, crime e inseguran&ccedil;a na Assembleia Legislativa de S&atilde;o Paulo&quot;,
+        &quot;data&quot;: &quot;16/10/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;57A726FB1635&quot;,
+        &quot;defesa_id&quot;: &quot;04842d705e057dcfa34ebeae45409373&quot;,
+        &quot;nome&quot;: &quot;Francesco Andrade Tomei&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Entre consultores e experts, empresariado e Estado: os professores da EAESP-FGV&quot;,
+        &quot;titulo&quot;: &quot;Entre consultores e experts, empresariado e Estado: os professores da EAESP-FGV&quot;,
+        &quot;data&quot;: &quot;19/03/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;97A7270B6649&quot;,
+        &quot;defesa_id&quot;: &quot;4ef35716a2f3ca8801fc8b05b9309b70&quot;,
+        &quot;nome&quot;: &quot;Marina Chaves de Macedo Rego&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Paulistanidade e racializa&ccedil;&atilde;o - o caso nordestino&quot;,
+        &quot;titulo&quot;: &quot;Paulistanidade e racializa&ccedil;&atilde;o - o caso nordestino&quot;,
+        &quot;data&quot;: &quot;13/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;27A72712C652&quot;,
+        &quot;defesa_id&quot;: &quot;1ed13fe6479ee2355b622585b758bfeb&quot;,
+        &quot;nome&quot;: &quot;Danilo Lucena Mendes&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;A&ccedil;&atilde;o sindical no contexto de avan&ccedil;o e consolida&ccedil;&atilde;o da terceiriza&ccedil;&atilde;o: um estudo sobre o SINDEEPRES&quot;,
+        &quot;titulo&quot;: &quot;A&ccedil;&atilde;o sindical no contexto de avan&ccedil;o e consolida&ccedil;&atilde;o da terceiriza&ccedil;&atilde;o: um estudo sobre o SINDEEPRES&quot;,
+        &quot;data&quot;: &quot;08/11/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;D7A72728B66D&quot;,
+        &quot;defesa_id&quot;: &quot;516197a2d4048f13f84645f5534ab4aa&quot;,
+        &quot;nome&quot;: &quot;Roberta de Oliveira Soares&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Ajustamentos prim&aacute;rios e secund&aacute;rios na institui&ccedil;&atilde;o Centro de Aten&ccedil;&atilde;o Psicossocial (CAPS)&quot;,
+        &quot;titulo&quot;: &quot;Ajustamentos prim&aacute;rios e secund&aacute;rios na institui&ccedil;&atilde;o Centro de Aten&ccedil;&atilde;o Psicossocial (CAPS)&quot;,
+        &quot;data&quot;: &quot;15/06/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;17A72BB08C01&quot;,
+        &quot;defesa_id&quot;: &quot;3a8f3d4204bc961ea50f2affa98da307&quot;,
+        &quot;nome&quot;: &quot;Brenda Rolemberg de Lima&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Nas tramas de produ&ccedil;&atilde;o e reprodu&ccedil;&atilde;o: mulheres titulares do Programa Bolsa Fam&iacute;lia no munic&iacute;pio de S&atilde;o Paulo&quot;,
+        &quot;titulo&quot;: &quot;Nas tramas de produ&ccedil;&atilde;o e reprodu&ccedil;&atilde;o: mulheres titulares do Programa Bolsa Fam&iacute;lia no munic&iacute;pio de S&atilde;o Paulo&quot;,
+        &quot;data&quot;: &quot;22/11/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;27A72C5A2CD2&quot;,
+        &quot;defesa_id&quot;: &quot;b551b2b12f2ee3b510372a99b94db2e2&quot;,
+        &quot;nome&quot;: &quot;Deni Ireneu Alfaro Rubbo&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;O labirinto perif&eacute;rico: Jos&eacute; Carlos Mari&aacute;tegui e a sociologia cr&iacute;tica latino-americana&quot;,
+        &quot;titulo&quot;: &quot;O labirinto perif&eacute;rico: Jos&eacute; Carlos Mari&aacute;tegui e a sociologia cr&iacute;tica latino-americana&quot;,
+        &quot;data&quot;: &quot;20/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A76EFE9ED7&quot;,
+        &quot;defesa_id&quot;: &quot;fe1438dd0644b16c2ac0f09a0ba2df84&quot;,
+        &quot;nome&quot;: &quot;Let&iacute;cia Pereira Sim&otilde;es Gomes&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;A (in)visibilidade da quest&atilde;o racial na forma&ccedil;&atilde;o dos soldados da Pol&iacute;cia Militar&quot;,
+        &quot;titulo&quot;: &quot;A (in)visibilidade da quest&atilde;o racial na forma&ccedil;&atilde;o dos soldados da Pol&iacute;cia Militar&quot;,
+        &quot;data&quot;: &quot;07/12/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;67A7773778F6&quot;,
+        &quot;defesa_id&quot;: &quot;23f7d05b84ce2b232ac9391c5604fcd6&quot;,
+        &quot;nome&quot;: &quot;Marcello Giovanni Pocai Stella&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Literatura como voca&ccedil;&atilde;o: escritores brasileiros contempor&acirc;neos no p&oacute;s-redemocratiza&ccedil;&atilde;o&quot;,
+        &quot;titulo&quot;: &quot;Literatura como voca&ccedil;&atilde;o: escritores brasileiros contempor&acirc;neos no p&oacute;s-redemocratiza&ccedil;&atilde;o&quot;,
+        &quot;data&quot;: &quot;31/10/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;57A77EEF1275&quot;,
+        &quot;defesa_id&quot;: &quot;c3a5b452440c1550d10e9f0360ca365b&quot;,
+        &quot;nome&quot;: &quot;Filipe Augusto Freitas Melo&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Representando os trabalhadores: organiza&ccedil;&atilde;o no local de trabalho no ABC paulista&quot;,
+        &quot;titulo&quot;: &quot;Representando os trabalhadores: organiza&ccedil;&atilde;o no local de trabalho no ABC paulista&quot;,
+        &quot;data&quot;: &quot;06/11/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;47A793A5EBF4&quot;,
+        &quot;defesa_id&quot;: &quot;791949ead1133ebb3d95835d594f7634&quot;,
+        &quot;nome&quot;: &quot;Allan Herison Ferreira&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Entre o emprego e o empreendedorismo: aspectos geracionais dos v&iacute;nculos de trabalho de profissionais de TI dos quadros m&eacute;dios da cidade de S&atilde;o Paulo&quot;,
+        &quot;titulo&quot;: &quot;Entre o emprego e o empreendedorismo: aspectos geracionais dos v&iacute;nculos de trabalho de profissionais de TI dos quadros m&eacute;dios da cidade de S&atilde;o Paulo&quot;,
+        &quot;data&quot;: &quot;18/12/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;37A7B7F488A3&quot;,
+        &quot;defesa_id&quot;: &quot;06ce5c9f3b770f92a83d2b382f537f0e&quot;,
+        &quot;nome&quot;: &quot;Lucas Amaral de Oliveira&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Experi&ecirc;ncias est&eacute;ticas em movimento: produ&ccedil;&atilde;o liter&aacute;ria nas periferias paulistanas&quot;,
+        &quot;titulo&quot;: &quot;Experi&ecirc;ncias est&eacute;ticas em movimento: produ&ccedil;&atilde;o liter&aacute;ria nas periferias paulistanas&quot;,
+        &quot;data&quot;: &quot;30/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A7C3092647&quot;,
+        &quot;defesa_id&quot;: &quot;2b5be21f919d44c70dbd34b1e9957650&quot;,
+        &quot;nome&quot;: &quot;Ian Prates Cordeiro Andrade&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;O sistema de profiss&otilde;es no Brasil: forma&ccedil;&atilde;o, expans&atilde;o e fragmenta&ccedil;&atilde;o. Um estudo de estratifica&ccedil;&atilde;o social&quot;,
+        &quot;titulo&quot;: &quot;O sistema de profiss&otilde;es no Brasil: forma&ccedil;&atilde;o, expans&atilde;o e fragmenta&ccedil;&atilde;o. Um estudo de estratifica&ccedil;&atilde;o social&quot;,
+        &quot;data&quot;: &quot;07/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;E7A7C30F364E&quot;,
+        &quot;defesa_id&quot;: &quot;608db21df2c439c648ca86197960b097&quot;,
+        &quot;nome&quot;: &quot;Leonardo Melo Lins&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;A constru&ccedil;&atilde;o institucional da engenharia nacional: prote&ccedil;&atilde;o, incentivos e escassez&quot;,
+        &quot;titulo&quot;: &quot;A constru&ccedil;&atilde;o institucional da engenharia nacional: prote&ccedil;&atilde;o, incentivos e escassez&quot;,
+        &quot;data&quot;: &quot;09/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;47A7E5C33104&quot;,
+        &quot;defesa_id&quot;: &quot;6a4b9d41de5fb9e1cc4535aba8d18529&quot;,
+        &quot;nome&quot;: &quot;Felipe Eduardo Lazaro Braga&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Est&eacute;tica spray: o grafite no campo da arte contempor&acirc;nea&quot;,
+        &quot;titulo&quot;: &quot;Est&eacute;tica spray: o grafite no campo da arte contempor&acirc;nea&quot;,
+        &quot;data&quot;: &quot;17/12/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;97A916026779&quot;,
+        &quot;defesa_id&quot;: &quot;eda0231f9f78d01e9ea2f6fb18608fc2&quot;,
+        &quot;nome&quot;: &quot;Fabio Akira Shishito&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Encruzilhadas das moderniza&ccedil;&otilde;es: o projeto pol&iacute;tico do desenvolvimento humano no Brasil (2004 - 2015)&quot;,
+        &quot;titulo&quot;: &quot;Encruzilhadas das moderniza&ccedil;&otilde;es: o projeto pol&iacute;tico do desenvolvimento humano no Brasil (2004 - 2015)&quot;,
+        &quot;data&quot;: &quot;16/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A9160D4787&quot;,
+        &quot;defesa_id&quot;: &quot;62b89ddc603fd63470cbb00e70fbcca6&quot;,
+        &quot;nome&quot;: &quot;Laysmara Carneiro Edoardo&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Di&aacute;rios p&uacute;blicos: Facebook, imagens e a ficcionaliza&ccedil;&atilde;o do cotidiano&quot;,
+        &quot;titulo&quot;: &quot;Di&aacute;rios p&uacute;blicos: Facebook, imagens e a ficcionaliza&ccedil;&atilde;o do cotidiano&quot;,
+        &quot;data&quot;: &quot;15/08/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;47A9BE6F16C4&quot;,
+        &quot;defesa_id&quot;: &quot;21dac067a156bbf6099e880b2d2068dc&quot;,
+        &quot;nome&quot;: &quot;Diego dos Santos Ferrari Lopez&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;Haitianos em S&atilde;o Paulo: Uma etnografia urbana e institucional da &lt;i&gt;ajuda&lt;/i&gt;&quot;,
+        &quot;titulo&quot;: &quot;Haitianos em S&atilde;o Paulo: Uma etnografia urbana e institucional da ajuda&quot;,
+        &quot;data&quot;: &quot;07/12/2018&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;77A9E0026017&quot;,
+        &quot;defesa_id&quot;: &quot;09df34df8432edd7890556cd41df6d4b&quot;,
+        &quot;nome&quot;: &quot;J&eacute;ssica da Silva H&ouml;ring&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8132,
+        &quot;codcur&quot;: 8011,
+        &quot;nomcur&quot;: &quot;Sociologia&quot;,
+        &quot;nomare&quot;: &quot;Sociologia&quot;,
+        &quot;titulo_html&quot;: &quot;(Re)construindo a nova ordem: o processo constitucional angolano (1998-2010)&quot;,
+        &quot;titulo&quot;: &quot;(Re)construindo a nova ordem: o processo constitucional angolano (1998-2010)&quot;,
+        &quot;data&quot;: &quot;13/12/2018&quot;
+    }
+]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-defesas" hidden>
@@ -850,7 +756,7 @@ x-ratelimit-remaining: 59
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-defesas"
-               value="1963"
+               value="2018"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>2022</code>, <code>2021</code>, <code>2020</code>, <code>2019</code>, <code>2018</code>, <code>2017</code>, <code>2016</code>, <code>2015</code>, <code>2014</code>, <code>2013</code>, <code>2012</code>, <code>2011</code>, <code>2010</code>, <code>2009</code>, <code>2008</code>, <code>2007</code>, <code>2006</code>, <code>2005</code>, <code>2004</code>, <code>2003</code>, <code>2002</code>, <code>2001</code>, <code>2000</code>, <code>1999</code>, <code>1998</code>, <code>1997</code>, <code>1996</code>, <code>1995</code>, <code>1994</code>, <code>1993</code>, <code>1992</code>, <code>1991</code>, <code>1990</code>, <code>1989</code>, <code>1988</code>, <code>1987</code>, <code>1986</code>, <code>1985</code>, <code>1984</code>, <code>1983</code>, <code>1982</code>, <code>1981</code>, <code>1980</code>, <code>1979</code>, <code>1978</code>, <code>1977</code>, <code>1976</code>, <code>1975</code>, <code>1974</code>, <code>1973</code>, <code>1972</code>, <code>1971</code>, <code>1970</code>, <code>1969</code>, <code>1968</code>, <code>1967</code>, <code>1966</code>, <code>1965</code>, <code>1964</code>, <code>1963</code>, <code>1962</code>, <code>1961</code>, <code>1960</code>, <code>1959</code>, <code>1958</code>, <code>1957</code>, <code>1956</code>, <code>1955</code>, <code>1954</code>, <code>1953</code>, <code>1952</code>, <code>1951</code>, or <code>1950</code>.</p>
@@ -860,7 +766,7 @@ x-ratelimit-remaining: 59
                 <input type="number"
                name="codcur"
                data-endpoint="GETapi-defesas"
-               value="8009"
+               value="8011"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>8004</code>, <code>8001</code>, <code>8020</code>, <code>8013</code>, <code>8003</code>, <code>8006</code>, <code>8007</code>, <code>8009</code>, <code>8010</code>, <code>8030</code>, <code>8012</code>, <code>8014</code>, <code>8026</code>, <code>8019</code>, <code>8015</code>, <code>8017</code>, <code>8022</code>, <code>8027</code>, <code>8016</code>, <code>8023</code>, <code>8024</code>, <code>8031</code>, or <code>8011</code>.</p>
@@ -913,7 +819,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 58
+x-ratelimit-remaining: 57
  </code></pre>
         </details>         <pre>
 
@@ -18396,6 +18302,451 @@ x-ratelimit-remaining: 58
         </p>
                     </form>
 
+        <h1 id="dados-institucionais">Dados institucionais</h1>
+
+    
+
+            <h2 id="dados-institucionais-GETapi-colegiados">Listar Colegiados</h2>
+
+<p>
+</p>
+
+<p>Retorna uma lista com os colegiados da FFLCH.</p>
+
+<span id="example-requests-GETapi-colegiados">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/colegiados" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/colegiados"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-colegiados">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 38
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">[
+    {
+        &quot;codclg&quot;: &quot;135&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado Ci&ecirc;ncias Socias&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;152&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Filosofia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;149&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Geografia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;151&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Hist&oacute;ria&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;160&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Ciclo B&aacute;sico&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;156&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&atilde;o: Lingu&iacute;stica&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;158&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&otilde;es: Alem&atilde;o / Espanhol / Franc&ecirc;s / Ingl&ecirc;s / Italiano&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;159&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&otilde;es: Portugu&ecirc;s / Grego / Latim&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;157&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&otilde;es: &Aacute;rabe / Arm&ecirc;nio / Chin&ecirc;s / Coreano / Hebraico / Japon&ecirc;s / Russo&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;147&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Ci&ecirc;ncias Sociais&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;148&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Filosofia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;154&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Geografia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;155&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Hist&oacute;ria&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;153&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Letras&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;804&quot;,
+        &quot;sglclg&quot;: &quot;CCP&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Programa de Ci&ecirc;ncia Pol&iacute;tica&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CCEX&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CG&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CPG&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CPq&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CRInt&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CONGREG&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Congrega&ccedil;&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;591&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Antropologia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;602&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Ci&ecirc;ncia Pol&iacute;tica&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;594&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Filosofia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;596&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Geografia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;598&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Hist&oacute;ria&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;600&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Letras Modernas&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;601&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Letras Orientais&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;599&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Ling&uuml;&iacute;stica&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;604&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Sociologia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;603&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Teoria Liter&aacute;ria e Literatura Comparada&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CTA&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;11&quot;,
+        &quot;sglclg&quot;: &quot;CEPID&quot;,
+        &quot;nomclg&quot;: &quot;Centro de Estudos da Metr&oacute;pole&quot;,
+        &quot;tipclg&quot;: &quot;Instituto Nacional&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;144&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Estudos das Diversidades, Intoler&acirc;ncias e dos Conflitos&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;284&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Estudos de Conflitos em Sociedades Desiguais&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;204&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Pesquisa em Etimologia e Hist&oacute;ria da L&iacute;ngua Portuguesa&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;257&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Pesquisa em Rela&ccedil;&otilde;es Internacionais&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-colegiados" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-colegiados"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-colegiados"></code></pre>
+</span>
+<span id="execution-error-GETapi-colegiados" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-colegiados"></code></pre>
+</span>
+<form id="form-GETapi-colegiados" data-method="GET"
+      data-path="api/colegiados"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-colegiados', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-colegiados"
+                    onclick="tryItOut('GETapi-colegiados');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-colegiados"
+                    onclick="cancelTryOut('GETapi-colegiados');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-colegiados" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/colegiados</code></b>
+        </p>
+                    </form>
+
+        <h1 id="dados-por-curso">Dados por curso</h1>
+
+    
+
+            <h2 id="dados-por-curso-GETapi-alunosAtivosPorCurso">Alunos Ativos Por Curso</h2>
+
+<p>
+</p>
+
+<p>Retorna a quantidade de alunos de graduação ou pós doutorado (segundo o parâmetro) por curso.</p>
+
+<span id="example-requests-GETapi-alunosAtivosPorCurso">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/alunosAtivosPorCurso" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"tipvin\": \"ALUNOGR\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/alunosAtivosPorCurso"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "tipvin": "ALUNOGR"
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-alunosAtivosPorCurso">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 36
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;Ci&ecirc;ncias Sociais&quot;: &quot;1233&quot;,
+    &quot;Filosofia&quot;: &quot;969&quot;,
+    &quot;Geografia&quot;: &quot;1062&quot;,
+    &quot;Hist&oacute;ria&quot;: &quot;1611&quot;,
+    &quot;Letras&quot;: &quot;4864&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-alunosAtivosPorCurso" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-alunosAtivosPorCurso"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-alunosAtivosPorCurso"></code></pre>
+</span>
+<span id="execution-error-GETapi-alunosAtivosPorCurso" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-alunosAtivosPorCurso"></code></pre>
+</span>
+<form id="form-GETapi-alunosAtivosPorCurso" data-method="GET"
+      data-path="api/alunosAtivosPorCurso"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-alunosAtivosPorCurso', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-alunosAtivosPorCurso"
+                    onclick="tryItOut('GETapi-alunosAtivosPorCurso');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-alunosAtivosPorCurso"
+                    onclick="cancelTryOut('GETapi-alunosAtivosPorCurso');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-alunosAtivosPorCurso" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/alunosAtivosPorCurso</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>tipvin</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="tipvin"
+               data-endpoint="GETapi-alunosAtivosPorCurso"
+               value="ALUNOGR"
+               data-component="body" hidden>
+    <br>
+<p>Must be one of <code>ALUNOGR</code>, <code>ALUNOPD</code>, or <code>RICARDO</code>.</p>
+        </p>
+        </form>
+
         <h1 id="endpoints">Endpoints</h1>
 
     
@@ -18413,14 +18764,14 @@ x-ratelimit-remaining: 58
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/docentes/saepe" \
+    --get "http://127.0.0.1:8000/api/programas/docentes/enim" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/docentes/saepe"
+    "http://127.0.0.1:8000/api/programas/docentes/enim"
 );
 
 const headers = {
@@ -18446,7 +18797,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 57
+x-ratelimit-remaining: 56
  </code></pre>
         </details>         <pre>
 
@@ -18953,7 +19304,7 @@ x-ratelimit-remaining: 57
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-docentes--codare-"
-               value="saepe"
+               value="enim"
                data-component="url" hidden>
     <br>
 
@@ -18973,14 +19324,14 @@ x-ratelimit-remaining: 57
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/discentes/aliquam" \
+    --get "http://127.0.0.1:8000/api/programas/discentes/enim" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/discentes/aliquam"
+    "http://127.0.0.1:8000/api/programas/discentes/enim"
 );
 
 const headers = {
@@ -19006,7 +19357,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 56
+x-ratelimit-remaining: 55
  </code></pre>
         </details>         <pre>
 
@@ -19513,7 +19864,7 @@ x-ratelimit-remaining: 56
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-discentes--codare-"
-               value="aliquam"
+               value="enim"
                data-component="url" hidden>
     <br>
 
@@ -19533,14 +19884,14 @@ x-ratelimit-remaining: 56
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/egressos/rerum" \
+    --get "http://127.0.0.1:8000/api/programas/egressos/beatae" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/egressos/rerum"
+    "http://127.0.0.1:8000/api/programas/egressos/beatae"
 );
 
 const headers = {
@@ -19566,7 +19917,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 55
+x-ratelimit-remaining: 54
  </code></pre>
         </details>         <pre>
 
@@ -20073,7 +20424,7 @@ x-ratelimit-remaining: 55
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-egressos--codare-"
-               value="rerum"
+               value="beatae"
                data-component="url" hidden>
     <br>
 
@@ -20093,14 +20444,14 @@ x-ratelimit-remaining: 55
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/docente/dicta" \
+    --get "http://127.0.0.1:8000/api/programas/docente/consequatur" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/docente/dicta"
+    "http://127.0.0.1:8000/api/programas/docente/consequatur"
 );
 
 const headers = {
@@ -20126,7 +20477,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 54
+x-ratelimit-remaining: 53
  </code></pre>
         </details>         <pre>
 
@@ -20178,7 +20529,7 @@ x-ratelimit-remaining: 54
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-docente--codpes-"
-               value="dicta"
+               value="consequatur"
                data-component="url" hidden>
     <br>
 
@@ -20198,14 +20549,14 @@ x-ratelimit-remaining: 54
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/discente/at" \
+    --get "http://127.0.0.1:8000/api/programas/discente/quia" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/discente/at"
+    "http://127.0.0.1:8000/api/programas/discente/quia"
 );
 
 const headers = {
@@ -20231,7 +20582,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 53
+x-ratelimit-remaining: 52
  </code></pre>
         </details>         <pre>
 
@@ -20283,7 +20634,7 @@ x-ratelimit-remaining: 53
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-discente--codpes-"
-               value="at"
+               value="quia"
                data-component="url" hidden>
     <br>
 
@@ -20303,14 +20654,14 @@ x-ratelimit-remaining: 53
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/egresso/sed" \
+    --get "http://127.0.0.1:8000/api/programas/egresso/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/egresso/sed"
+    "http://127.0.0.1:8000/api/programas/egresso/et"
 );
 
 const headers = {
@@ -20336,7 +20687,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 52
+x-ratelimit-remaining: 51
  </code></pre>
         </details>         <pre>
 
@@ -20388,7 +20739,7 @@ x-ratelimit-remaining: 52
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-egresso--codpes-"
-               value="sed"
+               value="et"
                data-component="url" hidden>
     <br>
 
@@ -20441,7 +20792,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 50
+x-ratelimit-remaining: 49
  </code></pre>
         </details>         <pre>
 
@@ -27936,7 +28287,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 49
+x-ratelimit-remaining: 48
  </code></pre>
         </details>         <pre>
 
@@ -28738,7 +29089,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 48
+x-ratelimit-remaining: 47
  </code></pre>
         </details>         <pre>
 
@@ -29085,7 +29436,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 47
+x-ratelimit-remaining: 46
  </code></pre>
         </details>         <pre>
 
@@ -31126,7 +31477,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 46
+x-ratelimit-remaining: 45
  </code></pre>
         </details>         <pre>
 
@@ -31533,7 +31884,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 45
+x-ratelimit-remaining: 44
  </code></pre>
         </details>         <pre>
 
@@ -31665,10 +32016,10 @@ x-ratelimit-remaining: 45
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": 3,
-    \"ano_ini\": 6,
-    \"ano_fim\": 12,
-    \"tipo\": \"ativo\",
+    \"ano\": 6,
+    \"ano_ini\": 14,
+    \"ano_fim\": 8,
+    \"tipo\": \"periodo\",
     \"filtro\": \"serie_historica\",
     \"serie_historica_tipo\": \"departamento\"
 }"
@@ -31686,10 +32037,10 @@ const headers = {
 };
 
 let body = {
-    "ano": 3,
-    "ano_ini": 6,
-    "ano_fim": 12,
-    "tipo": "ativo",
+    "ano": 6,
+    "ano_ini": 14,
+    "ano_fim": 8,
+    "tipo": "periodo",
     "filtro": "serie_historica",
     "serie_historica_tipo": "departamento"
 };
@@ -31713,649 +32064,22 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 44
+x-ratelimit-remaining: 43
  </code></pre>
         </details>         <pre>
 
 <code class="language-json">{
-    &quot;Antropologia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Ci&ecirc;ncia Pol&iacute;tica&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Filosofia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Hist&oacute;ria&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Letras Cl&aacute;ssicas e Vern&aacute;culas&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Letras Modernas&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Letras Orientais&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Lingu&iacute;stica&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Sociologia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Teoria Liter&aacute;ria e Literatura Comparada&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Geografia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    }
+    &quot;Antropologia&quot;: [],
+    &quot;Ci&ecirc;ncia Pol&iacute;tica&quot;: [],
+    &quot;Filosofia&quot;: [],
+    &quot;Hist&oacute;ria&quot;: [],
+    &quot;Letras Cl&aacute;ssicas e Vern&aacute;culas&quot;: [],
+    &quot;Letras Modernas&quot;: [],
+    &quot;Letras Orientais&quot;: [],
+    &quot;Lingu&iacute;stica&quot;: [],
+    &quot;Sociologia&quot;: [],
+    &quot;Teoria Liter&aacute;ria e Literatura Comparada&quot;: [],
+    &quot;Geografia&quot;: []
 }</code>
  </pre>
     </span>
@@ -32404,7 +32128,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-pesquisa"
-               value="3"
+               value="6"
                data-component="body" hidden>
     <br>
 
@@ -32414,7 +32138,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano_ini"
                data-endpoint="GETapi-pesquisa"
-               value="6"
+               value="14"
                data-component="body" hidden>
     <br>
 
@@ -32424,7 +32148,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano_fim"
                data-endpoint="GETapi-pesquisa"
-               value="12"
+               value="8"
                data-component="body" hidden>
     <br>
 
@@ -32434,7 +32158,7 @@ x-ratelimit-remaining: 44
                 <input type="text"
                name="tipo"
                data-endpoint="GETapi-pesquisa"
-               value="ativo"
+               value="periodo"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>anual</code>, <code>periodo</code>, <code>ativo</code>, or <code>tudo</code>.</p>
@@ -32478,9 +32202,9 @@ x-ratelimit-remaining: 44
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": 11,
-    \"ano_ini\": 1,
-    \"ano_fim\": 7,
+    \"ano\": 7,
+    \"ano_ini\": 8,
+    \"ano_fim\": 1,
     \"tipo\": \"periodo\",
     \"filtro\": \"curso\",
     \"serie_historica_tipo\": \"departamento\"
@@ -32499,9 +32223,9 @@ const headers = {
 };
 
 let body = {
-    "ano": 11,
-    "ano_ini": 1,
-    "ano_fim": 7,
+    "ano": 7,
+    "ano_ini": 8,
+    "ano_fim": 1,
     "tipo": "periodo",
     "filtro": "curso",
     "serie_historica_tipo": "departamento"
@@ -32526,7 +32250,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 43
+x-ratelimit-remaining: 42
  </code></pre>
         </details>         <pre>
 
@@ -32578,7 +32302,7 @@ x-ratelimit-remaining: 43
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="11"
+               value="7"
                data-component="body" hidden>
     <br>
 
@@ -32588,7 +32312,7 @@ x-ratelimit-remaining: 43
                 <input type="number"
                name="ano_ini"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="1"
+               value="8"
                data-component="body" hidden>
     <br>
 
@@ -32598,7 +32322,7 @@ x-ratelimit-remaining: 43
                 <input type="number"
                name="ano_fim"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="7"
+               value="1"
                data-component="body" hidden>
     <br>
 
@@ -32681,7 +32405,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 42
+x-ratelimit-remaining: 41
  </code></pre>
         </details>         <pre>
 
@@ -32775,7 +32499,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 41
+x-ratelimit-remaining: 40
  </code></pre>
         </details>         <pre>
 
@@ -32869,7 +32593,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 40
+x-ratelimit-remaining: 39
  </code></pre>
         </details>         <pre>
 
@@ -32914,6 +32638,1136 @@ x-ratelimit-remaining: 40
             <p>
             <small class="badge badge-green">GET</small>
             <b><code>api/pesquisa/pesquisadores_colaboradores</code></b>
+        </p>
+                    </form>
+
+            <h2 id="endpoints-GETapi-colegiados--codclg---sglclg-">GET api/colegiados/{codclg}/{sglclg}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-colegiados--codclg---sglclg-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/colegiados/odio/itaque" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/colegiados/odio/itaque"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-colegiados--codclg---sglclg-">
+            <blockquote>
+            <p>Example response (500):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 37
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Argument 1 passed to Uspdev\\Replicado\\Pessoa::retornarNomeColegiado() must be of the type int, string given, called in /home/ricardo/dados/app/Http/Controllers/Api/ColegiadoController.php on line 29&quot;,
+    &quot;exception&quot;: &quot;TypeError&quot;,
+    &quot;file&quot;: &quot;/home/ricardo/dados/vendor/uspdev/replicado/src/Pessoa.php&quot;,
+    &quot;line&quot;: 1006,
+    &quot;trace&quot;: [
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ColegiadoController.php&quot;,
+            &quot;line&quot;: 29,
+            &quot;function&quot;: &quot;retornarNomeColegiado&quot;,
+            &quot;class&quot;: &quot;Uspdev\\Replicado\\Pessoa&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Controller.php&quot;,
+            &quot;line&quot;: 54,
+            &quot;function&quot;: &quot;show&quot;,
+            &quot;class&quot;: &quot;App\\Http\\Controllers\\Api\\ColegiadoController&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php&quot;,
+            &quot;line&quot;: 45,
+            &quot;function&quot;: &quot;callAction&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Controller&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
+            &quot;line&quot;: 262,
+            &quot;function&quot;: &quot;dispatch&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\ControllerDispatcher&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
+            &quot;line&quot;: 205,
+            &quot;function&quot;: &quot;runController&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 721,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 128,
+            &quot;function&quot;: &quot;Illuminate\\Routing\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php&quot;,
+            &quot;line&quot;: 50,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\SubstituteBindings&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
+            &quot;line&quot;: 127,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
+            &quot;line&quot;: 63,
+            &quot;function&quot;: &quot;handleRequest&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 103,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 723,
+            &quot;function&quot;: &quot;then&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 698,
+            &quot;function&quot;: &quot;runRouteWithinStack&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 662,
+            &quot;function&quot;: &quot;runRoute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 651,
+            &quot;function&quot;: &quot;dispatchToRoute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;dispatch&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 128,
+            &quot;function&quot;: &quot;Illuminate\\Foundation\\Http\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
+            &quot;line&quot;: 60,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Barryvdh\\Debugbar\\Middleware\\InjectDebugbar&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
+            &quot;line&quot;: 21,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php&quot;,
+            &quot;line&quot;: 31,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
+            &quot;line&quot;: 21,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php&quot;,
+            &quot;line&quot;: 40,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TrimStrings&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php&quot;,
+            &quot;line&quot;: 27,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php&quot;,
+            &quot;line&quot;: 86,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fruitcake/laravel-cors/src/HandleCors.php&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Fruitcake\\Cors\\HandleCors&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fideloper/proxy/src/TrustProxies.php&quot;,
+            &quot;line&quot;: 57,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Fideloper\\Proxy\\TrustProxies&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 103,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 142,
+            &quot;function&quot;: &quot;then&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 111,
+            &quot;function&quot;: &quot;sendRequestThroughRouter&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 299,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 287,
+            &quot;function&quot;: &quot;callLaravelOrLumenRoute&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 89,
+            &quot;function&quot;: &quot;makeApiCall&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 45,
+            &quot;function&quot;: &quot;makeResponseCall&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 35,
+            &quot;function&quot;: &quot;makeResponseCallIfConditionsPass&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 222,
+            &quot;function&quot;: &quot;__invoke&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 179,
+            &quot;function&quot;: &quot;iterateThroughStrategies&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 116,
+            &quot;function&quot;: &quot;fetchResponses&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 123,
+            &quot;function&quot;: &quot;processRoute&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 80,
+            &quot;function&quot;: &quot;extractEndpointsInfoFromLaravelApp&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 56,
+            &quot;function&quot;: &quot;extractEndpointsInfoAndWriteToDisk&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php&quot;,
+            &quot;line&quot;: 55,
+            &quot;function&quot;: &quot;get&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 36,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Commands\\GenerateDocumentation&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Util.php&quot;,
+            &quot;line&quot;: 40,
+            &quot;function&quot;: &quot;Illuminate\\Container\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 93,
+            &quot;function&quot;: &quot;unwrapIfClosure&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\Util&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;callBoundMethod&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Container.php&quot;,
+            &quot;line&quot;: 653,
+            &quot;function&quot;: &quot;call&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
+            &quot;line&quot;: 136,
+            &quot;function&quot;: &quot;call&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\Container&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Command/Command.php&quot;,
+            &quot;line&quot;: 298,
+            &quot;function&quot;: &quot;execute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
+            &quot;line&quot;: 121,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Command\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 1024,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 299,
+            &quot;function&quot;: &quot;doRunCommand&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 171,
+            &quot;function&quot;: &quot;doRun&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Application.php&quot;,
+            &quot;line&quot;: 94,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php&quot;,
+            &quot;line&quot;: 129,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/artisan&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Console\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-colegiados--codclg---sglclg-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-colegiados--codclg---sglclg-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-colegiados--codclg---sglclg-"></code></pre>
+</span>
+<span id="execution-error-GETapi-colegiados--codclg---sglclg-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-colegiados--codclg---sglclg-"></code></pre>
+</span>
+<form id="form-GETapi-colegiados--codclg---sglclg-" data-method="GET"
+      data-path="api/colegiados/{codclg}/{sglclg}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-colegiados--codclg---sglclg-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-colegiados--codclg---sglclg-"
+                    onclick="tryItOut('GETapi-colegiados--codclg---sglclg-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-colegiados--codclg---sglclg-"
+                    onclick="cancelTryOut('GETapi-colegiados--codclg---sglclg-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-colegiados--codclg---sglclg-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/colegiados/{codclg}/{sglclg}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>codclg</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="codclg"
+               data-endpoint="GETapi-colegiados--codclg---sglclg-"
+               value="odio"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    <p>
+                <b><code>sglclg</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="sglclg"
+               data-endpoint="GETapi-colegiados--codclg---sglclg-"
+               value="itaque"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
+
+        <h1 id="teste">TESTE</h1>
+
+    
+
+            <h2 id="teste-GETapi-obter_orcid">TESTE</h2>
+
+<p>
+</p>
+
+<p>teste teset</p>
+
+<span id="example-requests-GETapi-obter_orcid">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/obter_orcid" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/obter_orcid"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-obter_orcid">
+            <blockquote>
+            <p>Example response (500):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 50
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Undefined index: nome&quot;,
+    &quot;exception&quot;: &quot;ErrorException&quot;,
+    &quot;file&quot;: &quot;/home/ricardo/dados/app/Models/Programa.php&quot;,
+    &quot;line&quot;: 254,
+    &quot;trace&quot;: [
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/app/Models/Programa.php&quot;,
+            &quot;line&quot;: 254,
+            &quot;function&quot;: &quot;handleError&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Bootstrap\\HandleExceptions&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
+            &quot;line&quot;: 48,
+            &quot;function&quot;: &quot;obterOrcid&quot;,
+            &quot;class&quot;: &quot;App\\Models\\Programa&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Controller.php&quot;,
+            &quot;line&quot;: 54,
+            &quot;function&quot;: &quot;obterOrcid&quot;,
+            &quot;class&quot;: &quot;App\\Http\\Controllers\\Api\\ProgramaController&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php&quot;,
+            &quot;line&quot;: 45,
+            &quot;function&quot;: &quot;callAction&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Controller&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
+            &quot;line&quot;: 262,
+            &quot;function&quot;: &quot;dispatch&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\ControllerDispatcher&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
+            &quot;line&quot;: 205,
+            &quot;function&quot;: &quot;runController&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 721,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 128,
+            &quot;function&quot;: &quot;Illuminate\\Routing\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php&quot;,
+            &quot;line&quot;: 50,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\SubstituteBindings&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
+            &quot;line&quot;: 127,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
+            &quot;line&quot;: 63,
+            &quot;function&quot;: &quot;handleRequest&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 103,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 723,
+            &quot;function&quot;: &quot;then&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 698,
+            &quot;function&quot;: &quot;runRouteWithinStack&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 662,
+            &quot;function&quot;: &quot;runRoute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 651,
+            &quot;function&quot;: &quot;dispatchToRoute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;dispatch&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 128,
+            &quot;function&quot;: &quot;Illuminate\\Foundation\\Http\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
+            &quot;line&quot;: 60,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Barryvdh\\Debugbar\\Middleware\\InjectDebugbar&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
+            &quot;line&quot;: 21,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php&quot;,
+            &quot;line&quot;: 31,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
+            &quot;line&quot;: 21,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php&quot;,
+            &quot;line&quot;: 40,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TrimStrings&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php&quot;,
+            &quot;line&quot;: 27,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php&quot;,
+            &quot;line&quot;: 86,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fruitcake/laravel-cors/src/HandleCors.php&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Fruitcake\\Cors\\HandleCors&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fideloper/proxy/src/TrustProxies.php&quot;,
+            &quot;line&quot;: 57,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Fideloper\\Proxy\\TrustProxies&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 103,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 142,
+            &quot;function&quot;: &quot;then&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 111,
+            &quot;function&quot;: &quot;sendRequestThroughRouter&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 299,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 287,
+            &quot;function&quot;: &quot;callLaravelOrLumenRoute&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 89,
+            &quot;function&quot;: &quot;makeApiCall&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 45,
+            &quot;function&quot;: &quot;makeResponseCall&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 35,
+            &quot;function&quot;: &quot;makeResponseCallIfConditionsPass&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 222,
+            &quot;function&quot;: &quot;__invoke&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 179,
+            &quot;function&quot;: &quot;iterateThroughStrategies&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 116,
+            &quot;function&quot;: &quot;fetchResponses&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 123,
+            &quot;function&quot;: &quot;processRoute&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 80,
+            &quot;function&quot;: &quot;extractEndpointsInfoFromLaravelApp&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 56,
+            &quot;function&quot;: &quot;extractEndpointsInfoAndWriteToDisk&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php&quot;,
+            &quot;line&quot;: 55,
+            &quot;function&quot;: &quot;get&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 36,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Commands\\GenerateDocumentation&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Util.php&quot;,
+            &quot;line&quot;: 40,
+            &quot;function&quot;: &quot;Illuminate\\Container\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 93,
+            &quot;function&quot;: &quot;unwrapIfClosure&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\Util&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;callBoundMethod&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Container.php&quot;,
+            &quot;line&quot;: 653,
+            &quot;function&quot;: &quot;call&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
+            &quot;line&quot;: 136,
+            &quot;function&quot;: &quot;call&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\Container&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Command/Command.php&quot;,
+            &quot;line&quot;: 298,
+            &quot;function&quot;: &quot;execute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
+            &quot;line&quot;: 121,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Command\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 1024,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 299,
+            &quot;function&quot;: &quot;doRunCommand&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 171,
+            &quot;function&quot;: &quot;doRun&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Application.php&quot;,
+            &quot;line&quot;: 94,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php&quot;,
+            &quot;line&quot;: 129,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/artisan&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Console\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-obter_orcid" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-obter_orcid"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-obter_orcid"></code></pre>
+</span>
+<span id="execution-error-GETapi-obter_orcid" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-obter_orcid"></code></pre>
+</span>
+<form id="form-GETapi-obter_orcid" data-method="GET"
+      data-path="api/obter_orcid"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-obter_orcid', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-obter_orcid"
+                    onclick="tryItOut('GETapi-obter_orcid');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-obter_orcid"
+                    onclick="cancelTryOut('GETapi-obter_orcid');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-obter_orcid" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/obter_orcid</code></b>
         </p>
                     </form>
 

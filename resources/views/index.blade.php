@@ -86,8 +86,14 @@
 
         <ul class="list-group">
            
-            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosPorCurso/ALUNOGR">Totais de alunos vínculos ativos,
-                    separados por curso.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosPorCurso?tipvin=ALUNOGR">Totais de alunos vínculos ativos,
+                    separados por curso.</a>
+                    <a href="{{ config('app.url') }}/api/alunosAtivosPorCurso?tipvin=ALUNOGR" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>    
+            </li>
             <li class="list-group-item"><a href="{{ config('app.url') }}/concluintesGradPorCurso/{{date('Y') -1}}">Total de concluintes da Graduação por
                     curso.
                         </a></li>
