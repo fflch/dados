@@ -52,7 +52,7 @@ class ReplicadoWeeklySyncCommand extends Command
         if(getenv('REPLICADO_SYBASE') != '1') putenv('REPLICADO_SYBASE=1');
 
         $this->sync_comissao_pesquisa();
-/*
+
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $codpes = array_merge($credenciados, $docentes);
@@ -65,7 +65,7 @@ class ReplicadoWeeklySyncCommand extends Command
         foreach($programas as $value) {
             $this->sync_alunos_posgr(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare']),8);
         }
-*/
+
         return 0;
     }
 
@@ -104,26 +104,14 @@ class ReplicadoWeeklySyncCommand extends Command
     private function sync_comissao_pesquisa(){
         $codproj = ComissaoPesquisa::select('codproj')->get()->pluck('codproj')->toArray(); //buscando os registros no banco local
 
-        //iniciação cientifica
         $iniciacao_cientifica = ReplicadoTemp::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
-        //pesquisas de pos doutorandos ativos
-        //$pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
-        //pesquisadores colaborativos ativos
-        //$pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
+        $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
+        $pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
 
-
-        //$codproj_ic = array_column($iniciacao_cientifica, 'cod_projeto');
-        //$codproj_pes = array_column($pesquisa, 'codprj');
-        //$codproj_pes_colab = array_column($pesquisadores_colab, 'codprj');
-        //$codproj_replicado = array_merge($codproj_ic, $codproj_pes, $codproj_pes_colab);
-
-        //$diff = array_diff($codproj, $codproj_replicado);
-        //ComissaoPesquisa::whereIn('codproj', $diff)->delete(); // deletando as diferenças no banco local para mantê-lo atualizado
+        ComissaoPesquisa::where('tipo','!=', 'PP')->delete(); // zerar a base local para atualizá-la com os novos dados
 
         if($iniciacao_cientifica){
-            ComissaoPesquisa::where('tipo','IC')->delete();
             foreach($iniciacao_cientifica as $ic){
-
                 $comissao = ComissaoPesquisa::where('codproj',$ic['cod_projeto'])->where('codpes_discente',$ic['aluno'])->first();
                 if(!$comissao) $comissao = new ComissaoPesquisa;
                 $comissao->codproj = $ic['cod_projeto'];
@@ -160,7 +148,7 @@ class ReplicadoWeeklySyncCommand extends Command
         foreach(ReplicadoTemp::listarICsRepetidasComStatusTransferido() as $excluir){
             ComissaoPesquisa::where('codproj',$excluir['codproj transferido'])->where('ano_proj',$excluir['anoproj transferido'])->where('tipo','IC')->delete();
         }
-        /*
+        
         if($pesquisa){
             foreach($pesquisa as $pd){
                 $comissao = ComissaoPesquisa::where('codproj',$pd['codprj'])->where('codpes_discente',$pd['codpes'])->first();
@@ -216,7 +204,6 @@ class ReplicadoWeeklySyncCommand extends Command
                 $comissao->save();
             }
         }
-        */
 
     }
 

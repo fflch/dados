@@ -49,7 +49,7 @@ class ReplicadoLattesSyncCommand extends Command
     {
 
         if(getenv('REPLICADO_SYBASE') != '0') putenv('REPLICADO_SYBASE=0');
-/*
+
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $discentes = [];
@@ -86,9 +86,9 @@ class ReplicadoLattesSyncCommand extends Command
         $departamento->codare = 0;
         $departamento->json = json_encode($departamentos);
         $departamento->save();
-*/
+
         $this->sync_comissao_pesquisa();
-/*
+
         putenv('REPLICADO_SYBASE=1');
 
         $programas = Posgraduacao::programas(8);
@@ -114,7 +114,7 @@ class ReplicadoLattesSyncCommand extends Command
             $programa->json = json_encode($programas[$key]);
             $programa->save();
         }
-*/
+
         return 0;
     }
 
@@ -129,6 +129,8 @@ class ReplicadoLattesSyncCommand extends Command
 
     private function sync_comissao_pesquisa(){
          //projetos de pesquisa dos docentes
+         ComissaoPesquisa::where('tipo', 'PP')->delete(); 
+
          foreach(Util::getDepartamentos() as $key=>$value){
              foreach(Pessoa::listarDocentes($value[0]) as $docente){
                  $pesquisas  = Lattes::listarProjetosPesquisa($docente['codpes'], null, 'anual', -1, null);
