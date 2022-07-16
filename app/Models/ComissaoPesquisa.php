@@ -40,10 +40,10 @@ class ComissaoPesquisa extends Model
                 $data[$key]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where('sigla_departamento',$key)->where('bolsa', 'false')->where('tipo', 'PD')->get()->count();
             
             }
-        }else if($request->filtro  == 'serie_historica' && isset($request->ano_ini) && $request->ano_fim){
+        }else if($request->filtro  == 'serie_historica' && isset($request->ano_ini) && isset($request->ano_fim)){
             
             $ano_ini = (int)$request->ano_ini ?? date('Y');
-            $ano_fim = (int)$request->ano_fim ?? date('Y');
+            $ano_fim = (int)$request->ano_fim ?? date('Y'); 
             $data_tipo = $request->serie_historica_tipo;
             if($data_tipo == 'curso'){
                 foreach(Util::getCursos() as $key=>$cur){
@@ -51,14 +51,12 @@ class ComissaoPesquisa extends Model
                     for($ano = $ano_ini; $ano <= $ano_fim; $ano++){
                         $data[$cur][$ano] = [];
                         $data[$cur][$ano]['ic_com_bolsa'] = ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
+                            $query->where('ano_proj', '=', $ano);
                         })->where('bolsa', 'true')->where('tipo', 'IC')->where('cod_curso',$key)->get()->count();
         
                         $data[$cur][$ano]['ic_sem_bolsa'] = 
                         ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
+                            $query->where('ano_proj', '=', $ano);
                         })->where('bolsa', 'false')->where('tipo', 'IC')->where('cod_curso',$key)->get()->count();
         
                         $data[$cur][$ano]['pesquisadores_colab'] = ComissaoPesquisa::where(function ($query) use ($ano) {
@@ -90,14 +88,12 @@ class ComissaoPesquisa extends Model
                     for($ano = $ano_ini; $ano <= $ano_fim; $ano++){
                         $data[$dep[1]][$ano] = [];
                         $data[$dep[1]][$ano]['ic_com_bolsa'] = ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
+                            $query->where('ano_proj', '=', $ano);
                         })->where('bolsa', 'true')->where('tipo', 'IC')->where('sigla_departamento',$key)->get()->count();
         
                         $data[$dep[1]][$ano]['ic_sem_bolsa'] = 
                         ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
+                            $query->where('ano_proj', '=', $ano);
                         })->where('bolsa', 'false')->where('tipo', 'IC')->where('sigla_departamento',$key)->get()->count();
         
                         $data[$dep[1]][$ano]['pesquisadores_colab'] = ComissaoPesquisa::where(function ($query) use ($ano) {
@@ -174,15 +170,13 @@ class ComissaoPesquisa extends Model
 
         if($tipo == 'anual'){
             $iniciacao_cientifica = 
-                ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa) {
+                ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa, $limit_ini) {
                     return $query->where($key_filtro,$value_filtro)
                     ->where('bolsa', '=', $bolsa)
-                    ->where('tipo', '=', 'IC');
-                })->where(function ($query) use ($limit_ini) {
-                    return $query->whereYear('data_ini', '=', $limit_ini)
-                        ->orWhereYear('data_fim', '=', $limit_ini)
-                        ->orWhereYear('ano_proj', '=', $limit_ini);
+                    ->where('tipo', '=', 'IC')
+                    ->where('ano_proj', $limit_ini);
                 })->get()->toArray();
+                //dd($iniciacao_cientifica);
         }else if ($tipo  == 'ativo'){
             $iniciacao_cientifica = 
                 ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa) {
