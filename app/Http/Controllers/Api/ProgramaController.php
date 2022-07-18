@@ -36,20 +36,6 @@ class ProgramaController extends Controller
     }
     
 
-    /**
-     * TESTE
-     *
-     * teste teset
-     * 
-     * @group TESTE
-     */
-    public function obterOrcid(){
-        return response()->json(
-            Programa::obterOrcid(),
-            200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-        );
-    }
-
     public function listarDocentes($codare, Request $request){
         
         $filtro = Programa::getFiltro($request);   

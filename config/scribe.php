@@ -9,7 +9,7 @@ return [
     /*
      * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
      */
-    'title' => null,
+    'title' => 'Documentação da API do Portal de Dados da FFLCH',
 
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
@@ -172,7 +172,7 @@ return [
          * By default, assets are stored in `public/vendor/scribe`.
          * If set, assets will be stored in `public/{{assets_directory}}`
          */
-        'assets_directory' => null,
+        'assets_directory' => 'assets/scribe',
 
         /*
          * Middleware to attach to the docs endpoint (if `add_routes` is true).

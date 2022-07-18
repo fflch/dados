@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Laravel Documentation</title>
+    <title>Documentação da API do Portal de Dados da FFLCH</title>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset("/vendor/scribe/css/theme-default.style.css") }}" media="screen">
-    <link rel="stylesheet" href="{{ asset("/vendor/scribe/css/theme-default.print.css") }}" media="print">
+    <link rel="stylesheet" href="{{ asset("/assets/scribe/css/theme-default.style.css") }}" media="screen">
+    <link rel="stylesheet" href="{{ asset("/assets/scribe/css/theme-default.print.css") }}" media="print">
 
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
@@ -30,9 +30,9 @@
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="{{ asset("/vendor/scribe/js/tryitout-3.33.2.js") }}"></script>
+    <script src="{{ asset("/assets/scribe/js/tryitout-3.33.2.js") }}"></script>
 
-    <script src="{{ asset("/vendor/scribe/js/theme-default-3.33.2.js") }}"></script>
+    <script src="{{ asset("/assets/scribe/js/theme-default-3.33.2.js") }}"></script>
 
 </head>
 
@@ -41,7 +41,7 @@
 <a href="#" id="nav-button">
     <span>
         MENU
-        <img src="{{ asset("/vendor/scribe/images/navbar.png") }}" alt="navbar-image" />
+        <img src="{{ asset("/assets/scribe/images/navbar.png") }}" alt="navbar-image" />
     </span>
 </a>
 <div class="tocify-wrapper">
@@ -50,10 +50,7 @@
                                             <button type="button" class="lang-button" data-language-name="bash">bash</button>
                                             <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
                     </div>
-    
-    <div class="search">
-        <input type="text" class="search" id="input-search" placeholder="Search">
-    </div>
+
 
     <div id="toc">
                                                                             <ul id="tocify-header-0" class="tocify-header">
@@ -70,16 +67,6 @@
                                                 </ul>
                     
                     <ul id="tocify-header-2" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="teste">
-                    <a href="#teste">TESTE</a>
-                </li>
-                                    <ul id="tocify-subheader-teste" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="teste-GETapi-obter_orcid">
-                        <a href="#teste-GETapi-obter_orcid">TESTE</a>
-                    </li>
-                                                    </ul>
-                            </ul>
-                    <ul id="tocify-header-3" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="dados-de-producao-academica">
                     <a href="#dados-de-producao-academica">Dados de produção acadêmica</a>
                 </li>
@@ -92,7 +79,7 @@
                     </li>
                                                     </ul>
                             </ul>
-                    <ul id="tocify-header-4" class="tocify-header">
+                    <ul id="tocify-header-3" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="endpoints">
                     <a href="#endpoints">Endpoints</a>
                 </li>
@@ -160,7 +147,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: July 15 2022</li>
+        <li>Last updated: July 18 2022</li>
     </ul>
 </div>
 
@@ -176,566 +163,6 @@
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
-
-        <h1 id="teste">TESTE</h1>
-
-    
-
-            <h2 id="teste-GETapi-obter_orcid">TESTE</h2>
-
-<p>
-</p>
-
-<p>teste teset</p>
-
-<span id="example-requests-GETapi-obter_orcid">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/obter_orcid" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/obter_orcid"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-obter_orcid">
-            <blockquote>
-            <p>Example response (500):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary>
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 51
- </code></pre>
-        </details>         <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Undefined index: nome&quot;,
-    &quot;exception&quot;: &quot;ErrorException&quot;,
-    &quot;file&quot;: &quot;/home/ricardo/dados/app/Models/Programa.php&quot;,
-    &quot;line&quot;: 254,
-    &quot;trace&quot;: [
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/app/Models/Programa.php&quot;,
-            &quot;line&quot;: 254,
-            &quot;function&quot;: &quot;handleError&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Bootstrap\\HandleExceptions&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-            &quot;line&quot;: 48,
-            &quot;function&quot;: &quot;obterOrcid&quot;,
-            &quot;class&quot;: &quot;App\\Models\\Programa&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Controller.php&quot;,
-            &quot;line&quot;: 54,
-            &quot;function&quot;: &quot;obterOrcid&quot;,
-            &quot;class&quot;: &quot;App\\Http\\Controllers\\Api\\ProgramaController&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php&quot;,
-            &quot;line&quot;: 45,
-            &quot;function&quot;: &quot;callAction&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Controller&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
-            &quot;line&quot;: 262,
-            &quot;function&quot;: &quot;dispatch&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\ControllerDispatcher&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
-            &quot;line&quot;: 205,
-            &quot;function&quot;: &quot;runController&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 721,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 128,
-            &quot;function&quot;: &quot;Illuminate\\Routing\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php&quot;,
-            &quot;line&quot;: 50,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\SubstituteBindings&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
-            &quot;line&quot;: 127,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
-            &quot;line&quot;: 63,
-            &quot;function&quot;: &quot;handleRequest&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 103,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 723,
-            &quot;function&quot;: &quot;then&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 698,
-            &quot;function&quot;: &quot;runRouteWithinStack&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 662,
-            &quot;function&quot;: &quot;runRoute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
-            &quot;line&quot;: 651,
-            &quot;function&quot;: &quot;dispatchToRoute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;dispatch&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 128,
-            &quot;function&quot;: &quot;Illuminate\\Foundation\\Http\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
-            &quot;line&quot;: 60,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Barryvdh\\Debugbar\\Middleware\\InjectDebugbar&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
-            &quot;line&quot;: 21,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php&quot;,
-            &quot;line&quot;: 31,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
-            &quot;line&quot;: 21,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php&quot;,
-            &quot;line&quot;: 40,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TrimStrings&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php&quot;,
-            &quot;line&quot;: 27,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php&quot;,
-            &quot;line&quot;: 86,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fruitcake/laravel-cors/src/HandleCors.php&quot;,
-            &quot;line&quot;: 37,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Fruitcake\\Cors\\HandleCors&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fideloper/proxy/src/TrustProxies.php&quot;,
-            &quot;line&quot;: 57,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 167,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Fideloper\\Proxy\\TrustProxies&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
-            &quot;line&quot;: 103,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
-            &quot;line&quot;: 142,
-            &quot;function&quot;: &quot;then&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
-            &quot;line&quot;: 111,
-            &quot;function&quot;: &quot;sendRequestThroughRouter&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 299,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 287,
-            &quot;function&quot;: &quot;callLaravelOrLumenRoute&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 89,
-            &quot;function&quot;: &quot;makeApiCall&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 45,
-            &quot;function&quot;: &quot;makeResponseCall&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
-            &quot;line&quot;: 35,
-            &quot;function&quot;: &quot;makeResponseCallIfConditionsPass&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
-            &quot;line&quot;: 222,
-            &quot;function&quot;: &quot;__invoke&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
-            &quot;line&quot;: 179,
-            &quot;function&quot;: &quot;iterateThroughStrategies&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
-            &quot;line&quot;: 116,
-            &quot;function&quot;: &quot;fetchResponses&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 123,
-            &quot;function&quot;: &quot;processRoute&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 80,
-            &quot;function&quot;: &quot;extractEndpointsInfoFromLaravelApp&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 56,
-            &quot;function&quot;: &quot;extractEndpointsInfoAndWriteToDisk&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php&quot;,
-            &quot;line&quot;: 55,
-            &quot;function&quot;: &quot;get&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
-            &quot;line&quot;: 36,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Commands\\GenerateDocumentation&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Util.php&quot;,
-            &quot;line&quot;: 40,
-            &quot;function&quot;: &quot;Illuminate\\Container\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
-            &quot;line&quot;: 93,
-            &quot;function&quot;: &quot;unwrapIfClosure&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\Util&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
-            &quot;line&quot;: 37,
-            &quot;function&quot;: &quot;callBoundMethod&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Container.php&quot;,
-            &quot;line&quot;: 653,
-            &quot;function&quot;: &quot;call&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
-            &quot;line&quot;: 136,
-            &quot;function&quot;: &quot;call&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\Container&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Command/Command.php&quot;,
-            &quot;line&quot;: 298,
-            &quot;function&quot;: &quot;execute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
-            &quot;line&quot;: 121,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Command\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
-            &quot;line&quot;: 1024,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
-            &quot;line&quot;: 299,
-            &quot;function&quot;: &quot;doRunCommand&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
-            &quot;line&quot;: 171,
-            &quot;function&quot;: &quot;doRun&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Application.php&quot;,
-            &quot;line&quot;: 94,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php&quot;,
-            &quot;line&quot;: 129,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;/home/ricardo/dados/artisan&quot;,
-            &quot;line&quot;: 37,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Console\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        }
-    ]
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-obter_orcid" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-obter_orcid"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-obter_orcid"></code></pre>
-</span>
-<span id="execution-error-GETapi-obter_orcid" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-obter_orcid"></code></pre>
-</span>
-<form id="form-GETapi-obter_orcid" data-method="GET"
-      data-path="api/obter_orcid"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-obter_orcid', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-obter_orcid"
-                    onclick="tryItOut('GETapi-obter_orcid');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-obter_orcid"
-                    onclick="cancelTryOut('GETapi-obter_orcid');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-obter_orcid" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/obter_orcid</code></b>
-        </p>
-                    </form>
 
         <h1 id="dados-de-producao-academica">Dados de produção acadêmica</h1>
 
@@ -758,8 +185,8 @@ x-ratelimit-remaining: 51
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": \"1963\",
-    \"codcur\": \"8009\"
+    \"ano\": \"2012\",
+    \"codcur\": \"8019\"
 }"
 </code></pre></div>
 
@@ -775,8 +202,8 @@ const headers = {
 };
 
 let body = {
-    "ano": "1963",
-    "codcur": "8009"
+    "ano": "2012",
+    "codcur": "8019"
 };
 
 fetch(url, {
@@ -802,7 +229,164 @@ x-ratelimit-remaining: 59
  </code></pre>
         </details>         <pre>
 
-<code class="language-json">[]</code>
+<code class="language-json">[
+    {
+        &quot;discente_id&quot;: &quot;F7A1162BAF0F&quot;,
+        &quot;defesa_id&quot;: &quot;348a9aceb2c6382abee78d6dba63c740&quot;,
+        &quot;nome&quot;: &quot;Andreia dos Santos Menezes&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Entre p&aacute;trias, pandeiros e &lt;i&gt;bandoneones&lt;/i&gt;: o embate entre vozes marginais e disciplinadoras em composi&ccedil;&otilde;es de samba e tango (1917 - 1945)&quot;,
+        &quot;titulo&quot;: &quot;Entre p&aacute;trias, pandeiros e bandoneones: o embate entre vozes marginais e disciplinadoras em composi&ccedil;&otilde;es de samba e tango (1917 - 1945)&quot;,
+        &quot;data&quot;: &quot;17/10/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;67A1355FC576&quot;,
+        &quot;defesa_id&quot;: &quot;e21b51783ac61f18ea5c6bfbd2659643&quot;,
+        &quot;nome&quot;: &quot;Cristiane Checchia&quot;,
+        &quot;nivel&quot;: &quot;DO&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Percep&ccedil;&atilde;o, recorda&ccedil;&atilde;o e linguagem - ensaio e fic&ccedil;&atilde;o em &lt;i&gt;El r&iacute;o sin orillas&lt;/i&gt;, de Juan Jos&eacute; Saer&quot;,
+        &quot;titulo&quot;: &quot;Percep&ccedil;&atilde;o, recorda&ccedil;&atilde;o e linguagem - ensaio e fic&ccedil;&atilde;o em El r&iacute;o sin orillas, de Juan Jos&eacute; Saer&quot;,
+        &quot;data&quot;: &quot;04/12/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;87A2BB6E5588&quot;,
+        &quot;defesa_id&quot;: &quot;9f0080f66725669b61066b378e256003&quot;,
+        &quot;nome&quot;: &quot;Ana Cristina Jutgla&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Julio Ram&oacute;n Ribeyro: a tenta&ccedil;&atilde;o da palavra&quot;,
+        &quot;titulo&quot;: &quot;Julio Ram&oacute;n Ribeyro: a tenta&ccedil;&atilde;o da palavra&quot;,
+        &quot;data&quot;: &quot;11/04/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;27A35B114A02&quot;,
+        &quot;defesa_id&quot;: &quot;e0a19e06919c6c66210ff4fd1f6b3270&quot;,
+        &quot;nome&quot;: &quot;Hemerson Emidio Siqueira&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Sil&ecirc;ncio e evoca&ccedil;&atilde;o na fic&ccedil;&atilde;o autobiogr&aacute;fica. Uma leitura de &lt;i&gt;Lenta Biografia&lt;/i&gt;, de Sergio Chejfec&quot;,
+        &quot;titulo&quot;: &quot;Sil&ecirc;ncio e evoca&ccedil;&atilde;o na fic&ccedil;&atilde;o autobiogr&aacute;fica. Uma leitura de Lenta Biografia, de Sergio Chejfec&quot;,
+        &quot;data&quot;: &quot;19/06/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;37A3796FEF63&quot;,
+        &quot;defesa_id&quot;: &quot;b01f6803e76028a745d626d6afdab1de&quot;,
+        &quot;nome&quot;: &quot;Marcelo Maciel Cerigioli&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Rafael Alberti: leituras do Museu do Prado&quot;,
+        &quot;titulo&quot;: &quot;Rafael Alberti: leituras do Museu do Prado&quot;,
+        &quot;data&quot;: &quot;23/03/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;37A42B7A9A83&quot;,
+        &quot;defesa_id&quot;: &quot;848f1dcbe91da9d7f5b75fcc7f6f1a13&quot;,
+        &quot;nome&quot;: &quot;Priscila Oliveira Vieira&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;&iquest;'Espa&ntilde;ol sin fronteras'? Ou entre fronteiras projetadas pelo imagin&aacute;rio e pelo real?&quot;,
+        &quot;titulo&quot;: &quot;&iquest;'Espa&ntilde;ol sin fronteras'? Ou entre fronteiras projetadas pelo imagin&aacute;rio e pelo real?&quot;,
+        &quot;data&quot;: &quot;23/07/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;67A4357E06D6&quot;,
+        &quot;defesa_id&quot;: &quot;33e4bac1cf464716cf0799755dc212ca&quot;,
+        &quot;nome&quot;: &quot;Giselle Cristina Gon&ccedil;alves Macedo&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Dom Quixote: poesia, cr&iacute;tica e tradu&ccedil;&atilde;o. Estudo dos versos preliminares de Dom Quixote e proposta de tradu&ccedil;&atilde;o&quot;,
+        &quot;titulo&quot;: &quot;Dom Quixote: poesia, cr&iacute;tica e tradu&ccedil;&atilde;o. Estudo dos versos preliminares de Dom Quixote e proposta de tradu&ccedil;&atilde;o&quot;,
+        &quot;data&quot;: &quot;24/02/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;97A553E82759&quot;,
+        &quot;defesa_id&quot;: &quot;4e9dc680080daab3fefe54d2b96e9129&quot;,
+        &quot;nome&quot;: &quot;Telma Aparecida F&eacute;lix da Matta Ccori&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;Estar con/estar com: aspectos da posse e rela&ccedil;&otilde;es adjacentes&quot;,
+        &quot;titulo&quot;: &quot;Estar con/estar com: aspectos da posse e rela&ccedil;&otilde;es adjacentes&quot;,
+        &quot;data&quot;: &quot;04/10/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;F7A5544827CF&quot;,
+        &quot;defesa_id&quot;: &quot;997a66813fd963a16dc92e438c1fa62a&quot;,
+        &quot;nome&quot;: &quot;Larissa Fostinone Locoselli&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;O ex&iacute;lio em fic&ccedil;&atilde;o: uma leitura de&lt;i&gt; Libro de nav&iacute;os y borrascas&lt;/i&gt;, de Daniel Moyano&quot;,
+        &quot;titulo&quot;: &quot;O ex&iacute;lio em fic&ccedil;&atilde;o: uma leitura de Libro de nav&iacute;os y borrascas, de Daniel Moyano&quot;,
+        &quot;data&quot;: &quot;01/06/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;A7A554D2F87A&quot;,
+        &quot;defesa_id&quot;: &quot;6a44a797c4ec51901804ef5bca9ea77a&quot;,
+        &quot;nome&quot;: &quot;Valeria da Silva Moraes&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;O c&ocirc;mico e o riso no &lt;i&gt;Quixote&lt;/i&gt;&quot;,
+        &quot;titulo&quot;: &quot;O c&ocirc;mico e o riso no Quixote&quot;,
+        &quot;data&quot;: &quot;30/03/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;57A58D542E05&quot;,
+        &quot;defesa_id&quot;: &quot;bb4c40d7720058ecb85222ea74a8c9e0&quot;,
+        &quot;nome&quot;: &quot;Paulo Augusto Almeida Seemann&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;A constru&ccedil;&atilde;o de um gloss&aacute;rio bil&iacute;ngue de futebol com o apoio da Lingu&iacute;stica de Corpus&quot;,
+        &quot;titulo&quot;: &quot;A constru&ccedil;&atilde;o de um gloss&aacute;rio bil&iacute;ngue de futebol com o apoio da Lingu&iacute;stica de Corpus&quot;,
+        &quot;data&quot;: &quot;26/03/2012&quot;
+    },
+    {
+        &quot;discente_id&quot;: &quot;C7A6955CF2FC&quot;,
+        &quot;defesa_id&quot;: &quot;0d652387feab9c7db608bc5d03d015e4&quot;,
+        &quot;nome&quot;: &quot;F&aacute;bio Barbosa de Lima&quot;,
+        &quot;nivel&quot;: &quot;ME&quot;,
+        &quot;codare&quot;: 8145,
+        &quot;codcur&quot;: 8019,
+        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
+        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
+        &quot;titulo_html&quot;: &quot;&lt;i&gt;Parecer bom x parecer justo&lt;/i&gt; - o pedido de desculpas na gest&atilde;o da imagem nas intera&ccedil;&otilde;es midi&aacute;ticas&quot;,
+        &quot;titulo&quot;: &quot;Parecer bom x parecer justo - o pedido de desculpas na gest&atilde;o da imagem nas intera&ccedil;&otilde;es midi&aacute;ticas&quot;,
+        &quot;data&quot;: &quot;26/07/2012&quot;
+    }
+]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-defesas" hidden>
@@ -850,7 +434,7 @@ x-ratelimit-remaining: 59
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-defesas"
-               value="1963"
+               value="2012"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>2022</code>, <code>2021</code>, <code>2020</code>, <code>2019</code>, <code>2018</code>, <code>2017</code>, <code>2016</code>, <code>2015</code>, <code>2014</code>, <code>2013</code>, <code>2012</code>, <code>2011</code>, <code>2010</code>, <code>2009</code>, <code>2008</code>, <code>2007</code>, <code>2006</code>, <code>2005</code>, <code>2004</code>, <code>2003</code>, <code>2002</code>, <code>2001</code>, <code>2000</code>, <code>1999</code>, <code>1998</code>, <code>1997</code>, <code>1996</code>, <code>1995</code>, <code>1994</code>, <code>1993</code>, <code>1992</code>, <code>1991</code>, <code>1990</code>, <code>1989</code>, <code>1988</code>, <code>1987</code>, <code>1986</code>, <code>1985</code>, <code>1984</code>, <code>1983</code>, <code>1982</code>, <code>1981</code>, <code>1980</code>, <code>1979</code>, <code>1978</code>, <code>1977</code>, <code>1976</code>, <code>1975</code>, <code>1974</code>, <code>1973</code>, <code>1972</code>, <code>1971</code>, <code>1970</code>, <code>1969</code>, <code>1968</code>, <code>1967</code>, <code>1966</code>, <code>1965</code>, <code>1964</code>, <code>1963</code>, <code>1962</code>, <code>1961</code>, <code>1960</code>, <code>1959</code>, <code>1958</code>, <code>1957</code>, <code>1956</code>, <code>1955</code>, <code>1954</code>, <code>1953</code>, <code>1952</code>, <code>1951</code>, or <code>1950</code>.</p>
@@ -860,7 +444,7 @@ x-ratelimit-remaining: 59
                 <input type="number"
                name="codcur"
                data-endpoint="GETapi-defesas"
-               value="8009"
+               value="8019"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>8004</code>, <code>8001</code>, <code>8020</code>, <code>8013</code>, <code>8003</code>, <code>8006</code>, <code>8007</code>, <code>8009</code>, <code>8010</code>, <code>8030</code>, <code>8012</code>, <code>8014</code>, <code>8026</code>, <code>8019</code>, <code>8015</code>, <code>8017</code>, <code>8022</code>, <code>8027</code>, <code>8016</code>, <code>8023</code>, <code>8024</code>, <code>8031</code>, or <code>8011</code>.</p>
@@ -18413,14 +17997,14 @@ x-ratelimit-remaining: 58
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/docentes/saepe" \
+    --get "http://127.0.0.1:8000/api/programas/docentes/ad" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/docentes/saepe"
+    "http://127.0.0.1:8000/api/programas/docentes/ad"
 );
 
 const headers = {
@@ -18454,11 +18038,11 @@ x-ratelimit-remaining: 57
     &quot;message&quot;: &quot;Undefined index: docentes&quot;,
     &quot;exception&quot;: &quot;ErrorException&quot;,
     &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-    &quot;line&quot;: 64,
+    &quot;line&quot;: 50,
     &quot;trace&quot;: [
         {
             &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-            &quot;line&quot;: 64,
+            &quot;line&quot;: 50,
             &quot;function&quot;: &quot;handleError&quot;,
             &quot;class&quot;: &quot;Illuminate\\Foundation\\Bootstrap\\HandleExceptions&quot;,
             &quot;type&quot;: &quot;-&gt;&quot;
@@ -18953,7 +18537,7 @@ x-ratelimit-remaining: 57
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-docentes--codare-"
-               value="saepe"
+               value="ad"
                data-component="url" hidden>
     <br>
 
@@ -18973,14 +18557,14 @@ x-ratelimit-remaining: 57
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/discentes/aliquam" \
+    --get "http://127.0.0.1:8000/api/programas/discentes/porro" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/discentes/aliquam"
+    "http://127.0.0.1:8000/api/programas/discentes/porro"
 );
 
 const headers = {
@@ -19014,11 +18598,11 @@ x-ratelimit-remaining: 56
     &quot;message&quot;: &quot;Undefined index: discentes&quot;,
     &quot;exception&quot;: &quot;ErrorException&quot;,
     &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-    &quot;line&quot;: 76,
+    &quot;line&quot;: 62,
     &quot;trace&quot;: [
         {
             &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-            &quot;line&quot;: 76,
+            &quot;line&quot;: 62,
             &quot;function&quot;: &quot;handleError&quot;,
             &quot;class&quot;: &quot;Illuminate\\Foundation\\Bootstrap\\HandleExceptions&quot;,
             &quot;type&quot;: &quot;-&gt;&quot;
@@ -19513,7 +19097,7 @@ x-ratelimit-remaining: 56
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-discentes--codare-"
-               value="aliquam"
+               value="porro"
                data-component="url" hidden>
     <br>
 
@@ -19533,14 +19117,14 @@ x-ratelimit-remaining: 56
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/egressos/rerum" \
+    --get "http://127.0.0.1:8000/api/programas/egressos/perferendis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/egressos/rerum"
+    "http://127.0.0.1:8000/api/programas/egressos/perferendis"
 );
 
 const headers = {
@@ -19574,11 +19158,11 @@ x-ratelimit-remaining: 55
     &quot;message&quot;: &quot;Undefined index: egressos&quot;,
     &quot;exception&quot;: &quot;ErrorException&quot;,
     &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-    &quot;line&quot;: 87,
+    &quot;line&quot;: 73,
     &quot;trace&quot;: [
         {
             &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ProgramaController.php&quot;,
-            &quot;line&quot;: 87,
+            &quot;line&quot;: 73,
             &quot;function&quot;: &quot;handleError&quot;,
             &quot;class&quot;: &quot;Illuminate\\Foundation\\Bootstrap\\HandleExceptions&quot;,
             &quot;type&quot;: &quot;-&gt;&quot;
@@ -20073,7 +19657,7 @@ x-ratelimit-remaining: 55
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-egressos--codare-"
-               value="rerum"
+               value="perferendis"
                data-component="url" hidden>
     <br>
 
@@ -20093,14 +19677,14 @@ x-ratelimit-remaining: 55
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/docente/dicta" \
+    --get "http://127.0.0.1:8000/api/programas/docente/pariatur" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/docente/dicta"
+    "http://127.0.0.1:8000/api/programas/docente/pariatur"
 );
 
 const headers = {
@@ -20178,7 +19762,7 @@ x-ratelimit-remaining: 54
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-docente--codpes-"
-               value="dicta"
+               value="pariatur"
                data-component="url" hidden>
     <br>
 
@@ -20198,14 +19782,14 @@ x-ratelimit-remaining: 54
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/discente/at" \
+    --get "http://127.0.0.1:8000/api/programas/discente/ea" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/discente/at"
+    "http://127.0.0.1:8000/api/programas/discente/ea"
 );
 
 const headers = {
@@ -20283,7 +19867,7 @@ x-ratelimit-remaining: 53
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-discente--codpes-"
-               value="at"
+               value="ea"
                data-component="url" hidden>
     <br>
 
@@ -20303,14 +19887,14 @@ x-ratelimit-remaining: 53
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/egresso/sed" \
+    --get "http://127.0.0.1:8000/api/programas/egresso/ut" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/egresso/sed"
+    "http://127.0.0.1:8000/api/programas/egresso/ut"
 );
 
 const headers = {
@@ -20388,7 +19972,7 @@ x-ratelimit-remaining: 52
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-egresso--codpes-"
-               value="sed"
+               value="ut"
                data-component="url" hidden>
     <br>
 
@@ -20441,7 +20025,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 50
+x-ratelimit-remaining: 51
  </code></pre>
         </details>         <pre>
 
@@ -27936,7 +27520,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 49
+x-ratelimit-remaining: 50
  </code></pre>
         </details>         <pre>
 
@@ -28738,7 +28322,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 48
+x-ratelimit-remaining: 49
  </code></pre>
         </details>         <pre>
 
@@ -29085,7 +28669,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 47
+x-ratelimit-remaining: 48
  </code></pre>
         </details>         <pre>
 
@@ -31126,7 +30710,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 46
+x-ratelimit-remaining: 47
  </code></pre>
         </details>         <pre>
 
@@ -31533,7 +31117,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 45
+x-ratelimit-remaining: 46
  </code></pre>
         </details>         <pre>
 
@@ -31665,11 +31249,11 @@ x-ratelimit-remaining: 45
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": 3,
-    \"ano_ini\": 6,
-    \"ano_fim\": 12,
-    \"tipo\": \"ativo\",
-    \"filtro\": \"serie_historica\",
+    \"ano\": 11,
+    \"ano_ini\": 18,
+    \"ano_fim\": 18,
+    \"tipo\": \"tudo\",
+    \"filtro\": \"curso\",
     \"serie_historica_tipo\": \"departamento\"
 }"
 </code></pre></div>
@@ -31686,11 +31270,11 @@ const headers = {
 };
 
 let body = {
-    "ano": 3,
-    "ano_ini": 6,
-    "ano_fim": 12,
-    "tipo": "ativo",
-    "filtro": "serie_historica",
+    "ano": 11,
+    "ano_ini": 18,
+    "ano_fim": 18,
+    "tipo": "tudo",
+    "filtro": "curso",
     "serie_historica_tipo": "departamento"
 };
 
@@ -31713,648 +31297,55 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 44
+x-ratelimit-remaining: 45
  </code></pre>
         </details>         <pre>
 
 <code class="language-json">{
-    &quot;Antropologia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
+    &quot;8010&quot;: {
+        &quot;nome_curso&quot;: &quot;Filosofia&quot;,
+        &quot;ic_com_bolsa&quot;: 51,
+        &quot;ic_sem_bolsa&quot;: 130,
+        &quot;pesquisadores_colab&quot;: 1,
+        &quot;projetos_pesquisa&quot;: 0,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 2,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 34
     },
-    &quot;Ci&ecirc;ncia Pol&iacute;tica&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
+    &quot;8021&quot;: {
+        &quot;nome_curso&quot;: &quot;Geografia&quot;,
+        &quot;ic_com_bolsa&quot;: 55,
+        &quot;ic_sem_bolsa&quot;: 114,
+        &quot;pesquisadores_colab&quot;: 1,
+        &quot;projetos_pesquisa&quot;: 0,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 17
     },
-    &quot;Filosofia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
+    &quot;8030&quot;: {
+        &quot;nome_curso&quot;: &quot;Hist&oacute;ria&quot;,
+        &quot;ic_com_bolsa&quot;: 76,
+        &quot;ic_sem_bolsa&quot;: 173,
+        &quot;pesquisadores_colab&quot;: 4,
+        &quot;projetos_pesquisa&quot;: 0,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 9,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 45
     },
-    &quot;Hist&oacute;ria&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
+    &quot;8040&quot;: {
+        &quot;nome_curso&quot;: &quot;Ci&ecirc;ncias Sociais&quot;,
+        &quot;ic_com_bolsa&quot;: 96,
+        &quot;ic_sem_bolsa&quot;: 143,
+        &quot;pesquisadores_colab&quot;: 2,
+        &quot;projetos_pesquisa&quot;: 0,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 6,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 57
     },
-    &quot;Letras Cl&aacute;ssicas e Vern&aacute;culas&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Letras Modernas&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Letras Orientais&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Lingu&iacute;stica&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Sociologia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Teoria Liter&aacute;ria e Literatura Comparada&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
-    },
-    &quot;Geografia&quot;: {
-        &quot;6&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;7&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;8&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;9&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;10&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;11&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        },
-        &quot;12&quot;: {
-            &quot;ic_com_bolsa&quot;: 0,
-            &quot;ic_sem_bolsa&quot;: 0,
-            &quot;pesquisadores_colab&quot;: 0,
-            &quot;projetos_pesquisa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-            &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 0
-        }
+    &quot;8051&quot;: {
+        &quot;nome_curso&quot;: &quot;Letras&quot;,
+        &quot;ic_com_bolsa&quot;: 112,
+        &quot;ic_sem_bolsa&quot;: 573,
+        &quot;pesquisadores_colab&quot;: 2,
+        &quot;projetos_pesquisa&quot;: 0,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 9,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 91
     }
 }</code>
  </pre>
@@ -32404,7 +31395,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-pesquisa"
-               value="3"
+               value="11"
                data-component="body" hidden>
     <br>
 
@@ -32414,7 +31405,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano_ini"
                data-endpoint="GETapi-pesquisa"
-               value="6"
+               value="18"
                data-component="body" hidden>
     <br>
 
@@ -32424,7 +31415,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano_fim"
                data-endpoint="GETapi-pesquisa"
-               value="12"
+               value="18"
                data-component="body" hidden>
     <br>
 
@@ -32434,7 +31425,7 @@ x-ratelimit-remaining: 44
                 <input type="text"
                name="tipo"
                data-endpoint="GETapi-pesquisa"
-               value="ativo"
+               value="tudo"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>anual</code>, <code>periodo</code>, <code>ativo</code>, or <code>tudo</code>.</p>
@@ -32444,7 +31435,7 @@ x-ratelimit-remaining: 44
                 <input type="text"
                name="filtro"
                data-endpoint="GETapi-pesquisa"
-               value="serie_historica"
+               value="curso"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>departamento</code>, <code>curso</code>, or <code>serie_historica</code>.</p>
@@ -32479,10 +31470,10 @@ x-ratelimit-remaining: 44
     --header "Accept: application/json" \
     --data "{
     \"ano\": 11,
-    \"ano_ini\": 1,
-    \"ano_fim\": 7,
-    \"tipo\": \"periodo\",
-    \"filtro\": \"curso\",
+    \"ano_ini\": 11,
+    \"ano_fim\": 17,
+    \"tipo\": \"anual\",
+    \"filtro\": \"serie_historica\",
     \"serie_historica_tipo\": \"departamento\"
 }"
 </code></pre></div>
@@ -32500,10 +31491,10 @@ const headers = {
 
 let body = {
     "ano": 11,
-    "ano_ini": 1,
-    "ano_fim": 7,
-    "tipo": "periodo",
-    "filtro": "curso",
+    "ano_ini": 11,
+    "ano_fim": 17,
+    "tipo": "anual",
+    "filtro": "serie_historica",
     "serie_historica_tipo": "departamento"
 };
 
@@ -32526,7 +31517,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 43
+x-ratelimit-remaining: 44
  </code></pre>
         </details>         <pre>
 
@@ -32588,7 +31579,7 @@ x-ratelimit-remaining: 43
                 <input type="number"
                name="ano_ini"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="1"
+               value="11"
                data-component="body" hidden>
     <br>
 
@@ -32598,7 +31589,7 @@ x-ratelimit-remaining: 43
                 <input type="number"
                name="ano_fim"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="7"
+               value="17"
                data-component="body" hidden>
     <br>
 
@@ -32608,7 +31599,7 @@ x-ratelimit-remaining: 43
                 <input type="text"
                name="tipo"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="periodo"
+               value="anual"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>anual</code>, <code>periodo</code>, <code>ativo</code>, or <code>tudo</code>.</p>
@@ -32618,7 +31609,7 @@ x-ratelimit-remaining: 43
                 <input type="text"
                name="filtro"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="curso"
+               value="serie_historica"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>departamento</code>, <code>curso</code>, or <code>serie_historica</code>.</p>
@@ -32681,7 +31672,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 42
+x-ratelimit-remaining: 43
  </code></pre>
         </details>         <pre>
 
@@ -32775,7 +31766,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 41
+x-ratelimit-remaining: 42
  </code></pre>
         </details>         <pre>
 
@@ -32869,7 +31860,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 40
+x-ratelimit-remaining: 41
  </code></pre>
         </details>         <pre>
 
