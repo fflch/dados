@@ -1,6 +1,6 @@
 
 <div class="content-options position-relative">
-<form id="formSearchProducaoPrograma" method="show" action="/pesquisa/iniciacao_cientifica" class="d-flex mb-3">
+<form id="formSearchProducaoPrograma" method="get" action="/pesquisa/{{$tipo}}" class="d-flex mb-3">
     <input type="hidden" name="departamento" value="{{ request()->get('departamento') }}">
     <input type="hidden" name="curso" value="{{ request()->get('curso') }}">
     <input type="hidden" name="bolsa" value="{{ request()->get('bolsa') }}">
@@ -34,6 +34,5 @@
     <input type="submit" value="Buscar" class="btn btn-dark bg-blue-default btn-send">
   </form>
 
-  <a href="{{ config('app.url') }}/api/pesquisa/iniciacao_cientifica?departamento={{request()->get('departamento')}}&curso={{request()->get('curso')}}&bolsa={{ request()->get('bolsa') }}&export=false&tipo={{request()->get('tipo')}}&ano={{ request()->get('ano')}}&ano_ini={{ request()->get('ano_ini')}}&ano_fim={{ request()->get('ano_fim')}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
 </div>
 

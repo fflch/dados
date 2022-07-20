@@ -69,15 +69,11 @@ class ComissaoPesquisa extends Model
                                 ->orWhere('ano_proj', '=', $ano);
                         })->where('tipo', 'PP')->where('cod_curso',$key)->get()->count();
                         
-                        $data[$cur][$ano]['pesquisas_pos_doutorado_com_bolsa'] = ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
-                        })->where('bolsa', 'true')->where('tipo', 'PD')->where('cod_curso',$key)->get()->count();
+                        $data[$cur][$ano]['pesquisas_pos_doutorado_com_bolsa'] = ComissaoPesquisa::where('ano_proj', $ano)
+                       ->where('bolsa', 'true')->where('tipo', 'PD')->where('cod_curso',$key)->get()->count();
                         
-                        $data[$cur][$ano]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
-                        })->where('bolsa', 'false')->where('tipo', 'PD')->where('cod_curso',$key)->get()->count();
+                        $data[$cur][$ano]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where('ano_proj', '=', $ano)->where('bolsa', 'false')
+                        ->where('tipo', 'PD')->where('cod_curso',$key)->get()->count();
                     }
                 
                 }
@@ -106,15 +102,11 @@ class ComissaoPesquisa extends Model
                                 ->orWhere('ano_proj', '=', $ano);
                         })->where('tipo', 'PP')->where('sigla_departamento',$key)->get()->count();
                         
-                        $data[$dep[1]][$ano]['pesquisas_pos_doutorado_com_bolsa'] = ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
-                        })->where('bolsa', 'true')->where('tipo', 'PD')->where('sigla_departamento',$key)->get()->count();
+                        $data[$dep[1]][$ano]['pesquisas_pos_doutorado_com_bolsa'] = ComissaoPesquisa::where('ano_proj', $ano)
+                        ->where('bolsa', 'true')->where('tipo', 'PD')->where('sigla_departamento',$key)->get()->count();
                         
-                        $data[$dep[1]][$ano]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where(function ($query) use ($ano) {
-                            $query->whereYear('data_ini', '=', $ano)
-                                ->orWhere('ano_proj', '=', $ano);
-                        })->where('bolsa', 'false')->where('tipo', 'PD')->where('sigla_departamento',$key)->get()->count();
+                        $data[$dep[1]][$ano]['pesquisas_pos_doutorado_sem_bolsa'] = ComissaoPesquisa::where('ano_proj', $ano)
+                        ->where('bolsa', 'false')->where('tipo', 'PD')->where('sigla_departamento',$key)->get()->count();
                     }
                 
                 }
@@ -251,13 +243,74 @@ class ComissaoPesquisa extends Model
         return $iniciacao_cientifica ?? null;  
     }
 
-    public static function listarPesquisasPosDoutorandos(Request $request){
+    public static function filtrar(Request $request, $tipo_pesquisa){
+        $tipo = $request->tipo ?? 'tudo';
         $bolsa = $request->bolsa == 'true' ? 'true' : 'false';
-        if(isset($request->departamento)){
-            $pd = ComissaoPesquisa::where('sigla_departamento',$request->departamento)->where('bolsa', $bolsa)->where('tipo', 'PD')->get()->toArray();
-        }else{
-            $pd = ComissaoPesquisa::where('cod_curso',$request->curso)->where('bolsa', $bolsa)->where('tipo', 'PD')->get()->toArray();
+        $limit_fim = null; 
+        if($tipo == 'anual'){
+            $limit_ini = $request->ano ?? date('Y');
+        }else if ($tipo  == 'ativo'){
+            $limit_ini = date('Y');
+        }else if($tipo == 'periodo'){
+            $limit_ini = $request->ano_ini ?? date('Y');
+            $limit_fim = $request->ano_fim ?? date('Y');
         }
+
+        if(isset($request->departamento)){
+            $key_filtro = 'sigla_departamento';
+            $value_filtro = $request->departamento;            
+        }else{
+            $key_filtro = 'cod_curso';
+            $value_filtro = $request->curso;
+        }
+
+
+        if($tipo == 'anual'){
+            $dado = 
+                ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa, $tipo_pesquisa, $limit_ini) {
+                    return $query->where($key_filtro,$value_filtro)
+                    ->where('bolsa', '=', $bolsa)
+                    ->where('tipo', '=', $tipo_pesquisa)
+                    ->where('ano_proj', $limit_ini);
+                })->get()->toArray();
+                
+        }else if ($tipo  == 'ativo'){
+            $dado = 
+                ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa, $tipo_pesquisa) {
+                    return $query->where($key_filtro,$value_filtro)
+                    ->where('bolsa', '=', $bolsa)
+                    ->where('tipo', '=', $tipo_pesquisa);
+                })->where(function ($query) use ($limit_ini) {
+                    return $query->whereYear('data_fim', '=', $limit_ini)
+                        ->orWhereYear('data_fim', '>', $limit_ini)
+                        ->orWhereYear('data_fim', '=', null);
+                })->get()->toArray();
+        }else if($tipo == 'periodo'){
+            $dado = 
+                ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa, $tipo_pesquisa) {
+                    return $query->where($key_filtro,$value_filtro)
+                    ->where('bolsa', '=', $bolsa)
+                    ->where('tipo', '=', $tipo_pesquisa);
+                })->where(function ($query) use ($limit_ini, $limit_fim) {
+                    return $query->whereBetween('data_ini', ["$limit_ini-01-01", "$limit_fim-12-31"])
+                        ->orWhereBetween('data_fim', ["$limit_ini-01-01", "$limit_fim-12-31"])
+                        ->orWhereBetween('ano_proj', ["$limit_ini-01-01", "$limit_fim-12-31"]);
+                })->get()->toArray();
+        }else if($tipo == 'tudo'){
+            $dado = 
+                ComissaoPesquisa::where(function ($query) use ($key_filtro, $value_filtro, $bolsa, $tipo_pesquisa) {
+                    return $query->where($key_filtro,$value_filtro)
+                    ->where('bolsa', '=', $bolsa)
+                    ->where('tipo', '=', $tipo_pesquisa);
+                })->get()->toArray();
+        }
+
+        return $dado;
+
+    }
+
+    public static function listarPesquisasPosDoutorandos(Request $request){
+        $pd = ComissaoPesquisa::filtrar($request, 'PD');
 
         $retorno = [];
         if($pd){
@@ -270,7 +323,12 @@ class ComissaoPesquisa extends Model
                         "titulo_pesquisa" => $p["titulo_pesquisa"],
                         "data_ini" => $p["data_ini"],
                         "data_fim" => $p["data_fim"],
-                        "bolsa" => $p["bolsa"],
+                        "bolsa" => $p["bolsa"],  
+                        "apoio_financeiro" => $p["apoio_financeiro"],
+                        "agencia_fomento" => $p["agencia_fomento"],
+                        "dtainibol" => $p["dtainibol"],
+                        "dtafimbol" => $p["dtainibol"], 
+                        "obs" => $p["obs"],
                         "sigla_departamento" => $p["sigla_departamento"],
                         "nome_departamento" => $p["nome_departamento"],
                         "cod_curso" => $p["cod_curso"],
