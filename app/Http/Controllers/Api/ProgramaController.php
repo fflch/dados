@@ -22,7 +22,7 @@ class ProgramaController extends Controller
         }
         
         return response()->json(
-            Programa::index(),
+           ['programas' => $programas, 'departamentos' => $departamentos],
             200, [], JSON_UNESCAPED_UNICODE
         );
     }
