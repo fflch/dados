@@ -14,6 +14,14 @@ use App\Utils\Util;
 
 class ProgramaController extends Controller
 {
+
+    /**
+     * Listar Programas
+     *
+     * Retorna uma lista com os programas de pós graduação e uma lista dos departamentos .
+     * 
+     * @group Dados de produção acadêmica
+     */
     public function index(){
         $programas = Programa::index()['programas'];
         $departamentos = Programa::index()['departamentos'];
@@ -27,6 +35,14 @@ class ProgramaController extends Controller
         );
     }
     
+
+    /**
+     * TESTE
+     *
+     * teste teset
+     * 
+     * @group TESTE
+     */
     public function obterOrcid(){
         return response()->json(
             Programa::obterOrcid(),
