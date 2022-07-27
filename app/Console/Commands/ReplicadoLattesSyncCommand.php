@@ -128,14 +128,15 @@ class ReplicadoLattesSyncCommand extends Command
 
     private function sync_comissao_pesquisa(){
          //projetos de pesquisa dos docentes
+         ComissaoPesquisa::where('tipo', 'PP')->delete(); 
+
          foreach(Util::getDepartamentos() as $key=>$value){
              foreach(Pessoa::listarDocentes($value[0]) as $docente){
                  $pesquisas  = Lattes::listarProjetosPesquisa($docente['codpes'], null, 'anual', -1, null);
                  $docente = Uteis::utf8_converter($docente);
                  if(isset($pesquisas) && is_array($pesquisas) && count($pesquisas) > 0){
                      foreach($pesquisas as $pesquisa){
-                         $comissao = ComissaoPesquisa::where('codpes_discente',$docente['codpes'])->where('titulo_pesquisa',$pesquisa['NOME-DO-PROJETO'] )->first();
-                         if(!$comissao) $comissao = new ComissaoPesquisa;
+                         $comissao = new ComissaoPesquisa;
 
                          $comissao->titulo_pesquisa = $pesquisa['NOME-DO-PROJETO'];
                          $comissao->codpes_discente = $docente['codpes'];

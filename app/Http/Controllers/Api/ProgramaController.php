@@ -30,7 +30,7 @@ class ProgramaController extends Controller
         }
         
         return response()->json(
-            Programa::index(),
+           ['programas' => $programas, 'departamentos' => $departamentos],
             200, [], JSON_UNESCAPED_UNICODE
         );
     }
@@ -43,13 +43,13 @@ class ProgramaController extends Controller
             $departamento = Programa::where('codare', 0)->get()->first();
             $json = json_decode($departamento->json, true);
             $departamento = array_values(array_filter($json, function($a) use ($codare) { return $a['sigla'] == $codare; }))[0];
-            $docentes = Programa::listarPessoa($departamento['codpes_docentes'], $filtro, false, 'docentes', false);
+            $docentes = Programa::listarPessoa($departamento['id_lattes_docentes'], $filtro, false, 'docentes', false);
         }else{
             $model_programa = Programa::where('codare', $codare)->get()->first();
             $json = json_decode($model_programa->json, true);
             $docentes = Programa::listarPessoa($json['docentes'], $filtro, false, 'docentes', false);
         }
-        
+
         return response()->json(
             $docentes
         );

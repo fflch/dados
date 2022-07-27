@@ -410,9 +410,11 @@ class ReplicadoTemp
         inner join
             SETOR s ON s.codset = ic.codsetprj
         where
+        ic.staprj in ('Ativo', 'Aprovado', 'Transferido') and
         ic.codundprj in (__unidades__)
         __data__
         __departamento__
+        HAVING DATEDIFF(DAY, dtainiprj, dtafimprj) >= 30
         ORDER BY p1.nompes";
 
         $query = str_replace('__unidades__',$unidades,$query);
@@ -497,6 +499,29 @@ class ReplicadoTemp
             array_push($iniciacao_cientifica, $ic);
         }
         return $iniciacao_cientifica;
+    }
+
+    public static function listarICsRepetidasComStatusTransferido(){
+         $unidades = getenv('REPLICADO_CODUNDCLG');
+
+        $query = "SELECT transferido.codprj as 'codproj transferido', transferido .anoprj as 'anoproj transferido', aprovado.codprj as 'codproj aprovado', aprovado.anoprj as 'anoprj aprovado' 
+        from ICTPROJETO transferido 
+        right join 
+            (
+                select codundprj, codsetprj, anoprj, titprj, codpesalu, codprj 
+                from ICTPROJETO  
+                where  staprj in ('Ativo', 'Aprovado')
+            ) aprovado on (transferido.codundprj = aprovado.codundprj and transferido.codsetprj = aprovado.codsetprj and transferido.anoprj = aprovado.anoprj 
+                    and str_replace(UPPER(transferido.titprj), '.', '') = str_replace(UPPER(aprovado.titprj), '.', '')
+                    and transferido.codpesalu = aprovado.codpesalu) 
+        where transferido.staprj = 'Transferido'
+        and transferido.codundprj in (__unidades__)
+        HAVING DATEDIFF(DAY, transferido.dtainiprj, transferido.dtafimprj) >= 30";
+        
+        $query = str_replace('__unidades__',$unidades,$query);
+        
+        return DB::fetchAll($query); 
+
     }
 
 }

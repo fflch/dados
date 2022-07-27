@@ -1,13 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\AlunosAtivosPorCursoController;
+use App\Http\Controllers\Api\ColegiadoController;
 use App\Http\Controllers\Api\DefesaController;
 use App\Http\Controllers\Api\PessoaController;
-use App\Http\Controllers\Api\ProgramaController;
 use App\Http\Controllers\Api\PesquisaController;
+use App\Http\Controllers\Api\ProgramaController;
+use Illuminate\Support\Facades\Route;
 
 
+#Dados de produção acadêmica
 Route::get('/defesas', [DefesaController::class, 'index']);
 
 Route::get('/programas', [ProgramaController::class, 'index']);
@@ -19,6 +21,7 @@ Route::get('/programas/docente/{codpes}', [ProgramaController::class, 'docente']
 Route::get('/programas/discente/{codpes}', [ProgramaController::class, 'discente']);
 Route::get('/programas/egresso/{codpes}', [ProgramaController::class, 'egresso']);
 
+#Sites Drupal FFLCH
 Route::get('/docentes', [PessoaController::class, 'listarDocentes']);
 Route::get('/estagiarios', [PessoaController::class, 'listarEstagiarios']);
 Route::get('/monitores', [PessoaController::class, 'listarMonitores']);
@@ -34,5 +37,10 @@ Route::get('/pesquisa/pos_doutorandos', [PesquisaController::class, 'listarPesqu
 Route::get('/pesquisa/projetos_pesquisa', [PesquisaController::class, 'listarProjetosPesquisa']);
 Route::get('/pesquisa/pesquisadores_colaboradores', [PesquisaController::class, 'listarPesquisadoresColaboradores']);
 
+# Dados institucionais
+Route::get('/colegiados', [ColegiadoController::class, 'index']);
+Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
 
 
+# Dados por curso
+Route::get('/alunosAtivosPorCurso', [AlunosAtivosPorCursoController::class, 'index']);

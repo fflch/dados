@@ -55,8 +55,8 @@ Route::get('/ativosMicrosNotes', [AtivosMicrosNotesController::class, 'grafico']
 Route::get('/ativosMicrosNotes/export/{format}', [AtivosMicrosNotesController::class, 'export']);
 
 # totais de alunos ativo por curso
-Route::get('/alunosAtivosPorCurso/{tipvin}', [AlunosAtivosPorCursoController::class, 'grafico']);
-Route::get('/alunosAtivosPorCurso/export/{format}/{tipvin}', [AlunosAtivosPorCursoController::class, 'export']);
+Route::get('/alunosAtivosPorCurso', [AlunosAtivosPorCursoController::class, 'grafico']);
+Route::get('/alunosAtivosPorCurso/export/{format}', [AlunosAtivosPorCursoController::class, 'export']);
 
 # totais de funcionários, por departamento
 Route::get('/ativosDepartamento/{tipvin}/{codfnc}', [AtivosPorDepartamentoController::class, 'grafico']);

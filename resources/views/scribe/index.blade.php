@@ -30,9 +30,9 @@
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="{{ asset("/assets/scribe/js/tryitout-3.33.2.js") }}"></script>
+    <script src="{{ asset("/assets/scribe/js/tryitout-3.34.0.js") }}"></script>
 
-    <script src="{{ asset("/assets/scribe/js/theme-default-3.33.2.js") }}"></script>
+    <script src="{{ asset("/assets/scribe/js/theme-default-3.34.0.js") }}"></script>
 
 </head>
 
@@ -50,6 +50,7 @@
                                             <button type="button" class="lang-button" data-language-name="bash">bash</button>
                                             <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
                     </div>
+    
 
 
     <div id="toc">
@@ -67,6 +68,26 @@
                                                 </ul>
                     
                     <ul id="tocify-header-2" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="dados-por-curso">
+                    <a href="#dados-por-curso">Dados por curso</a>
+                </li>
+                                    <ul id="tocify-subheader-dados-por-curso" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="dados-por-curso-GETapi-alunosAtivosPorCurso">
+                        <a href="#dados-por-curso-GETapi-alunosAtivosPorCurso">Alunos Ativos Por Curso</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-3" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="dados-institucionais">
+                    <a href="#dados-institucionais">Dados institucionais</a>
+                </li>
+                                    <ul id="tocify-subheader-dados-institucionais" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="dados-institucionais-GETapi-colegiados">
+                        <a href="#dados-institucionais-GETapi-colegiados">Listar Colegiados</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-4" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="dados-de-producao-academica">
                     <a href="#dados-de-producao-academica">Dados de produção acadêmica</a>
                 </li>
@@ -79,7 +100,7 @@
                     </li>
                                                     </ul>
                             </ul>
-                    <ul id="tocify-header-3" class="tocify-header">
+                    <ul id="tocify-header-5" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="endpoints">
                     <a href="#endpoints">Endpoints</a>
                 </li>
@@ -135,6 +156,9 @@
                                     <li class="tocify-item level-2" data-unique="endpoints-GETapi-pesquisa-pesquisadores_colaboradores">
                         <a href="#endpoints-GETapi-pesquisa-pesquisadores_colaboradores">GET api/pesquisa/pesquisadores_colaboradores</a>
                     </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-colegiados--codclg---sglclg-">
+                        <a href="#endpoints-GETapi-colegiados--codclg---sglclg-">GET api/colegiados/{codclg}/{sglclg}</a>
+                    </li>
                                                     </ul>
                             </ul>
         
@@ -147,7 +171,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: July 18 2022</li>
+        <li>Last updated: July 27 2022</li>
     </ul>
 </div>
 
@@ -163,6 +187,451 @@
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
+
+        <h1 id="dados-por-curso">Dados por curso</h1>
+
+    
+
+            <h2 id="dados-por-curso-GETapi-alunosAtivosPorCurso">Alunos Ativos Por Curso</h2>
+
+<p>
+</p>
+
+<p>Retorna a quantidade de alunos de graduação ou pós doutorado (segundo o parâmetro) por curso.</p>
+
+<span id="example-requests-GETapi-alunosAtivosPorCurso">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/alunosAtivosPorCurso" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"tipvin\": \"ALUNOGR\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/alunosAtivosPorCurso"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "tipvin": "ALUNOGR"
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-alunosAtivosPorCurso">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 38
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;Ci&ecirc;ncias Sociais&quot;: &quot;1236&quot;,
+    &quot;Filosofia&quot;: &quot;967&quot;,
+    &quot;Geografia&quot;: &quot;1067&quot;,
+    &quot;Hist&oacute;ria&quot;: &quot;1601&quot;,
+    &quot;Letras&quot;: &quot;4867&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-alunosAtivosPorCurso" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-alunosAtivosPorCurso"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-alunosAtivosPorCurso"></code></pre>
+</span>
+<span id="execution-error-GETapi-alunosAtivosPorCurso" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-alunosAtivosPorCurso"></code></pre>
+</span>
+<form id="form-GETapi-alunosAtivosPorCurso" data-method="GET"
+      data-path="api/alunosAtivosPorCurso"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-alunosAtivosPorCurso', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-alunosAtivosPorCurso"
+                    onclick="tryItOut('GETapi-alunosAtivosPorCurso');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-alunosAtivosPorCurso"
+                    onclick="cancelTryOut('GETapi-alunosAtivosPorCurso');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-alunosAtivosPorCurso" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/alunosAtivosPorCurso</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>tipvin</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="tipvin"
+               data-endpoint="GETapi-alunosAtivosPorCurso"
+               value="ALUNOGR"
+               data-component="body" hidden>
+    <br>
+<p>Must be one of <code>ALUNOGR</code> or <code>ALUNOPD</code>.</p>
+        </p>
+        </form>
+
+        <h1 id="dados-institucionais">Dados institucionais</h1>
+
+    
+
+            <h2 id="dados-institucionais-GETapi-colegiados">Listar Colegiados</h2>
+
+<p>
+</p>
+
+<p>Retorna uma lista com os colegiados da FFLCH.</p>
+
+<span id="example-requests-GETapi-colegiados">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/colegiados" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/colegiados"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-colegiados">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 40
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">[
+    {
+        &quot;codclg&quot;: &quot;135&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado Ci&ecirc;ncias Socias&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;152&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Filosofia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;149&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Geografia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;151&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Hist&oacute;ria&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;160&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Ciclo B&aacute;sico&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;156&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&atilde;o: Lingu&iacute;stica&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;158&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&otilde;es: Alem&atilde;o / Espanhol / Franc&ecirc;s / Ingl&ecirc;s / Italiano&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;159&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&otilde;es: Portugu&ecirc;s / Grego / Latim&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;157&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Bacharelado em Letras - Habilita&ccedil;&otilde;es: &Aacute;rabe / Arm&ecirc;nio / Chin&ecirc;s / Coreano / Hebraico / Japon&ecirc;s / Russo&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;147&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Ci&ecirc;ncias Sociais&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;148&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Filosofia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;154&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Geografia&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;155&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Hist&oacute;ria&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;153&quot;,
+        &quot;sglclg&quot;: &quot;CoC&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Curso de Licenciatura em Letras&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;804&quot;,
+        &quot;sglclg&quot;: &quot;CCP&quot;,
+        &quot;nomclg&quot;: &quot;Comiss&atilde;o Coordenadora do Programa de Ci&ecirc;ncia Pol&iacute;tica&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CCEX&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CG&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CPG&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CPq&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CRInt&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Comiss&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CONGREG&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Congrega&ccedil;&atilde;o&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;591&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Antropologia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;602&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Ci&ecirc;ncia Pol&iacute;tica&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;594&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Filosofia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;596&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Geografia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;598&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Hist&oacute;ria&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;600&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Letras Modernas&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;601&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Letras Orientais&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;599&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Ling&uuml;&iacute;stica&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;604&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Sociologia&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;603&quot;,
+        &quot;sglclg&quot;: &quot;CoDepto&quot;,
+        &quot;nomclg&quot;: &quot;Conselho do Departamento de Teoria Liter&aacute;ria e Literatura Comparada&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;8&quot;,
+        &quot;sglclg&quot;: &quot;CTA&quot;,
+        &quot;nomclg&quot;: &quot;Faculdade de Filosofia, Letras e Ci&ecirc;ncias Humanas&quot;,
+        &quot;tipclg&quot;: &quot;Conselho&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;11&quot;,
+        &quot;sglclg&quot;: &quot;CEPID&quot;,
+        &quot;nomclg&quot;: &quot;Centro de Estudos da Metr&oacute;pole&quot;,
+        &quot;tipclg&quot;: &quot;Instituto Nacional&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;144&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Estudos das Diversidades, Intoler&acirc;ncias e dos Conflitos&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;284&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Estudos de Conflitos em Sociedades Desiguais&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;204&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Pesquisa em Etimologia e Hist&oacute;ria da L&iacute;ngua Portuguesa&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    },
+    {
+        &quot;codclg&quot;: &quot;257&quot;,
+        &quot;sglclg&quot;: &quot;NAP&quot;,
+        &quot;nomclg&quot;: &quot;N&uacute;cleo de Pesquisa em Rela&ccedil;&otilde;es Internacionais&quot;,
+        &quot;tipclg&quot;: &quot;N&uacute;cleo de Apoio&quot;
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-colegiados" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-colegiados"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-colegiados"></code></pre>
+</span>
+<span id="execution-error-GETapi-colegiados" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-colegiados"></code></pre>
+</span>
+<form id="form-GETapi-colegiados" data-method="GET"
+      data-path="api/colegiados"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-colegiados', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-colegiados"
+                    onclick="tryItOut('GETapi-colegiados');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-colegiados"
+                    onclick="cancelTryOut('GETapi-colegiados');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-colegiados" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/colegiados</code></b>
+        </p>
+                    </form>
 
         <h1 id="dados-de-producao-academica">Dados de produção acadêmica</h1>
 
@@ -185,8 +654,8 @@
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": \"2012\",
-    \"codcur\": \"8019\"
+    \"ano\": \"1992\",
+    \"codcur\": \"8020\"
 }"
 </code></pre></div>
 
@@ -202,8 +671,8 @@ const headers = {
 };
 
 let body = {
-    "ano": "2012",
-    "codcur": "8019"
+    "ano": "1992",
+    "codcur": "8020"
 };
 
 fetch(url, {
@@ -229,164 +698,7 @@ x-ratelimit-remaining: 59
  </code></pre>
         </details>         <pre>
 
-<code class="language-json">[
-    {
-        &quot;discente_id&quot;: &quot;F7A1162BAF0F&quot;,
-        &quot;defesa_id&quot;: &quot;348a9aceb2c6382abee78d6dba63c740&quot;,
-        &quot;nome&quot;: &quot;Andreia dos Santos Menezes&quot;,
-        &quot;nivel&quot;: &quot;DO&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Entre p&aacute;trias, pandeiros e &lt;i&gt;bandoneones&lt;/i&gt;: o embate entre vozes marginais e disciplinadoras em composi&ccedil;&otilde;es de samba e tango (1917 - 1945)&quot;,
-        &quot;titulo&quot;: &quot;Entre p&aacute;trias, pandeiros e bandoneones: o embate entre vozes marginais e disciplinadoras em composi&ccedil;&otilde;es de samba e tango (1917 - 1945)&quot;,
-        &quot;data&quot;: &quot;17/10/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;67A1355FC576&quot;,
-        &quot;defesa_id&quot;: &quot;e21b51783ac61f18ea5c6bfbd2659643&quot;,
-        &quot;nome&quot;: &quot;Cristiane Checchia&quot;,
-        &quot;nivel&quot;: &quot;DO&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Percep&ccedil;&atilde;o, recorda&ccedil;&atilde;o e linguagem - ensaio e fic&ccedil;&atilde;o em &lt;i&gt;El r&iacute;o sin orillas&lt;/i&gt;, de Juan Jos&eacute; Saer&quot;,
-        &quot;titulo&quot;: &quot;Percep&ccedil;&atilde;o, recorda&ccedil;&atilde;o e linguagem - ensaio e fic&ccedil;&atilde;o em El r&iacute;o sin orillas, de Juan Jos&eacute; Saer&quot;,
-        &quot;data&quot;: &quot;04/12/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;87A2BB6E5588&quot;,
-        &quot;defesa_id&quot;: &quot;9f0080f66725669b61066b378e256003&quot;,
-        &quot;nome&quot;: &quot;Ana Cristina Jutgla&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Julio Ram&oacute;n Ribeyro: a tenta&ccedil;&atilde;o da palavra&quot;,
-        &quot;titulo&quot;: &quot;Julio Ram&oacute;n Ribeyro: a tenta&ccedil;&atilde;o da palavra&quot;,
-        &quot;data&quot;: &quot;11/04/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;27A35B114A02&quot;,
-        &quot;defesa_id&quot;: &quot;e0a19e06919c6c66210ff4fd1f6b3270&quot;,
-        &quot;nome&quot;: &quot;Hemerson Emidio Siqueira&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Sil&ecirc;ncio e evoca&ccedil;&atilde;o na fic&ccedil;&atilde;o autobiogr&aacute;fica. Uma leitura de &lt;i&gt;Lenta Biografia&lt;/i&gt;, de Sergio Chejfec&quot;,
-        &quot;titulo&quot;: &quot;Sil&ecirc;ncio e evoca&ccedil;&atilde;o na fic&ccedil;&atilde;o autobiogr&aacute;fica. Uma leitura de Lenta Biografia, de Sergio Chejfec&quot;,
-        &quot;data&quot;: &quot;19/06/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;37A3796FEF63&quot;,
-        &quot;defesa_id&quot;: &quot;b01f6803e76028a745d626d6afdab1de&quot;,
-        &quot;nome&quot;: &quot;Marcelo Maciel Cerigioli&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Rafael Alberti: leituras do Museu do Prado&quot;,
-        &quot;titulo&quot;: &quot;Rafael Alberti: leituras do Museu do Prado&quot;,
-        &quot;data&quot;: &quot;23/03/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;37A42B7A9A83&quot;,
-        &quot;defesa_id&quot;: &quot;848f1dcbe91da9d7f5b75fcc7f6f1a13&quot;,
-        &quot;nome&quot;: &quot;Priscila Oliveira Vieira&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;&iquest;'Espa&ntilde;ol sin fronteras'? Ou entre fronteiras projetadas pelo imagin&aacute;rio e pelo real?&quot;,
-        &quot;titulo&quot;: &quot;&iquest;'Espa&ntilde;ol sin fronteras'? Ou entre fronteiras projetadas pelo imagin&aacute;rio e pelo real?&quot;,
-        &quot;data&quot;: &quot;23/07/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;67A4357E06D6&quot;,
-        &quot;defesa_id&quot;: &quot;33e4bac1cf464716cf0799755dc212ca&quot;,
-        &quot;nome&quot;: &quot;Giselle Cristina Gon&ccedil;alves Macedo&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Dom Quixote: poesia, cr&iacute;tica e tradu&ccedil;&atilde;o. Estudo dos versos preliminares de Dom Quixote e proposta de tradu&ccedil;&atilde;o&quot;,
-        &quot;titulo&quot;: &quot;Dom Quixote: poesia, cr&iacute;tica e tradu&ccedil;&atilde;o. Estudo dos versos preliminares de Dom Quixote e proposta de tradu&ccedil;&atilde;o&quot;,
-        &quot;data&quot;: &quot;24/02/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;97A553E82759&quot;,
-        &quot;defesa_id&quot;: &quot;4e9dc680080daab3fefe54d2b96e9129&quot;,
-        &quot;nome&quot;: &quot;Telma Aparecida F&eacute;lix da Matta Ccori&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;Estar con/estar com: aspectos da posse e rela&ccedil;&otilde;es adjacentes&quot;,
-        &quot;titulo&quot;: &quot;Estar con/estar com: aspectos da posse e rela&ccedil;&otilde;es adjacentes&quot;,
-        &quot;data&quot;: &quot;04/10/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;F7A5544827CF&quot;,
-        &quot;defesa_id&quot;: &quot;997a66813fd963a16dc92e438c1fa62a&quot;,
-        &quot;nome&quot;: &quot;Larissa Fostinone Locoselli&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;O ex&iacute;lio em fic&ccedil;&atilde;o: uma leitura de&lt;i&gt; Libro de nav&iacute;os y borrascas&lt;/i&gt;, de Daniel Moyano&quot;,
-        &quot;titulo&quot;: &quot;O ex&iacute;lio em fic&ccedil;&atilde;o: uma leitura de Libro de nav&iacute;os y borrascas, de Daniel Moyano&quot;,
-        &quot;data&quot;: &quot;01/06/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;A7A554D2F87A&quot;,
-        &quot;defesa_id&quot;: &quot;6a44a797c4ec51901804ef5bca9ea77a&quot;,
-        &quot;nome&quot;: &quot;Valeria da Silva Moraes&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;O c&ocirc;mico e o riso no &lt;i&gt;Quixote&lt;/i&gt;&quot;,
-        &quot;titulo&quot;: &quot;O c&ocirc;mico e o riso no Quixote&quot;,
-        &quot;data&quot;: &quot;30/03/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;57A58D542E05&quot;,
-        &quot;defesa_id&quot;: &quot;bb4c40d7720058ecb85222ea74a8c9e0&quot;,
-        &quot;nome&quot;: &quot;Paulo Augusto Almeida Seemann&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;A constru&ccedil;&atilde;o de um gloss&aacute;rio bil&iacute;ngue de futebol com o apoio da Lingu&iacute;stica de Corpus&quot;,
-        &quot;titulo&quot;: &quot;A constru&ccedil;&atilde;o de um gloss&aacute;rio bil&iacute;ngue de futebol com o apoio da Lingu&iacute;stica de Corpus&quot;,
-        &quot;data&quot;: &quot;26/03/2012&quot;
-    },
-    {
-        &quot;discente_id&quot;: &quot;C7A6955CF2FC&quot;,
-        &quot;defesa_id&quot;: &quot;0d652387feab9c7db608bc5d03d015e4&quot;,
-        &quot;nome&quot;: &quot;F&aacute;bio Barbosa de Lima&quot;,
-        &quot;nivel&quot;: &quot;ME&quot;,
-        &quot;codare&quot;: 8145,
-        &quot;codcur&quot;: 8019,
-        &quot;nomcur&quot;: &quot;Letras (L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana)&quot;,
-        &quot;nomare&quot;: &quot;L&iacute;ngua Espanhola e Literaturas Espanhola e Hispano-Americana&quot;,
-        &quot;titulo_html&quot;: &quot;&lt;i&gt;Parecer bom x parecer justo&lt;/i&gt; - o pedido de desculpas na gest&atilde;o da imagem nas intera&ccedil;&otilde;es midi&aacute;ticas&quot;,
-        &quot;titulo&quot;: &quot;Parecer bom x parecer justo - o pedido de desculpas na gest&atilde;o da imagem nas intera&ccedil;&otilde;es midi&aacute;ticas&quot;,
-        &quot;data&quot;: &quot;26/07/2012&quot;
-    }
-]</code>
+<code class="language-json">[]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-defesas" hidden>
@@ -434,7 +746,7 @@ x-ratelimit-remaining: 59
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-defesas"
-               value="2012"
+               value="1992"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>2022</code>, <code>2021</code>, <code>2020</code>, <code>2019</code>, <code>2018</code>, <code>2017</code>, <code>2016</code>, <code>2015</code>, <code>2014</code>, <code>2013</code>, <code>2012</code>, <code>2011</code>, <code>2010</code>, <code>2009</code>, <code>2008</code>, <code>2007</code>, <code>2006</code>, <code>2005</code>, <code>2004</code>, <code>2003</code>, <code>2002</code>, <code>2001</code>, <code>2000</code>, <code>1999</code>, <code>1998</code>, <code>1997</code>, <code>1996</code>, <code>1995</code>, <code>1994</code>, <code>1993</code>, <code>1992</code>, <code>1991</code>, <code>1990</code>, <code>1989</code>, <code>1988</code>, <code>1987</code>, <code>1986</code>, <code>1985</code>, <code>1984</code>, <code>1983</code>, <code>1982</code>, <code>1981</code>, <code>1980</code>, <code>1979</code>, <code>1978</code>, <code>1977</code>, <code>1976</code>, <code>1975</code>, <code>1974</code>, <code>1973</code>, <code>1972</code>, <code>1971</code>, <code>1970</code>, <code>1969</code>, <code>1968</code>, <code>1967</code>, <code>1966</code>, <code>1965</code>, <code>1964</code>, <code>1963</code>, <code>1962</code>, <code>1961</code>, <code>1960</code>, <code>1959</code>, <code>1958</code>, <code>1957</code>, <code>1956</code>, <code>1955</code>, <code>1954</code>, <code>1953</code>, <code>1952</code>, <code>1951</code>, or <code>1950</code>.</p>
@@ -444,7 +756,7 @@ x-ratelimit-remaining: 59
                 <input type="number"
                name="codcur"
                data-endpoint="GETapi-defesas"
-               value="8019"
+               value="8020"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>8004</code>, <code>8001</code>, <code>8020</code>, <code>8013</code>, <code>8003</code>, <code>8006</code>, <code>8007</code>, <code>8009</code>, <code>8010</code>, <code>8030</code>, <code>8012</code>, <code>8014</code>, <code>8026</code>, <code>8019</code>, <code>8015</code>, <code>8017</code>, <code>8022</code>, <code>8027</code>, <code>8016</code>, <code>8023</code>, <code>8024</code>, <code>8031</code>, or <code>8011</code>.</p>
@@ -537,7 +849,6 @@ x-ratelimit-remaining: 58
                 8846367256751187,
                 6734760027498076,
                 1819969410137713,
-                8981527890223286,
                 4097286915046638
             ],
             &quot;discentes&quot;: [
@@ -586,7 +897,6 @@ x-ratelimit-remaining: 58
                 3340271837257912,
                 8291074214067254,
                 5166977107172537,
-                8813908942009421,
                 8269792840810631,
                 7129942462236869,
                 6940493917341785,
@@ -1225,6 +1535,7 @@ x-ratelimit-remaining: 58
                 8291074214067254,
                 5166977107172537,
                 6192836469730002,
+                8813908942009421,
                 4415056025299963,
                 8269792840810631,
                 8055069018195920,
@@ -1308,9 +1619,9 @@ x-ratelimit-remaining: 58
                 8751234242150459,
                 null
             ],
-            &quot;total_docentes&quot;: 30,
-            &quot;total_discentes&quot;: 144,
-            &quot;total_egressos&quot;: 620
+            &quot;total_docentes&quot;: 29,
+            &quot;total_discentes&quot;: 143,
+            &quot;total_egressos&quot;: 621
         },
         {
             &quot;codcur&quot;: &quot;8001&quot;,
@@ -1340,7 +1651,6 @@ x-ratelimit-remaining: 58
                 9033064139380328,
                 9213941504816610,
                 3752790499157008,
-                9156992025883151,
                 5731204478066614
             ],
             &quot;discentes&quot;: [
@@ -1473,7 +1783,6 @@ x-ratelimit-remaining: 58
                 1622117814678585,
                 4921020464438395,
                 6015849289289720,
-                3924307291010520,
                 2184164484558824,
                 2817168740453046,
                 1374320960534339,
@@ -2049,6 +2358,7 @@ x-ratelimit-remaining: 58
                 8152260383761006,
                 9109409254562099,
                 2701620591422140,
+                8332572093790660,
                 8896987359458278,
                 4973950209936585,
                 8355608000520035,
@@ -2123,6 +2433,7 @@ x-ratelimit-remaining: 58
                 6199899701481752,
                 8732163262960661,
                 1622117814678585,
+                3924307291010520,
                 6409169207126643,
                 5716612042941495,
                 7349506014373017,
@@ -2133,9 +2444,9 @@ x-ratelimit-remaining: 58
                 8155562496788411,
                 null
             ],
-            &quot;total_docentes&quot;: 24,
-            &quot;total_discentes&quot;: 198,
-            &quot;total_egressos&quot;: 588
+            &quot;total_docentes&quot;: 23,
+            &quot;total_discentes&quot;: 197,
+            &quot;total_egressos&quot;: 590
         },
         {
             &quot;codcur&quot;: &quot;8020&quot;,
@@ -2176,7 +2487,6 @@ x-ratelimit-remaining: 58
                 220717283536042,
                 811390298348235,
                 7770046310736599,
-                4400327694225828,
                 999668454079390,
                 8094048999132765,
                 8252665893234030,
@@ -2191,7 +2501,6 @@ x-ratelimit-remaining: 58
                 2807060436568924,
                 3108412211982761,
                 3316316786201821,
-                8873528701658787,
                 4832751424256021,
                 3124084211115883,
                 null,
@@ -2710,7 +3019,7 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 22,
-            &quot;total_discentes&quot;: 100,
+            &quot;total_discentes&quot;: 98,
             &quot;total_egressos&quot;: 439
         },
         {
@@ -2721,8 +3030,6 @@ x-ratelimit-remaining: 58
             &quot;docentes&quot;: [
                 1928032004153127,
                 9001752376974127,
-                6814316768356981,
-                7015461594398552,
                 8534860989359562,
                 5827725960051025,
                 9911064074235775,
@@ -3501,7 +3808,7 @@ x-ratelimit-remaining: 58
                 null,
                 458172264111730
             ],
-            &quot;total_docentes&quot;: 29,
+            &quot;total_docentes&quot;: 27,
             &quot;total_discentes&quot;: 142,
             &quot;total_egressos&quot;: 606
         },
@@ -3702,7 +4009,6 @@ x-ratelimit-remaining: 58
                 1273760754758107,
                 726796983827055,
                 9116097791915333,
-                3979421263957948,
                 5160961984794797,
                 798334269280674,
                 6400258829895415,
@@ -3796,8 +4102,6 @@ x-ratelimit-remaining: 58
                 4396839688584241,
                 5168220154708661,
                 8609533360169137,
-                5439101795499567,
-                6157897149135125,
                 6994895256788718,
                 602960270657514,
                 7025850521203583,
@@ -3847,8 +4151,7 @@ x-ratelimit-remaining: 58
                 null,
                 7202973056743632,
                 null,
-                null,
-                8256734873519552
+                null
             ],
             &quot;egressos&quot;: [
                 723788857735521,
@@ -4755,6 +5058,7 @@ x-ratelimit-remaining: 58
                 1251106008647090,
                 9715413969576529,
                 1884997419752167,
+                3979421263957948,
                 798334269280674,
                 6400258829895415,
                 6100137620864390,
@@ -4801,11 +5105,13 @@ x-ratelimit-remaining: 58
                 7056982363462603,
                 5709027480868691,
                 3537386106760841,
+                5439101795499567,
+                6157897149135125,
                 9803188462214080,
                 9920141504285314
             ],
             &quot;total_docentes&quot;: 52,
-            &quot;total_discentes&quot;: 284,
+            &quot;total_discentes&quot;: 280,
             &quot;total_egressos&quot;: 0
         },
         {
@@ -4838,6 +5144,7 @@ x-ratelimit-remaining: 58
                 9901659138892181,
                 9867581824469995,
                 8486438245852405,
+                2872828167323397,
                 7366900005305211,
                 7172560532640945,
                 8321521908018677,
@@ -4863,6 +5170,7 @@ x-ratelimit-remaining: 58
                 3613804718658718,
                 6674659125865134,
                 3999622185270793,
+                6518136369102737,
                 7977601182464592,
                 587686136570088,
                 2615722256499543,
@@ -4923,7 +5231,18 @@ x-ratelimit-remaining: 58
                 9079644153057929,
                 6018225299952002,
                 4599610045377844,
-                5305558868551051
+                5305558868551051,
+                6871196836390575,
+                null,
+                4252525253779644,
+                7257179187708322,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
             ],
             &quot;egressos&quot;: [
                 1370984784456303,
@@ -5515,7 +5834,7 @@ x-ratelimit-remaining: 58
                 6836712282066672
             ],
             &quot;total_docentes&quot;: 15,
-            &quot;total_discentes&quot;: 93,
+            &quot;total_discentes&quot;: 106,
             &quot;total_egressos&quot;: 587
         },
         {
@@ -5558,7 +5877,8 @@ x-ratelimit-remaining: 58
                 7197105021122138,
                 7931074433827497,
                 6275092777732219,
-                7242310807399942
+                7242310807399942,
+                null
             ],
             &quot;discentes&quot;: [
                 6777078562223073,
@@ -5766,7 +6086,6 @@ x-ratelimit-remaining: 58
                 2283437945971877,
                 6213441594108644,
                 5269143440003982,
-                5474755952425857,
                 958774142206276,
                 190534300215885,
                 1435405097730134,
@@ -5856,6 +6175,7 @@ x-ratelimit-remaining: 58
                 3248633694509680,
                 9788519621486260,
                 9750175419050852,
+                null,
                 null
             ],
             &quot;egressos&quot;: [
@@ -7158,7 +7478,7 @@ x-ratelimit-remaining: 58
                 4697809592540721,
                 1248631456407324,
                 4688426430974399,
-                0,
+                4058257415404281,
                 3767105940772464,
                 6623802473312058,
                 1757865587417751,
@@ -7186,6 +7506,7 @@ x-ratelimit-remaining: 58
                 9973916653900973,
                 821034081918768,
                 7267134539047419,
+                5474755952425857,
                 1982399030611587,
                 4213222861038842,
                 2064084768001310,
@@ -7216,7 +7537,7 @@ x-ratelimit-remaining: 58
                 5984576916324144,
                 9666330489628550
             ],
-            &quot;total_docentes&quot;: 35,
+            &quot;total_docentes&quot;: 36,
             &quot;total_discentes&quot;: 296,
             &quot;total_egressos&quot;: 0
         },
@@ -7271,11 +7592,11 @@ x-ratelimit-remaining: 58
                 4255670843354064,
                 6043776104304388,
                 1815138259489206,
+                7589696570159142,
                 1015303915651053,
                 2627557582721458,
                 1250785756842974,
                 2512139876898825,
-                6836128933246247,
                 7651480606846795,
                 3433184947043148,
                 1746513699945641,
@@ -7297,12 +7618,14 @@ x-ratelimit-remaining: 58
                 7836648239474092,
                 2552629813303515,
                 1649762351497266,
+                8870447624647179,
                 7507259354254653,
                 8380735381897831,
                 4246286283397817,
                 7654915701209574,
                 826308371657978,
                 1639579219934473,
+                3217068793114228,
                 3947098619555588,
                 7157462729993043,
                 5883169142267457,
@@ -7311,10 +7634,10 @@ x-ratelimit-remaining: 58
                 210082851051504,
                 4159539963430201,
                 3036984731279125,
+                6251015559780154,
                 5377913680867037,
                 4949365245747959,
                 5142283364994066,
-                5254281316314300,
                 7904921324819047,
                 8276476426408480,
                 9945013147382776,
@@ -7322,8 +7645,10 @@ x-ratelimit-remaining: 58
                 725784923212611,
                 600687294127046,
                 2754263838983497,
+                3095107003711526,
                 9635485591472871,
                 5475758928700247,
+                4064172417450610,
                 9791474624070516,
                 7141269747130219,
                 6990159403879839,
@@ -7333,6 +7658,7 @@ x-ratelimit-remaining: 58
                 7784109306616961,
                 111804111639716,
                 null,
+                9511172250372450,
                 null,
                 null,
                 411644383372389,
@@ -7345,12 +7671,23 @@ x-ratelimit-remaining: 58
                 null,
                 7066692392643863,
                 null,
-                6353879106732051,
                 8867594646354779,
                 null,
                 null,
                 8111249396251332,
                 2398780743428953,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                3238122434983369,
+                8249603213567310,
+                404847073084962,
+                8635345077801584,
+                null,
+                8949916537887563,
                 null,
                 null,
                 null,
@@ -7950,6 +8287,7 @@ x-ratelimit-remaining: 58
                 7315031720547115,
                 1004978982641456,
                 1067133547088186,
+                5254281316314300,
                 8212894818312542,
                 7559727733430453,
                 7675437225150208,
@@ -7971,8 +8309,8 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 27,
-            &quot;total_discentes&quot;: 102,
-            &quot;total_egressos&quot;: 610
+            &quot;total_discentes&quot;: 118,
+            &quot;total_egressos&quot;: 611
         },
         {
             &quot;codcur&quot;: &quot;8010&quot;,
@@ -7994,7 +8332,6 @@ x-ratelimit-remaining: 58
                 6588520259287519,
                 790053349816616,
                 8185840471398727,
-                1341470778292869,
                 3736464920810436,
                 9276590151526541,
                 304165715457488,
@@ -8021,7 +8358,6 @@ x-ratelimit-remaining: 58
                 3976686234231363,
                 1250692781738939,
                 2963893225378313,
-                3105926042910211,
                 4708835867585895,
                 3832899650261334,
                 9144568282558054,
@@ -8035,7 +8371,6 @@ x-ratelimit-remaining: 58
                 2604594578715465,
                 6017086397928600,
                 3661026080365781,
-                1658785104998931,
                 450587057750405,
                 1193070856297936,
                 2832763867853,
@@ -8220,7 +8555,6 @@ x-ratelimit-remaining: 58
                 6953772263694320,
                 1563452598534121,
                 829255372711321,
-                6454497504913193,
                 1095960538541480,
                 6714797012716026,
                 5923456727678027,
@@ -8282,7 +8616,6 @@ x-ratelimit-remaining: 58
                 9633087904246029,
                 2498257946977780,
                 2143140538275377,
-                1890064953702222,
                 9237191926280807,
                 1860402833011559,
                 936273796196530,
@@ -10162,6 +10495,7 @@ x-ratelimit-remaining: 58
                 2691610030818621,
                 5177688441852035,
                 4198916584313301,
+                6454497504913193,
                 361131620545461,
                 3568624313421262,
                 6173928821953671,
@@ -10259,8 +10593,8 @@ x-ratelimit-remaining: 58
                 4526176904447447,
                 null
             ],
-            &quot;total_docentes&quot;: 62,
-            &quot;total_discentes&quot;: 360,
+            &quot;total_docentes&quot;: 59,
+            &quot;total_discentes&quot;: 358,
             &quot;total_egressos&quot;: 0
         },
         {
@@ -10320,7 +10654,6 @@ x-ratelimit-remaining: 58
                 5789916750803509,
                 944372429232856,
                 null,
-                1420880361700866,
                 2268615633339630,
                 9614045261808439,
                 754826730922962,
@@ -10568,6 +10901,7 @@ x-ratelimit-remaining: 58
                 3006977913707614,
                 2295020950329662,
                 575666522648107,
+                1420880361700866,
                 9846571991942954,
                 3707731487652877,
                 9022736253786280,
@@ -10647,8 +10981,8 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 37,
-            &quot;total_discentes&quot;: 248,
-            &quot;total_egressos&quot;: 87
+            &quot;total_discentes&quot;: 247,
+            &quot;total_egressos&quot;: 88
         },
         {
             &quot;codcur&quot;: &quot;8012&quot;,
@@ -11215,7 +11549,6 @@ x-ratelimit-remaining: 58
                 9141517494456286,
                 834350625904030,
                 6212096965472629,
-                834202082629295,
                 4829873824662045,
                 2132479080702500,
                 3824273016503909,
@@ -11253,6 +11586,7 @@ x-ratelimit-remaining: 58
                 8501302311818290,
                 7540007698986717,
                 7127103376587788,
+                5268804187002119,
                 2714282590546896,
                 8666243163052271,
                 5066487949763585,
@@ -11287,7 +11621,8 @@ x-ratelimit-remaining: 58
                 262703551113790,
                 null,
                 5398391455886903,
-                1474548240219069
+                1474548240219069,
+                7200632998926474
             ],
             &quot;egressos&quot;: [
                 748342737698109,
@@ -11552,8 +11887,8 @@ x-ratelimit-remaining: 58
                 1872501825193428,
                 3176878317434251
             ],
-            &quot;total_docentes&quot;: 22,
-            &quot;total_discentes&quot;: 61,
+            &quot;total_docentes&quot;: 21,
+            &quot;total_discentes&quot;: 63,
             &quot;total_egressos&quot;: 261
         },
         {
@@ -11997,7 +12332,6 @@ x-ratelimit-remaining: 58
                 8329947407092710,
                 8897315736178768,
                 3740703667629509,
-                8059652893399338,
                 8310512363826765,
                 1013329152212651,
                 4840937608092398,
@@ -12014,6 +12348,11 @@ x-ratelimit-remaining: 58
                 null,
                 3390727275241440,
                 890045643640690,
+                null,
+                1719989027310850,
+                null,
+                null,
+                null,
                 null
             ],
             &quot;egressos&quot;: [
@@ -12317,6 +12656,7 @@ x-ratelimit-remaining: 58
                 2456046525972704,
                 2625690960471858,
                 9315999510482128,
+                8059652893399338,
                 8310512363826765,
                 5694724000439452,
                 6100300887595233,
@@ -12331,8 +12671,8 @@ x-ratelimit-remaining: 58
                 5960014955845867
             ],
             &quot;total_docentes&quot;: 16,
-            &quot;total_discentes&quot;: 52,
-            &quot;total_egressos&quot;: 312
+            &quot;total_discentes&quot;: 56,
+            &quot;total_egressos&quot;: 313
         },
         {
             &quot;codcur&quot;: &quot;8015&quot;,
@@ -12389,6 +12729,9 @@ x-ratelimit-remaining: 58
                 null,
                 3531872349636068,
                 3964478085402253,
+                null,
+                6677876638206026,
+                null,
                 null
             ],
             &quot;egressos&quot;: [
@@ -12598,7 +12941,7 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 15,
-            &quot;total_discentes&quot;: 33,
+            &quot;total_discentes&quot;: 36,
             &quot;total_egressos&quot;: 204
         },
         {
@@ -12663,7 +13006,10 @@ x-ratelimit-remaining: 58
                 6273924076652511,
                 null,
                 6678907063395630,
-                8733229545395809
+                8733229545395809,
+                2317532059324093,
+                null,
+                6329930366334409
             ],
             &quot;egressos&quot;: [
                 3544688779202704,
@@ -12882,7 +13228,7 @@ x-ratelimit-remaining: 58
                 5383700005394306
             ],
             &quot;total_docentes&quot;: 13,
-            &quot;total_discentes&quot;: 42,
+            &quot;total_discentes&quot;: 45,
             &quot;total_egressos&quot;: 214
         },
         {
@@ -12953,7 +13299,13 @@ x-ratelimit-remaining: 58
                 null,
                 557188831773065,
                 8507243884499926,
-                1216749567060428
+                1216749567060428,
+                null,
+                7752952899630972,
+                1419486358005354,
+                null,
+                null,
+                null
             ],
             &quot;egressos&quot;: [
                 8657238562152853,
@@ -13081,7 +13433,7 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 14,
-            &quot;total_discentes&quot;: 47,
+            &quot;total_discentes&quot;: 53,
             &quot;total_egressos&quot;: 123
         },
         {
@@ -13746,12 +14098,13 @@ x-ratelimit-remaining: 58
                 1777138541122317,
                 4114561932994831,
                 2748218634057827,
+                6863376037688171,
                 639136389855040,
                 null
             ],
             &quot;total_docentes&quot;: 26,
             &quot;total_discentes&quot;: 138,
-            &quot;total_egressos&quot;: 490
+            &quot;total_egressos&quot;: 491
         },
         {
             &quot;codcur&quot;: &quot;8016&quot;,
@@ -14138,6 +14491,7 @@ x-ratelimit-remaining: 58
                 4590882730765154,
                 3724335756898873,
                 7545442852228411,
+                9702341955572629,
                 4480662137143946,
                 4536696719289904,
                 166657382728616,
@@ -14145,7 +14499,10 @@ x-ratelimit-remaining: 58
                 null,
                 7405550455901327,
                 null,
-                4374976778856241
+                4374976778856241,
+                null,
+                null,
+                null
             ],
             &quot;egressos&quot;: [
                 9832814027119560,
@@ -14155,7 +14512,7 @@ x-ratelimit-remaining: 58
                 114668898718241
             ],
             &quot;total_docentes&quot;: 10,
-            &quot;total_discentes&quot;: 24,
+            &quot;total_discentes&quot;: 28,
             &quot;total_egressos&quot;: 5
         },
         {
@@ -14223,6 +14580,7 @@ x-ratelimit-remaining: 58
                 6597596814537809,
                 9682803577349371,
                 8627432983978682,
+                4073244594343318,
                 null,
                 null,
                 1128726571314897,
@@ -14230,7 +14588,14 @@ x-ratelimit-remaining: 58
                 811159834779311,
                 null,
                 3918703475734449,
-                8635109158082251
+                8635109158082251,
+                null,
+                null,
+                8358760609892184,
+                8208956382903896,
+                4533388488148348,
+                4117896428258119,
+                null
             ],
             &quot;egressos&quot;: [
                 2027299026842348,
@@ -14247,7 +14612,7 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 23,
-            &quot;total_discentes&quot;: 42,
+            &quot;total_discentes&quot;: 50,
             &quot;total_egressos&quot;: 12
         },
         {
@@ -14288,12 +14653,13 @@ x-ratelimit-remaining: 58
                 8463210625459522,
                 5369548868584645,
                 6547246216885699,
-                3496670385780558,
                 9353336529809858,
                 1028456785678270,
                 4298333771882171,
                 5498931744236003,
                 5208540184125892,
+                6773811044382936,
+                3918783515132787,
                 3608303390813272,
                 2649727199881704,
                 null,
@@ -14306,6 +14672,7 @@ x-ratelimit-remaining: 58
                 5532567153141008,
                 4421071969574410,
                 1598677264477335,
+                3849949260073435,
                 1685791167891472,
                 9966130674521454,
                 7722093312168487,
@@ -14329,11 +14696,25 @@ x-ratelimit-remaining: 58
                 4977483448970554,
                 null,
                 8734835339643606,
-                764662933124911
+                764662933124911,
+                null,
+                null,
+                null,
+                3869789513568066,
+                1031554285363048,
+                null,
+                2745679417087616,
+                null,
+                2973889461372540,
+                3790564638287624,
+                5253377398416276,
+                null,
+                null
             ],
             &quot;egressos&quot;: [
                 5842491769708130,
                 7477149386891493,
+                3496670385780558,
                 8364016452373853,
                 7447705543915946,
                 5498931744236003,
@@ -14349,8 +14730,8 @@ x-ratelimit-remaining: 58
                 null
             ],
             &quot;total_docentes&quot;: 16,
-            &quot;total_discentes&quot;: 56,
-            &quot;total_egressos&quot;: 15
+            &quot;total_discentes&quot;: 71,
+            &quot;total_egressos&quot;: 16
         },
         {
             &quot;codcur&quot;: &quot;8023&quot;,
@@ -14399,6 +14780,7 @@ x-ratelimit-remaining: 58
                 2505745972321770,
                 9902092340005878,
                 1596240377172934,
+                3128714416900774,
                 3044755238717194,
                 9844403149980049,
                 179758476641843,
@@ -14413,6 +14795,8 @@ x-ratelimit-remaining: 58
                 6111069189059770,
                 883092380904264,
                 6502560379807686,
+                7151624288187554,
+                7773839932672157,
                 4835570836719101,
                 4482526965674240,
                 5476207767373512,
@@ -14446,10 +14830,12 @@ x-ratelimit-remaining: 58
                 4378949546195664,
                 5348643850628769,
                 1566872227572381,
+                1666535933416705,
                 233056566972134,
                 7408859711434041,
                 null,
                 null,
+                2546515564872600,
                 null,
                 2378696500654632,
                 955192396612668,
@@ -14461,6 +14847,7 @@ x-ratelimit-remaining: 58
                 428814382315070,
                 null,
                 9718945971171791,
+                3281891321048543,
                 null,
                 7982550652283152,
                 null,
@@ -14481,7 +14868,10 @@ x-ratelimit-remaining: 58
                 6103105372930318,
                 9275885609709067,
                 2608694044447480,
-                6197447219242840
+                6197447219242840,
+                6887840423958174,
+                null,
+                null
             ],
             &quot;egressos&quot;: [
                 1265582261887757,
@@ -15229,7 +15619,7 @@ x-ratelimit-remaining: 58
                 2924381543074488
             ],
             &quot;total_docentes&quot;: 25,
-            &quot;total_discentes&quot;: 97,
+            &quot;total_discentes&quot;: 106,
             &quot;total_egressos&quot;: 743
         },
         {
@@ -15246,8 +15636,6 @@ x-ratelimit-remaining: 58
                 2979125182455792,
                 5935860341751427,
                 6252177082780748,
-                724817770622355,
-                1513657527872137,
                 9229551458400059,
                 11670492920467,
                 8569060658645361,
@@ -15346,7 +15734,6 @@ x-ratelimit-remaining: 58
                 7842549612179140,
                 6983297029386192,
                 5950091221806138,
-                3786528545898165,
                 7499530879368165,
                 4162394368708461,
                 8717936602263224,
@@ -15829,12 +16216,13 @@ x-ratelimit-remaining: 58
                 9769753108416479,
                 5122476352421521,
                 1194512971373441,
+                3786528545898165,
                 6251700055209727,
                 null
             ],
-            &quot;total_docentes&quot;: 20,
-            &quot;total_discentes&quot;: 97,
-            &quot;total_egressos&quot;: 472
+            &quot;total_docentes&quot;: 18,
+            &quot;total_discentes&quot;: 96,
+            &quot;total_egressos&quot;: 473
         },
         {
             &quot;codcur&quot;: &quot;8031&quot;,
@@ -16124,7 +16512,6 @@ x-ratelimit-remaining: 58
                 null,
                 null,
                 null,
-                7261767267275081,
                 null,
                 null,
                 5521178467696395,
@@ -17007,10 +17394,11 @@ x-ratelimit-remaining: 58
                 4644345499778310,
                 2327033545104702,
                 9012524774138281,
-                null
+                null,
+                7261767267275081
             ],
             &quot;total_docentes&quot;: 37,
-            &quot;total_discentes&quot;: 190,
+            &quot;total_discentes&quot;: 189,
             &quot;total_egressos&quot;: 0
         }
     ],
@@ -17019,26 +17407,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLA&quot;,
             &quot;codigo&quot;: 591,
             &quot;nome&quot;: &quot;Antropologia&quot;,
-            &quot;codpes_docentes&quot;: [
-                5008136,
-                139547,
-                2796580,
-                2091991,
-                871656,
-                980578,
-                9126024,
-                713263,
-                5597260,
-                2535081,
-                3032381,
-                1247932,
-                2198502,
-                2005990,
-                1939750,
-                2338397,
-                2083459,
-                1980211
-            ],
             &quot;id_lattes_docentes&quot;: [
                 4614382386818949,
                 9015304182152379,
@@ -17065,27 +17433,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLP&quot;,
             &quot;codigo&quot;: 602,
             &quot;nome&quot;: &quot;Ci&ecirc;ncia Pol&iacute;tica&quot;,
-            &quot;codpes_docentes&quot;: [
-                2339547,
-                63432,
-                498969,
-                5097936,
-                3363950,
-                2090774,
-                361574,
-                1073136,
-                1154668,
-                2795189,
-                4861179,
-                10509020,
-                2112930,
-                6977515,
-                3079320,
-                3240810,
-                2091542,
-                2027125,
-                3225708
-            ],
             &quot;id_lattes_docentes&quot;: [
                 8807643561360704,
                 9100209435464735,
@@ -17113,40 +17460,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLF&quot;,
             &quot;codigo&quot;: 594,
             &quot;nome&quot;: &quot;Filosofia&quot;,
-            &quot;codpes_docentes&quot;: [
-                426082,
-                3105829,
-                74302,
-                2542645,
-                466233,
-                626300,
-                499525,
-                7818512,
-                851685,
-                1142709,
-                66115,
-                2917163,
-                1064470,
-                704905,
-                2736342,
-                2566412,
-                1566730,
-                1240730,
-                1333111,
-                1356490,
-                2809666,
-                1327480,
-                2088169,
-                5011036,
-                1591051,
-                1965951,
-                56055,
-                6639521,
-                2198054,
-                1933628,
-                1810180,
-                1803971
-            ],
             &quot;id_lattes_docentes&quot;: [
                 2799608595434302,
                 3898781884064293,
@@ -17187,61 +17500,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLH&quot;,
             &quot;codigo&quot;: 598,
             &quot;nome&quot;: &quot;Hist&oacute;ria&quot;,
-            &quot;codpes_docentes&quot;: [
-                371954,
-                582657,
-                133259,
-                5821029,
-                319475,
-                3661390,
-                362384,
-                496713,
-                129383,
-                65389,
-                8198419,
-                307878,
-                64440,
-                3651902,
-                541136,
-                771088,
-                954874,
-                898576,
-                5832011,
-                1026060,
-                943979,
-                810042,
-                773841,
-                2783276,
-                6580513,
-                934461,
-                1113874,
-                7820196,
-                2110581,
-                1085053,
-                864046,
-                1316101,
-                4873631,
-                1648922,
-                7310217,
-                1496166,
-                2798324,
-                3718660,
-                1326930,
-                1307355,
-                1595500,
-                3789274,
-                1588078,
-                1514530,
-                85493,
-                3166004,
-                1292857,
-                1793199,
-                5775421,
-                1963793,
-                1669381,
-                8198805,
-                1855698
-            ],
             &quot;id_lattes_docentes&quot;: [
                 2838058088397269,
                 6170267708208996,
@@ -17303,103 +17561,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLC&quot;,
             &quot;codigo&quot;: 592,
             &quot;nome&quot;: &quot;Letras Cl&aacute;ssicas e Vern&aacute;culas&quot;,
-            &quot;codpes_docentes&quot;: [
-                160191,
-                2086084,
-                2206393,
-                317319,
-                467529,
-                2353791,
-                73580,
-                244600,
-                640234,
-                2334761,
-                4987263,
-                63943,
-                527237,
-                2200390,
-                3016271,
-                2524273,
-                212149,
-                4879189,
-                92953,
-                433598,
-                221657,
-                660852,
-                5763421,
-                2202281,
-                992985,
-                2851390,
-                2854618,
-                94847,
-                7032332,
-                798713,
-                907359,
-                808762,
-                62639,
-                1060761,
-                728648,
-                44170,
-                768719,
-                4868023,
-                2787155,
-                2086549,
-                1033371,
-                2085274,
-                686681,
-                3128811,
-                730589,
-                2148923,
-                1609845,
-                2851470,
-                5001601,
-                63939,
-                1632720,
-                1441651,
-                1191121,
-                5048920,
-                65987,
-                2536832,
-                92887,
-                1486391,
-                2989567,
-                1500326,
-                1233652,
-                2787093,
-                2784256,
-                2095949,
-                73051,
-                5001636,
-                1394829,
-                3200263,
-                5722849,
-                3190350,
-                1484600,
-                1405820,
-                56076,
-                3426139,
-                1484771,
-                3497567,
-                3326670,
-                1473852,
-                1989412,
-                1947759,
-                1865525,
-                6752208,
-                1995232,
-                1779515,
-                1865682,
-                5094210,
-                1859351,
-                1859070,
-                3177813,
-                2013144,
-                3032832,
-                1781290,
-                1764978,
-                63449,
-                1847153
-            ],
             &quot;id_lattes_docentes&quot;: [
                 748342737698109,
                 5804620402171615,
@@ -17503,62 +17664,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLM&quot;,
             &quot;codigo&quot;: 600,
             &quot;nome&quot;: &quot;Letras Modernas&quot;,
-            &quot;codpes_docentes&quot;: [
-                3544058,
-                228821,
-                2144151,
-                458133,
-                421664,
-                2790041,
-                165262,
-                2851383,
-                4929455,
-                2380180,
-                65285,
-                192371,
-                2245928,
-                7841220,
-                6619460,
-                3194628,
-                380461,
-                753810,
-                6352988,
-                12323402,
-                826255,
-                3446285,
-                760749,
-                2094420,
-                2528392,
-                2564473,
-                766526,
-                854312,
-                819667,
-                2800271,
-                925287,
-                5419785,
-                57185,
-                3637340,
-                6464051,
-                5053857,
-                10454962,
-                2101796,
-                1489842,
-                72411,
-                3168775,
-                73148,
-                65305,
-                5675660,
-                5837868,
-                2378902,
-                3551539,
-                1479351,
-                2380047,
-                1579193,
-                1688584,
-                2104740,
-                63515,
-                3424627
-            ],
             &quot;id_lattes_docentes&quot;: [
                 3544688779202704,
                 2204586475314906,
@@ -17621,41 +17726,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLO&quot;,
             &quot;codigo&quot;: 601,
             &quot;nome&quot;: &quot;Letras Orientais&quot;,
-            &quot;codpes_docentes&quot;: [
-                2122834,
-                304405,
-                61072,
-                3224902,
-                427308,
-                3178992,
-                653242,
-                6832002,
-                1107306,
-                845034,
-                56062,
-                1070092,
-                9443720,
-                1101085,
-                3737689,
-                73750,
-                1229956,
-                1501884,
-                2323442,
-                1374031,
-                3237135,
-                1575640,
-                5797291,
-                1482640,
-                1389076,
-                3789739,
-                66369,
-                2059865,
-                8814468,
-                1771437,
-                1899673,
-                3358791,
-                2018070
-            ],
             &quot;id_lattes_docentes&quot;: [
                 1265582261887757,
                 4019654455900116,
@@ -17697,29 +17767,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLL&quot;,
             &quot;codigo&quot;: 599,
             &quot;nome&quot;: &quot;Lingu&iacute;stica&quot;,
-            &quot;codpes_docentes&quot;: [
-                10824683,
-                53987,
-                3053989,
-                411781,
-                4866574,
-                5730741,
-                2696571,
-                637779,
-                2982240,
-                799905,
-                3792618,
-                4867450,
-                1286996,
-                5709941,
-                1304400,
-                1238212,
-                1464319,
-                3178985,
-                1891942,
-                7301850,
-                1862115
-            ],
             &quot;id_lattes_docentes&quot;: [
                 9540496525186545,
                 2903774429608179,
@@ -17749,32 +17796,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FSL&quot;,
             &quot;codigo&quot;: 604,
             &quot;nome&quot;: &quot;Sociologia&quot;,
-            &quot;codpes_docentes&quot;: [
-                325872,
-                548616,
-                3554907,
-                3507654,
-                268830,
-                5707042,
-                5841474,
-                2351260,
-                858803,
-                2335946,
-                2812437,
-                852582,
-                92762,
-                810397,
-                884921,
-                5274801,
-                2104288,
-                2085145,
-                5959392,
-                5829160,
-                1672580,
-                2015150,
-                4994208,
-                84832
-            ],
             &quot;id_lattes_docentes&quot;: [
                 7564149707249526,
                 775625507484275,
@@ -17807,25 +17828,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLT&quot;,
             &quot;codigo&quot;: 603,
             &quot;nome&quot;: &quot;Teoria Liter&aacute;ria e Literatura Comparada&quot;,
-            &quot;codpes_docentes&quot;: [
-                547212,
-                3198470,
-                2113312,
-                59642,
-                325152,
-                418934,
-                611291,
-                854347,
-                935692,
-                1165031,
-                1601580,
-                3564885,
-                2800416,
-                1586163,
-                1931709,
-                1964835,
-                1745517
-            ],
             &quot;id_lattes_docentes&quot;: [
                 4931872473042905,
                 2515682843614982,
@@ -17851,47 +17853,6 @@ x-ratelimit-remaining: 58
             &quot;sigla&quot;: &quot;FLG&quot;,
             &quot;codigo&quot;: 596,
             &quot;nome&quot;: &quot;Geografia&quot;,
-            &quot;codpes_docentes&quot;: [
-                290172,
-                61350,
-                62406,
-                225046,
-                5519373,
-                495048,
-                61298,
-                2200171,
-                208186,
-                3493538,
-                257000,
-                365133,
-                805706,
-                1042170,
-                1035366,
-                2848865,
-                1109611,
-                1008636,
-                62319,
-                1102750,
-                2336892,
-                1506361,
-                1284333,
-                1192550,
-                1551185,
-                6159172,
-                2787109,
-                1871665,
-                97030,
-                1979713,
-                6927467,
-                2848490,
-                1807439,
-                2113285,
-                89740,
-                1929011,
-                1726471,
-                62344,
-                1868379
-            ],
             &quot;id_lattes_docentes&quot;: [
                 1370984784456303,
                 2259747221236044,
@@ -17997,14 +17958,14 @@ x-ratelimit-remaining: 58
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/docentes/ad" \
+    --get "http://127.0.0.1:8000/api/programas/docentes/accusamus" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/docentes/ad"
+    "http://127.0.0.1:8000/api/programas/docentes/accusamus"
 );
 
 const headers = {
@@ -18175,7 +18136,7 @@ x-ratelimit-remaining: 57
         },
         {
             &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
-            &quot;line&quot;: 60,
+            &quot;line&quot;: 59,
             &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
             &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
             &quot;type&quot;: &quot;-&gt;&quot;
@@ -18537,7 +18498,7 @@ x-ratelimit-remaining: 57
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-docentes--codare-"
-               value="ad"
+               value="accusamus"
                data-component="url" hidden>
     <br>
 
@@ -18557,14 +18518,14 @@ x-ratelimit-remaining: 57
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/discentes/porro" \
+    --get "http://127.0.0.1:8000/api/programas/discentes/maxime" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/discentes/porro"
+    "http://127.0.0.1:8000/api/programas/discentes/maxime"
 );
 
 const headers = {
@@ -18735,7 +18696,7 @@ x-ratelimit-remaining: 56
         },
         {
             &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
-            &quot;line&quot;: 60,
+            &quot;line&quot;: 59,
             &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
             &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
             &quot;type&quot;: &quot;-&gt;&quot;
@@ -19097,7 +19058,7 @@ x-ratelimit-remaining: 56
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-discentes--codare-"
-               value="porro"
+               value="maxime"
                data-component="url" hidden>
     <br>
 
@@ -19117,14 +19078,14 @@ x-ratelimit-remaining: 56
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/egressos/perferendis" \
+    --get "http://127.0.0.1:8000/api/programas/egressos/nesciunt" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/egressos/perferendis"
+    "http://127.0.0.1:8000/api/programas/egressos/nesciunt"
 );
 
 const headers = {
@@ -19295,7 +19256,7 @@ x-ratelimit-remaining: 55
         },
         {
             &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
-            &quot;line&quot;: 60,
+            &quot;line&quot;: 59,
             &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
             &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
             &quot;type&quot;: &quot;-&gt;&quot;
@@ -19657,7 +19618,7 @@ x-ratelimit-remaining: 55
                 <input type="text"
                name="codare"
                data-endpoint="GETapi-programas-egressos--codare-"
-               value="perferendis"
+               value="nesciunt"
                data-component="url" hidden>
     <br>
 
@@ -19677,14 +19638,14 @@ x-ratelimit-remaining: 55
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/docente/pariatur" \
+    --get "http://127.0.0.1:8000/api/programas/docente/saepe" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/docente/pariatur"
+    "http://127.0.0.1:8000/api/programas/docente/saepe"
 );
 
 const headers = {
@@ -19762,7 +19723,7 @@ x-ratelimit-remaining: 54
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-docente--codpes-"
-               value="pariatur"
+               value="saepe"
                data-component="url" hidden>
     <br>
 
@@ -19782,14 +19743,14 @@ x-ratelimit-remaining: 54
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/discente/ea" \
+    --get "http://127.0.0.1:8000/api/programas/discente/id" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/discente/ea"
+    "http://127.0.0.1:8000/api/programas/discente/id"
 );
 
 const headers = {
@@ -19867,7 +19828,7 @@ x-ratelimit-remaining: 53
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-discente--codpes-"
-               value="ea"
+               value="id"
                data-component="url" hidden>
     <br>
 
@@ -19887,14 +19848,14 @@ x-ratelimit-remaining: 53
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/programas/egresso/ut" \
+    --get "http://127.0.0.1:8000/api/programas/egresso/eligendi" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/programas/egresso/ut"
+    "http://127.0.0.1:8000/api/programas/egresso/eligendi"
 );
 
 const headers = {
@@ -19972,7 +19933,7 @@ x-ratelimit-remaining: 52
                 <input type="text"
                name="codpes"
                data-endpoint="GETapi-programas-egresso--codpes-"
-               value="ut"
+               value="eligendi"
                data-component="url" hidden>
     <br>
 
@@ -31249,11 +31210,11 @@ x-ratelimit-remaining: 46
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": 11,
-    \"ano_ini\": 18,
-    \"ano_fim\": 18,
+    \"ano\": 16,
+    \"ano_ini\": 12,
+    \"ano_fim\": 9,
     \"tipo\": \"tudo\",
-    \"filtro\": \"curso\",
+    \"filtro\": \"departamento\",
     \"serie_historica_tipo\": \"departamento\"
 }"
 </code></pre></div>
@@ -31270,11 +31231,11 @@ const headers = {
 };
 
 let body = {
-    "ano": 11,
-    "ano_ini": 18,
-    "ano_fim": 18,
+    "ano": 16,
+    "ano_ini": 12,
+    "ano_fim": 9,
     "tipo": "tudo",
-    "filtro": "curso",
+    "filtro": "departamento",
     "serie_historica_tipo": "departamento"
 };
 
@@ -31302,50 +31263,104 @@ x-ratelimit-remaining: 45
         </details>         <pre>
 
 <code class="language-json">{
-    &quot;8010&quot;: {
-        &quot;nome_curso&quot;: &quot;Filosofia&quot;,
+    &quot;FLA&quot;: {
+        &quot;nome_departamento&quot;: &quot;Antropologia&quot;,
+        &quot;ic_com_bolsa&quot;: 41,
+        &quot;ic_sem_bolsa&quot;: 63,
+        &quot;pesquisadores_colab&quot;: 0,
+        &quot;projetos_pesquisa&quot;: 242,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 66,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 36
+    },
+    &quot;FLP&quot;: {
+        &quot;nome_departamento&quot;: &quot;Ci&ecirc;ncia Pol&iacute;tica&quot;,
+        &quot;ic_com_bolsa&quot;: 27,
+        &quot;ic_sem_bolsa&quot;: 38,
+        &quot;pesquisadores_colab&quot;: 0,
+        &quot;projetos_pesquisa&quot;: 254,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 40,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 18
+    },
+    &quot;FLF&quot;: {
+        &quot;nome_departamento&quot;: &quot;Filosofia&quot;,
         &quot;ic_com_bolsa&quot;: 51,
         &quot;ic_sem_bolsa&quot;: 130,
         &quot;pesquisadores_colab&quot;: 1,
-        &quot;projetos_pesquisa&quot;: 0,
-        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 2,
-        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 34
+        &quot;projetos_pesquisa&quot;: 174,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 114,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 127
     },
-    &quot;8021&quot;: {
-        &quot;nome_curso&quot;: &quot;Geografia&quot;,
-        &quot;ic_com_bolsa&quot;: 55,
-        &quot;ic_sem_bolsa&quot;: 114,
-        &quot;pesquisadores_colab&quot;: 1,
-        &quot;projetos_pesquisa&quot;: 0,
-        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 0,
-        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 17
-    },
-    &quot;8030&quot;: {
-        &quot;nome_curso&quot;: &quot;Hist&oacute;ria&quot;,
+    &quot;FLH&quot;: {
+        &quot;nome_departamento&quot;: &quot;Hist&oacute;ria&quot;,
         &quot;ic_com_bolsa&quot;: 76,
         &quot;ic_sem_bolsa&quot;: 173,
         &quot;pesquisadores_colab&quot;: 4,
-        &quot;projetos_pesquisa&quot;: 0,
-        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 9,
-        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 45
+        &quot;projetos_pesquisa&quot;: 487,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 86,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 183
     },
-    &quot;8040&quot;: {
-        &quot;nome_curso&quot;: &quot;Ci&ecirc;ncias Sociais&quot;,
-        &quot;ic_com_bolsa&quot;: 96,
-        &quot;ic_sem_bolsa&quot;: 143,
-        &quot;pesquisadores_colab&quot;: 2,
-        &quot;projetos_pesquisa&quot;: 0,
-        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 6,
-        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 57
+    &quot;FLC&quot;: {
+        &quot;nome_departamento&quot;: &quot;Letras Cl&aacute;ssicas e Vern&aacute;culas&quot;,
+        &quot;ic_com_bolsa&quot;: 60,
+        &quot;ic_sem_bolsa&quot;: 266,
+        &quot;pesquisadores_colab&quot;: 0,
+        &quot;projetos_pesquisa&quot;: 839,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 107,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 194
     },
-    &quot;8051&quot;: {
-        &quot;nome_curso&quot;: &quot;Letras&quot;,
-        &quot;ic_com_bolsa&quot;: 112,
-        &quot;ic_sem_bolsa&quot;: 573,
+    &quot;FLM&quot;: {
+        &quot;nome_departamento&quot;: &quot;Letras Modernas&quot;,
+        &quot;ic_com_bolsa&quot;: 16,
+        &quot;ic_sem_bolsa&quot;: 120,
+        &quot;pesquisadores_colab&quot;: 1,
+        &quot;projetos_pesquisa&quot;: 462,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 56,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 122
+    },
+    &quot;FLO&quot;: {
+        &quot;nome_departamento&quot;: &quot;Letras Orientais&quot;,
+        &quot;ic_com_bolsa&quot;: 3,
+        &quot;ic_sem_bolsa&quot;: 90,
+        &quot;pesquisadores_colab&quot;: 0,
+        &quot;projetos_pesquisa&quot;: 178,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 15,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 22
+    },
+    &quot;FLL&quot;: {
+        &quot;nome_departamento&quot;: &quot;Lingu&iacute;stica&quot;,
+        &quot;ic_com_bolsa&quot;: 21,
+        &quot;ic_sem_bolsa&quot;: 53,
+        &quot;pesquisadores_colab&quot;: 1,
+        &quot;projetos_pesquisa&quot;: 194,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 32,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 21
+    },
+    &quot;FSL&quot;: {
+        &quot;nome_departamento&quot;: &quot;Sociologia&quot;,
+        &quot;ic_com_bolsa&quot;: 28,
+        &quot;ic_sem_bolsa&quot;: 42,
         &quot;pesquisadores_colab&quot;: 2,
-        &quot;projetos_pesquisa&quot;: 0,
-        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 9,
-        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 91
+        &quot;projetos_pesquisa&quot;: 286,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 63,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 38
+    },
+    &quot;FLT&quot;: {
+        &quot;nome_departamento&quot;: &quot;Teoria Liter&aacute;ria e Literatura Comparada&quot;,
+        &quot;ic_com_bolsa&quot;: 12,
+        &quot;ic_sem_bolsa&quot;: 44,
+        &quot;pesquisadores_colab&quot;: 0,
+        &quot;projetos_pesquisa&quot;: 68,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 24,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 27
+    },
+    &quot;FLG&quot;: {
+        &quot;nome_departamento&quot;: &quot;Geografia&quot;,
+        &quot;ic_com_bolsa&quot;: 55,
+        &quot;ic_sem_bolsa&quot;: 114,
+        &quot;pesquisadores_colab&quot;: 1,
+        &quot;projetos_pesquisa&quot;: 413,
+        &quot;pesquisas_pos_doutorado_com_bolsa&quot;: 43,
+        &quot;pesquisas_pos_doutorado_sem_bolsa&quot;: 66
     }
 }</code>
  </pre>
@@ -31395,7 +31410,7 @@ x-ratelimit-remaining: 45
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-pesquisa"
-               value="11"
+               value="16"
                data-component="body" hidden>
     <br>
 
@@ -31405,7 +31420,7 @@ x-ratelimit-remaining: 45
                 <input type="number"
                name="ano_ini"
                data-endpoint="GETapi-pesquisa"
-               value="18"
+               value="12"
                data-component="body" hidden>
     <br>
 
@@ -31415,7 +31430,7 @@ x-ratelimit-remaining: 45
                 <input type="number"
                name="ano_fim"
                data-endpoint="GETapi-pesquisa"
-               value="18"
+               value="9"
                data-component="body" hidden>
     <br>
 
@@ -31435,7 +31450,7 @@ x-ratelimit-remaining: 45
                 <input type="text"
                name="filtro"
                data-endpoint="GETapi-pesquisa"
-               value="curso"
+               value="departamento"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>departamento</code>, <code>curso</code>, or <code>serie_historica</code>.</p>
@@ -31469,11 +31484,11 @@ x-ratelimit-remaining: 45
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ano\": 11,
-    \"ano_ini\": 11,
-    \"ano_fim\": 17,
+    \"ano\": 8,
+    \"ano_ini\": 14,
+    \"ano_fim\": 18,
     \"tipo\": \"anual\",
-    \"filtro\": \"serie_historica\",
+    \"filtro\": \"curso\",
     \"serie_historica_tipo\": \"departamento\"
 }"
 </code></pre></div>
@@ -31490,11 +31505,11 @@ const headers = {
 };
 
 let body = {
-    "ano": 11,
-    "ano_ini": 11,
-    "ano_fim": 17,
+    "ano": 8,
+    "ano_ini": 14,
+    "ano_fim": 18,
     "tipo": "anual",
-    "filtro": "serie_historica",
+    "filtro": "curso",
     "serie_historica_tipo": "departamento"
 };
 
@@ -31569,7 +31584,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="11"
+               value="8"
                data-component="body" hidden>
     <br>
 
@@ -31579,7 +31594,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano_ini"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="11"
+               value="14"
                data-component="body" hidden>
     <br>
 
@@ -31589,7 +31604,7 @@ x-ratelimit-remaining: 44
                 <input type="number"
                name="ano_fim"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="17"
+               value="18"
                data-component="body" hidden>
     <br>
 
@@ -31609,7 +31624,7 @@ x-ratelimit-remaining: 44
                 <input type="text"
                name="filtro"
                data-endpoint="GETapi-pesquisa-iniciacao_cientifica"
-               value="serie_historica"
+               value="curso"
                data-component="body" hidden>
     <br>
 <p>Must be one of <code>departamento</code>, <code>curso</code>, or <code>serie_historica</code>.</p>
@@ -31906,6 +31921,576 @@ x-ratelimit-remaining: 41
             <small class="badge badge-green">GET</small>
             <b><code>api/pesquisa/pesquisadores_colaboradores</code></b>
         </p>
+                    </form>
+
+            <h2 id="endpoints-GETapi-colegiados--codclg---sglclg-">GET api/colegiados/{codclg}/{sglclg}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-colegiados--codclg---sglclg-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/colegiados/ad/at" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/colegiados/ad/at"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-colegiados--codclg---sglclg-">
+            <blockquote>
+            <p>Example response (500):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 39
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Argument 1 passed to Uspdev\\Replicado\\Pessoa::retornarNomeColegiado() must be of the type int, string given, called in /home/ricardo/dados/app/Http/Controllers/Api/ColegiadoController.php on line 29&quot;,
+    &quot;exception&quot;: &quot;TypeError&quot;,
+    &quot;file&quot;: &quot;/home/ricardo/dados/vendor/uspdev/replicado/src/Pessoa.php&quot;,
+    &quot;line&quot;: 1006,
+    &quot;trace&quot;: [
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/app/Http/Controllers/Api/ColegiadoController.php&quot;,
+            &quot;line&quot;: 29,
+            &quot;function&quot;: &quot;retornarNomeColegiado&quot;,
+            &quot;class&quot;: &quot;Uspdev\\Replicado\\Pessoa&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Controller.php&quot;,
+            &quot;line&quot;: 54,
+            &quot;function&quot;: &quot;show&quot;,
+            &quot;class&quot;: &quot;App\\Http\\Controllers\\Api\\ColegiadoController&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php&quot;,
+            &quot;line&quot;: 45,
+            &quot;function&quot;: &quot;callAction&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Controller&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
+            &quot;line&quot;: 262,
+            &quot;function&quot;: &quot;dispatch&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\ControllerDispatcher&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Route.php&quot;,
+            &quot;line&quot;: 205,
+            &quot;function&quot;: &quot;runController&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 721,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Route&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 128,
+            &quot;function&quot;: &quot;Illuminate\\Routing\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php&quot;,
+            &quot;line&quot;: 50,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\SubstituteBindings&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
+            &quot;line&quot;: 127,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php&quot;,
+            &quot;line&quot;: 63,
+            &quot;function&quot;: &quot;handleRequest&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 103,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 723,
+            &quot;function&quot;: &quot;then&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 698,
+            &quot;function&quot;: &quot;runRouteWithinStack&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 662,
+            &quot;function&quot;: &quot;runRoute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Routing/Router.php&quot;,
+            &quot;line&quot;: 651,
+            &quot;function&quot;: &quot;dispatchToRoute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;dispatch&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 128,
+            &quot;function&quot;: &quot;Illuminate\\Foundation\\Http\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php&quot;,
+            &quot;line&quot;: 59,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Barryvdh\\Debugbar\\Middleware\\InjectDebugbar&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
+            &quot;line&quot;: 21,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php&quot;,
+            &quot;line&quot;: 31,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php&quot;,
+            &quot;line&quot;: 21,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php&quot;,
+            &quot;line&quot;: 40,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TrimStrings&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php&quot;,
+            &quot;line&quot;: 27,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php&quot;,
+            &quot;line&quot;: 86,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fruitcake/laravel-cors/src/HandleCors.php&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Fruitcake\\Cors\\HandleCors&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/fideloper/proxy/src/TrustProxies.php&quot;,
+            &quot;line&quot;: 57,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 167,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Fideloper\\Proxy\\TrustProxies&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php&quot;,
+            &quot;line&quot;: 103,
+            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 142,
+            &quot;function&quot;: &quot;then&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php&quot;,
+            &quot;line&quot;: 111,
+            &quot;function&quot;: &quot;sendRequestThroughRouter&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 299,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 287,
+            &quot;function&quot;: &quot;callLaravelOrLumenRoute&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 89,
+            &quot;function&quot;: &quot;makeApiCall&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 45,
+            &quot;function&quot;: &quot;makeResponseCall&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php&quot;,
+            &quot;line&quot;: 35,
+            &quot;function&quot;: &quot;makeResponseCallIfConditionsPass&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 222,
+            &quot;function&quot;: &quot;__invoke&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 179,
+            &quot;function&quot;: &quot;iterateThroughStrategies&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php&quot;,
+            &quot;line&quot;: 116,
+            &quot;function&quot;: &quot;fetchResponses&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 123,
+            &quot;function&quot;: &quot;processRoute&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 80,
+            &quot;function&quot;: &quot;extractEndpointsInfoFromLaravelApp&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php&quot;,
+            &quot;line&quot;: 56,
+            &quot;function&quot;: &quot;extractEndpointsInfoAndWriteToDisk&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php&quot;,
+            &quot;line&quot;: 55,
+            &quot;function&quot;: &quot;get&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 36,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Knuckles\\Scribe\\Commands\\GenerateDocumentation&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Util.php&quot;,
+            &quot;line&quot;: 40,
+            &quot;function&quot;: &quot;Illuminate\\Container\\{closure}&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 93,
+            &quot;function&quot;: &quot;unwrapIfClosure&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\Util&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;callBoundMethod&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Container/Container.php&quot;,
+            &quot;line&quot;: 653,
+            &quot;function&quot;: &quot;call&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
+            &quot;type&quot;: &quot;::&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
+            &quot;line&quot;: 136,
+            &quot;function&quot;: &quot;call&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Container\\Container&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Command/Command.php&quot;,
+            &quot;line&quot;: 298,
+            &quot;function&quot;: &quot;execute&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Command.php&quot;,
+            &quot;line&quot;: 121,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Command\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 1024,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 299,
+            &quot;function&quot;: &quot;doRunCommand&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/symfony/console/Application.php&quot;,
+            &quot;line&quot;: 171,
+            &quot;function&quot;: &quot;doRun&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Console/Application.php&quot;,
+            &quot;line&quot;: 94,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php&quot;,
+            &quot;line&quot;: 129,
+            &quot;function&quot;: &quot;run&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Console\\Application&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        },
+        {
+            &quot;file&quot;: &quot;/home/ricardo/dados/artisan&quot;,
+            &quot;line&quot;: 37,
+            &quot;function&quot;: &quot;handle&quot;,
+            &quot;class&quot;: &quot;Illuminate\\Foundation\\Console\\Kernel&quot;,
+            &quot;type&quot;: &quot;-&gt;&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-colegiados--codclg---sglclg-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-colegiados--codclg---sglclg-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-colegiados--codclg---sglclg-"></code></pre>
+</span>
+<span id="execution-error-GETapi-colegiados--codclg---sglclg-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-colegiados--codclg---sglclg-"></code></pre>
+</span>
+<form id="form-GETapi-colegiados--codclg---sglclg-" data-method="GET"
+      data-path="api/colegiados/{codclg}/{sglclg}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-colegiados--codclg---sglclg-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-colegiados--codclg---sglclg-"
+                    onclick="tryItOut('GETapi-colegiados--codclg---sglclg-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-colegiados--codclg---sglclg-"
+                    onclick="cancelTryOut('GETapi-colegiados--codclg---sglclg-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-colegiados--codclg---sglclg-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/colegiados/{codclg}/{sglclg}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>codclg</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="codclg"
+               data-endpoint="GETapi-colegiados--codclg---sglclg-"
+               value="ad"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    <p>
+                <b><code>sglclg</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="sglclg"
+               data-endpoint="GETapi-colegiados--codclg---sglclg-"
+               value="at"
+               data-component="url" hidden>
+    <br>
+
+            </p>
                     </form>
 
     
