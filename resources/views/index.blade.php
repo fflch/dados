@@ -151,7 +151,13 @@
     </div>
     <div class="card-body collapse"  id="collapseDadosRaca">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosAutodeclarados/ALUNOGR">Totais de alunos autodeclarados por raça/cor.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosAutodeclarados?vinculo=ALUNOGR">Totais de alunos autodeclarados por raça/cor.</a>
+                <a href="{{ config('app.url') }}/api/alunosAtivosAutodeclarados?vinculo=ALUNOGR" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>  
+            </li>    
         </ul>
     </div>
 </div>
