@@ -1,5 +1,5 @@
 
-<div class="content-options position-relative">
+<div class="content-options position-relative mt-3 ">
 <form id="formSearchProducaoPrograma" method="get" action="/pesquisa/{{$tipo}}" class="d-flex mb-3">
     <input type="hidden" name="departamento" value="{{ request()->get('departamento') }}">
     <input type="hidden" name="curso" value="{{ request()->get('curso') }}">
@@ -20,19 +20,31 @@
          d-none
         @endif">
       <label for="ano">Ano:</label>
-      <input type="number" name="ano" id="ano" value="{{ request()->get('ano')}}">
+      <input type="number" name="ano" id="ano" min="1950" value="{{ request()->get('ano')}}">
     </div>
     <div class="tipo-div-input periodo mr-2 
         @if(request()->get('tipo') != 'periodo')
          d-none
         @endif" >
       <label for="ano_ini">de </label>
-      <input type="number" name="ano_ini" id="ano_ini" value="{{ request()->get('ano_ini')}}">
+      <input type="number" name="ano_ini" id="ano_ini" min="1950" value="{{ request()->get('ano_ini')}}">
       <label for="ano_fim">até </label>
-      <input type="number" name="ano_fim" id="ano_fim" value="{{ request()->get('ano_fim')}}">
+      <input type="number" name="ano_fim" id="ano_fim"  value="{{ request()->get('ano_fim')}}">
     </div>
     <input type="submit" value="Buscar" class="btn btn-dark bg-blue-default btn-send">
+    
   </form>
+  <p>
+      @if(request()->get('tipo') == 'anual' && $tipo == 'pos_doutorandos')
+        Busca pela data de início dos projetos
+      @elseif(request()->get('tipo') == 'anual' && $tipo == 'iniciacao_cientifica')
+        Busca pela data de cadastro dos projetos
+      @elseif(request()->get('tipo') == 'periodo')
+        Busca pela vigência do projeto
+      @elseif(request()->get('tipo') == 'ativo')
+        Busca os projetos cuja a data fim é maior que a atual
+      @endif
+    </p>
 
 </div>
 
