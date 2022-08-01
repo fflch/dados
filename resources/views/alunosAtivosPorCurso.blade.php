@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div>
+<div class="mb-5">
     <label for="curso" class="form-label">Filtrar por:</label>
     <select id="curso" class="form-select" onchange="location = this.value;">
         
@@ -10,21 +10,29 @@
                 @if($tipvin == 'ALUNOGR')
                     selected="selected"
                 @endif    
-                value="/alunosAtivosPorCurso/ALUNOGR">
+                value="/alunosAtivosPorCurso?tipvin=ALUNOGR">
                 Alunos da Graduação
             </option>
             <option 
                 @if($tipvin == 'ALUNOPD')
                     selected="selected"
                 @endif    
-                value="/alunosAtivosPorCurso/ALUNOPD">
+                value="/alunosAtivosPorCurso?tipvin=ALUNOPD">
                 Alunos Pós-doutorando
             </option>
        
     </select>
 
-    <a href="/alunosAtivosPorCurso/export/excel/{{$tipvin}}" class="float-right btn-dl-excel">
+    
+
+    <a href="{{ config('app.url') }}/api/alunosAtivosPorCurso?tipvin={{request()->tipvin ?? 'ALUNOGR'}}" class="export-json">
+        <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+            <img src="{{ asset('assets/img/json_icon.png') }}">
+        </span>
+    </a>
+    <a href="/alunosAtivosPorCurso/export/excel?tipvin={{request()->tipvin ?? 'ALUNOGR'}}" class="ml-5 btn-dl-excel">
         <i class="fas fa-file-excel"></i> Download Excel</a> 
+
 
 </div>
 

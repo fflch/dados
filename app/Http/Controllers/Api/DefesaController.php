@@ -9,6 +9,13 @@ use App\Models\Defesa;
 
 class DefesaController extends Controller
 {
+    /**
+     * Listar Defesas
+     *
+     * Retorna uma lista com as defesas de mestrado, doutorado e doutorado direto .
+     * 
+     * @group Dados de produção acadêmica
+     */
     public function index(DefesaRequest $request){
         return response()->json(
             Defesa::listar($request->validated(), true),
