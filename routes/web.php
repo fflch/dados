@@ -95,8 +95,8 @@ Route::get('/conveniosAtivos', [ConveniosAtivosController::class, 'grafico']);
 Route::get('/conveniosAtivos/export/{format}', [ConveniosAtivosController::class, 'export']);
 
 #totais de alunos e docentes ativos nascidos e não nascidos no br
-Route::get('/ativosPaisNascimento/{tipo_vinculo}', [AtivosPaisNascimentoController::class, 'grafico']);
-Route::get('/ativosPaisNascimento/export/{format}/{tipo_vinculo}', [AtivosPaisNascimentoController::class, 'export']);
+Route::get('/ativosPaisNascimento', [AtivosPaisNascimentoController::class, 'grafico']);
+Route::get('/ativosPaisNascimento/export/{format}', [AtivosPaisNascimentoController::class, 'export']);
 
 #totais de alunos da Graduação por estado (RG)
 Route::get('/ativosAlunosEstado', [AtivosGradPorEstadoController::class, 'grafico']);
