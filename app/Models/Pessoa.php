@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Uspdev\Utils\Generic;
 use Carbon\Carbon;
+use App\Http\Requests\DepartamentoRequest;
 
 class Pessoa extends Model
 {
@@ -42,8 +43,14 @@ class Pessoa extends Model
         return $retorno;
     }
 
-    public static function listarEstagiarios(){
-        $estagiarios = Pessoa::where('tipo_vinculo', 'Estagiario')->get()->toArray();
+    public static function listarEstagiarios(DepartamentoRequest $request){
+        $request->validated();
+        if(isset($request->codset)){
+            $estagiarios = Pessoa::where('tipo_vinculo', 'Estagiario')
+                                    ->where('codset', $request->codset )->get()->toArray();
+        }else{
+            $estagiarios = Pessoa::where('tipo_vinculo', 'Estagiario')->get()->toArray();
+        }
 
         $retorno = [];
         foreach($estagiarios as $estagiario){
