@@ -7,7 +7,7 @@ use App\Http\Controllers\AlunosEspeciaisPorAnoController;
 use App\Http\Controllers\AlunosEspeciaisPosGrDptoController;
 use App\Http\Controllers\AtivosController;
 use App\Http\Controllers\AtivosDocentesPorFuncaoController;
-use App\Http\Controllers\AtivosGradPorEstadoController;
+use App\Http\Controllers\AlunosAtivosEstadoController;
 use App\Http\Controllers\AtivosMicrosNotesController;
 use App\Http\Controllers\AtivosPaisNascimentoController;
 use App\Http\Controllers\AtivosPorDepartamentoController;
@@ -99,8 +99,8 @@ Route::get('/ativosPaisNascimento', [AtivosPaisNascimentoController::class, 'gra
 Route::get('/ativosPaisNascimento/export/{format}', [AtivosPaisNascimentoController::class, 'export']);
 
 #totais de alunos da Graduação por estado (RG)
-Route::get('/ativosAlunosEstado', [AtivosGradPorEstadoController::class, 'grafico']);
-Route::get('/ativosAlunosEstado/export/{format}', [AtivosGradPorEstadoController::class, 'export']);
+Route::get('/alunosAtivosEstado', [AlunosAtivosEstadoController::class, 'grafico']);
+Route::get('/alunosAtivosEstado/export/{format}', [AlunosAtivosEstadoController::class, 'export']);
 
 #totais de docentes ativos por função
 Route::get('/ativosDocentesPorFuncao', [AtivosDocentesPorFuncaoController::class, 'grafico']);

@@ -171,7 +171,13 @@
                     </span>
                 </a>  
             </li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosEstado">Totais de alunos contabilizados por estados.</a>
+                <a href="{{ config('app.url') }}/api/alunosAtivosEstado" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>  
+            </li>
         </ul>
     </div>
 </div>
