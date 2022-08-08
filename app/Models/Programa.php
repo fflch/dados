@@ -243,23 +243,6 @@ class Programa extends Model
         return $content;
     }
 
-    public static function obterOrcid(){
-        $orcid = [];
-        $pessoas = LattesModel::where('codpes', '<>', null)->get()->toArray();
-        foreach($pessoas as $pessoa){
-            $lattes = $pessoa ? json_decode($pessoa['json'],TRUE) : null;
-            if(isset($lattes['orcid']) && $lattes['orcid'] != false && $lattes['orcid'] != ""){
-                $aux = [
-                    'id_lattes' => $lattes['id_lattes'],
-                    'nompes' => $lattes['nome'],
-                    'orcid' => $lattes['orcid'],
-                ];
-                array_push($orcid, $aux);
-            }
-        }
-        return $orcid;
-    }
-
     public static function getFiltro(Request $request){
         $tipo = $request->tipo;
 

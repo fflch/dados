@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pessoa;
+use App\Http\Requests\DepartamentoRequest;
 
 class PessoaController extends Controller
 {  
@@ -16,8 +17,16 @@ class PessoaController extends Controller
         );
     }
 
-    public function listarEstagiarios(){
-        $estagiarios = Pessoa::listarEstagiarios();
+    /**
+     * Listar estagiários ativos
+     * 
+     * Retorna todos os estagiário ativos.
+     * Faça a busca por departamento usando o parâmetro codset. Ex: api/estagiarios?codset=599
+     * 
+     * @group Quadro de servidores
+     */
+    public function listarEstagiarios(DepartamentoRequest $request){
+        $estagiarios = Pessoa::listarEstagiarios($request);
         
         return response()->json(
             $estagiarios,

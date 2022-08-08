@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Uspdev\Utils\Generic;
 use Carbon\Carbon;
+use App\Http\Requests\DepartamentoRequest;
 
 class Pessoa extends Model
 {
@@ -34,16 +35,22 @@ class Pessoa extends Model
                 'id_lattes'      => $docente['id_lattes'],
                 'nomefnc'      => $nomefnc
             ];
-            
+
             array_push($retorno, $aux);
         }
-    
+
 
         return $retorno;
     }
 
-    public static function listarEstagiarios(){
-        $estagiarios = Pessoa::where('tipo_vinculo', 'Estagiario')->get()->toArray();
+    public static function listarEstagiarios($request){
+
+        $codset = $request->codset;
+        $estagiarios = Pessoa::where('tipo_vinculo', 'Estagiario')
+                       ->when($codset, function($query, $codset) {
+                            return $query->where('codset', $codset);
+                       })
+                       ->get()->toArray();
 
         $retorno = [];
         foreach($estagiarios as $estagiario){
@@ -54,10 +61,9 @@ class Pessoa extends Model
                 'nomset'      => $estagiario['nomset'],
                 'email'      => isset($estagiario['email']) && str_contains($estagiario['email'], 'usp.br') ? $estagiario['email'] : '',
             ];
-            
+
             array_push($retorno, $aux);
         }
-    
 
         return $retorno;
     }
@@ -74,14 +80,14 @@ class Pessoa extends Model
                 'nomset'      => $servidor['nomset'],
                 'email'      => isset($servidor['email']) && str_contains($servidor['email'], 'usp.br') ? $servidor['email'] : '',
             ];
-            
+
             array_push($retorno, $aux);
         }
-    
+
 
         return $retorno;
     }
-    
+
     public static function listarChefesAdministrativos(){
         $chefes = Pessoa::where('tipo_vinculo', 'Chefe Administrativo')->get()->toArray();
 
@@ -93,7 +99,7 @@ class Pessoa extends Model
                 'nomset'      => $chefe['nomset'],
                 'email'      => isset($chefe['email']) && str_contains($chefe['email'], 'usp.br') ? $chefe['email'] : '',
             ];
-            
+
             array_push($retorno, $aux);
         }
         return $retorno;
@@ -110,12 +116,12 @@ class Pessoa extends Model
                 'nomset'      => $chefe['nomset'],
                 'email'      => isset($chefe['email']) && str_contains($chefe['email'], 'usp.br') ? $chefe['email'] : '',
             ];
-            
+
             array_push($retorno, $aux);
         }
         return $retorno;
     }
-    
+
     public static function listarMonitores(){
         $monitores = Pessoa::where('tipo_vinculo', 'Monitor')->get()->toArray();
 
@@ -127,14 +133,14 @@ class Pessoa extends Model
                 'monitor_id' => Generic::crazyHash($monitor['codpes']),
                 'nompes'        => $monitor['nompes'],
                 'email'      => isset($monitor['email']) && str_contains($monitor['email'], 'usp.br') ? $monitor['email'] : '',
-                'bolsa_ini'      => Carbon::createFromFormat('Y-m-d H:i:s', $bolsas['bolsa_ini'])->format('d/m/Y'), 
+                'bolsa_ini'      => Carbon::createFromFormat('Y-m-d H:i:s', $bolsas['bolsa_ini'])->format('d/m/Y'),
                 'bolsa_fim'      => Carbon::createFromFormat('Y-m-d H:i:s', $bolsas['bolsa_fim'])->format('d/m/Y'),
-                
+
             ];
-            
+
             array_push($retorno, $aux);
         }
-    
+
 
         return $retorno;
     }

@@ -12,6 +12,7 @@ Instalação da biblioteca ***Cache***: [Instalação e configuração](https://
 - `php artisan key:generate`
 - `php artisan vendor:publish --provider="Uspdev\UspTheme\ServiceProvider" --tag=assets --force`
 - `php artisan vendor:publish --tag=scribe-themes`
+- `php artisan vendor:publish --tag=scribe-config`
 - `php artisan serve`
 
 
@@ -31,14 +32,9 @@ Instalação da biblioteca ***Cache***: [Instalação e configuração](https://
 
 ## Procedimentos para consultar uma API:
 
-- Acessar o arquivo api.php dentro da pasta routes para consultar o endereço de cada API
-- Adicionar na URL do portal de Dados (https://dados.fflch.usp.br), o prefixo /api/{ENDEREÇO DA API A SER CONSULTADA}
+- A documentaçao da api é feita através da biblioteca scribe, acesse o endereço https://dados.fflch.usp.br/docs para consultar a documentação da api e ver todos os endpoints disponíveis
+
+- Para documentar um novo endpoint ou alterá-lo tem que adicionar um docblock no método do controller da api, veja mais em https://scribe.knuckles.wtf/laravel/documenting/metadata. Ao finalizar rode o comando para que as alterações sejam publicadas.
 ```
-- Para consultar a API com as informações de um programa, é necessário passar o último pârametro {codare}, com o código da área de pós graduação:
-```
-https://dados.fflch.usp.br/api/programas/discentes/codare
-```
-- Para consultar a API com as informações de um egresso, docente ou discente, é necessário passar o último pârametro {codpes}, com o número USP da pessoa:
-```
-https://dados.fflch.usp.br/api/programas/docente/{codpes}
-```
+    php artisan scribe:generate
+``` 
