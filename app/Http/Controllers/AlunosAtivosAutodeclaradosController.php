@@ -9,46 +9,24 @@ use App\Exports\DadosExport;
 use Uspdev\Replicado\DB;
 use Uspdev\Replicado\Uteis;
 use Khill\Lavacharts\Lavacharts;
+use App\Http\Requests\AlunosAtivosAutodeclaradosRequest;
+use App\Http\Controllers\Dados\AlunosAtivosAutodeclaradosDados;
+
 class AlunosAtivosAutodeclaradosController extends Controller
 {
-    private $data;
+    private $data = [];
     private $excel;
-    private $vinculo;
-    private $nome_vinculo;
     
-    public function __construct(Excel $excel,Request $request)
+    public function __construct(Excel $excel,AlunosAtivosAutodeclaradosRequest $request)
     {
         $this->excel = $excel;
-        $data = [];
-
-        $vinculos = [
-            'ALUNOGR' => 'Aluno de Graduação', 
-            'ALUNOPOS' => 'Aluno de Pós-Graduação', 
-            'ALUNOCEU' => 'Aluno de Cultura e Extensão', 
-            'ALUNOPD' => 'Aluno de Pós-Doutorado'
-        ];
-
-        $this->vinculo = $request->route()->parameter('vinculo') ?? 'ALUNOGR';
-
-        $cores = Util::racas;
-
-        $this->nome_vinculo = isset($vinculos[$this->vinculo]) ? $vinculos[$this->vinculo] : '"Vínculo não encontrado"';
-
-        $query = file_get_contents(__DIR__ . '/../../../Queries/conta_alunos_autodeclarados.sql');
-        foreach ($cores as $key => $cor) {
-            $query_por_cor = str_replace('__cor__', $cor, $query);
-            $query_por_cor = str_replace('__vinculo__', $this->vinculo, $query_por_cor);
-            $result = DB::fetch($query_por_cor);
-            $data[$key] = $result['computed'];
-        }
-        $this->data = $data;
+        $this->data = AlunosAtivosAutodeclaradosDados::listar($request);
     }
 
     public function grafico()
     {
-        $vinculo = $this->vinculo;
-        $cores = Util::racas;
-        $nome_vinculo = $this->nome_vinculo;
+        $vinculo = $this->data['vinculo'];
+        $nome_vinculo = $this->data['nome_vinculo'];
 
         $lava = new Lavacharts; 
         $ativos_col = $lava->DataTable();
@@ -60,7 +38,7 @@ class AlunosAtivosAutodeclaradosController extends Controller
         $ativos_col->addStringColumn('Tipo Vínculo')
                 ->addNumberColumn('Quantidade', $formatter);
 
-        foreach($this->data as $key=>$data) {
+        foreach($this->data['dados'] as $key=>$data) {
             $ativos_col->addRow([$key, (int)$data]);
         }
         
@@ -76,7 +54,7 @@ class AlunosAtivosAutodeclaradosController extends Controller
 
         ]);
 
-        return view('ativosAlunosAutodeclarados', compact('vinculo', 'cores', 'nome_vinculo', 'lava'));
+        return view('alunosAtivosAutodeclarados', compact('vinculo', 'nome_vinculo', 'lava'));
     }
 
     public function export($format, Request $request)
@@ -88,7 +66,7 @@ class AlunosAtivosAutodeclaradosController extends Controller
         $nome_vinculo = str_replace(' ','_', Uteis::removeAcentos(strtolower($nome_vinculo)));
 
         if ($format == 'excel') {
-            $export = new DadosExport([$this->data], ['Indígena',
+            $export = new DadosExport([$this->data['dados']], ['Indígena',
             'Branca',
             'Preta/Negra',
             'Amarela',

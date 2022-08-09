@@ -107,8 +107,8 @@ Route::get('/ativosDocentesPorFuncao', [AtivosDocentesPorFuncaoController::class
 Route::get('/ativosDocentesPorFuncao/export/{format}', [AtivosDocentesPorFuncaoController::class, 'export']);
 
 #totais de alunos ativos por cor/raça
-Route::get('/ativosAlunosAutodeclarados/{vinculo}', [AlunosAtivosAutodeclaradosController::class, 'grafico']);
-Route::get('/ativosAlunosAutodeclarados/export/{format}/{vinculo}', [AlunosAtivosAutodeclaradosController::class, 'export']);
+Route::get('/alunosAtivosAutodeclarados', [AlunosAtivosAutodeclaradosController::class, 'grafico']);
+Route::get('/alunosAtivosAutodeclarados/export/{format}', [AlunosAtivosAutodeclaradosController::class, 'export']);
 
 #totais de alunos ativos da graduação por tipo de ingresso
 Route::get('/ativosAlunosGradTipoIngresso', [AlunosAtivosGradTipoIngressoController::class, 'grafico']);
