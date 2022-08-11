@@ -28,7 +28,9 @@ class AddColumnsToComissaoPesquisasTable extends Migration
     public function down()
     {
         Schema::table('comissao_pesquisas', function (Blueprint $table) {
-            //
+            $table->dropColumn('obs');
+            $table->dropColumn('apoio_financeiro');
+            $table->dropColumn('agencia_fomento');
         });
     }
 }
