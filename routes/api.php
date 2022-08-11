@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AlunosAtivosAutodeclaradosController;
+use App\Http\Controllers\Api\AlunosAtivosEstadoController;
 use App\Http\Controllers\Api\AlunosAtivosPorCursoController;
+use App\Http\Controllers\Api\AtivosPaisNascimentoController;
 use App\Http\Controllers\Api\ColegiadoController;
 use App\Http\Controllers\Api\DefesaController;
 use App\Http\Controllers\Api\PessoaController;
@@ -48,6 +50,9 @@ Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']
 # Dados por curso
 Route::get('/alunosAtivosPorCurso', [AlunosAtivosPorCursoController::class, 'index']);
 
-
 # Dados por raça/cor
 Route::get('/alunosAtivosAutodeclarados', [AlunosAtivosAutodeclaradosController::class, 'index']);
+
+# Dados por nacionalidade/localidade
+Route::get('/ativosPaisNascimento', [AtivosPaisNascimentoController::class, 'index']);
+Route::get('/alunosAtivosEstado', [AlunosAtivosEstadoController::class, 'index']);
