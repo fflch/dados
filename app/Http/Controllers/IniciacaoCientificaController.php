@@ -126,6 +126,7 @@ class IniciacaoCientificaController extends Controller
                 'iniciacao_cientifica' => $data,
                 'nome_departamento' => $this->nome_departamento,
                 'nome_curso' => $this->nome_curso,
+                'tipo'=> 'iniciacao_cientifica'
                 ]);
         }
     }    

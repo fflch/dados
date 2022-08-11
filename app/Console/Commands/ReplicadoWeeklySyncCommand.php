@@ -51,8 +51,10 @@ class ReplicadoWeeklySyncCommand extends Command
     {
         if(getenv('REPLICADO_SYBASE') != '1') putenv('REPLICADO_SYBASE=1');
 
+        
         $this->sync_comissao_pesquisa();
 
+        
         $docentes = array_column(Pessoa::listarDocentes(), 'codpes');
         $credenciados = array_column(ReplicadoTemp::credenciados(), 'codpes');
         $codpes = array_merge($credenciados, $docentes);
@@ -65,7 +67,7 @@ class ReplicadoWeeklySyncCommand extends Command
         foreach($programas as $value) {
             $this->sync_alunos_posgr(ReplicadoTemp::listarAlunosAtivosPrograma($value['codare']),8);
         }
-
+        
         return 0;
     }
 
@@ -102,10 +104,8 @@ class ReplicadoWeeklySyncCommand extends Command
 
 
     private function sync_comissao_pesquisa(){
-        $codproj = ComissaoPesquisa::select('codproj')->get()->pluck('codproj')->toArray(); //buscando os registros no banco local
-
         $iniciacao_cientifica = ReplicadoTemp::listarIniciacaoCientifica(); //traz todas as iniciações cientificas presentes no replicado
-        $pesquisa = Pesquisa::listarPesquisaPosDoutorandos();
+        $pesquisa = ReplicadoTemp::listarPesquisaPosDoutorandos();
         $pesquisadores_colab = Pesquisa::listarPesquisadoresColaboradoresAtivos();
 
         ComissaoPesquisa::where('tipo','!=', 'PP')->delete(); // zerar a base local para atualizá-la com os novos dados
@@ -147,6 +147,7 @@ class ReplicadoWeeklySyncCommand extends Command
         foreach(ReplicadoTemp::listarICsRepetidasComStatusTransferido() as $excluir){
             ComissaoPesquisa::where('codproj',$excluir['codproj transferido'])->where('ano_proj',$excluir['anoproj transferido'])->where('tipo','IC')->delete();
         }
+
         
         if($pesquisa){
             foreach($pesquisa as $pd){
@@ -160,12 +161,17 @@ class ReplicadoWeeklySyncCommand extends Command
                 $comissao->titulo_pesquisa= $pd['titprj'];
                 $comissao->data_ini = !empty($pd['dtainiprj']) ? $pd['dtainiprj'] : null;
                 $comissao->data_fim = !empty($pd['dtafimprj']) ? $pd['dtafimprj'] : null;
-                $comissao->ano_proj = null;
+                $comissao->ano_proj = $pd['anoprj'];
                 $comissao->bolsa = $pd['bolsa'];
-
-                $comissao->cod_departamento = null;
+                $comissao->dtainibol = !empty($pd['dtainibol']) ? $pd['dtainibol'] : null;
+                $comissao->dtafimbol = !empty($pd['dtafimbol']) ? $pd['dtafimbol'] : null;
+                $comissao->obs = !empty($pd['obs']) ? $pd['obs'] : null;
+                $comissao->apoio_financeiro = !empty($pd['forma_apoio_financeiro_projeto']) ? $pd['forma_apoio_financeiro_projeto'] : null;
+                $comissao->agencia_fomento = !empty($pd['agencia']) ? $pd['agencia'] : null;
+                $comissao->cod_departamento = $pd['codset'];
                 $comissao->sigla_departamento = $pd['sigla_departamento'];
                 $comissao->nome_departamento = $pd['departamento'];
+                $comissao->status_projeto = $pd['staatlprj'];
 
                 $curso = Util::retornarCursoGrdPorDepartamento($pd['sigla_departamento']);
                 $comissao->cod_curso= isset($curso['codcur']) ? $curso['codcur'] : null;
@@ -176,7 +182,7 @@ class ReplicadoWeeklySyncCommand extends Command
             }
         }
 
-
+        
         if($pesquisadores_colab){
             foreach($pesquisadores_colab as $pc){
                 $comissao = ComissaoPesquisa::where('codproj',$pc['codprj'])->where('codpes_discente',$pc['codpes'])->first();
@@ -203,6 +209,7 @@ class ReplicadoWeeklySyncCommand extends Command
                 $comissao->save();
             }
         }
+        
 
     }
 

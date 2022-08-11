@@ -11,6 +11,10 @@
 
 @include ('pesquisa.partials.return')
 
+<br>
+@include ('pesquisa.partials.search')
+
+
 @if(isset($pesquisas_pos_doutorando))
 <div class="card">
   <div class="card-header">
@@ -19,7 +23,7 @@
     @else
       <b>Pesquisas de pós doutorado do curso de {{$nome_curso}}</b>
     @endif
-    <a href="{{ config('app.url') }}/api/pesquisa/pos_doutorandos?departamento={{$departamento}}&bolsa={{$bolsa}}&curso={{$curso}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+    <a href="{{ config('app.url') }}/api/pesquisa/pos_doutorandos?departamento={{request()->get('departamento')}}&bolsa={{request()->get('bolsa')}}&curso={{request()->get('curso')}}&export=false&tipo={{request()->get('tipo')}}&ano={{request()->get('ano')}}&ano_ini={{request()->get('ano_ini')}}&ano_fim={{request()->get('ano_fim')}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <table class="table table-responsive  pessoas-programa-table">

@@ -83,7 +83,8 @@ class PesquisaController extends Controller
             'nome_curso' => $nome_curso,
             'bolsa' => $request->bolsa,
             'departamento' => $request->departamento,
-            'curso' => $request->curso
+            'curso' => $request->curso,
+            'tipo'=> 'pos_doutorandos'
         ]);
     }
     
