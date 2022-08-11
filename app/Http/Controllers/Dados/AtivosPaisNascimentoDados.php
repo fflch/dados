@@ -9,14 +9,13 @@ use App\Http\Requests\AtivosPaisNascimentoRequest;
 
 class AtivosPaisNascimentoDados
 {
-    public function listar(AtivosPaisNascimentoRequest $request){
+    public function listar(Array $validated){
         $data = [];
-        $request->validated();
 
         $vinculoreplicado = [
-            'ALUNOGR' => 'ALUNOGR', 
-            'ALUNOPOS' => 'ALUNOPOS', 
-            'ALUNOCEU' => 'ALUNOCEU', 
+            'ALUNOGR' => 'ALUNOGR',
+            'ALUNOPOS' => 'ALUNOPOS',
+            'ALUNOCEU' => 'ALUNOCEU',
             'ALUNOPD' => 'ALUNOPD',
             'DOCENTE' => 'SERVIDOR'
         ];
@@ -27,7 +26,7 @@ class AtivosPaisNascimentoDados
             2 => ['nome' => 'Sem informações', 'where' => 'AND cp.codpasnas = NULL']
         ];
 
-        $vinculo = $request->vinculo ?? 'ALUNOGR';
+        $vinculo = $validated['vinculo'] ?? 'ALUNOGR';
 
         $vinculoquery = isset($vinculoreplicado[$vinculo]) ? $vinculoreplicado[$vinculo] : '"Vínculo não encontrado"';
 
@@ -38,15 +37,15 @@ class AtivosPaisNascimentoDados
 
             if($vinculoquery == 'SERVIDOR'){
                 $query_por_vinculo = str_replace('__codpasnas__', $nacionalidade['where']." AND lp.tipvinext = 'Docente'", $query_por_vinculo);
-            
+
             } else {
                 $query_por_vinculo = str_replace('__codpasnas__', $nacionalidade['where'], $query_por_vinculo);
             }
             $result = DB::fetch($query_por_vinculo);
 
-            $data[$nacionalidade['nome']] = $result['computed'];    
+            $data[$nacionalidade['nome']] = $result['computed'];
         }
-    
+
         return ['dados' => $data, 'vinculo' => $vinculo];
     }
 }

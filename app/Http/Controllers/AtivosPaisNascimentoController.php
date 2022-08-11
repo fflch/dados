@@ -19,11 +19,11 @@ class AtivosPaisNascimentoController extends Controller
 
     public function __construct(Excel $excel, AtivosPaisNascimentoRequest $request){
         $this->excel = $excel;
-        $this->data = AtivosPaisNascimentoDados::listar($request);
-    }    
-    
+        $this->data = AtivosPaisNascimentoDados::listar($request->validated());
+    }
+
     public function grafico(){
-       
+
         $vinculo = $this->data['vinculo'];
 
         $vinculosext = [
@@ -33,19 +33,19 @@ class AtivosPaisNascimentoController extends Controller
             'ALUNOPD'  => 'Alunos de Pós-Doutorado',
             'DOCENTE'  => 'Docentes'
         ];
-        
+
         $nome_vinculo = isset($vinculosext[$vinculo]) ? $vinculosext[$vinculo] : '"Vínculo não encontrado"';
 
         $lava = new Lavacharts; // See note below for Laravel
 
         $ativos  = $lava->DataTable();
 
-        $formatter = $lava->NumberFormat([ 
+        $formatter = $lava->NumberFormat([
             'pattern' => '#.###',
         ]);
         $ativos->addStringColumn('Nacionalidade')
             ->addNumberColumn($nome_vinculo. ' - quantidade');
-            
+
         foreach($this->data['dados'] as $key=>$data) {
             $ativos->addRow([$key, $data]);
         }
@@ -55,7 +55,7 @@ class AtivosPaisNascimentoController extends Controller
             'legend' => [
                 'position' => 'top',
                 'alignment' => 'center',
-                
+
             ],
             'height' => 500,
             'vAxis' => ['format' => 0],
