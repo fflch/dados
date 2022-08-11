@@ -524,4 +524,141 @@ class ReplicadoTemp
 
     }
 
+    /**
+     * Método para retornar os pós-docs
+     * Permite filtrar por departamento e por periodo.
+     * @param array $departamento - Recebe um array com as siglas dos departamentos desejados. Se for igual a null, a consulta trazerá todos os departamentos.
+     * @param int $ano_ini - ano inicial do período. Se for igual a null retorna todas os pós-docs.
+     * @param int $ano_fim - ano final do período
+     * @param bool $vigencia - Se for igual a true pesquisará o período definido por ano ini e fim pela data do projeto, se for false a busca será realizada pelo ano de cadastro do projeto e não por sua vigência.
+     * @param bool $somenteAtivos - Se for igual a true retornará os pós-docs ativas
+     * @return array
+     */
+    public static function listarPesquisaPosDoutorandos($departamento = null, $ano_ini = null, $ano_fim = null, $vigencia = false, $somenteAtivos = false){
+        $pesquisas_pos_doutorando = [];
+        $unidades = getenv('REPLICADO_CODUNDCLG');
+        $query = "SELECT DISTINCT v.codpes, 
+            v.nompes as nome_aluno, 
+            p.codprj,
+            p.anoprj, 
+            p.staatlprj,
+            p.titprj, 
+            p.dtainiprj, 
+            p.dtafimprj,
+            p.fmtapifceprj as forma_apoio_financeiro_projeto,
+            s.nomset as departamento,
+            s.nomabvset as sigla_departamento,
+            s.codset 
+        from fflch.dbo.VINCULOPESSOAUSP v  
+            INNER JOIN fflch.dbo.PDPROJETO p ON v.codpes = p.codpes_pd 
+            inner join fflch.dbo.SETOR s on s.codset = p.codsetprj 
+        WHERE v.tipvin = 'ALUNOPD' 
+            AND p.staatlprj in ('Aprovado', 'Ativo', 'Encerrado')
+            AND p.codund in (__unidades__)
+            AND p.codmdl = 2 --  1- INI, 2- PD, 3-BIO, 4-NUCLEO
+            __departamento__ --  AND s.codset in (591)
+            __data__ -- AND p.anoprj = 2018
+        HAVING DATEDIFF(DAY, p.dtainiprj, p.dtafimprj) >= 30
+        ORDER BY v.nompes
+        ";
+        
+        $query = str_replace('__unidades__',$unidades,$query);
+        
+       
+        if($departamento != null && sizeof($departamento) > 0){ 
+            if(is_array($departamento) && sizeof($departamento) > 1){
+                $departamento = "'". implode("','", $departamento)."'";
+            }else if(sizeof($departamento) == 1){
+                $departamento = "'". $departamento[0] ."'";
+            }
+            
+            $query = str_replace('__departamento__',"AND s.nomabvset in ($departamento)", $query);
+           
+        }else{
+            $query = str_replace('__departamento__',"", $query);
+        }
+        if($ano_ini != -1 && $ano_ini != null && $ano_fim != null && !empty($ano_ini) && !empty($ano_fim)){
+            if($vigencia){
+                $aux = " AND (p.dtafimprj BETWEEN '".$ano_ini."-01-01' AND '".$ano_fim."-12-31' OR
+                p.dtainiprj BETWEEN '".$ano_ini."-01-01' AND '".$ano_fim."-12-31') ";
+            }
+            else{
+                $aux = " AND (p.anoprj >= $ano_ini AND  p.anoprj <= $ano_fim)";
+            }
+            if($somenteAtivos){
+                $aux .= " AND (p.dtafimprj > GETDATE() or p.dtafimprj IS NULL)"; 
+            }
+            $query = str_replace('__data__',$aux, $query);
+        }else if($ano_ini == null && !$somenteAtivos){
+            $query = str_replace('__data__','', $query);
+        }
+        if($somenteAtivos){   
+            $query = str_replace('__data__',"AND (p.dtafimprj > GETDATE() or p.dtafimprj IS NULL)", $query); 
+        }
+        
+        //return $query;
+        $pesquisas = DB::fetchAll($query);
+        
+        //return $pesquisas;
+        
+        foreach($pesquisas as $p){
+            $query_nome_supervisor = "SELECT TOP 1 nompes 
+            from PDPROJETOSUPERVISOR p 
+            inner join PESSOA p2 on p.codpesspv = p2.codpes
+            where codprj = convert(int,:codprj)
+            and anoprj = convert(int,:anoprj) 
+            ORDER BY anoprj DESC";
+
+            $param = [
+                'codprj' => $p['codprj'],
+                'anoprj' => $p['anoprj'],
+            ];
+            
+            $nome_supervisor =  DB::fetchAll($query_nome_supervisor, $param)[0]['nompes'];
+            $p['supervisor'] = $nome_supervisor;
+
+            $apoio_financeiro = array('BF' => 'Fomento', 
+                                      'AF' => 'Afastamento Empregatício',
+                                      'BO' => 'Bolsa por outro órgão não de Fomento à pesquisa',
+                                      'AR' => 'Afastamento Remunerado de instituição de Pesquisa e ensino ou de empresa', 
+                                      'SB' => 'Sem bolsa');
+            
+            $p['forma_apoio_financeiro_projeto'] = $apoio_financeiro[$p['forma_apoio_financeiro_projeto']] ?? $p['forma_apoio_financeiro_projeto']; 
+          
+
+            $query_com_bolsa = "SELECT nomagefom, dtainifom, dtafimfom
+            from PDPROGRAMAFOMENTO  
+            where codprj = convert(int,:codprj)
+            and anoprj = convert(int,:anoprj) 
+            HAVING DATEDIFF(DAY, dtainifom, dtafimfom) >= 30
+            order by dtainifom desc "; 
+    
+            $query_com_bolsa = str_replace('__unidades__',$unidades,$query_com_bolsa);
+            
+            $result =  DB::fetchAll($query_com_bolsa, $param);
+            
+            if($result){
+                $p['bolsa'] = 'true';
+                $p['obs'] = "";
+                for($i = 0; $i < sizeof($result); $i++){
+                    if($i > 0){
+                        $p['obs'] .= "Agência de Fomento: " .  $result[$i]['nomagefom']. ", Período: " . $result[$i]['dtainifom'] . " - " . $result[$i]['dtafimfom']. ". ";
+                    }else{
+                        $p['agencia'] = $result[$i]['nomagefom'];
+                        $p['dtainibol'] = $result[$i]['dtainifom'];
+                        $p['dtafimbol'] = $result[$i]['dtafimfom'];
+                    }
+                }
+            }else{
+                $p['bolsa'] = 'false';
+            }
+
+
+            array_push($pesquisas_pos_doutorando, $p); 
+        }
+        
+      
+        return $pesquisas_pos_doutorando;
+    }
+
 }

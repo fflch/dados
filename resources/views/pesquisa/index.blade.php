@@ -66,8 +66,8 @@
             <th scope="col" class="text-center">IC (sem bolsa)</th>
             
             
-            <th scope="col" class="text-center">Pós-Doutorandos ativos (com bolsa)</th>
-            <th scope="col" class="text-center">Pós-Doutorandos ativos (sem bolsa)</th>
+            <th scope="col" class="text-center">Pós-Doutorandos (com bolsa)</th>
+            <th scope="col" class="text-center">Pós-Doutorandos (sem bolsa)</th>
 
             <th scope="col" class="text-center">Pesquisadores Colaboradores Ativos</th>
             <th scope="col" class="text-center">Projetos de Pesquisas dos Docentes</th>
