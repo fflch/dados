@@ -10,33 +10,32 @@ use App\Http\Requests\AlunosAtivosAutodeclaradosRequest;
 class AlunosAtivosAutodeclaradosDados
 {
 
-    public static function listar(AlunosAtivosAutodeclaradosRequest $request){
+    public static function listar(Array $validated) {
 
-            $data = [];
-            $request->validated();
+        $data = [];
 
-            $vinculos = [
-                'ALUNOGR' => 'Aluno de Graduação', 
-                'ALUNOPOS' => 'Aluno de Pós-Graduação', 
-                'ALUNOCEU' => 'Aluno de Cultura e Extensão', 
-                'ALUNOPD' => 'Aluno de Pós-Doutorado'
-            ];
+        $vinculos = [
+            'ALUNOGR' => 'Aluno de Graduação',
+            'ALUNOPOS' => 'Aluno de Pós-Graduação',
+            'ALUNOCEU' => 'Aluno de Cultura e Extensão',
+            'ALUNOPD' => 'Aluno de Pós-Doutorado'
+        ];
 
-            $vinculo = $request->vinculo ?? 'ALUNOGR';
+        $vinculo = $validated['vinculo'] ?? 'ALUNOGR';
 
-            $cores = Util::racas;
+        $cores = Util::racas;
 
-            $nome_vinculo = isset($vinculos[$vinculo]) ? $vinculos[$vinculo] : '"Vínculo não encontrado"';
+        $nome_vinculo = isset($vinculos[$vinculo]) ? $vinculos[$vinculo] : '"Vínculo não encontrado"';
 
-            $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_alunos_autodeclarados.sql');
-            foreach ($cores as $key => $cor) {
-                $query_por_cor = str_replace('__cor__', $cor, $query);
-                $query_por_cor = str_replace('__vinculo__', $vinculo, $query_por_cor);
-                $result = DB::fetch($query_por_cor);
-                $data[$key] = $result['computed'];
-            }
-
-            return ['dados' => $data, 'nome_vinculo' => $nome_vinculo, 'vinculo' => $vinculo];
+        $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_alunos_autodeclarados.sql');
+        foreach ($cores as $key => $cor) {
+            $query_por_cor = str_replace('__cor__', $cor, $query);
+            $query_por_cor = str_replace('__vinculo__', $vinculo, $query_por_cor);
+            $result = DB::fetch($query_por_cor);
+            $data[$key] = $result['computed'];
         }
 
-} 
+        return ['dados' => $data, 'nome_vinculo' => $nome_vinculo, 'vinculo' => $vinculo];
+    }
+
+}

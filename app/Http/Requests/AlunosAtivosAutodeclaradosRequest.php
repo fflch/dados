@@ -25,7 +25,7 @@ class AlunosAtivosAutodeclaradosRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'vinculo' => ['required','in:ALUNOGR,ALUNOPOS,ALUNOPD,ALUNOCEU'],
+            'vinculo' => ['required', Rule::in('ALUNOGR','ALUNOPOS','ALUNOPD','ALUNOCEU')],
         ];
 
         return $rules;
@@ -43,4 +43,4 @@ class AlunosAtivosAutodeclaradosRequest extends FormRequest
             'vinculo.required'  => 'O tipo de vínculo é obrigatório',
         ];
     }
-} 
+}

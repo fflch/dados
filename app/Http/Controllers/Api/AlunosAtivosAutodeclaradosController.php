@@ -16,12 +16,12 @@ class AlunosAtivosAutodeclaradosController extends Controller
      * Totais de alunos autodeclarados por raça/cor
      *
      * Retorna a quantidade de alunos de graduação, pós-graduação, cultura e extensão ou pós doutorado (segundo o parâmetro) por raça/cor.
-     * 
+     *
      * @group Dados por cor/raça
      */
     public function index(AlunosAtivosAutodeclaradosRequest $request){
         return response()->json(
-            AlunosAtivosAutodeclaradosDados::listar($request)['dados'],
+            AlunosAtivosAutodeclaradosDados::listar($request->validated())['dados'],
             200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
     }
