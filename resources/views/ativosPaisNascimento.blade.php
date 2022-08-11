@@ -4,25 +4,32 @@
 <div class="content-options">
     <label for="vinculo" class="form-label">Filtrar por:</label>
     <select id="vinculo" class="form-select" onchange="location = this.value;">
-        <option @if($tipo_vinculo == 0) selected="selected" @endif value="/ativosPaisNascimento/0">
+        <option @if($vinculo == 'ALUNOCEU') selected="selected" @endif value="/ativosPaisNascimento?vinculo=ALUNOCEU">
             Alunos de Cultura e Extensão
         </option>
-        <option @if($tipo_vinculo == 1) selected="selected" @endif value="/ativosPaisNascimento/1">
+        <option @if($vinculo == 'ALUNOPOS') selected="selected" @endif value="/ativosPaisNascimento?vinculo=ALUNOPOS">
             Alunos de Pós-Graduação
         </option>
-        <option @if($tipo_vinculo == 2) selected="selected" @endif value="/ativosPaisNascimento/2">
+        <option @if($vinculo == 'ALUNOGR') selected="selected" @endif value="/ativosPaisNascimento?vinculo=ALUNOGR">
             Alunos de Graduação 
         </option>
-        <option @if($tipo_vinculo == 3) selected="selected" @endif value="/ativosPaisNascimento/3">
+        <option @if($vinculo == 'ALUNOPD') selected="selected" @endif value="/ativosPaisNascimento?vinculo=ALUNOPD">
             Alunos de Pós-Doutorado 
         </option>
-        <option @if($tipo_vinculo == 4) selected="selected" @endif value="/ativosPaisNascimento/4">
+        <option @if($vinculo == 'DOCENTE') selected="selected" @endif value="/ativosPaisNascimento?vinculo=DOCENTE">
             Docentes
         </option>
 
     </select> 
 
-<a  href="/ativosPaisNascimento/export/excel/{{$tipo_vinculo}}">
+<a  href="/ativosPaisNascimento/export/excel/{{$vinculo}}">
+
+<a href="{{ config('app.url') }}/api/ativosPaisNascimento?vinculo={{request()->vinculo ?? 'ALUNOGR'}}" class="export-json">
+    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+        <img src="{{ asset('assets/img/json_icon.png') }}">
+    </span>
+</a>
+    <a href="/ativosPaisNascimento/export/excel?vinculo={{request()->vinculo ?? 'ALUNOGR'}}" class="ml-5 btn-dl-excel">
     <i class="fas fa-file-csv"></i> Download Excel</a> 
 
 </div>

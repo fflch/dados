@@ -170,8 +170,20 @@
     </div>
     <div class="card-body collapse"  id="collapseDadosNacionalidade">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPaisNascimento/2">Totais de alunos e docentes brasileiros e estrangeiros ativos.</a></li>
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosAlunosEstado">Totais de alunos contabilizados por estados.</a></li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPaisNascimento?vinculo=ALUNOGR">Totais de alunos e docentes brasileiros e estrangeiros ativos.</a>
+                <a href="{{ config('app.url') }}/api/ativosPaisNascimento?vinculo=ALUNOGR" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>  
+            </li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/alunosAtivosEstado">Totais de alunos contabilizados por estados.</a>
+                <a href="{{ config('app.url') }}/api/alunosAtivosEstado" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>  
+            </li>
         </ul>
     </div>
 </div>
