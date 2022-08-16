@@ -14,42 +14,55 @@ class AtivosPorGeneroDados
     public function listar(Array $validated){
 
         $data = [];
-        $siglas = ['F', 'M'];
 
         $vinculo = $validated['vinculo'] ?? 'ALUNOGR';
         $codcur = $validated['curso'] ?? null;
 
-        /* Contabiliza alunos graduação gênero */
         $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_ativos_genero.sql');
-        foreach($siglas as $sigla){
-            if($vinculo == 'DOCENTE'){
-                $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_docentes_genero.sql');                
-            }else if($vinculo == 'SERVIDOR'){
-                $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_funcionarios_genero.sql');                
-            }else if($vinculo == 'CHEFESADM'){
-                $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_chefes_administrativos_genero.sql');                
-            }else if($vinculo == 'CHEFESDPTO'){
-                $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_chefes_departamento_genero.sql');                
-            }else if($vinculo == 'COORD'){
-                $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_coordcursosgrad_genero.sql');                
-            }
-            $query_genero = str_replace('__genero__', $sigla, $query);
-            $query_genero = str_replace('__tipvin__', $vinculo, $query_genero);
+
+        $params = ["ALUNOGR"    =>  ["join" => "JOIN SITALUNOATIVOGR s ON s.codpes = l.codpes",
+                                    "condicao" =>  "AND l.tipvin = 'ALUNOGR'".(isset($codcur) ? "AND s.codcur = ".$codcur : "")],
+
+                   "ALUNOPOS"   =>  ["join" => null,
+                                    "condicao" => "AND l.tipvin = 'ALUNOPOS'"],
+
+                   "ALUNOCEU"   =>  ["join" => null,
+                                    "condicao" => "AND l.tipvin = 'ALUNOCEU'"],
+
+                   "ALUNOPD"    =>  ["join" => null,
+                                    "condicao" => "AND l.tipvin = 'ALUNOPD'"],
+
+                   "DOCENTE"    =>  ["join" =>  null,
+                                    "condicao" =>  "AND l.tipvinext LIKE 'Docente'"],
+
+                   "SERVIDOR"   =>  ["join" =>  null,
+                                    "condicao" =>  "AND l.tipvinext = 'Servidor'"],
+
+                   "CHEFESADM"  =>  ["join" =>  null,
+                                    "condicao" =>  "AND l.codpes IN (SELECT codpes FROM LOCALIZAPESSOA loc
+                                                    WHERE loc.tipvinext = 'Servidor' AND loc.sitatl = 'A') 
+                                                    AND l.tipvinext = 'Servidor Designado'"],
+
+                   "CHEFESDPTO" =>  ["join" =>  null,
+                                    "condicao" =>  "AND l.nomfnc = 'Ch Depart Ensino'"],
+
+                   "COORD"      =>  ["join" =>  null,
+                                    "condicao" =>  "AND nomfnc LIKE '%Coord Cursos Grad%'"],
+
+                   "ESTAGIARIORH"   =>  ["join" =>  null,
+                                        "condicao" => "AND l.tipvin = 'ESTAGIARIORH'"]
+
+        ];
 
 
-            if($vinculo == 'ALUNOGR' && isset($codcur)){
-                $query_genero = str_replace('__join_alunogr__', 'JOIN SITALUNOATIVOGR s ON s.codpes = l.codpes', $query_genero);
-                $query_genero = str_replace('__curso__', 'AND s.codcur = ' . $codcur, $query_genero);
-            }else{
-                $query_genero = str_replace('__join_alunogr__', '', $query_genero);
-                $query_genero = str_replace('__curso__', '', $query_genero);
+        $subs = ['__join__', '__condicao__'];
 
-            }
+        $querygenero = str_replace($subs, $params[$vinculo], $query);
 
-            $result = DB::fetch($query_genero);
+        $result = DB::fetchAll($querygenero);
 
-            $data[$sigla] = $result['computed'];
-
+        foreach($result as $s){
+            $data[$s['sexpes']] = $s['computed'];
         }
 
         return ['dados' => $data, 'vinculo' => $vinculo, 'codcur' => $codcur];
