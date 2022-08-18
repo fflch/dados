@@ -68,9 +68,13 @@
     <div class="card-body collapse"  id="collapseDadosGenero">
 
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosGenero/ALUNOGR0/0">Totais de ativos contabilizadas por
-                    gênero.</a>
-            </li>
+            <li class="list-group-item"><a href="{{ config('app.url') }}/ativosPorGenero?vinculo=ALUNOGR">Totais de ativos contabilizadas por gênero.</a>
+                <a href="{{ config('app.url') }}/api/ativosPorGenero?vinculo=ALUNOGR" class="export-json">
+                    <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                        <img src="{{ asset('assets/img/json_icon.png') }}">
+                    </span>
+                </a>  
+            </li>  
         </ul>
 
     </div>

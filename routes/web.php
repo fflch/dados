@@ -67,8 +67,8 @@ Route::get('/ativosPorProgramaPos', [AtivosPorProgramaPosController::class, 'gra
 Route::get('/ativosPorProgramaPos/export/{format}', [AtivosPorProgramaPosController::class, 'export']);
 
 # totais de alunos da graduação por gênero e por curso
-Route::get('/ativosGenero/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'grafico']);
-Route::get('/ativosGenero/export/{format}/{tipvin}/{cod_curso}', [AtivosPorGeneroController::class, 'export']);
+Route::get('/ativosPorGenero', [AtivosPorGeneroController::class, 'grafico']);
+Route::get('/ativosPorGenero/export/{format}', [AtivosPorGeneroController::class, 'export']);
 
 # totais com algum benefício ativo
 Route::get('/beneficiados', [BeneficiadosController::class, 'grafico']);

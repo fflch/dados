@@ -6,6 +6,24 @@ use Uspdev\Replicado\Posgraduacao;
 
 class Util
 {
+    const vinculosExt = [
+        'Alunos de Graduação' => ['vinculo' => 'ALUNOGR', 'codcur' => null],
+        'Alunos da Graduação de Filosofia' => ['vinculo' => 'ALUNOGR', 'codcur' => 8010],
+        'Alunos da Graduação de Geografia' => ['vinculo' => 'ALUNOGR', 'codcur' => 8021],
+        'Alunos da Graduação de História' => ['vinculo' => 'ALUNOGR', 'codcur' => 8030],
+        'Alunos da Graduação de Ciências Sociais' => ['vinculo' => 'ALUNOGR', 'codcur' => 8040],
+        'Alunos da Graduação de Letras' => ['vinculo' => 'ALUNOGR', 'codcur' => 8051],
+        'Alunos da Pós-Graduação' => ['vinculo' => 'ALUNOPOS', 'codcur' => null],
+        'Alunos de Pós-Doutorado' => ['vinculo' => 'ALUNOPD', 'codcur' => null],
+        'Alunos de Cultura e Extensão' => ['vinculo' => 'ALUNOCEU', 'codcur' => null],
+        'Docentes' => ['vinculo' => 'DOCENTE', 'codcur' => null],
+        'Estagiários' => ['vinculo' => 'ESTAGIARIORH', 'codcur' => null],
+        'Funcionários' => ['vinculo' => 'SERVIDOR', 'codcur' => null],
+        'Chefes Administrativos' => ['vinculo' => 'CHEFESADM', 'codcur' => null],
+        'Chefes de Departamento' => ['vinculo' => 'CHEFESDPTO', 'codcur' => null],
+        'Coordenadores dos Cursos de Graduação' => ['vinculo' => 'COORD', 'codcur' => null],
+    ];
+
 
     const departamentos = [
         'FLA' => [591, 'Antropologia'],
