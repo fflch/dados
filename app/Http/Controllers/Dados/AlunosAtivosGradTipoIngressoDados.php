@@ -10,30 +10,36 @@ class AlunosAtivosGradTipoIngressoDados
     {
         $data = [];
 
-        // Array com os tipos de ingresso cadastrados no banco dos alunos de graduação. 
-        $ingresso = [
-                    'Vestibular' => 'Vesitbular',
-                    'Vestibular%Lista' => 'Vestibular Lista de espera',
-                    '%SISU%' => 'SISU',
-                    'Transf USP' => 'Transferência interna USP',
+        // Array com os tipos de ingresso cadastrados no banco dos alunos de graduação.
+        $tiposIngresso = [
+                    'Vestibular' => 'Vestibular – Primeira Lista',
+                    'Vestibular%a' => 'Vestibular – Lista Extra',
+                    '%SISU' => 'SISU – Primeira Lista',
+                    '%SISU LE%' => 'SISU – Lista Extra',
+                    'Transf USP' => 'Transferência interna',
                     'Transf Externa' => 'Transferência externa',
                     'Conv%' => 'Convênio',
-                    'Cortesia Diplom%' => 'Cortesia Diplomática',
                     'Liminar' => 'Liminar',
-                    'REGULAR' => 'Regular',
-                    'processo seletivo' => 'Processo seletivo',
-                    'ESPECIAL' => 'ESPECIAL',
-                    'Especial' => 'Especial',
-                    'anterior a out/2002' => 'Anterior a out/2002',
+                    'Cortesia Diplom%' => 'Cortesia Diplomática',
         ];
+
+
+        foreach ($tiposIngresso as $key => $value){
+            if(isset($select) == False){
+                $select = "SUM(COUNT(CASE WHEN v.tiping LIKE '".$key."' THEN 1 ELSE null END)) AS '".$value."'";
+            } else {
+                $select .= ", SUM(COUNT(CASE WHEN v.tiping LIKE '".$key."' THEN 1 ELSE null END)) AS '".$value."'";
+            }
+        }
 
         /* Contabiliza alunos da Graduação por tipo de ingresso */
         $query = file_get_contents(__DIR__ . '/../../../../Queries/conta_alunos_ativos_ingresso.sql');
-        foreach ($ingresso as $key => $tipo) {
-            $query_por_tipo = str_replace('__tipo__', $key, $query);
-            $result = DB::fetch($query_por_tipo);
-            $data[$tipo] = $result['computed'];
-        }
+
+        $query = str_replace('__select__', $select, $query);
+
+
+        $data = DB::fetchAll($query)[0];
+
         return $data;
     }
 }
