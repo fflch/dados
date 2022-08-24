@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AlunosAtivosAutodeclaradosController;
 use App\Http\Controllers\Api\AlunosAtivosEstadoController;
+use App\Http\Controllers\Api\AlunosAtivosGradTipoIngressoController;
 use App\Http\Controllers\Api\AlunosAtivosPorCursoController;
 use App\Http\Controllers\Api\AtivosPaisNascimentoController;
 use App\Http\Controllers\Api\AtivosPorGeneroController;
@@ -63,3 +64,7 @@ Route::get('/alunosAtivosEstado', [AlunosAtivosEstadoController::class, 'index']
 
 # Dados por gênero
 Route::get('/ativosPorGenero', [AtivosPorGeneroController::class, 'index']);
+
+
+# Dados por ingresso
+Route::get('/alunosAtivosGradTipoIngresso', [AlunosAtivosGradTipoIngressoController::class, 'index']);
