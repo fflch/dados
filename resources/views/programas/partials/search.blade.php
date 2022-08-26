@@ -28,5 +28,5 @@
     <input type="submit" value="Buscar" class="btn btn-dark btn-send">
   </form>
   
-  <a href="{{ config('app.url') }}/api{{$form_action}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+  <a href="{{ config('app.url') }}/api{{$form_action}}?tipo={{ request()->tipo }}&ano={{ request()->ano }}&ano_ini={{ request()->ano_ini }}&ano_fim={{ request()->ano_fim }}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
   </div>
