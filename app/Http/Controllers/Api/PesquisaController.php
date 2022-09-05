@@ -31,7 +31,7 @@ class PesquisaController extends Controller
         );
     }
 
-    public function listarPesquisasPosDoutorandos(Request $request){
+    public function listarPesquisasPosDoutorandos(PesquisaRequest $request){
         return response()->json(
             ComissaoPesquisa::listarPesquisasPosDoutorandos($request),
             200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
