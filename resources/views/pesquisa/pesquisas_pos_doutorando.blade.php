@@ -23,7 +23,7 @@
     @else
       <b>Pesquisas de pós doutorado do curso de {{$nome_curso}}</b>
     @endif
-    <a href="{{ config('app.url') }}/api/pesquisa/pos_doutorandos?departamento={{request()->get('departamento')}}&bolsa={{request()->get('bolsa')}}&curso={{request()->get('curso')}}&export=false&tipo={{request()->get('tipo')}}&ano={{request()->get('ano')}}&ano_ini={{request()->get('ano_ini')}}&ano_fim={{request()->get('ano_fim')}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+    <a href="{{ config('app.url') }}/api/pesquisa/pos_doutorandos?departamento={{ request()->get('departamento') }}&bolsa={{ request()->get('bolsa') }}&curso={{ request()->get('curso') }}&tipo={{ request()->get('tipo') }}&ano={{ request()->get('ano') }}&export=false" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
   </div>
   <div class="card-body wrapper-pessoas-programa-table">
     <table class="table table-responsive  pessoas-programa-table">

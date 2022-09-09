@@ -8,43 +8,38 @@
     <div class="tipo-select-div">
       <label for="tipo">Filtrar por:</label>
       <select name="tipo" id="tipo" class="mr-2">
-        <option value="">Selecione</option>
-        <option value="anual" {{ request()->get('tipo') == 'anual' ? 'selected' : ''}}>Ano</option>
-        <option value="periodo" {{ request()->get('tipo') == 'periodo' ? 'selected' : ''}}>Período</option>
-        <option value="ativo" title="Traz todas as produções ativas" {{ request()->get('tipo') == 'ativo' ? 'selected' : ''}}>Ativo</option>
-        <option value="tudo" title="Traz todas as produções independente da data" {{ (request()->get('tipo') == 'tudo' || request()->get('tipo') == null ) ? 'selected' : ''}}>Todos</option>
+        <option value="ativos" title="Busca os projetos ativos " {{ request()->get('tipo') == 'ativos' ? 'selected' : ''}}>Ativos</option>
+        <option value="anovigente" title="Busca os projetos vigentes em determinado ano" {{ request()->get('tipo') == 'anovigente' ? 'selected' : ''}}>Ano de vigência</option>
+        <option value="anoinicial" title="Busca os projetos iniciados em determinado ano" {{ request()->get('tipo') == 'anoinicial' ? 'selected' : ''}}>Ano inicial</option>
+        <option value="anofinal"  title="Busca os projetos encerrados em determinado ano" {{ request()->get('tipo') == 'anofinal' ? 'selected' : ''}}>Ano final</option>
+        <option value="todos" title="Buscar todos os projetos (independente de data)" {{ (request()->get('tipo') == 'todos' || request()->get('tipo') == null ) ? 'selected' : ''}}>Todos</option>
       </select>
     </div>
-    <div class="tipo-div-input anual mr-2 
-        @if(request()->get('tipo') != 'anual')
+    <div class="tipo-div-input anovigente anoinicial anofinal mr-2 
+        @if(request()->get('tipo') == 'todos' || request()->get('tipo') == 'ativos')
          d-none
         @endif">
       <label for="ano">Ano:</label>
       <input type="number" name="ano" id="ano" min="1950" value="{{ request()->get('ano')}}">
     </div>
-    <div class="tipo-div-input periodo mr-2 
-        @if(request()->get('tipo') != 'periodo')
-         d-none
-        @endif" >
-      <label for="ano_ini">de </label>
-      <input type="number" name="ano_ini" id="ano_ini" min="1950" value="{{ request()->get('ano_ini')}}">
-      <label for="ano_fim">até </label>
-      <input type="number" name="ano_fim" id="ano_fim"  value="{{ request()->get('ano_fim')}}">
-    </div>
     <input type="submit" value="Buscar" class="btn btn-dark bg-blue-default btn-send">
     
   </form>
-  <p>
-      @if(request()->get('tipo') == 'anual' && $tipo == 'pos_doutorandos')
-        Busca pela data de início dos projetos
-      @elseif(request()->get('tipo') == 'anual' && $tipo == 'iniciacao_cientifica')
-        Busca pela data de cadastro dos projetos
-      @elseif(request()->get('tipo') == 'periodo')
-        Busca pela vigência do projeto
-      @elseif(request()->get('tipo') == 'ativo')
-        Busca os projetos cuja a data fim é maior que a atual
-      @endif
-    </p>
+
+  <?php $mensagens = [
+    'ativos' => 'Buscando os projetos em atividade',
+    'todos' => 'Buscando todos os projetos',
+    'anovigente' => 'Buscando os projetos vigentes em ',
+    'anoinicial' => 'Buscando os projetos tiveram início em ',
+    'anofinal' => 'Buscando os projetos que terminaram em '
+  ];
+  ?>
+
+@if(str_starts_with(request()->get('tipo'), 'ano'))
+  <p>{{ $mensagens[request()->get('tipo')] . request()->get('ano') . ':'}}</p>
+@else
+  <p>{{ $mensagens[request()->get('tipo')] . ':'}}</p>
+@endif
 
 </div>
 

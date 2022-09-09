@@ -5,7 +5,7 @@
     </td>
     <td class="text-center">
         @if($item['ic_com_bolsa'] > 0)
-            <a href="/pesquisa/iniciacao_cientifica?curso={{$key}}&bolsa=true">
+            <a href="/pesquisa/iniciacao_cientifica?curso={{$key}}&bolsa=true&tipo=ativos">
             {{$item['ic_com_bolsa']}}
             </a>
         @else
@@ -14,7 +14,7 @@
     </td>
     <td class="text-center">
         @if($item['ic_sem_bolsa'] > 0)
-        <a href="/pesquisa/iniciacao_cientifica?curso={{$key}}&bolsa=false">
+        <a href="/pesquisa/iniciacao_cientifica?curso={{$key}}&bolsa=false&tipo=ativos">
             {{$item['ic_sem_bolsa']}}
         </a>
         @else
@@ -23,7 +23,7 @@
     </td>
     <td class="text-center">
         @if($item['pesquisas_pos_doutorado_com_bolsa'] > 0)
-        <a href="/pesquisa/pos_doutorandos?curso={{$key}}&bolsa=true">
+        <a href="/pesquisa/pos_doutorandos?curso={{$key}}&bolsa=true&tipo=ativos">
             {{$item['pesquisas_pos_doutorado_com_bolsa']}}
         </a>
         @else
@@ -32,7 +32,7 @@
     </td>
     <td class="text-center">
         @if($item['pesquisas_pos_doutorado_sem_bolsa'] > 0)
-        <a href="/pesquisa/pos_doutorandos?curso={{$key}}&bolsa=false">
+        <a href="/pesquisa/pos_doutorandos?curso={{$key}}&bolsa=false&tipo=ativos">
             {{$item['pesquisas_pos_doutorado_sem_bolsa']}}
         </a>
         @else

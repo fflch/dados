@@ -17,7 +17,7 @@
   
   @include ('pesquisa.partials.return')
 
-  <a class="float-right btn-voltar" href="/pesquisa/iniciacao_cientifica?departamento={{request()->get('departamento')}}&curso={{request()->get('curso')}}&bolsa={{request()->get('bolsa')}}&tipo={{request()->get('tipo')}}&ano={{request()->get('ano')}}&ano_ini={{request()->get('ano_ini')}}&ano_fim={{request()->get('ano_fim')}}&export=true" >
+  <a class="float-right btn-voltar" href="/pesquisa/iniciacao_cientifica?departamento={{ request()->get('departamento') }}&curso={{ request()->get('curso') }}&bolsa={{ request()->get('bolsa') }}&tipo={{ request()->get('tipo') }}&ano={{ request()->get('ano') }}&export=true" >
     <i class="fas fa-file-excel"></i> Download Excel</a> 
 
 
@@ -36,7 +36,7 @@
     @else
       <b>Iniciações científicas do curso de {{$nome_curso}}</b>
     @endif
-    <a href="{{ config('app.url') }}/api/pesquisa/iniciacao_cientifica?departamento={{request()->get('departamento')}}&curso={{request()->get('curso')}}&bolsa={{ request()->get('bolsa') }}&export=false&tipo={{request()->get('tipo')}}&ano={{ request()->get('ano')}}&ano_ini={{ request()->get('ano_ini')}}&ano_fim={{ request()->get('ano_fim')}}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
+    <a href="{{ config('app.url') }}/api/pesquisa/iniciacao_cientifica?departamento={{ request()->get('departamento') }}&curso={{ request()->get('curso') }}&bolsa={{ request()->get('bolsa') }}&export=false&tipo={{ request()->get('tipo') }}&ano={{ request()->get('ano') }}" class="export-json"><span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button"><img src="{{ asset('assets/img/json_icon.png') }}"></span></a>
 
   </div>
   <div class="card-body wrapper-pessoas-programa-table">

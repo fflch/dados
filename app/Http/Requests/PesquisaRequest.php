@@ -25,9 +25,7 @@ class PesquisaRequest extends FormRequest
     {
         return [
             'ano' => 'nullable|integer',
-            'ano_ini' => 'nullable|integer',
-            'ano_fim' => 'nullable|integer',
-            'tipo' => 'nullable|in:anual,periodo,ativo,tudo',
+            'tipo' => 'in:ativos,todos,anovigente,anoinicial,anofinal',
             'filtro' => 'nullable|in:departamento,curso,serie_historica',
             'serie_historica_tipo' => 'nullable|in:departamento,curso',
             

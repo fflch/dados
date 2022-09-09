@@ -67,7 +67,7 @@ class PesquisaController extends Controller
         ]);
     }
     
-    public function listarPesquisasPosDoutorandos(Request $request){
+    public function listarPesquisasPosDoutorandos(PesquisaRequest $request){
         $nome_curso = '';
         $nome_departamento = '';
 
