@@ -110,7 +110,7 @@
 <br>
 
 <div class="card">
-    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosPGR"  role="button" aria-expanded="false" aria-controls="collapseDadosPGR"><b>Dados pós graduação: 4</b>
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosPGR"  role="button" aria-expanded="false" aria-controls="collapseDadosPGR"><b>Dados pós-graduação: 4</b>
         <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
     </div>
     <div class="card-body collapse"  id="collapseDadosPGR">
