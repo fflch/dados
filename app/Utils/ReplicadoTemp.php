@@ -319,7 +319,7 @@ class ReplicadoTemp
         (CASE WHEN p.sexpes = 'M' THEN 'Masculino.' ELSE (CASE WHEN p.sexpes = 'F' THEN 'Feminino.' ELSE '' END) END) AS sexpes,
         (CASE WHEN c.codraccor = 1 THEN 'Indígena.' ELSE
             (CASE WHEN c.codraccor = 2 THEN 'Branca.' ELSE
-                (CASE WHEN c.codraccor = 3 THEN 'Negra.' ELSE
+                (CASE WHEN c.codraccor = 3 THEN 'Preta.' ELSE
                     (CASE WHEN c.codraccor = 4 THEN 'Amarela.' ELSE
                         (CASE WHEN c.codraccor = 5 THEN 'Parda.' ELSE '' END)
                     END)
@@ -453,7 +453,7 @@ class ReplicadoTemp
             $query_com_autodeclaracao_cor = "SELECT  case codraccor
             when 1 then 'Indígena'
             when 2 then 'Branca'
-            when 3 then 'Negra'
+            when 3 then 'Preta'
             when 4 then 'Amarela'
             when 5 then 'Parda'
             when 6 then 'Não informado'

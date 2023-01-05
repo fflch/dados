@@ -68,7 +68,7 @@ class AlunosAtivosAutodeclaradosController extends Controller
         if ($format == 'excel') {
             $export = new DadosExport([$this->data['dados']], ['Indígena',
             'Branca',
-            'Preta/Negra',
+            'Preta',
             'Amarela',
             'Parda',
             'Não informado']);
