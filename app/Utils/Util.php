@@ -51,7 +51,7 @@ class Util
     const racas = [
         'Indígena' => 1,
         'Branca' => 2,
-        'Negra' => 3,
+        'Preta' => 3,
         'Amarela' => 4,
         'Parda' => 5,
         'Não informado' => 6
