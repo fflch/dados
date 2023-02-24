@@ -15,9 +15,9 @@
     </p>
     
     <p><b><span class="title">Estagiários:</span><br></b>
-       @foreach(App\Models\Pessoa::where('tipo_vinculo', 'Estagiario')->where('codset', 558)->get()->toArray() as $pessoa)
-            {{ $pessoa['nompes'] }} - {{ $pessoa['email'] }} <br>
-       @endforeach
+        Andre de Queiroz Patrinicola - andrepatrinicola@usp.br<br>
+        Vinicius Fernandes Chagas - vinicius.chagas@usp.br<br>
+        Felipe de Assis Mello - felipe_de_assis@usp.br 
     </p>
 </div>
 
