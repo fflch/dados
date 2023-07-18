@@ -127,6 +127,19 @@
 <br>
 
 <div class="card">
+    <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosGR"  role="button" aria-expanded="false" aria-controls="collapseDadosGR"><b>Dados Graduação</b>
+        <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
+    </div>
+    <div class="card-body collapse"  id="collapseDadosGR">
+    <ul class="list-group">
+        <li class="list-group-item"><a href="{{ config('app.url') }}/turmas">Disciplinas/Turmas oferecidas</a></li>
+    </ul>
+    </div>
+</div>
+
+<br>
+
+<div class="card">
     <div class="card-header" data-toggle="collapse"  data-target="#collapseDadosAno"  role="button" aria-expanded="false" aria-controls="collapseDadosAno"><b>Dados por ano: 7</b>
         <span class="float-right" data-toggle="tooltip" data-placement="left" title="clique para expandir/retrair" role="button"><i class="fas fa-question-circle"></i></span>
     </div>

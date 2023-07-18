@@ -656,9 +656,50 @@ class ReplicadoTemp
 
             array_push($pesquisas_pos_doutorando, $p); 
         }
-        
-      
         return $pesquisas_pos_doutorando;
     }
 
+    public static function turmas($prefix){
+        $prefix = strtoupper($prefix);
+        $current = date("Y") . (date("m") > 6 ? 2 : 1);
+        $query = "SELECT DISTINCT coddis, codtur FROM TURMAGR 
+                    WHERE codtur LIKE '{$current}%' AND coddis LIKE '{$prefix}%'";
+        return DB::fetchAll($query);
+    }
+
+    public static function nomdis($coddis){
+        $query = "SELECT DISTINCT nomdis FROM DISCIPLINAGR WHERE coddis = '{$coddis}' ";
+        $result = DB::fetch($query);
+        if($result) return  $result['nomdis'];
+        else return ' ';
+    }
+
+    public static function ministrantes($coddis, $codtur) {
+        $query = "SELECT DISTINCT P.nompes FROM MINISTRANTE M
+                    INNER JOIN PESSOA P ON M.codpes = P.codpes 
+                    WHERE M.coddis = '{$coddis}'
+                    AND M.codtur = '{$codtur}' ";
+        $result = DB::fetchAll($query);
+
+        if($result) {
+            $nomes = array_column($result, 'nompes');
+            return implode(', ',$nomes);
+        } 
+        else return ' ';
+    }
+
+    public static function horario($coddis, $codtur) {
+        $query = "SELECT DISTINCT horario = (O.diasmnocp + ' - ' + PH.horent + ' - ' + PH.horsai)
+                  FROM OCUPTURMA O
+                  INNER JOIN PERIODOHORARIO PH ON (O.codperhor = PH.codperhor)
+                    WHERE O.coddis = '{$coddis}'
+                    AND O.codtur = '{$codtur}' ";
+        $result = DB::fetchAll($query);
+
+        if($result) {
+            $horarios = array_column($result, 'horario');
+            return implode(', ',$horarios);
+        } 
+        else return ' ';
+    }
 }

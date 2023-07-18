@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
 use App\Http\Controllers\AlunosAtivosGradTipoIngressoController;
 use App\Http\Controllers\AlunosAtivosPorCursoController;
@@ -38,9 +40,9 @@ use App\Http\Controllers\OrientadoresPosGRContoller;
 use App\Http\Controllers\PesquisaController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\RestritoController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
+use App\Http\Controllers\DisciplinaController;
 
 
 Route::get('/', [IndexController::class, 'index']);
@@ -192,6 +194,10 @@ Route::get('/restrito/estagiarios', [EstagiariosController::class, 'listarEstagi
 
 Route::get('/colegiados', [ColegiadoController::class, 'index']);
 Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
+
+Route::get('/turmas', [DisciplinaController::class, 'turmas']);
+Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);
+Route::get('/turmas/{prefix}/concatenate', [DisciplinaController::class, 'concatenate']);
 
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
