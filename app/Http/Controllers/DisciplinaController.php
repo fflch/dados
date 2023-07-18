@@ -25,6 +25,7 @@ class DisciplinaController extends Controller
         $turmas = ReplicadoTemp::turmas($prefix);
 
         return view('disciplinas.concatenate',[
+            'prefix' => $prefix,
             'turmas' => $turmas,
         ]);
     }
