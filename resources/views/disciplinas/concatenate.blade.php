@@ -15,7 +15,7 @@
         {{ \App\Utils\ReplicadoTemp::nomdis($turma['coddis']) }} - 
         Turma {{ $turma['codtur'] }}
         ({{ \App\Utils\ReplicadoTemp::horario($turma['coddis'], $turma['codtur']) }}) - 
-        {{ \App\Utils\ReplicadoTemp::ministrantes($turma['coddis'], $turma['codtur']) }}'
+        Prof. {{ \App\Utils\ReplicadoTemp::ministrantes($turma['coddis'], $turma['codtur']) }}'
         <br>
     @endforeach
 
