@@ -20,4 +20,12 @@ class DisciplinaController extends Controller
             'turmas' => $turmas,
         ]);
     }
+
+    public function concatenate($prefix){
+        $turmas = ReplicadoTemp::turmas($prefix);
+
+        return view('disciplinas.concatenate',[
+            'turmas' => $turmas,
+        ]);
+    }
 }
