@@ -10,7 +10,7 @@
     <a href="{{ config('app.url') }}/turmas">Voltar</a>
 
     <br>
-    <a href="{{ config('app.url') }}/turmas/{{ $prefix }}/concatenate">Versão Contatenada</a>
+    <a href="{{ config('app.url') }}/turmas/{{ $prefix }}/concatenate">Versão Concatenada</a>
 
     <div class="card-body">
         <table class="table table-bordered">
