@@ -28,9 +28,9 @@
                     <tr>
                         <td>{{ $turma['coddis'] }} </td>
                         <td>{{ $turma['codtur'] }} </td>
-                        <td>{{ \App\Utils\ReplicadoTemp::nomdis($turma['coddis']) }} </td>
-                        <td>{{ \App\Utils\ReplicadoTemp::horario($turma['coddis'], $turma['codtur']) }} </td>
-                        <td>{{ \App\Utils\ReplicadoTemp::ministrantes($turma['coddis'], $turma['codtur']) }} </td>
+                        <td>{{ \App\Utils\ReplicadoTemp::nomdis($turma['coddis'], $turma['verdis']) }} </td>
+                        <td>{{ \App\Utils\ReplicadoTemp::horario($turma['coddis'], $turma['codtur'], $turma['verdis']) }} </td>
+                        <td>{{ \App\Utils\ReplicadoTemp::ministrantes($turma['coddis'], $turma['codtur'], $turma['verdis']) }} </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -662,23 +662,27 @@ class ReplicadoTemp
     public static function turmas($prefix){
         $prefix = strtoupper($prefix);
         $current = date("Y") . (date("m") > 6 ? 2 : 1);
-        $query = "SELECT DISTINCT coddis, codtur FROM TURMAGR 
-                    WHERE codtur LIKE '{$current}%' AND coddis LIKE '{$prefix}%'";
+        $query = "SELECT DISTINCT TR.coddis, TR.codtur, TR.verdis FROM TURMAGR TR
+                    WHERE 
+                        TR.codtur LIKE '{$current}%' AND TR.coddis LIKE '{$prefix}%'
+                    AND TR.verdis = (SELECT MAX(DI.verdis) FROM DISCIPLINAGR AS DI WHERE (DI.coddis = TR.coddis))
+                    ";
         return DB::fetchAll($query);
     }
 
-    public static function nomdis($coddis){
-        $query = "SELECT DISTINCT nomdis FROM DISCIPLINAGR WHERE coddis = '{$coddis}' ";
+    public static function nomdis($coddis, $verdis){
+        $query = "SELECT DISTINCT nomdis FROM DISCIPLINAGR WHERE coddis = '{$coddis}' AND verdis = convert(int, $verdis) ";
         $result = DB::fetch($query);
         if($result) return  $result['nomdis'];
         else return ' ';
     }
 
-    public static function ministrantes($coddis, $codtur) {
+    public static function ministrantes($coddis, $codtur, $verdis) {
         $query = "SELECT DISTINCT P.nompes FROM MINISTRANTE M
                     INNER JOIN PESSOA P ON M.codpes = P.codpes 
                     WHERE M.coddis = '{$coddis}'
-                    AND M.codtur = '{$codtur}' ";
+                    AND M.codtur = '{$codtur}' 
+                    AND verdis = convert(int, $verdis) ";
         $result = DB::fetchAll($query);
 
         if($result) {
@@ -688,12 +692,13 @@ class ReplicadoTemp
         else return ' ';
     }
 
-    public static function horario($coddis, $codtur) {
+    public static function horario($coddis, $codtur, $verdis) {
         $query = "SELECT DISTINCT horario = (O.diasmnocp + ' - ' + PH.horent + ' - ' + PH.horsai)
                   FROM OCUPTURMA O
                   INNER JOIN PERIODOHORARIO PH ON (O.codperhor = PH.codperhor)
                     WHERE O.coddis = '{$coddis}'
-                    AND O.codtur = '{$codtur}' ";
+                    AND O.codtur = '{$codtur}' 
+                    AND O.verdis = convert(int, $verdis)  ";
         $result = DB::fetchAll($query);
 
         if($result) {
