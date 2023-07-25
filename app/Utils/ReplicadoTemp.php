@@ -662,10 +662,13 @@ class ReplicadoTemp
     public static function turmas($prefix){
         $prefix = strtoupper($prefix);
         $current = date("Y") . (date("m") > 6 ? 2 : 1);
+
+        # dtaatvdis: Data de ativação desta versão da disciplina de graduação. 
+
         $query = "SELECT DISTINCT TR.coddis, TR.codtur, TR.verdis FROM TURMAGR TR
                     WHERE 
                         TR.codtur LIKE '{$current}%' AND TR.coddis LIKE '{$prefix}%'
-                    AND TR.verdis = (SELECT MAX(DI.verdis) FROM DISCIPLINAGR AS DI WHERE (DI.coddis = TR.coddis))
+                    AND TR.verdis = (SELECT MAX(DI.verdis) FROM DISCIPLINAGR AS DI WHERE (DI.coddis = TR.coddis) AND dtaatvdis IS NOT NULL)
                     ";
         return DB::fetchAll($query);
     }
