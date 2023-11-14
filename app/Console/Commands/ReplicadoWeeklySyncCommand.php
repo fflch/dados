@@ -231,7 +231,23 @@ class ReplicadoWeeklySyncCommand extends Command
             }
 
             $info_lattes['orientandos'] = Posgraduacao::listarOrientandosAtivos($codpes);
-            $info_lattes['orientandos_concluidos'] = Posgraduacao::listarOrientandosConcluidos($codpes);
+            // $info_lattes['orientandos_concluidos'] = Posgraduacao::listarOrientandosConcluidos($codpes);
+            
+            // hotfix
+            $concluidos = Posgraduacao::listarOrientandosConcluidos($codpes);
+
+            $uniqueConcluidos = [];
+
+            foreach($concluidos as $concluido) {
+                $key = $concluido["codpespgm"] . $concluido["nivpgm"] . $concluido["dtadfapgm"];
+
+                if (!array_key_exists($key, $uniqueConcluidos)) {
+                    $uniqueConcluidos[$key] = $concluido;
+                }
+            }
+            // hotfix
+
+            $info_lattes['orientandos_concluidos'] = array_values($uniqueConcluidos);
 
             $lattes->codpes = $codpes;
             $lattes->json = json_encode(Uteis::utf8_converter($info_lattes));
