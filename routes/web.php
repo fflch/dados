@@ -44,9 +44,13 @@ use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\DisciplinaController;
 
+#Controllers novos implementados
+use App\Http\Controllers\paginaInicialController;
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [paginaInicialController::class, 'paginaInicial']);
+
 Route::get('/contato', [IndexController::class, 'contato']);
+Route::get('/index', [IndexController::class, 'index']);
 
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
