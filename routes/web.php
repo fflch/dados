@@ -44,6 +44,9 @@ use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\DisciplinaController;
 
+//PUB
+use App\Http\Controllers\PUBController;
+
 #Controllers novos implementados
 use App\Http\Controllers\paginaInicialController;
 
@@ -203,5 +206,6 @@ Route::get('/turmas', [DisciplinaController::class, 'turmas']);
 Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);
 Route::get('/turmas/{prefix}/concatenate', [DisciplinaController::class, 'concatenate']);
 
+Route::get('/pub', [PUBController::class, 'show']);
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
