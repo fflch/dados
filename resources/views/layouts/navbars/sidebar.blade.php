@@ -18,6 +18,12 @@
             </ul>
         </li>
         <li>
+         <a href="#" class="expandable" id="dadosBolsas">Bolsas</a>
+          <ul class="submenu" id="submenuDadosBolsas">
+            <li><a href="{{ url('/bolsasPUB') }}">PUB</a></li>
+          </ul>
+        </li>
+        <li>
             <a href="#" class="expandable" id="dadosPorCurso">Dados por curso</a>
             <ul class="submenu" id="submenuDadosPorCurso">
                 <li><a href="{{ url('/alunosAtivosPorCurso?tipvin=ALUNOGR') }}">Totais de alunos vínculos ativos, separados por curso</a></li>
