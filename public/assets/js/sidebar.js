@@ -24,4 +24,5 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleSubmenu('dadosPorCorRaca', 'submenuDadosPorCorRaca');
     toggleSubmenu('dadosPorNacionalidadeLocalidade', 'submenuDadosPorNacionalidadeLocalidade');
     toggleSubmenu('dadosPorIngresso', 'submenuDadosPorIngresso');
+    toggleSubmenu('dadosBolsas', 'submenuDadosBolsas');
 });
