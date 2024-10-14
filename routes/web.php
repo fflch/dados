@@ -43,13 +43,18 @@ use App\Http\Controllers\RestritoController;
 use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\DisciplinaController;
-
 use App\Http\Controllers\paginaInicialController;
 
 Route::get('/', [paginaInicialController::class, 'paginaInicial']);
 
 Route::get('/contato', [IndexController::class, 'contato']);
 Route::get('/index', [IndexController::class, 'index']);
+Route::get('/bolsasPUB', function () {
+    return view('bolsasPUB');
+});
+
+
+# totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
 Route::get('/ativos/export/{format}', [AtivosController::class, 'export']);
 
@@ -200,4 +205,5 @@ Route::get('/turmas', [DisciplinaController::class, 'turmas']);
 Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);
 Route::get('/turmas/{prefix}/concatenate', [DisciplinaController::class, 'concatenate']);
 
+# Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
