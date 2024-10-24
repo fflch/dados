@@ -1,76 +1,148 @@
-@extends('layouts.app')
-
-@section('title', 'Página Inicial')
+@extends('main')
 
 @section('content')
-<div class="container">
-    <h1 class="titulo">Portal de Dados - FFLCH</h1>
+
+<div class="info-box" style="background: rgba(240, 240, 240, 0.5); padding: 20px; border-radius: 5px; text-align: center;">
+    <h2>Bem-vindo ao Portal de Dados</h2>
+    <p>O <strong>Portal de Dados</strong> surge a fim de disponibilizar ao público informações atualizadas em tempo real sobre a <strong>Faculdade de Filosofia, Letras e Ciências Humanas - FFLCH</strong>.</p>
+    <p>Esta unidade abrange as áreas de <em>Filosofia, História, Geografia, Letras</em> e <em>Ciências Sociais</em> da Universidade de São Paulo.</p>
+    <p>Os dados disponíveis podem ser acessados através do catálogo a seguir, organizado por categorias:</p>
+    <br/>
+    <a href="/guia" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px; border-radius: 25px; text-decoration: none;">Acesse o Guia</a>
+    <br/>
 </div>
 
-<!-- Container da apresentação -->
-<div class="presentation">
-    <p class="text">
-        O Portal de Dados surge a fim de disponibilizar ao público informações atualizadas em tempo real sobre a Faculdade de Filosofia, Letras e Ciências Humanas - FFLCH, unidade de ensino, pesquisa e extensão universitária que abrange as áreas de Filosofia, História, Geografia, Letras e Ciências Sociais da Universidade de São Paulo. Os dados disponíveis podem ser acessados através das opções ao lado, organizados por categorias
-    </p>
+
+
+<div class="accordion" id="accordionExample">
+    @php
+        $lastYear = date('Y') - 1; // Cálculo do último ano
+    @endphp
+    @foreach ([
+
+        [
+            'title' => 'Página Antiga',
+            'items' => [
+                ['name' => 'Página Antiga', 'url' => '/index'],
+            ]
+         ],
+        
+        [
+            'title' => 'Dados de produção acadêmica', 
+            'items' => [
+                ['name' => 'Programas de Pós-Graduação (e por departamento)', 'url' => '/programas', 'api' => '/api/programas'], 
+                ['name' => 'Defesas', 'url' => '/defesas', 'api' => '/api/defesas'], 
+                ['name' => 'Pesquisa', 'url' => '/pesquisa?filtro=departamento', 'api' => '/api/pesquisa?filtro=departamento']
+            ]
+        ],
+
+        [
+    'title' => 'Dados Por Departamento',
+    'items' => [
+        ['name' => 'Antropologia', 'url' => '/departamentos/antropologia'],
+        ['name' => 'Ciência Política', 'url' => '/departamentos/ciencia-politica'],
+        ['name' => 'Filosofia', 'url' => '/departamentos/filosofia'],
+        ['name' => 'Geografia', 'url' => '/departamentos/geografia'],
+        ['name' => 'História', 'url' => '/departamentos/historia'],
+        ['name' => 'Letras Clássicas e Vernáculas', 'url' => '/departamentos/letras-classicas-e-vernaculas'],
+        ['name' => 'Letras Modernas', 'url' => '/departamentos/letras-modernas'],
+        ['name' => 'Letras Orientais', 'url' => '/departamentos/letras-orientais'],
+        ['name' => 'Linguística', 'url' => '/departamentos/linguistica'],
+        ['name' => 'Sociologia', 'url' => '/departamentos/sociologia'],
+        ['name' => 'Teoria Literária e Literatura Comparada', 'url' => '/departamentos/teoria-literaria-e-literatura-comparada'],
+    ]
+],
+
+        
+
+
+        [
+            'title' => 'Dados institucionais', 
+            'items' => [
+                ['name' => 'Colegiados', 'url' => '/colegiados', 'api' => '/api/colegiados']
+            ]
+        ],
+        [
+            'title' => 'Dados gerais do portal', 
+            'items' => [
+                ['name' => 'Totais de pessoas com vínculos ativos.', 'url' => '/ativos'], 
+                ['name' => 'Totais de microcomputadores e notebooks.', 'url' => '/ativosMicrosNotes'], 
+                ['name' => 'Totais de convênios ativos.', 'url' => '/conveniosAtivos'], 
+                ['name' => 'Totais de docentes contabilizados por função.', 'url' => '/ativosDocentesPorFuncao'], 
+                ['name' => 'Totais de funcionários e professores ativos contabilizados por departamento.', 'url' => '/ativosDepartamento/Servidor/0'], 
+                ['name' => 'Total de Ex Alunos da Graduação e da Pós-Graduação.', 'url' => '/exAlunos']
+            ]
+        ],
+        [
+            'title' => 'Dados por gênero', 
+            'items' => [
+                ['name' => 'Totais de ativos contabilizadas por gênero.', 'url' => '/ativosPorGenero?vinculo=ALUNOGR', 'api' => '/api/ativosPorGenero?vinculo=ALUNOGR']
+            ]
+        ],
+        [
+            'title' => 'Dados por curso', 
+            'items' => [
+                ['name' => 'Totais de alunos vínculos ativos, separados por curso.', 'url' => '/alunosAtivosPorCurso?tipvin=ALUNOGR', 'api' => '/api/alunosAtivosPorCurso?tipvin=ALUNOGR'], 
+                ['name' => 'Total de concluintes da Graduação por curso.', 'url' => '/concluintesGradPorCurso/' . $lastYear], // Uso do ano calculado
+                ['name' => 'Total de trancamentos por semestre dos cursos.', 'url' => '/trancamentosCursoPorSemestre']
+            ]
+        ],
+        [
+            'title' => 'Dados pós-graduação', 
+            'items' => [
+                ['name' => 'Totais de pessoas da Pós-Graduação, separadas por programa.', 'url' => '/ativosPorProgramaPos'], 
+                ['name' => 'Quantidade de alunos ativos da pós-graduação por nível de programa.', 'url' => '/ativosPosNivelPgm'], 
+                ['name' => 'Quantidade de orientadores credenciados na área de concentração do programa de pós graduação.', 'url' => '/orientadoresPosGR'], 
+                ['name' => 'Quantidade de alunos especiais de pós-graduação ativos por departamento.', 'url' => '/alunosEspeciaisPosGrDpto']
+            ]
+        ],
+        [
+            'title' => 'Dados Graduação', 
+            'items' => [
+                ['name' => 'Disciplinas/Turmas oferecidas', 'url' => '#'] // Adicione o link apropriado
+            ]
+        ],
+        [
+            'title' => 'Dados por ano', 
+            'items' => [
+                ['name' => 'Série histórica de benefícios concedidos por ano.', 'url' => '#'], // Adicione o link apropriado
+                ['name' => 'Série histórica: quantidade de alunos com benefícios 2010-2020.', 'url' => '#'], // Adicione o link apropriado
+                ['name' => 'Série histórica de concluintes da Graduação e Pós-Graduação por ano.', 'url' => '#'], // Adicione o link apropriado
+                ['name' => 'Quantidade de alunos de Graduação com benefícios (ativos) por ano.', 'url' => '#'], // Adicione o link apropriado
+                ['name' => 'Quantidade de alunos especiais de pós-graduação ativos por departamento.', 'url' => '#'] // Adicione o link apropriado
+            ]
+        ]
+    ] as $key => $section)
+        <div class="card">
+            <div class="card-header" id="heading{{ $key }}">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="true" aria-controls="collapse{{ $key }}">
+                        <b>{{ $section['title'] }}: {{ count($section['items']) }}</b>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapse{{ $key }}" class="collapse" aria-labelledby="heading{{ $key }}" data-parent="#accordionExample">
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach ($section['items'] as $item)
+                            <li class="list-group-item">
+                                <a href="{{ config('app.url') }}{{ $item['url'] }}">{{ $item['name'] }}</a>
+                                @if(isset($item['api']))
+                                    <a href="{{ config('app.url') }}{{ $item['api'] }}" class="export-json">
+                                        <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
+                                            <img src="{{ asset('assets/img/json_icon.png') }}">
+                                        </span>
+                                    </a>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br>
+    @endforeach
 </div>
-    <div class="sub-containers">
-        <x-box title="Subtítulo 1" image="{{ asset('assets/img/destaque_cartilhas.png') }}" alt="Destaque Cartilhas" />
-        <x-box title="Subtítulo 2" image="{{ asset('images/image2.jpg') }}" alt="Imagem 2" />
-    </div>
 
-    <div class="sub-containers">
-
-    <x-box title="Subtítulo 3" image="{{ asset('images/image3.jpg') }}" alt="Imagem 3" />
-    <x-box title="Subtítulo 4" image="{{ asset('images/image4.jpg') }}" alt="Imagem 4" />
-
-    </div>
 @endsection
-
-<style>
-    .container {
-        background-color: #052e70; /* Azul claro */
-        padding: 15px;
-        text-align: left;
-        margin: 5px 0 0 5px; /* Pequeno espaçamento ao lado do sidebar */
-        width: calc(100% - 80px); /* Ajustar largura para levar em consideração o sidebar */
-        height:60px;
-        position: absolute;
-        top: 0;
-        border-radius:5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .titulo {
-        margin: 0;
-        color: #FFFFFF;
-        font-size: 42px;
-    }
-
-    .presentation {
-    background-color: #FFFFFF; /* Fundo branco */
-    width: calc(100% - 80px); /* Mesma largura do .container */
-    margin: 70px 5px 20px 15px; /* Espaçamento ajustado */
-    padding: 6px 8px; /* Reduzir o padding para diminuir a distância entre as letras e a borda */
-    border-radius: 5px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-    .text{
-        font-size:17px;
-        font-weight: bold;
-        color:#052e70;
-    }
-
-    .sub-containers {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 30px;
-        margin-bottom: 40px;
-        margin-right:50px;
-    }
-
-</style>

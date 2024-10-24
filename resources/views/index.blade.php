@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="text-center titulo-apresentacao">APRESENTAÇÃO</h1>
+<h1 class="text-center titulo-apresentacao">APRESENTAÇÃO (Antigo)</h1>
 <p class="descricao-site">
     O Portal de Dados surge a fim de disponibilizar ao público informações atualizadas em tempo real sobre a Faculdade de Filosofia, Letras e Ciências Humans - FFLCH, unidade de ensino, pesquisa e extensão universitária que abrange as áreas de Filosofia, História, Geografia, Letras e Ciências Sociais da Universidade de São Paulo. Os dados disponíveis podem ser acessados através do catálogo a seguir, organizado por categorias:
 </p>
