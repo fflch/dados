@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\DisciplinaPorAtivacaoController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AlunosAtivosAutodeclaradosController;
@@ -44,6 +46,8 @@ use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\DisciplinaController;
 
+//IC
+use App\Http\Controllers\IniciacaoCientController;
 //PUB
 use App\Http\Controllers\PUBController;
 
@@ -176,7 +180,7 @@ Route::get('/defesas', [DefesaController::class, 'index']);
 # Pesquisa
 Route::get('/pesquisa', [PesquisaController::class, 'contarPesquisasAtivasPorTipo']);
 Route::get('/pesquisa/iniciacao_cientifica', [IniciacaoCientificaController::class, 'index']);
-
+    
 Route::get('/pesquisa/pesquisadores_colaboradores', [PesquisaController::class, 'listarPesquisadoresColaboradores']);
 Route::get('/pesquisa/pos_doutorandos', [PesquisaController::class, 'listarPesquisasPosDoutorandos']);
 Route::get('/pesquisa/projetos_pesquisa', [PesquisaController::class, 'listarProjetosPesquisa']);
@@ -206,6 +210,34 @@ Route::get('/turmas', [DisciplinaController::class, 'turmas']);
 Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);
 Route::get('/turmas/{prefix}/concatenate', [DisciplinaController::class, 'concatenate']);
 
+#GUIA
+Route::get('/guia',
+    function () {
+        return view('guia');
+    });
+
+#Por Departamento
+Route::get('/departamentos/{departamento}', [DepartamentoController::class, 'listarIC'])->name('departamentos.listarIC');
+
+
+//new routes for etl testing for further implementation
+//Route::get('/alunosIc', )
+
 Route::get('/pub', [PUBController::class, 'show']);
+Route::get('/disciplinasInativadas', [DisciplinaPorAtivacaoController::class, 'listarPorAtivacaoFLG'] );
+Route::get('/ic', [IniciacaoCientController::class, 'listarIC']);
+Route::get('/iniciacoes/exportar', [IniciacaoCientController::class, 'exportarExcel'])->name('iniciacoes.exportar');
+
+//Route::get('/exportar-iniciacoes', [IniciacaoCientController::class, 'exportExcel']);
+
+
+// Rota para listar disciplinas por ativação
+
+Route::get('/disciplinas/ativacao', [DisciplinaPorAtivacaoController::class, 'listarPorAtivacao'])
+    ->name('disciplinas.listarPorAtivacao');
+
+
+
+
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
