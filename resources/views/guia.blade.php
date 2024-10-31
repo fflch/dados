@@ -2,8 +2,9 @@
 
 @section('content')
 
-<h2>Guia de como obter dados pela página Portal de Dados</h2>
 
-<h3>Página em construção.</h3>
+
+<h3>A seguinte página busca providenciar dados e informações de acordo com as subseções baseadas nos departamentos da FFLCH</h3>
+
 
 @endsection

@@ -36,24 +36,8 @@
             ]
         ],
 
-        [
-    'title' => 'Dados Por Departamento',
-    'items' => [
-        ['name' => 'Antropologia', 'url' => '/departamentos/antropologia'],
-        ['name' => 'Ciência Política', 'url' => '/departamentos/ciencia-politica'],
-        ['name' => 'Filosofia', 'url' => '/departamentos/filosofia'],
-        ['name' => 'Geografia', 'url' => '/departamentos/geografia'],
-        ['name' => 'História', 'url' => '/departamentos/historia'],
-        ['name' => 'Letras Clássicas e Vernáculas', 'url' => '/departamentos/letras-classicas-e-vernaculas'],
-        ['name' => 'Letras Modernas', 'url' => '/departamentos/letras-modernas'],
-        ['name' => 'Letras Orientais', 'url' => '/departamentos/letras-orientais'],
-        ['name' => 'Linguística', 'url' => '/departamentos/linguistica'],
-        ['name' => 'Sociologia', 'url' => '/departamentos/sociologia'],
-        ['name' => 'Teoria Literária e Literatura Comparada', 'url' => '/departamentos/teoria-literaria-e-literatura-comparada'],
-    ]
-],
-
         
+     
 
 
         [
