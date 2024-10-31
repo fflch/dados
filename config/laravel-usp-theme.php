@@ -42,8 +42,8 @@ return [
             'url'  => '/docs',
         ],
         [
-            'text' => 'Anuário',
-            'url' => '/anuario',
+            'text' => 'Departamentos',
+            'url' => '/departamentos',
         ]
     ],
 ];

@@ -46,11 +46,13 @@ use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\TrancamentosCursoSemestralController;
 use App\Http\Controllers\DisciplinaController;
 
+//IC
+use App\Http\Controllers\IniciacaoCientController;
+//PUB
+use App\Http\Controllers\PUBController;
 
 #Controllers novos implementados
 use App\Http\Controllers\paginaInicialController;
-use App\Http\Controllers\AnuarioController;
-
 
 Route::get('/', [paginaInicialController::class, 'paginaInicial']);
 
@@ -214,8 +216,27 @@ Route::get('/guia',
         return view('guia');
     });
 
+#Por Departamento
+Route::get('/departamentos/{departamento}', [DepartamentoController::class, 'listarIC'])->name('departamentos.listarIC');
 
-Route::get('/anuario', [AnuarioController::class, 'index']);
+
+//new routes for etl testing for further implementation
+//Route::get('/alunosIc', )
+
+Route::get('/pub', [PUBController::class, 'show']);
+Route::get('/disciplinasInativadas', [DisciplinaPorAtivacaoController::class, 'listarPorAtivacaoFLG'] );
+Route::get('/ic', [IniciacaoCientController::class, 'listarIC']);
+Route::get('/iniciacoes/exportar', [IniciacaoCientController::class, 'exportarExcel'])->name('iniciacoes.exportar');
+
+//Route::get('/exportar-iniciacoes', [IniciacaoCientController::class, 'exportExcel']);
+
+
+// Rota para listar disciplinas por ativação
+
+Route::get('/disciplinas/ativacao', [DisciplinaPorAtivacaoController::class, 'listarPorAtivacao'])
+    ->name('disciplinas.listarPorAtivacao');
+
+
 
 
 # Logs  
