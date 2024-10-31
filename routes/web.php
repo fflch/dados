@@ -214,9 +214,5 @@ Route::get('/guia',
         return view('guia');
     });
 
-
-
-
-
 # Logs  
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admins');
