@@ -56,6 +56,10 @@ Route::get('/', [paginaInicialController::class, 'paginaInicial']);
 
 Route::get('/contato', [IndexController::class, 'contato']);
 Route::get('/index', [IndexController::class, 'index']);
+Route::get('/bolsasPUB', function () {
+    return view('bolsasPUB');
+});
+
 
 # totais com vínculos ativos
 Route::get('/ativos', [AtivosController::class, 'grafico']);
