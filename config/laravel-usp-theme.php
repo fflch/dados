@@ -41,9 +41,5 @@ return [
             'text' => 'Documentação API',
             'url'  => '/docs',
         ],
-        [
-            'text' => 'Departamentos',
-            'url' => '/departamentos',
-        ]
     ],
 ];
