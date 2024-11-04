@@ -44,6 +44,7 @@
             <a href="#" class="expandable" id="dadosGraduacao">Graduação</a>
             <ul class="submenu" id="submenuDadosGraduacao">
                 <li><a href="{{ url('/turmas') }}">Disciplinas/Turmas oferecidas</a></li>
+                <li><a href="{{ url('/pub')}}">Bolsistas PUB</a></li>
             </ul>
         </li>
         <li>
