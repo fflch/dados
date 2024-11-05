@@ -15,7 +15,7 @@ class Programa extends Model
     public static function index(){
         $programas = [];
         $departamentos = [];
-        
+
         foreach(Programa::all() as $programa){
             if($programa->codare == 0){
                 $departamentos = json_decode($programa->json);
@@ -24,17 +24,23 @@ class Programa extends Model
             }
         }
 
+        foreach($programas as $key => $valor) {
+            if (!is_object($valor)) {
+                unset($programas[$key]);
+            }
+        }
+
         return [
             'programas' => $programas,
             'departamentos' => $departamentos
-        ]; 
-        
+        ];
+
     }
 
     public static function listarPessoa($pessoas, $filtro, $api, $tipo_pessoa, $excel){
         $aux_pessoas = [];
         $idLattes_pessoas = isset($pessoas[0]['codpes']) ? array_column($pessoas, 'codpes') : $pessoas;//$pessoas pode ser um array com subarrays que contenham codpes, ou um array simples de codpes. Ex [['codpes'=> 00000], ...] ou [00000, ...]
-        
+
         $idLattes_pessoas = array_filter($idLattes_pessoas, function($e) {
             return ($e !== null);
         });
