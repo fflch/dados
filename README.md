@@ -15,6 +15,12 @@ Instalação da biblioteca ***Cache***: [Instalação e configuração](https://
 - `php artisan vendor:publish --tag=scribe-config`
 - `php artisan serve`
 
+## Sincronização local com dados do replicado:
+
+    php artisan replicadodailysync
+    php artisan replicadolattessync
+    php artisan replicadoweeklysync
+
 
 ## Procedimentos para entregar uma consulta nova:
 
