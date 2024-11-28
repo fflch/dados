@@ -8,8 +8,6 @@
     <p>Esta unidade abrange as áreas de <em>Filosofia, História, Geografia, Letras</em> e <em>Ciências Sociais</em> da Universidade de São Paulo.</p>
     <p>Os dados disponíveis podem ser acessados através do catálogo a seguir, organizado por categorias:</p>
     <br/>
-    <a href="/guia" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px; border-radius: 25px; text-decoration: none;">Acesse o Guia</a>
-    <br/>
 </div>
 
 
@@ -26,6 +24,8 @@
                 ['name' => 'Página Antiga', 'url' => '/index'],
             ]
          ],
+
+         
         
         [
             'title' => 'Dados de produção acadêmica', 
@@ -36,26 +36,7 @@
             ]
         ],
 
-        [
-    'title' => 'Dados Por Departamento',
-    'items' => [
-        ['name' => 'Antropologia', 'url' => '/departamentos/antropologia'],
-        ['name' => 'Ciência Política', 'url' => '/departamentos/ciencia-politica'],
-        ['name' => 'Filosofia', 'url' => '/departamentos/filosofia'],
-        ['name' => 'Geografia', 'url' => '/departamentos/geografia'],
-        ['name' => 'História', 'url' => '/departamentos/historia'],
-        ['name' => 'Letras Clássicas e Vernáculas', 'url' => '/departamentos/letras-classicas-e-vernaculas'],
-        ['name' => 'Letras Modernas', 'url' => '/departamentos/letras-modernas'],
-        ['name' => 'Letras Orientais', 'url' => '/departamentos/letras-orientais'],
-        ['name' => 'Linguística', 'url' => '/departamentos/linguistica'],
-        ['name' => 'Sociologia', 'url' => '/departamentos/sociologia'],
-        ['name' => 'Teoria Literária e Literatura Comparada', 'url' => '/departamentos/teoria-literaria-e-literatura-comparada'],
-    ]
-],
-
         
-
-
         [
             'title' => 'Dados institucionais', 
             'items' => [
