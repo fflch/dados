@@ -1,4 +1,0 @@
-SELECT COUNT(DISTINCT codpes) 
-    FROM LOCALIZAPESSOA 
-    WHERE LOCALIZAPESSOA.tipvin = '__tipo__' 
-    AND LOCALIZAPESSOA.codundclg = 8

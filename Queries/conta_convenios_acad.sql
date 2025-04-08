@@ -1,1 +1,0 @@
-SELECT COUNT(DISTINCT codcvn) from CONVENIO where dtadtvcvn = NULL AND staacd = 'S' 
