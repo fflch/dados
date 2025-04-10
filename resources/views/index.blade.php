@@ -21,30 +21,6 @@
                 ['name' => 'Colegiados', 'url' => '/colegiados', 'api' => '/api/colegiados']
             ]
         ],
-        [
-            'title' => 'Pessoas', 
-            'items' => [
-                ['name' => 'Docentes', 'url' => '/ativos'], 
-                ['name' => 'Funcionários', 'url' => '/ativos'], 
-                ['name' => 'Estagiários', 'url' => '/ativos'],
-                ['name' => 'Monitores', 'url' => '/ativos'], 
-                ['name' => 'Chefes administrativos', 'url' => '/ativos'], 
-                ['name' => 'Chefes de Departamentos', 'url' => '/ativos'], 
-            ]
-        ],
-        [
-            'title' => 'Graduação', 
-            'items' => [
-                ['name' => 'Turmas das disciplinas oferecidas no semestre corrente', 'url' => '/turmas'] 
-            ]
-        ],        
-        [
-            'title' => 'Pós-Graduação', 
-            'items' => [
-                ['name' => 'Defesas', 'url' => '/defesas', 'api' => '/api/defesas'], 
-            ]
-        ],
-
     ] as $key => $section)
         <div class="card">
             <div class="card-header" id="heading{{ $key }}">

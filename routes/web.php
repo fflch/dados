@@ -2,12 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
+# Index
 use App\Http\Controllers\IndexController;
-
-use App\Http\Controllers\Publico\ColegiadoController;
-
 Route::get('/', [IndexController::class, 'index']);
 
+# Restrito
+use App\Http\Controllers\RestritoController;
+Route::get('/restrito', [RestritoController::class, 'restrito']);
+
 # Colegiados
+use App\Http\Controllers\Publico\ColegiadoController;
 Route::get('/colegiados', [ColegiadoController::class, 'index']);
 Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
+
+# Restrito: Estagiários
+use App\Http\Controllers\Restrito\EstagiarioController;
+Route::get('/restrito/estagiarios', [EstagiarioController::class, 'index']);
+
+

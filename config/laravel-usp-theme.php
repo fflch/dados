@@ -3,7 +3,7 @@
 $menu = [
     [
         'text' => '<i class="fas fa-home"></i> Home',
-        'url' => 'home',
+        'url' => '/',
     ],
     [
         # este item de menu será substituido no momento da renderização
@@ -12,7 +12,7 @@ $menu = [
     [
         'text' => 'Acesso Restrito',
         'url' => 'restrito',
-        'can' => 'gerente',
+        'can' => 'admin',
     ],
 ];
 
