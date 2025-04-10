@@ -8,7 +8,11 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "monolog/monolog": "^3.9",
+        "uspdev/laravel-usp-theme": "^2.8",
+        "uspdev/replicado": "^1.25",
+        "uspdev/senhaunica-socialite": "^7.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -34,6 +38,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan vendor:publish --provider=\"Uspdev\\UspTheme\\ServiceProvider\" --tag=assets --force",
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [

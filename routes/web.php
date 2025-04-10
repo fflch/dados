@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\IndexController;
+
+use App\Http\Controllers\Publico\ColegiadoController;
+
+Route::get('/', [IndexController::class, 'index']);
+
+# Colegiados
+Route::get('/colegiados', [ColegiadoController::class, 'index']);
+Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
