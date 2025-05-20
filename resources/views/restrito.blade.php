@@ -62,7 +62,8 @@
                     <li class="list-group-item">
                         <a href="restrito/intercambitas/recebidos" class="btn btn-primary">Baixar</a>
                         <br><br>
-                        <span>*O arquivo pode demorar a ser baixado.</span>
+                        <span>Lista com todos os intercambistas recebidos na fflch, tanto graduação quanto pós-graduação. Fonte: Mundus</span>
+                        <br><span>*O arquivo pode demorar a ser baixado.</span>
                     </li>
                 </ul>
             </div>
