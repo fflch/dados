@@ -20,3 +20,6 @@ use App\Http\Controllers\Restrito\EstagiarioController;
 Route::get('/restrito/estagiarios', [EstagiarioController::class, 'index']);
 
 
+# Restrito...
+use App\Http\Controllers\Restrito\IntercambistasController;
+Route::get('/restrito/intercambitas/recebidos', [IntercambistasController::class, 'listarIntercambistasRecebidos']);
