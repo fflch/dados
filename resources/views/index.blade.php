@@ -12,16 +12,29 @@
 
 <div class="accordion" id="accordionExample">
     @php
-        $lastYear = date('Y') - 1; // Cálculo do último ano
+        $lastYear = date('Y') - 1;
+        $sections = [
+            [
+                'title' => 'Dados institucionais', 
+                'items' => [
+                    ['name' => 'Colegiados', 'url' => '/colegiados', 'api' => '/api/colegiados'],
+                ]
+            ],
+            [
+                'title' => 'Dados de Disciplinas',
+                'items' => [
+                    ['name' => 'Turmas', 'url' => '/turmas', 'api' => '/api/disciplinas/turmas'],
+                ]
+            ],
+        ];
     @endphp
-    @foreach ([
-        [
-            'title' => 'Dados institucionais', 
-            'items' => [
-                ['name' => 'Colegiados', 'url' => '/colegiados', 'api' => '/api/colegiados']
-            ]
-        ],
-    ] as $key => $section)
+        
+
+    @php
+        
+    @endphp
+
+    @foreach ($sections as $key => $section)
         <div class="card">
             <div class="card-header" id="heading{{ $key }}">
                 <h2 class="mb-0">
@@ -35,13 +48,11 @@
                 <div class="card-body">
                     <ul class="list-group">
                         @foreach ($section['items'] as $item)
-                            <li class="list-group-item">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href="{{ config('app.url') }}{{ $item['url'] }}">{{ $item['name'] }}</a>
                                 @if(isset($item['api']))
-                                    <a href="{{ config('app.url') }}{{ $item['api'] }}" class="export-json">
-                                        <span data-toggle="tooltip" data-placement="left" title="Exportar em JSON" role="button">
-                                            <img width="20" src="{{ asset('assets/img/json_icon.png') }}">
-                                        </span>
+                                    <a href="{{ config('app.url') }}{{ $item['api'] }}" class="export-json ml-2" data-toggle="tooltip" title="Exportar em JSON">
+                                        <img width="20" src="{{ asset('assets/img/json_icon.png') }}">
                                     </a>
                                 @endif
                             </li>
