@@ -13,8 +13,8 @@ class DisciplinaController extends Controller
     }
 
     public function prefix($prefix){
-        $turmas = ReplicadoTemp::turmas($prefix);
-
+        $turmas = ReplicadoTemp::turmasCompleto($prefix);
+        
         return view('disciplinas.turma',[
             'prefix' => $prefix,
             'turmas' => $turmas,
@@ -22,7 +22,7 @@ class DisciplinaController extends Controller
     }
 
     public function concatenate($prefix){
-        $turmas = ReplicadoTemp::turmas($prefix);
+        $turmas = ReplicadoTemp::turmasCompleto($prefix);
 
         return view('disciplinas.concatenate',[
             'prefix' => $prefix,

@@ -659,6 +659,61 @@ class ReplicadoTemp
         return $pesquisas_pos_doutorando;
     }
 
+    public static function turmasCompleto($prefix){
+        $prefix = strtoupper($prefix);
+        $current = date("Y") . (date("m") > 6 ? 2 : 1);
+
+        # dtaatvdis: Data de ativação desta versão da disciplina de graduação. 
+
+        $query = "SELECT DISTINCT TR.coddis, TR.codtur, TR.verdis, D.nomdis, P.nompes, horario = (O.diasmnocp + ' - ' + PH.horent + ' - ' + PH.horsai) FROM TURMAGR TR
+					LEFT JOIN DISCIPLINAGR D ON 
+						TR.coddis = D.coddis AND TR.verdis = D.verdis
+					LEFT JOIN MINISTRANTE M ON
+						TR.codtur = M.codtur AND TR.verdis = M.verdis AND TR.coddis = M.coddis
+					LEFT JOIN PESSOA P ON
+						M.codpes = P.codpes
+					LEFT JOIN OCUPTURMA O ON
+						TR.codtur = O.codtur AND TR.verdis = O.verdis AND TR.coddis = O.coddis
+					LEFT JOIN PERIODOHORARIO PH ON
+						O.codperhor = PH.codperhor
+                    WHERE 
+                        TR.codtur LIKE '{$current}%' AND TR.coddis LIKE '{$prefix}%'
+                    AND TR.verdis = (SELECT MAX(DI.verdis) FROM DISCIPLINAGR AS DI WHERE (DI.coddis = TR.coddis) AND dtaatvdis IS NOT NULL)
+					ORDER BY TR.coddis
+                    ";
+        $tempTurmas = DB::fetchAll($query);
+        $turmas =[];
+        foreach ($tempTurmas as $turma) {
+            $codtur = $turma['codtur'];
+            $coddis = $turma['coddis'];
+            $verdis = $turma['verdis'];
+            $cod = $codtur. $coddis . $verdis;
+            if (!isset($turmas[$cod])) {
+                $turmas[$cod]=[
+                    'codtur' => $turma['codtur'],
+                    'nomdis' => $turma['nomdis'],
+                    'coddis' => $turma['coddis'],
+                    'verdis' => $turma['verdis'],
+                    'nompes' => [],
+                    'horario' => []
+                    
+                ];
+            }
+            if (!empty($turma['nompes']) && !in_array($turma['nompes'], $turmas[$cod]['nompes'])) {
+                $turmas[$cod]['nompes'][] = $turma['nompes'];
+            }
+
+            if (!empty($turma['horario']) && !in_array($turma['horario'], $turmas[$cod]['horario'])) {
+                $turmas[$cod]['horario'][] = $turma['horario'];
+            }
+        }
+        foreach ($turmas as &$turma) {
+            $turma['nompes'] = implode(', ', $turma['nompes']);
+            $turma['horario'] = implode(', ', $turma['horario']);
+        }
+        return $turmas;
+    }
+
     public static function turmas($prefix){
         $prefix = strtoupper($prefix);
         $current = date("Y") . (date("m") > 6 ? 2 : 1);

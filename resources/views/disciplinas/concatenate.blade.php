@@ -12,10 +12,10 @@
     @foreach($turmas as $turma)
         {{ $turma['coddis'] }}{{ $turma['codtur'] }}:
         '{{ $turma['coddis'] }} -
-        {{ \App\Utils\ReplicadoTemp::nomdis($turma['coddis'], $turma['verdis']) }} - 
+        {{ $turma['nomdis'] }} - 
         Turma {{ $turma['codtur'] }}
-        ({{ \App\Utils\ReplicadoTemp::horario($turma['coddis'], $turma['codtur'], $turma['verdis']) }}) - 
-        Prof. {{ \App\Utils\ReplicadoTemp::ministrantes($turma['coddis'], $turma['codtur'], $turma['verdis']) }}'
+        ({{ $turma['horario'] }}) - 
+        Prof. {{ $turma['nompes'] }}'
         <br>
     @endforeach
 
