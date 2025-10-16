@@ -659,7 +659,7 @@ class ReplicadoTemp
         return $pesquisas_pos_doutorando;
     }
 
-    //retorna disciplinas ativas de graduação do departamento com prefixo indicado
+    //retorna disciplinas ativas de graduação com nome sigla, turma, nome dos professores e horarios do departamento com prefixo indicado
     public static function turmasCompleto($prefix){
         $prefix = strtoupper($prefix);
         $current = date("Y") . (date("m") > 6 ? 2 : 1);
@@ -684,6 +684,8 @@ class ReplicadoTemp
                     ";
         $tempTurmas = DB::fetchAll($query);
         $turmas =[];
+
+        //arrumar cada disciplina com um array de horários e um array de professores
 
         //arrumar cada disciplina com um array de horários e um array de professores
         foreach ($tempTurmas as $turma) {
