@@ -3,6 +3,7 @@
 namespace App\Utils;
 use Carbon\Carbon;
 use Uspdev\Replicado\Posgraduacao;
+use Uspdev\Replicado\DB;
 
 class Util
 {
@@ -95,6 +96,9 @@ class Util
             $aux_areas[$value[0]['codare']] = $value[0]['nomare'];
         }
         return $aux_areas;
+        
+    }
+    public static function query(string $query, array $args){
         
     }
 
