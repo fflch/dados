@@ -28,6 +28,7 @@ class BolsasPosController extends Controller
     ];
     
     function listarPlanilha(Excel $excel, Request $request){
+        Log::alert($request->user()->codpes);
         Gate::authorize('admin');
 
         /* $sigla = $request->departamento;
@@ -36,12 +37,10 @@ class BolsasPosController extends Controller
         }
         $dep = Util::departamentos[$sigla]; */
 
-        $query = file_get_contents(__DIR__ . '/../../../../Queries/listar_posgr_por_ano_e_area.sql');
-        //$query = str_replace('__area__', 8138, $query);
-        //$query = str_replace('__ano__', 2025, $query);
-
-        $data = DB::fetchAll($query);
-        
+        $data = Util::query('listar_posgr_por_ano_e_area',[
+            '__area__' => 8138,
+            '__ano__' => 2025
+        ]);
         $export = new DadosExport([$data],
         $this->colNames);
 

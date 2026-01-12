@@ -38,10 +38,10 @@ FROM fflch.dbo.AGPROGRAMA P
 	INNER JOIN fflch.dbo.LOCALIZAPESSOA L
 		ON L.codpes = P.codpes
 	LEFT JOIN fflch.dbo.INSTITFOMENTOBOLSA F
-		ON F.codpes = P.codpes AND F.numseqpgm = P.numseqpgm AND F.anosem IN (20251, 20252) AND F.dtafimbol > '2024-12-31'
+		ON F.codpes = P.codpes AND F.numseqpgm = P.numseqpgm AND F.anosem IN (__ano__1, __ano__2) AND YEAR(F.dtafimbol) = __ano__
 	LEFT JOIN fflch.dbo.INSTITUICAOFOMENTO I
 		ON I.codittfom = F.codittfom
-WHERE P.codare IN (8138, 8136, 8134, 8147, 8132, 8131)
-	AND dtalimpgm > '2024-12-31'
+WHERE P.codare IN (__area__)
+	AND YEAR(dtalimpgm) = __ano__
 	--AND dtactaprzpgm > '2024-12-31'
 ORDER BY Area, NomeAluno

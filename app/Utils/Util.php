@@ -98,8 +98,24 @@ class Util
         return $aux_areas;
         
     }
-    public static function query(string $query, array $args){
+    //busca pelo arquivo na pasta Queries, insere os argumentos e executa a consulta
+    public static function query(string $arquivo, array $args){
+
+        try {
+            $query = file_get_contents(__DIR__ . '/../../Queries/'.$arquivo.'.sql');
+        } catch (\Throwable $th) {
+            App:abort(500, 'consulta não encontrada');
+        }
         
+        
+        foreach ($args as $name => $value) {
+
+            $query = str_replace($name, $value, $query);
+
+        }
+        $data = DB::fetchAll($query);
+
+        return $data;
     }
 
 }

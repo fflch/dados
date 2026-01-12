@@ -687,7 +687,6 @@ class ReplicadoTemp
 
         //arrumar cada disciplina com um array de horários e um array de professores
 
-        //arrumar cada disciplina com um array de horários e um array de professores
         foreach ($tempTurmas as $turma) {
             $codtur = $turma['codtur'];
             $coddis = $turma['coddis'];
