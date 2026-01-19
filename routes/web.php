@@ -23,7 +23,6 @@ Route::get('/restrito/estagiarios', [EstagiarioController::class, 'index']);
 # Restrito: ProjetosPD
 use App\Http\Controllers\Restrito\BolsasPosController;
 Route::get('/restrito/bolsaspos', [BolsasPosController::class, 'listarPlanilha']);
-Route::get('/restrito/bolsaspos/grafico', [BolsasPosController::class, 'grafico']);
 
 
 # Restrito...

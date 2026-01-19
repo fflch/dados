@@ -98,8 +98,13 @@ class Util
         return $aux_areas;
         
     }
-    //busca pelo arquivo na pasta Queries, insere os argumentos e executa a consulta
-    public static function query(string $arquivo, array $args){
+    /**
+     * Busca pelo arquivo na pasta Queries, insere os argumentos e executa a consulta
+     * @param string $arquivo Nome do arquivo na pasta (sem a extensão)
+     * @param array $args [optional] Parâmetros de bind da query
+     * @return Mixed Dados da query
+     **/
+    public static function query(string $arquivo, array $args = []){
 
         try {
             $query = file_get_contents(__DIR__ . '/../../Queries/'.$arquivo.'.sql');
