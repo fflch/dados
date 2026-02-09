@@ -69,7 +69,62 @@
             </div>
         </div>
     </li>
+    <li class="list-group-item">
+        <div class="panel panel-default panel-docente">
+            <div class="panel-heading">
+                <h5 role="button" data-toggle="collapse" href="#collapseBolsasPosgr" aria-controls="collapseBolsasPosgr" 
+                    aria-expanded="false" class="collapsed">
+                    Planilha Bolsas - Pós graduação
+                    <span class="controller-collapse">
+                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-minus-square"></i>  
+                    </span>
+                </h5>
+            </div>
+            <div class="panel-body collapse in" id="collapseBolsasPosgr">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <form action="/restrito/bolsaspos" method="GET">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label><b>Filtrar por:</b></label>
+                                </div>     
+                                <div class="col-md-2" id="ano">
+                                    <select class="form-control" name="ano" required>
+                                        <option selected value="">Ano</option>
+                                        @for($ano = date('Y'); $ano >= 2000; $ano--)
+                                            <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
+                                        @endfor
+                                    </select>                        
+                                </div>
+                                <div class="col-md-5" id="area">
+                                    <select class="form-control select2" data-placeholder="Area" id="select-area" name="area[]" required multiple>
+                                        @foreach ($areas as $cod => $name)
+                                            <option value="{{$cod}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>                        
+                                </div>                                   
+                                <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
+                            </div>
+                            <br>
+                            <span>*O arquivo pode demorar a ser baixado.</span>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
 
 </ul>
 
+@endsection
+
+@section('javascripts_bottom')
+<script>
+    
+    $( '#select-area' ).select2( {
+        placeholder: $( this ).data( 'placeholder' ),
+        closeOnSelect: false,
+    } );
+</script>
 @endsection

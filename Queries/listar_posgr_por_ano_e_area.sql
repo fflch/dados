@@ -31,17 +31,19 @@ I.nomittfom  AS NFomento,
 	-- ELSE I.nomittfom
 --	END AS NomeFomento,
 CONVERT(VARCHAR(10), F.dtainibol, 23) AS DataInicioFomento,
-CONVERT(VARCHAR(10), F.dtafimbol, 23) AS DataFimFomento
+CONVERT(VARCHAR(10), F.dtafimbol, 23) AS DataFimFomento,
+P.starcopgm AS 'Status'
 FROM fflch.dbo.AGPROGRAMA P
 	INNER JOIN fflch.dbo.VINCULOPESSOAUSP V 
 		ON V.codpes = P.codpes
 	INNER JOIN fflch.dbo.LOCALIZAPESSOA L
 		ON L.codpes = P.codpes
 	LEFT JOIN fflch.dbo.INSTITFOMENTOBOLSA F
-		ON F.codpes = P.codpes AND F.numseqpgm = P.numseqpgm AND F.anosem IN (__ano__1, __ano__2) AND YEAR(F.dtafimbol) = __ano__
+		ON F.codpes = P.codpes AND F.numseqpgm = P.numseqpgm AND F.anosem IN (__ano__1, __ano__2) AND YEAR(F.dtafimbol) >= __ano__
 	LEFT JOIN fflch.dbo.INSTITUICAOFOMENTO I
 		ON I.codittfom = F.codittfom
 WHERE P.codare IN (__area__)
-	AND YEAR(dtalimpgm) = __ano__
+	AND YEAR(dtalimpgm) >= __ano__
+	AND YEAR(dtactaprzpgm) <= __ano__
 	--AND dtactaprzpgm > '2024-12-31'
 ORDER BY Area, NomeAluno

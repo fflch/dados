@@ -20,32 +20,43 @@ class BolsasPosController extends Controller
 	    'NumeroUSPAluno', 
 	    'NomeAluno', 
 	    'EmailAluno', 
+        'Nivel',
+        'DataSelecao',
 	    'DataInicioPrazo', 
 	    'DataLimiteDeposito', 
-	    'Nivel',
+	    'DataDefesa', 
         'Fomento',
-        'NFomento'
+        'Nome Fomento',
+        'Inicio Fomento',
+        'Fim Fomento'
     ];
     
     function listarPlanilha(Excel $excel, Request $request){
-        Log::alert($request->user()->codpes);
         Gate::authorize('admin');
 
-        /* $sigla = $request->departamento;
-        if (is_null($sigla) || !(in_array($sigla,array_keys(Util::departamentos)))) {
-            abort(404,'Departamento não existe');
-        }
-        $dep = Util::departamentos[$sigla]; */
-        $area = 8138;
-        $ano = 2025;
+        $areas = $request->area;
+        $ano = $request->ano;
+
+        //validar os codare
+        if (is_null($areas) || is_null($ano)) {
+            abort(400);
+        }    
+        foreach ($areas as $area){
+            if (is_null($area) || !(in_array($area,array_keys(Util::getAreas())))) {
+                abort(400,'Area não existe');
+            }    
+        }        
+
+        $areas = implode(", ",$areas);
+        //$data = Util::query('temp',[
         $data = Util::query('listar_posgr_por_ano_e_area',[
-            '__area__' => $area,
+            '__area__' => $areas,
             '__ano__' => $ano
         ]);
         $export = new DadosExport([$data],
         $this->colNames);
 
-        return $excel->download($export, $area . ' - Bolsas.xlsx');
+        return $excel->download($export, $areas . ' - Bolsas.xlsx');
         
     }
     

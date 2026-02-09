@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
+use App\Utils\Util;
 
 class RestritoController extends Controller
 {
@@ -10,6 +11,6 @@ class RestritoController extends Controller
     {
         Gate::authorize('admin');
         
-        return view('restrito');
+        return view('restrito', [ 'areas' => Util::getAreas()]);
     }
 }
