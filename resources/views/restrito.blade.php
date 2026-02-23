@@ -1,5 +1,7 @@
 @extends('main')
-
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/restrito.css') }}">
+@endsection
 @section('content')
 
 <ul class="list-group">
