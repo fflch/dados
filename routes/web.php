@@ -21,8 +21,8 @@ use App\Http\Controllers\Restrito\EstagiarioController;
 Route::get('/restrito/estagiarios', [EstagiarioController::class, 'index']);
 
 # Restrito: ProjetosPD
-use App\Http\Controllers\Restrito\BolsasPosController;
-Route::get('/restrito/bolsaspos', [BolsasPosController::class, 'listarPlanilha']);
+use App\Http\Controllers\Restrito\AlunosPosController;
+Route::get('/restrito/alunospos', [AlunosPosController::class, 'listarPlanilha']);
 
 
 # Restrito...

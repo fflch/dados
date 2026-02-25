@@ -76,7 +76,7 @@
             <div class="panel-heading">
                 <h5 role="button" data-toggle="collapse" href="#collapseBolsasPosgr" aria-controls="collapseBolsasPosgr" 
                     aria-expanded="false" class="collapsed">
-                    Planilha Bolsas - Pós graduação
+                    Planilha Alunos - Pós graduação
                     <span class="controller-collapse">
                         <i class="fas fa-plus-square"></i>
                         <i class="fas fa-minus-square"></i>  
@@ -86,30 +86,32 @@
             <div class="panel-body collapse in" id="collapseBolsasPosgr">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <form action="/restrito/bolsaspos" method="GET">
+                        <form action="/restrito/alunospos" method="GET">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <label><b>Filtrar por:</b></label>
-                                </div>     
-                                <div class="col-md-2" id="ano">
-                                    <select class="form-control" name="ano" required>
-                                        <option selected value="">Ano</option>
-                                        @for($ano = date('Y'); $ano >= 2000; $ano--)
-                                            <option value="{{$ano}}" @if(request()->ano == $ano) selected @endif>{{$ano}}</option>
-                                        @endfor
-                                    </select>                        
                                 </div>
-                                <div class="col-md-5" id="area">
+                                <div class="col-md-3" id="area">
                                     <select class="form-control select2" data-placeholder="Area" id="select-area" name="area[]" required multiple>
                                         @foreach ($areas as $cod => $name)
                                             <option value="{{$cod}}">{{$name}}</option>
                                         @endforeach
-                                    </select>                        
-                                </div>                                   
+                                    </select>       
+                                    <input type="checkbox" id="todasareas" name="todasareas" value="todas" onchange="checkAreas(this)">
+                                    <label for="todasareas"> todas as areas</label>               
+                                </div>    
+                                <div class="col-md-2"> 
+                                    <input type="checkbox" id="header" name="header" value="header">
+                                    <label for="header">cabeçalho na primeira linha</label>
+                                </div>        
+                                <div class="col-md-1"> 
+                                    <label for="header">tipo de arquivo:</label><br>
+                                    <input type="radio" name="tipo" value="xlsx"><label>xlsx</label><br>
+                                    <input type="radio" name="tipo" value="csv"> <label>csv</label>
+                                </div>                               
                                 <div class="col-md-3"><button type="submit" class="btn btn-primary">Baixar</button></div>
                             </div>
                             <br>
-                            <span>*O arquivo pode demorar a ser baixado.</span>
                         </form>
                     </li>
                 </ul>
@@ -123,10 +125,19 @@
 
 @section('javascripts_bottom')
 <script>
-    
+    function checkAreas(checkbox) {
+        if(checkbox.checked){
+            document.getElementById("select-area").setAttribute("disabled", "disabled");
+        }else{
+            document.getElementById("select-area").removeAttribute("disabled");
+        }
+    }
+
     $( '#select-area' ).select2( {
         placeholder: $( this ).data( 'placeholder' ),
         closeOnSelect: false,
     } );
+
+
 </script>
 @endsection
