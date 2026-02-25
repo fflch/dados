@@ -21,17 +21,18 @@
                 ]
             ],
             [
+                'title' => 'Produção Acadêmica - Lattes',
+                'items' => [
+                    ['name' => 'Dashboard Geral', 'url' => '/lattes/dashboard'],
+                ]
+            ],
+            [
                 'title' => 'Dados de Disciplinas',
                 'items' => [
                     ['name' => 'Turmas', 'url' => '/turmas', 'api' => '/api/disciplinas/turmas'],
                 ]
             ],
         ];
-    @endphp
-        
-
-    @php
-        
     @endphp
 
     @foreach ($sections as $key => $section)

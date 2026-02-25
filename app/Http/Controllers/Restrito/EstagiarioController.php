@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Restrito;
+namespace App\Http\Controllers\Publico;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +18,7 @@ class EstagiarioController extends Controller
         Gate::authorize('admin');
         $this->excel = $excel;
 
+        
         $ano = $request->ano ?? Date('Y');
         
         $query = file_get_contents(__DIR__ . '/../../../../Queries/listar_estagiarios.sql');
