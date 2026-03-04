@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
-use App\Utils\Util;
+use Uspdev\Replicado\Posgraduacao;
 
 class RestritoController extends Controller
 {
@@ -11,6 +11,12 @@ class RestritoController extends Controller
     {
         Gate::authorize('admin');
         
-        return view('restrito', [ 'areas' => Util::getAreas()]);
+        $aux_programas = Posgraduacao::programas(8);
+        //eleiminar repetiçao de programas com varias areas;
+        $programas = [];
+        foreach ($aux_programas as $pr) {
+            $programas[$pr["codcur"]]=$pr["nomcur"];
+        };
+        return view('restrito', [ 'programas' => $programas]);
     }
 }
