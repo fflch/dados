@@ -16,16 +16,15 @@ use App\Http\Controllers\Publico\ColegiadoController;
 Route::get('/colegiados', [ColegiadoController::class, 'index']);
 Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
 
-# Restrito: Estagiários
-use App\Http\Controllers\Restrito\EstagiarioController;
-Route::get('/restrito/estagiarios', [EstagiarioController::class, 'index']);
+Route::get('restrito/graduacao',function(){return view('restrito.graduacao');});
+Route::get('restrito/posgraduacao',function(){return view('restrito.posgraduacao');});
+Route::get('restrito/estagios',function(){return view('restrito.estagios');});
+Route::get('restrito/extensao',function(){return view('restrito.extensao');});
+Route::get('restrito/pesquisa',function(){return view('restrito.pesquisa');});
+Route::get('restrito/internacional',function(){return view('restrito.internacional');});
+Route::get('restrito/administrativo',function(){return view('restrito.administrativo');});
+Route::get('restrito/docentes',function(){return view('restrito.docentes');});
 
-
-# Restrito...
-use App\Http\Controllers\Restrito\IntercambistasController;
-Route::get('/restrito/intercambitas/recebidos', [IntercambistasController::class, 'listarIntercambistasRecebidos']);
-
-    
 use App\Http\Controllers\DisciplinaController;
 Route::get('/turmas', [DisciplinaController::class, 'turmas']);
 Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);
