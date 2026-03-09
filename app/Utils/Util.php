@@ -3,6 +3,7 @@
 namespace App\Utils;
 use Carbon\Carbon;
 use Uspdev\Replicado\Posgraduacao;
+use Uspdev\Replicado\DB;
 
 class Util
 {
@@ -96,6 +97,30 @@ class Util
         }
         return $aux_areas;
         
+    }
+    /**
+     * Busca pelo arquivo na pasta Queries, insere os argumentos e executa a consulta
+     * @param string $arquivo Nome do arquivo na pasta (sem a extensão)
+     * @param array $args [optional] Parâmetros de bind da query
+     * @return Mixed Dados da query
+     **/
+    public static function query(string $arquivo, array $args = []){
+
+        try {
+            $query = file_get_contents(__DIR__ . '/../../Queries/'.$arquivo.'.sql');
+        } catch (\Throwable $th) {
+            App:abort(500, 'consulta não encontrada');
+        }
+        
+        
+        foreach ($args as $name => $value) {
+
+            $query = str_replace($name, $value, $query);
+
+        }
+        $data = DB::fetchAll($query);
+
+        return $data;
     }
 
 }
