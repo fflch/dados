@@ -34,3 +34,14 @@ use App\Http\Controllers\DisciplinaController;
 Route::get('/turmas', [DisciplinaController::class, 'turmas']);
 Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);
 Route::get('/turmas/{prefix}/concatenate', [DisciplinaController::class, 'concatenate']);
+
+
+use App\Http\Controllers\LattesController;
+Route::prefix('lattes')->group(function () {
+    Route::get('dashboard', [LattesController::class, 'dashboard'])->name('lattes.dashboard');
+    //exports
+    Route::get('docente/{codpes}/export', [LattesController::class, 'exportarDocente'])->name('lattes.exportar');
+    Route::get('docente/{codpes}/export-detalhado', [LattesController::class, 'exportarDetalhado'])->name('lattes.exportar_detalhado');
+    Route::get('api/metricas', [LattesController::class, 'apiMetricas'])->name('lattes.api.metricas');
+});
+
