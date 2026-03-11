@@ -18,12 +18,21 @@ Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']
 
 use App\Http\Controllers\Restrito;
 Route::get('restrito/graduacao', [Restrito\GraduacaoController::class,'index']);
+
 Route::get('restrito/posgraduacao', [Restrito\PosGraduacaoController::class,'index']);
+
 Route::get('restrito/estagios', [Restrito\EstagiosController::class,'index']);
+Route::get('restrito/estagios/estagiarios', [Restrito\EstagiosController::class,'listarEstagiarios'])->name('estagiarios');
+
 Route::get('restrito/extensao', [Restrito\ExtensaoController::class,'index']);
+
 Route::get('restrito/pesquisa', [Restrito\PesquisaController::class,'index']);
+
 Route::get('restrito/internacional', [Restrito\InternacionalController::class,'index']);
+Route::get('restrito/internacional/intercambistas', [Restrito\InternacionalController::class,'listarIntercambistasRecebidos'])->name('intercambistas');
+
 Route::get('restrito/administrativo', [Restrito\administrativoController::class,'index']);
+
 Route::get('restrito/docentes',[Restrito\DocentesController::class,'index']);
 Route::get('restrito/docentes/planilha',[Restrito\DocentesController::class,'planilhaDocentes']);
 

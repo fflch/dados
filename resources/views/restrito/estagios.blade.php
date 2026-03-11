@@ -7,7 +7,7 @@
         @slot('titulo')Planilha Estagiários @endslot 
         @slot('nome')Estagiarios @endslot 
         @slot('form')
-            <form action="/restrito/estagiarios" method="GET">
+            <form action="{{ route('estagiarios') }}" method="GET">
                 <div class="row">
                     <div class="col-md-1">
                         <label><b>Filtrar por:</b></label>
