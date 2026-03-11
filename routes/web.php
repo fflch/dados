@@ -16,14 +16,16 @@ use App\Http\Controllers\Publico\ColegiadoController;
 Route::get('/colegiados', [ColegiadoController::class, 'index']);
 Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
 
-Route::get('restrito/graduacao',function(){return view('restrito.graduacao');});
-Route::get('restrito/posgraduacao',function(){return view('restrito.posgraduacao');});
-Route::get('restrito/estagios',function(){return view('restrito.estagios');});
-Route::get('restrito/extensao',function(){return view('restrito.extensao');});
-Route::get('restrito/pesquisa',function(){return view('restrito.pesquisa');});
-Route::get('restrito/internacional',function(){return view('restrito.internacional');});
-Route::get('restrito/administrativo',function(){return view('restrito.administrativo');});
-Route::get('restrito/docentes',function(){return view('restrito.docentes');});
+use App\Http\Controllers\Restrito;
+Route::get('restrito/graduacao', [Restrito\GraduacaoController::class,'index']);
+Route::get('restrito/posgraduacao', [Restrito\PosGraduacaoController::class,'index']);
+Route::get('restrito/estagios', [Restrito\EstagiosController::class,'index']);
+Route::get('restrito/extensao', [Restrito\ExtensaoController::class,'index']);
+Route::get('restrito/pesquisa', [Restrito\PesquisaController::class,'index']);
+Route::get('restrito/internacional', [Restrito\InternacionalController::class,'index']);
+Route::get('restrito/administrativo', [Restrito\administrativoController::class,'index']);
+Route::get('restrito/docentes',[Restrito\DocentesController::class,'index']);
+Route::get('restrito/docentes/planilha',[Restrito\DocentesController::class,'planilhaDocentes']);
 
 use App\Http\Controllers\DisciplinaController;
 Route::get('/turmas', [DisciplinaController::class, 'turmas']);
