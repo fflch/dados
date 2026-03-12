@@ -76,7 +76,7 @@
             <div class="panel-heading">
                 <h5 role="button" data-toggle="collapse" href="#collapseBolsasPosgr" aria-controls="collapseBolsasPosgr" 
                     aria-expanded="false" class="collapsed">
-                    Planilha Alunos - Pós graduação
+                    Alunos - Pós-graduação (Eleição)
                     <span class="controller-collapse">
                         <i class="fas fa-plus-square"></i>
                         <i class="fas fa-minus-square"></i>  
@@ -92,34 +92,35 @@
                                     <label><b>Filtrar por:</b></label>
                                 </div>
                                 <div class="col-md-3" id="programa">
-                                    <label for="select-programas">programas:</label>
-                                    <select class="select2" id="select-programas" name="programas[]" required multiple>
+                                    <label for="select-programas">Programas:</label>
+                                    <select class="select2" id="select-programas" name="programas[]" onchange="programaUnico(this)" required multiple>
                                         @foreach ($programas as $cod => $nome)
                                             <option value="{{$cod}}">{{$nome}}</option>
                                         @endforeach
                                     </select>       
                                     <input type="checkbox" id="todosprogramas" name="todosprogramas" value="todos" onchange="checkProgramas(this)">
-                                    <label for="todosprogramas"> todos os programas</label>  <br/>  
-                                    <label for="check-programas-separado"> 
-                                        <input type="checkbox" id="check-programas-separado" name="separado" value="separado">
-                                        programas em arquivos separados </label>   
+                                    <label for="todosprogramas"> Todos os programas</label>  <br/>  
+                                    <label for="check-programas-junto"> 
+                                        <input type="checkbox" id="check-programas-junto" name="junto" value="junto">
+                                        Programas no mesmo arquivo</label>   
                                     @foreach ($programas as $cod => $nome)
                                         <input type="hidden" name="programas[]" value="{{ $cod }}" class="hprog"  disabled>   
                                     @endforeach        
                                 </div>    
                                 <div class="col-md-2"> 
                                     <input type="checkbox" id="header" name="header" value="header">
-                                    <label for="header">cabeçalho na primeira linha</label>
+                                    <label for="header">Cabeçalho na primeira linha</label>
                                 </div>        
                                 <div class="col-md-1"> 
-                                    <label for="header">tipo de arquivo:</label><br>
-                                    <input type="radio" name="tipo" value="xlsx" required><label>xlsx</label><br>
-                                    <input type="radio" name="tipo" value="csv"> <label>csv</label>
+                                    <label for="header">Tipo de arquivo:</label><br>
+                                    <input type="radio" name="tipo" value="csv" required checked> <label>.CSV</label><br>
+                                    <input type="radio" name="tipo" value="xlsx">  <label>.XLSX</label>
                                 </div>                               
-                                <div class="col-md-3"><button class="btn btn-primary" id="baixar-alunospos" onclick="baixarAlunosPos(this)">Baixar</button></div>
+                                <div class="col-md-3"><button class="btn btn-primary" type="submit" id="baixar-alunospos">Baixar</button></div>
                             </div>
                             <br>
                         </form>
+                        <br><span>*O arquivo pode demorar a ser baixado, não atulize a página.</span>
                     </li>
                 </ul>
             </div>
@@ -146,11 +147,17 @@
             });
         }
     }
-    function baixarAlunosPos(btn) {
-        let data = new URLSearchParams(new FormData(document.getElementById("form-alunos-pos")));
-        console.log(data)
-        if (document.getElementById("check-programas-separado").checked) {
-            fe
+    function programaUnico(select) {
+        let check = document.getElementById('check-programas-junto')
+        if (select.selectedOptions.length ==1) {
+            check.checked = false
+            check.setAttribute("disabled", "disabled");
+            //check.style.visibility = 'hidden'
+        }
+        else{
+            check.removeAttribute("disabled");
+            //check.style.visibility = 'visible'
+
         }
     }
     $(document).ready(function() {
