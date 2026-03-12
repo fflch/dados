@@ -1,0 +1,23 @@
+h5[data-toggle="collapse"] {
+  cursor: pointer;
+}
+
+h5[data-toggle="collapse"].collapsed .controller-collapse .fa-plus-square {
+  display: inline-block;
+}
+
+h5[data-toggle="collapse"].collapsed .controller-collapse .fa-minus-square {
+  display: none;
+}
+
+h5[data-toggle="collapse"] .controller-collapse {
+  float: right;
+}
+
+h5[data-toggle="collapse"] .controller-collapse .fa-plus-square {
+  display: none;
+}
+
+h5[data-toggle="collapse"] .controller-collapse .fa-minus-square {
+  display: inline-block;
+}
