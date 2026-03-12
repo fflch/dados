@@ -36,6 +36,15 @@ class PosGraduacaoController extends Controller
     function listarEleicao(Excel $excel, Request $request){
         Gate::authorize('admin');
 
+        $request->validate(
+            [
+                'programas.*' =>  'integer',
+                'tipo' =>  'alpha|max:4',
+                'junto' =>  'alpha|size:5',
+                'header' => 'alpha|size:6'
+
+            ]
+        );
         $programas = $request->programas;
         $tipo = $request->tipo;
         $junto = $request->junto == "junto";

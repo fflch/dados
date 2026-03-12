@@ -10,7 +10,7 @@
                 </span>
             </h5>
         </div>
-        <div class="panel-body collapse in show" id="collapse{{ $nome }}">
+        <div class="panel-body collapse in @isset($ativo)show @endisset" id="collapse{{ $nome }}">
             <ul class="list-group">
                 <li class="list-group-item">
                     {{ $form }}
