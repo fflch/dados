@@ -1,5 +1,7 @@
 @extends('main')
-
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/restrito.css') }}">
+@endsection
 @section('content')
 @if ($errors->any())
 
@@ -23,7 +25,7 @@
         @slot('titulo')Planilha Docentes @endslot 
         @slot('nome')Docentes @endslot 
         @slot('form')
-            <form action="/restrito/docentes" method="GET">
+            <form action="{{ route('docentes-lista') }}" method="GET">
                 <div class="row">
                     <div class="col-md-1">
                         <label><b>Filtrar por:</b></label>
@@ -62,7 +64,7 @@
                     </div>     
                     <div class="col-md-3">
                         <div id="filtro_departamento" style="display: none">
-                            <label for="form_departamento">departamento:<br/>
+                            <label for="form_departamento">Departamento:<br/>
                             </label><select class="form-control select2" name="departamento[]" id="form_departamento" required multiple disabled>
                                 @foreach ($departamentos as $sigla => $dep)
                                     <option value="{{ $sigla }}"> {{$dep[1]}}</option>
@@ -110,6 +112,54 @@
                     </a>
                 </div>
                 @include('partials.simple-table',['table_data' => $dataDocentes])
+                
+            @endisset
+        @endslot 
+        
+    @endcomponent
+    @component('components.restrito-painel')
+        @slot('titulo')Planilha Cargo Docentes - Disciplinas @endslot 
+        @slot('nome')doc-horarios @endslot 
+        @slot('form')
+            <form action="{{ route('docentes-horarios') }}" method="GET">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label><b>Filtrar por:</b></label>
+                    </div>    
+                    <div class="col-md-3">
+                        <div id="dis_departamento">
+                            <label for="form_departamento">Departamento:<br/>
+                            </label><select class="form-control select2" name="departamento[]" id="dis_departamento" required multiple >
+                                @foreach ($departamentos as $sigla => $dep)
+                                    <option value="{{ $sigla }}"> {{$dep[1]}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                       <div class="row">
+                            <div id="filtro_inihor" class="col">
+                                <label for="form_inihor">Início do Período (Ano)
+                                </label><input type="number" class="form-control " name="inihor" id="form_inihor"/>
+                            </div>
+                            <div id="filtro_fimhor" class="col">
+                                <label for="form_fimhor">Fim do Período (Ano)
+                                </label><input type="number" class="form-control " name="fimhor" id="form_fimhor"/>
+                            </div>
+                       </div>
+
+                    </div>
+
+                    <div class="col-md-3"><button type="submit" name="tabela" value="tabela" class="btn btn-primary">Visualizar</button></div>
+                </div>
+                <br>
+            </form>
+            
+            @isset($dataHoras)
+                <div class="row justify-content-md-center m-3">
+                    <a href="{{ route('docentes-horarios-planilha') }}">
+                        <button class="btn btn-primary">Download</button>
+                    </a>
+                </div>
+                @include('partials.simple-table',['table_data' => $dataHoras])
                 
             @endisset
         @endslot 

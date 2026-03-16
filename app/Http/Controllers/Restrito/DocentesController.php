@@ -10,12 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Excel;
+use function Illuminate\Log\log;
 
 class DocentesController extends Controller
 {
     
     private $header = ['NUSP',"Nome","Departamento","Mérito","Classe",   "Função","Status", "Ultima Ocorrência", "Fim do Vínculo", "Fim da Atividade"];
-
+    private $tipmer = ['MS-1','MS-2','MS-3','MS-4','MS-5','MS-6'];
+    private $sitatl= [
+            'A' => "Ativo",
+            'D' => "Desligado",
+            'P' => "Aposentado"
+        ];
+    private $keysLista = ['codpes', 'nompes', 'nomset', 'tipmer', 'nomabvcla', 'nomabvfnc', 'sitatl', 'sitoco', 'dtafimvin', 'dtafimdctati'];
+    private $keysHoras = ['NomeDepartamento','MeritoDocente','NUSP','NomeDocente', 'Disciplinas', 'MediaDisciplinasAno'];
+    private $headerHoras = ['Departamento','Mérito','NUSP','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
     public function index(Request $request)
     {
 
@@ -26,14 +35,21 @@ class DocentesController extends Controller
             'D' => "Desligado",
             'P' => "Aposentado"
         ];
-        $keys = ['codpes', 'nompes', 'nomset', 'tipmer', 'nomabvcla', 'nomabvfnc', 'sitatl', 'sitoco', 'dtafimvin', 'dtafimdctati'];
 
         if ($request->tabela == null) {
             return view('restrito.docentes',['departamentos'=>Util::departamentos, 
-                                         'status' => $sitatl,
-                                         'meritos' => $tipmer]);
+                                         'status' => $this->sitatl,
+                                         'meritos' => $this->tipmer]);
         }
+    }
+
+    public function listar(Request $request)
+    {
+
+
+        Gate::authorize('admin');
         
+
         $request->validate(
             [
                 'status.*' =>  'alpha|size:1',
@@ -86,15 +102,65 @@ class DocentesController extends Controller
         return view('restrito.docentes',
         [
             'departamentos'=>Util::departamentos, 
-            'status' => $sitatl,
-            'meritos' => $tipmer,
+            'status' => $this->sitatl,
+            'meritos' => $this->tipmer,
             'dataDocentes' => $data,
             'table_labels' => $this->header,
-            'table_keys' => $keys
+            'table_keys' => $this->keysLista
+        ]);
+                                        
+    }
+    public function horas(Request $request)
+    {
+
+
+        Gate::authorize('admin');
+        
+        
+        $request->validate(
+            [
+                'inihor' =>  'required|integer|min:2000',
+                'fimhor' =>  'required|integer|min:2000'
+            ]
+        );
+        $data = Cache::get($request->session()->getId().'docentes');
+        $nusp = array_column($data,'codpes');
+        $nuspS = implode(", ", $nusp);
+
+        $interval = $request->fimhor-$request->inihor;
+        
+        $sem= [];
+        for ($i=$request->inihor; $i <= $request->fimhor ; $i++) { 
+            $sem[] = "'".$i.'1'."'";
+            $sem[] = "'".$i.'2'."'";
+        }
+        $semS = implode(", ",$sem);
+        Log::debug($semS);
+        $data = Util::query("disciplinas_docentes",[
+            "__docentes__" => $nuspS,
+            "__interval__" => $interval,
+            "__semestres__"=> $semS
+        ]);
+        Cache::put($request->session()->getId().'docentes-horas',$data,600);
+        return view('restrito.docentes',
+        [
+            'departamentos'=>Util::departamentos, 
+            'status' => $this->sitatl,
+            'meritos' => $this->tipmer,
+            'dataHoras' => $data,
+            'table_labels' => $this->keysHoras,
+            'table_keys' => $this->headerHoras
         ]);
                                         
     }
 
+    public function planilhaHoras(Request $request, Excel $excel){
+        Gate::authorize('admin');
+        $data = Cache::get($request->session()->getId().'docentes-horas');
+        $export = new DadosExport([$data], 
+        $this->headerHoras);
+         return $excel->download($export, 'Docentes - Horas.xlsx');
+    }
 
     public function planilhaDocentes(Request $request, Excel $excel){
         Gate::authorize('admin');
