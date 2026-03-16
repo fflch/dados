@@ -16,20 +16,27 @@ use App\Http\Controllers\Publico\ColegiadoController;
 Route::get('/colegiados', [ColegiadoController::class, 'index']);
 Route::get('/colegiados/{codclg}/{sglclg}', [ColegiadoController::class, 'show']);
 
-# Restrito: Estagiários
-use App\Http\Controllers\Restrito\EstagiarioController;
-Route::get('/restrito/estagiarios', [EstagiarioController::class, 'index']);
+use App\Http\Controllers\Restrito;
+Route::get('restrito/graduacao', [Restrito\GraduacaoController::class,'index']);
 
-# Restrito: ProjetosPD
-use App\Http\Controllers\Restrito\AlunosPosController;
-Route::get('/restrito/alunospos', [AlunosPosController::class, 'listarPlanilha']);
+Route::get('restrito/posgraduacao', [Restrito\PosGraduacaoController::class,'index']);
+Route::get('restrito/posgraduacao/eleicao', [Restrito\PosGraduacaoController::class,'listarEleicao'])->name('pos-eleicao');
 
+Route::get('restrito/estagios', [Restrito\EstagiosController::class,'index']);
+Route::get('restrito/estagios/estagiarios', [Restrito\EstagiosController::class,'listarEstagiarios'])->name('estagiarios');
 
-# Restrito...
-use App\Http\Controllers\Restrito\IntercambistasController;
-Route::get('/restrito/intercambitas/recebidos', [IntercambistasController::class, 'listarIntercambistasRecebidos']);
+Route::get('restrito/extensao', [Restrito\ExtensaoController::class,'index']);
 
-    
+Route::get('restrito/pesquisa', [Restrito\PesquisaController::class,'index']);
+
+Route::get('restrito/internacional', [Restrito\InternacionalController::class,'index']);
+Route::get('restrito/internacional/intercambistas', [Restrito\InternacionalController::class,'listarIntercambistasRecebidos'])->name('intercambistas');
+
+Route::get('restrito/administrativo', [Restrito\administrativoController::class,'index']);
+
+Route::get('restrito/docentes',[Restrito\DocentesController::class,'index']);
+Route::get('restrito/docentes/planilha',[Restrito\DocentesController::class,'planilhaDocentes']);
+
 use App\Http\Controllers\DisciplinaController;
 Route::get('/turmas', [DisciplinaController::class, 'turmas']);
 Route::get('/turmas/{prefix}', [DisciplinaController::class, 'prefix']);

@@ -13,5 +13,6 @@ FROM fflch.dbo.VINCULOPESSOAUSP AS V
     	ON (V.codpes = L.codpes)
 WHERE V.tipvin = 'ALUNOPOS'
 	AND V.sitatl = 'A'
+	AND L.tipvin = 'ALUNOPOS'
     AND V.codare IN (__area__)
 ORDER BY V.codare

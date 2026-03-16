@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Restrito;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
-
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use App\Exports\DadosExportNoHeader;
@@ -14,20 +13,41 @@ use App\Utils\Util;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
-class AlunosPosController extends Controller
+
+class PosGraduacaoController extends Controller
 {
+    public function index(){
+        Gate::authorize('admin');
+        
+        $aux_programas = Posgraduacao::programas(8);
+        //eleiminar repetiçao de programas com varias areas;
+        $programas = [];
+        foreach ($aux_programas as $pr) {
+            $programas[$pr["codcur"]]=$pr["nomcur"];
+        };
+        return view('restrito.posgraduacao', [ 'programas' => $programas]);
+    }
     var $colNames =[
         'NUSP',
         'email',
         'nome' 
     ];
     
-    function listarPlanilha(Excel $excel, Request $request){
+    function listarEleicao(Excel $excel, Request $request){
         Gate::authorize('admin');
 
+        $request->validate(
+            [
+                'programas.*' =>  'integer',
+                'tipo' =>  'alpha|max:4',
+                'junto' =>  'alpha|size:5',
+                'header' => 'alpha|size:6'
+
+            ]
+        );
         $programas = $request->programas;
         $tipo = $request->tipo;
-        $separado = $request->separado == "separado";
+        $junto = $request->junto == "junto";
         $todos = $request->todosprogramas == "todos";
 
         $header = $request->header == "header";
@@ -42,7 +62,7 @@ class AlunosPosController extends Controller
         }
    
         //baixar todas as areas no mesmo arquivo
-        if (!$separado) {
+        if ($junto || count($programas) ==1) {
             //encontrar as areas dos programas
             $todasAreas = Posgraduacao::programas(8);
             $areas = [];
@@ -64,10 +84,10 @@ class AlunosPosController extends Controller
                 }else{
                 $export = new DadosExportNoHeader([$data]);
             }
-            $cursos = "todos programas";
-            if (!$todos) $cursos = implode(", ",array_column($areas,"nomcur"));
+            $curso = "";
+            if (count($areas) == 1) $curso = $areas[0]["nomcur"].' - ';
 
-            return $excel->download($export, $cursos . ' - Alunos de Pós-Graduação '.date('d-m-y').'.'.$tipo);   
+            return $excel->download($export, $curso . 'Alunos de Pós-Graduação '.date('d-m-y').'.'.$tipo);   
         }
 
         // baixar areas em arquivos separados
@@ -112,5 +132,5 @@ class AlunosPosController extends Controller
         return response()->download($filename)->deleteFileAfterSend(true);
 
     }
-    
+
 }
