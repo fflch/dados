@@ -36,6 +36,9 @@ Route::get('restrito/administrativo', [Restrito\administrativoController::class,
 
 Route::get('restrito/docentes',[Restrito\DocentesController::class,'index']);
 Route::get('restrito/docentes/planilha',[Restrito\DocentesController::class,'planilhaDocentes']);
+Route::get('restrito/docentes/lista',[Restrito\DocentesController::class,'listar'])->name('docentes-lista');
+Route::get('restrito/docentes/disciplinas',[Restrito\DocentesController::class,'disciplinas'])->name('docentes-disciplinas');
+Route::get('restrito/docentes/disciplinas/planilha',[Restrito\DocentesController::class,'planilhaDisciplinas'])->name('docentes-disciplinas-planilha');
 
 use App\Http\Controllers\DisciplinaController;
 Route::get('/turmas', [DisciplinaController::class, 'turmas']);
