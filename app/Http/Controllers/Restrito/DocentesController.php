@@ -23,8 +23,8 @@ class DocentesController extends Controller
             'P' => "Aposentado"
         ];
     private $keysLista = ['codpes', 'nompes', 'nomset', 'tipmer', 'nomabvcla', 'nomabvfnc', 'sitatl', 'sitoco', 'dtafimvin', 'dtafimdctati'];
-    private $keysHoras = ['NomeDepartamento','MeritoDocente','NUSP','NomeDocente', 'Disciplinas', 'MediaDisciplinasAno'];
-    private $headerHoras = ['Departamento','Mérito','NUSP','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
+    private $keysDisciplinas = ['NomeDepartamento','MeritoDocente','NUSP','NomeDocente', 'Disciplinas', 'MediaDisciplinasAno'];
+    private $headerDisciplinas = ['Departamento','Mérito','NUSP','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
     public function index(Request $request)
     {
 
@@ -110,7 +110,7 @@ class DocentesController extends Controller
         ]);
                                         
     }
-    public function horas(Request $request)
+    public function disciplinas(Request $request)
     {
 
 
@@ -119,47 +119,62 @@ class DocentesController extends Controller
         
         $request->validate(
             [
-                'inihor' =>  'required|integer|min:2000',
-                'fimhor' =>  'required|integer|min:2000'
+                'inidis' =>  'required|integer|min:2000',
+                'fimdis' =>  'required|integer|min:2000',
+                'departamento.*' =>  'required|alpha|size:3'
             ]
         );
-        $data = Cache::get($request->session()->getId().'docentes');
-        $nusp = array_column($data,'codpes');
+
+        //achar o NUSP dos docentes dodepartamento
+        foreach($request->departamento as $departamento){
+                $dep[] = Util::departamentos[$departamento][0];
+            }
+        $doc = Util::query("listar_docentes",[
+            "__departamentos__" => implode(", ",$dep),
+            "__filtros__" =>  ""
+        ]);
+        $nusp = array_column($doc,'codpes');
         $nuspS = implode(", ", $nusp);
 
-        $interval = $request->fimhor-$request->inihor;
+
+
+        $interval = $request->fimdis-$request->inidis;
         
+
+        //agrupar os semestres do periodo
         $sem= [];
-        for ($i=$request->inihor; $i <= $request->fimhor ; $i++) { 
+        for ($i=$request->inidis; $i <= $request->fimdis ; $i++) { 
             $sem[] = "'".$i.'1'."'";
             $sem[] = "'".$i.'2'."'";
         }
         $semS = implode(", ",$sem);
-        Log::debug($semS);
+
+
+
         $data = Util::query("disciplinas_docentes",[
             "__docentes__" => $nuspS,
             "__interval__" => $interval,
             "__semestres__"=> $semS
         ]);
-        Cache::put($request->session()->getId().'docentes-horas',$data,600);
+        Cache::put($request->session()->getId().'docentes-disciplinas',$data,600);
         return view('restrito.docentes',
         [
             'departamentos'=>Util::departamentos, 
             'status' => $this->sitatl,
             'meritos' => $this->tipmer,
-            'dataHoras' => $data,
-            'table_labels' => $this->keysHoras,
-            'table_keys' => $this->headerHoras
+            'dataDisciplinas' => $data,
+            'table_labels' => $this->headerDisciplinas,
+            'table_keys' => $this->keysDisciplinas
         ]);
                                         
     }
 
-    public function planilhaHoras(Request $request, Excel $excel){
+    public function planilhaDisciplinas(Request $request, Excel $excel){
         Gate::authorize('admin');
-        $data = Cache::get($request->session()->getId().'docentes-horas');
+        $data = Cache::get($request->session()->getId().'docentes-disciplinas');
         $export = new DadosExport([$data], 
-        $this->headerHoras);
-         return $excel->download($export, 'Docentes - Horas.xlsx');
+        $this->headerDisciplinas);
+         return $excel->download($export, 'Docentes - Disciplinas.xlsx');
     }
 
     public function planilhaDocentes(Request $request, Excel $excel){
