@@ -24,6 +24,9 @@
     @component('components.restrito-painel')
         @slot('titulo')Planilha Docentes @endslot 
         @slot('nome')Docentes @endslot 
+        @isset($dataDocentes)
+                @slot('ativo')ativo @endslot 
+        @endisset
         @slot('form')
             <form action="{{ route('docentes-lista') }}" method="GET">
                 <div class="row">
@@ -120,6 +123,9 @@
     @component('components.restrito-painel')
         @slot('titulo')Planilha Cargo Docentes - Disciplinas @endslot 
         @slot('nome')doc-disciplinas @endslot 
+        @isset($dataDisciplinas)
+                @slot('ativo')ativo @endslot 
+        @endisset
         @slot('form')
             <form action="{{ route('docentes-disciplinas') }}" method="GET">
                 <div class="row">
@@ -145,7 +151,7 @@
                                 </label><input type="number" class="form-control " name="fimdis" id="form_fimdis" required/>
                             </div>
                        </div>
-
+                       <br><span>*A tabela pode demorar a carregar, não atulize a página.</span>
                     </div>
 
                     <div class="col-md-3"><button type="submit" class="btn btn-primary">Visualizar</button></div>
