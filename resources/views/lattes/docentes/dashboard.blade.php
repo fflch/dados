@@ -61,6 +61,8 @@
                     <table class="table table-hover mb-0 small">
                         <thead class="thead-light">
                             <tr>
+                                <th class="text-center"><i class="text-success"></i> Ações</th>
+                                <th class="text-center"><i class="text-success"></i> Exportar</th>
                                 <th class="pl-4">Docente</th>
                                 <th class="text-center">Departamento</th>
                                 <th class="text-center"><i class="text-primary"></i> Artigos</th>
@@ -97,14 +99,24 @@
                                 <th class="text-center"><i class="text-warning"></i> Prêmios e Títulos</th>
                                 <th class="text-center"><i class="text-warning"></i>Participação Eventos</th>
                                 <th class="text-center"><i class="text-muted"></i> Atualização</th>
-                                <th class="text-center"><i class="text-success"></i> Ações</th>
-                                <th class="text-center"><i class="text-success"></i> Exportar</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($docentes as $docente)
                                 <tr class="border-bottom">
-                                    <td class="pl-4">
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-success" data-toggle="modal"
+                                            data-target="#modalResumo{{ $docente['docente']['codpes'] }}">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('lattes.exportar', $docente['docente']['codpes']) }}"
+                                            class="btn btn-sm btn-outline-primary" title="Exportar Excel">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
                                         <strong>{{ $docente['docente']['nompes'] }}</strong>
                                         @if (!empty($docente['docente']['orcid']))
                                             <div class="small text-muted">
@@ -216,18 +228,6 @@
                                     </td>
                                     <td class="text-muted text-center small">
                                         {{ !empty($docente['ultimaAtualizacao']) ? \Carbon\Carbon::createFromFormat('dmY', $docente['ultimaAtualizacao'])->format('d/m/Y') : '-' }}
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-success" data-toggle="modal"
-                                            data-target="#modalResumo{{ $docente['docente']['codpes'] }}">_
-                                            <i class="-eye"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('lattes.exportar', $docente['docente']['codpes']) }}"
-                                            class="btn btn-sm btn-outline-primary" title="Exportar Excel">_
-                                            <i class="-download"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             @empty
