@@ -3,28 +3,25 @@
 namespace App\Http\Controllers\Restrito;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
-use Illuminate\Http\Request;
-use Uspdev\Replicado\DB;
+use App\Utils\Util;
 
-class IntercambistasController extends Controller
+class InternacionalController extends Controller
 {
-
-
-    private $excel;
+    public function index(){
+        Gate::authorize('admin');
+        return view('restrito.internacional');
+    }
+    
     public function listarIntercambistasRecebidos(Excel $excel, Request $request)
     {
 
         Gate::authorize('admin');
-        $this->excel = $excel;
         
-        $query = file_get_contents(__DIR__ . '/../../../../Queries/listar_intercambistas_recebidos.sql');
-
-        $result = DB::fetchAll($query);
-        $data = $result;
+        $data = Util::query('listar_intercambistas_recebidos');
 
         $export = new DadosExport([$data],
         [
@@ -34,6 +31,7 @@ class IntercambistasController extends Controller
             'Data fim'
         ]);
 
-        return $this->excel->download($export,  'Intercambios.xlsx');
+        return $excel->download($export,  'Intercambios.xlsx');
     }
+
 }
