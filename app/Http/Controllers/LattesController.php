@@ -13,6 +13,7 @@ use App\Exports\DocenteExport;
 use App\Exports\DocenteDetalhadoExport;
 use App\Exports\ArraySheetExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 
 class LattesController extends Controller
 {
@@ -28,6 +29,16 @@ class LattesController extends Controller
         return view('lattes.index');
     }
 
+    private function listarDocentes(?int $codDepto){
+        return Cache::remember("docentes_dep_{$codDepto}", now()->addHours(24), function () use ($codDepto) {
+            Log::info("sem cache");
+            $todosDocentes = Pessoa::listarDocentes($codDepto, 'A');
+            if (!is_array($todosDocentes)) {
+                return [];
+            }
+            return $todosDocentes;
+        });
+    }
     public function dashboard(Request $request)
     {
         $limit = 5; // Or your desired limit
@@ -38,7 +49,7 @@ class LattesController extends Controller
         // 1. Get the full list of active professors, pre-filtered by department if applicable.
         // This is much more efficient than filtering in PHP.
         $codDepto = $this->getCodDeptoPorNome($departamento_filtro);
-        $todosDocentes = Pessoa::listarDocentes($codDepto, 'A');
+        $todosDocentes = $this->listarDocentes($codDepto, 'A');
 
         // 2. Filter the list by name using the search term.
         $docentesFiltrados = $this->filtrarDocentesPorNome($todosDocentes, $busca);
@@ -73,7 +84,8 @@ class LattesController extends Controller
         }
 
         return array_values(array_filter($docentes, function ($docente) use ($busca) {
-            return stripos(utf8_encode($docente['nompes'] ?? ''), $busca) !== false;
+            //return stripos(utf8_encode($docente['nompes'] ?? ''), $busca) !== false;
+            return stripos($docente['nompes'] ?? '', $busca) !== false;
         }));
     }
 
@@ -88,8 +100,12 @@ class LattesController extends Controller
         $docentesComMetricas = [];
         foreach ($docentesPagina as $docente) {
             $metricas = $this->metricsService->getMetricasDetalhadas($docente['codpes']);
-            $docente['nompes'] = utf8_encode($docente['nompes'] ?? '');
+            //$docente['nompes'] = utf8_encode($docente['nompes'] ?? '');
+            $docente['nompes'] = $docente['nompes'] ?? '';
 
+            //formatar o texto dos premios
+            $metricas['premios'] = array_map('html_entity_decode', $metricas['premios']);
+               
             // Optimization: Fetch and cache departments only for the professors on the current page.
             $departamentos = $this->getDepartamentosDocente($docente['codpes']);
 
@@ -113,7 +129,8 @@ class LattesController extends Controller
                 return [];
             }
             $nomes = array_values(array_unique(array_filter(array_column($vinculos, 'nomset'))));
-            return array_map('utf8_encode', $nomes);
+            //return array_map('utf8_encode', $nomes);
+            return $nomes;
         });
     }
 

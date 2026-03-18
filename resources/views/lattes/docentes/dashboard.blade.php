@@ -261,9 +261,9 @@
                             <div class="mb-3">
                                 <h6><i class="-graduation-cap"></i> Formação Acadêmica</h6>
                                 <ul class="list-group small">
-                                    @foreach(($docente['formacaoAcademica'] ?? []) as $formacao)
-                                        <li class="list-group-item">{{ $formacao['titulo'] ?? 'N/A' }} -
-                                            {{ $formacao['instituicao'] ?? 'N/A' }} ({{ $formacao['anoConclusao'] ?? 'N/A' }})</li>
+                                    @foreach(($docente['formacaoAcademica'] ?? []) as $titulo => $formacao)
+                                        <li class="list-group-item">{{ $titulo ?? 'N/A' }} -
+                                            {{ $formacao[0]['NOME-INSTITUICAO'] ?? 'N/A' }} ({{ $formacao[0]['ANO-DE-CONCLUSAO'] ?? 'N/A' }})</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -301,7 +301,7 @@
                                                 <ul class="list-unstyled">
                                                     @foreach($docente['premios'] as $premio)
                                                         <ul>
-                                                            <li>{{ $premio['nome'] ?? 'N/A' }} ({{ $premio['ano'] ?? 'N/A' }})</li>
+                                                            <li>{{ $premio }}</li>
                                                         </ul>
                                                     @endforeach
                                                 </ul>
