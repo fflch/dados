@@ -16,7 +16,13 @@ class ColegiadoController extends Controller
     }
  
     public function show($codclg, $sglclg, Request $request){     
-        
+    
+        //validar parâmetros
+        if (!is_numeric($codclg) ||!ctype_alpha( $sglclg)) {
+            abort(403,"parâmetro inválido");
+
+        }
+
         $nomeClg = Pessoa::retornarNomeColegiado($codclg, $sglclg);
 
         if(!$nomeClg){

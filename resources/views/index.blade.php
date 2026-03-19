@@ -28,11 +28,6 @@
             ],
         ];
     @endphp
-        
-
-    @php
-        
-    @endphp
 
     @foreach ($sections as $key => $section)
         <div class="card">

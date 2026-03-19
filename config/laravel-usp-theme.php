@@ -14,6 +14,11 @@ $menu = [
         'url' => 'restrito',
         'can' => 'admin',
     ],
+    [
+        'text' => 'Lattes',
+        'url' => 'lattes/dashboard',
+        'can' => 'admin',
+    ],
 ];
 
 $right_menu = [
