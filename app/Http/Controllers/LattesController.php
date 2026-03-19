@@ -8,6 +8,7 @@ use Uspdev\Replicado\Pessoa;
 use Uspdev\Replicado\Lattes;
 use App\Services\Replicado\Lattes as LattesService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 
 use App\Exports\DocenteExport;
 use App\Exports\DocenteDetalhadoExport;
@@ -41,6 +42,9 @@ class LattesController extends Controller
     }
     public function dashboard(Request $request)
     {
+
+        Gate::authorize('admin');
+
         $limit = 5; // Or your desired limit
         $busca = $request->input('busca');
         $departamento_filtro = $request->input('departamento');
