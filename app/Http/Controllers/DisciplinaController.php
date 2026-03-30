@@ -59,8 +59,13 @@ class DisciplinaController extends Controller
         return $turmas;
     }
     public function prefix($prefix){
+
+        //validar parâmetro
+        if (!preg_match("/[a-z][a-z][a-z]/", $prefix)) {
+            abort(403,"parâmetro inválido");
+        }
         $turmas = ReplicadoTemp::turmasCompleto($prefix);
-        
+
         return view('disciplinas.turma',[
             'prefix' => $prefix,
             'turmas' => $this->formataTurmas($turmas),
@@ -68,6 +73,11 @@ class DisciplinaController extends Controller
     }
 
     public function concatenate($prefix){
+
+        //validar parâmetro
+        if (!preg_match("/[a-z][a-z][a-z]/", $prefix)) {
+            abort(403,"parâmetro inválido");
+        }
         $turmas = ReplicadoTemp::turmasCompleto($prefix);
 
         return view('disciplinas.concatenate',[
