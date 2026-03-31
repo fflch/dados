@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Publico;
+namespace App\Http\Controllers\Restrito;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +17,9 @@ class EstagiosController extends Controller
     }
     function listarEstagiarios(Excel $excel, Request $request){
         Gate::authorize('admin');
+        $request->validate([
+            'ano' => 'integer'
+        ]);
         $ano = $request->ano ?? Date('Y');
         
         $data = Util::query('listar_estagiarios',['__ano__'=> $ano]);
