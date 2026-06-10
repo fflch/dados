@@ -51,12 +51,18 @@ class LattesMetricsService
     /**
      * Retorna os dados brutos e contagens de um docente
      */
-    public function getMetricasDetalhadas(int $codpes): array
+    public function getMetricasDetalhadas(int $codpes, ?string $idlattes = null): array
     {
-        $lattesArray = LattesService::obterArray($codpes);
+        if ($idlattes) {
+            $lattesArray = LattesService::obterArrayIdLattes($idlattes);
+
+        } else {
+            $lattesArray = LattesService::obterArray($codpes);
+        }
+        
 
         $artigos = LattesService::listarArtigos($codpes, $lattesArray, 'registros', -1);
-        //$artigos = is_array($artigos) ? $artigos : [];
+        $artigos = is_array($artigos) ? $artigos : [];
 
         $livros = LattesService::listarLivrosPublicados($codpes, $lattesArray, 'registros', -1);
         $livros = is_array($livros) ? $livros : [];
@@ -122,7 +128,7 @@ class LattesMetricsService
         $formacaoProfissional = is_array($formacaoProfissional) ? $formacaoProfissional : [];
 
         $premios = LattesService::listarPremios($codpes, $lattesArray);
-        $premios = is_array($premios) ? $premios : [];
+        $premios = is_array($premios) ? array_map('html_entity_decode', $premios) : [];
 
         $organizacaoEventos = LattesService::listarOrganizacaoEvento($codpes, $lattesArray, 'registros', -1);
         $organizacaoEventos = is_array($organizacaoEventos) ? $organizacaoEventos : [];
@@ -131,13 +137,10 @@ class LattesMetricsService
         $materialDidatico = is_array($materialDidatico) ? $materialDidatico : [];
 
         $resumoCV = LattesService::retornarResumoCV($codpes, 'pt', $lattesArray);
-        $resumoCV = is_string($resumoCV) ? $resumoCV : [];
-
-        $ultimaAtualizacao = LattesService::retornarUltimaAtualizacao($codpes, $lattesArray);
-        $ultimaAtualizacao = is_array($ultimaAtualizacao) ? $ultimaAtualizacao : [];
+        //$resumoCV = is_string($resumoCV) ? $resumoCV : [];
 
         $orcid = LattesService::retornarOrcidID($codpes, $lattesArray);
-        $orcid = is_array($orcid) ? $orcid : [];
+        //$orcid = is_array($orcid) ? $orcid : [];
 
         $orientacoesConcluidasDoc = LattesService::listarOrientacoesConcluidasDoutorado($codpes, $lattesArray, 'registros', -1);
         $orientacoesConcluidasDoc = is_array($orientacoesConcluidasDoc) ? $orientacoesConcluidasDoc : [];
@@ -168,9 +171,6 @@ class LattesMetricsService
 
         $outrasProducoesBibliograficas = LattesService::listarOutrasProducoesBibliograficas($codpes, $lattesArray, 'registros', -1);
         $outrasProducoesBibliograficas = is_array($outrasProducoesBibliograficas) ? $outrasProducoesBibliograficas : [];
-
-        $premios = LattesService::listarPremios($codpes, $lattesArray);
-        $premios = is_array($premios) ? $premios : [];
 
         $ultimaAtualizacao = LattesService::retornarUltimaAtualizacao($codpes, $lattesArray);
 

@@ -4,6 +4,9 @@ namespace App\Services\Replicado;
 
 use Uspdev\Replicado\Lattes as LattesBase;
 use Illuminate\Support\Arr;
+use Uspdev\Replicado\Replicado as ReplicadoLib;
+use Uspdev\Replicado\DB;
+use Uspdev\Replicado\Uteis;
 
 class Lattes extends LattesBase
 {
@@ -631,5 +634,28 @@ class Lattes extends LattesBase
     public static function listarOutrosProjetos($codpes, $lattes_array = null, $tipo = 'registros', $limit_ini = 5, $limit_fim = null)
     {
         return self::listarProjetosPorNatureza($codpes, 'OUTRA', $lattes_array, $tipo, $limit_ini, $limit_fim);
+    }
+
+
+
+
+    public static function obterZipIdLattes(string $idLattes){
+        # hotfix -  o utf8_encode estraga o zip
+        ReplicadoLib::setConfig(['sybase' => false]);
+
+        $query = "SELECT imgarqxml from DIM_PESSOA_XMLUSP WHERE idfpescpq = '".$idLattes."'";
+        $result = DB::fetch($query);
+
+        # hotfix -  o utf8_encode estraga o zip
+        ReplicadoLib::setConfig(['reset' => true]);
+
+        return $result ? $result['imgarqxml'] : false;
+    }
+    public static function obterArrayIdLattes(string $idLattes)
+    {
+        $zip = self::obterZipIdLattes($idLattes);
+        $xml = $zip ? Uteis::unzip($zip) : false;
+        $json = $xml ? json_encode(simplexml_load_string($xml)) : false;
+        return $json ? Uteis::utf8_converter(json_decode($json, true)) : false;
     }
 }

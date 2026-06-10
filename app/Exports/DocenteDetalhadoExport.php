@@ -101,7 +101,7 @@ class DocenteDetalhadoExport implements WithMultipleSheets
     {
         foreach ($data as &$item) {
             if (isset($item['AUTORES']) && is_array($item['AUTORES'])) {
-                $autoresNomes = array_map(fn($autor) => $autor['NOME-COMPLETO-DO-AUTOR'] ?? 'N/A', $item['AUTORES']);
+                $autoresNomes = array_map(fn($autor) => $autor['NOME-PARA-CITACAO'] ?? 'N/A', $item['AUTORES']);
                 $item['AUTORES'] = implode('; ', $autoresNomes);
             }
         }
@@ -118,7 +118,7 @@ class DocenteDetalhadoExport implements WithMultipleSheets
         foreach ($data as $projeto) {
             $equipe = '';
             if (isset($projeto['EQUIPE-DO-PROJETO']) && is_array($projeto['EQUIPE-DO-PROJETO'])) {
-                $nomesEquipe = array_map(fn($membro) => $membro['NOME-COMPLETO'] ?? 'N/A', $projeto['EQUIPE-DO-PROJETO']);
+                $nomesEquipe = array_map(fn($membro) => $membro['NOME-COMPLETO-DO-AUTOR'] , $projeto['EQUIPE-DO-PROJETO']);
                 $equipe = implode('; ', $nomesEquipe);
             }
 
@@ -179,7 +179,7 @@ class DocenteDetalhadoExport implements WithMultipleSheets
                 // Os dados de cada integrante também estão em '@attributes'
                 $integrante = $integranteItem['@attributes'] ?? $integranteItem;
 
-                $nomeInt = $integrante['NOME-COMPLETO'] ?? 'N/A';
+                $nomeInt = $integrante['NOME-COMPLETO-DO-AUTOR'] ?? 'N/A';
                 $equipeNomes[] = $nomeInt;
                 
                 // Verifica flag de responsável/coordenador
