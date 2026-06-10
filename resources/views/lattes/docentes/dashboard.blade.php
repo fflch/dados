@@ -1,6 +1,15 @@
 @extends('laravel-usp-theme::master')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="container-fluid">
         <div class="card shadow-sm mb-4 bg-light border-0">
             <div class="card-body">
@@ -36,13 +45,12 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        @php $departamentos = \App\Utils\Util::getDepartamentos(); @endphp
                         <div class="form-group">
                             <label for="departamento"><b>Filtro por Departamento:</b></label>
                             <select name="departamento" id="departamento" class="form-control">
                                 <option value="">-- Todos os Departamentos --</option>
                                 @foreach($departamentos as $sigla => $dados)
-                                    <option value="{{ $dados[1] }}" {{ ($departamento_filtro == $dados[1]) ? 'selected' : '' }}>
+                                    <option value="{{ $sigla }}" {{ ($siglaDepartamento == $sigla) ? 'selected' : '' }}>
                                         {{ $dados[1] }}
                                     </option>
                                 @endforeach
@@ -117,15 +125,15 @@
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        <strong>{{ $docente['docente']['nompes'] }}</strong>
-                                        @if (!empty($docente['docente']['orcid']))
+                                        <strong>{{ $docente['docente']['nome'] }}</strong>
+                                        @if (!empty($docente['orcid']))
                                             <div class="small text-muted">
-                                                <i class="b -orcid text-success"></i> {{ $docente['docente']['orcid'] }}
+                                                <i class="b -orcid text-success"></i> {{ $docente['orcid'] }}
                                             </div>
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        {{ implode(', ', $docente['departamentos']) }}
+                                        {{ $docente['docente']['departamento'] }}
                                     </td>
                                     <td class="text-center">
                                         {{ $docente['contagem']['artigos'] ?? 0 }}
@@ -254,7 +262,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Resumo Completo - {{ $docente['docente']['nompes'] }}</h5>
+                            <h5 class="modal-title">Resumo Completo - {{ $docente['docente']['nome'] }}</h5>
                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                         </div>
                         <div class="modal-body">

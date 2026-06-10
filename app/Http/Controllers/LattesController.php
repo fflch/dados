@@ -15,6 +15,9 @@ use App\Exports\DocenteDetalhadoExport;
 use App\Exports\ArraySheetExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use App\Models\Docente;
+use App\Utils\Util;
 
 class LattesController extends Controller
 {
@@ -27,70 +30,54 @@ class LattesController extends Controller
 
     public function index()
     {
-        return view('lattes.index');
+        return view('lattes.index',
+        [
+            'departamentos' => Util::getDepartamentos()
+        ]
+        );
     }
 
-    private function listarDocentes(?int $codDepto){
-        return Cache::remember("docentes_dep_{$codDepto}", now()->addHours(24), function () use ($codDepto) {
-            Log::info("sem cache");
-            $todosDocentes = Pessoa::listarDocentes($codDepto, 'A');
-            if (!is_array($todosDocentes)) {
-                return [];
-            }
-            return $todosDocentes;
-        });
-    }
+    
     public function dashboard(Request $request)
     {
-
+        $request->validate([
+            'busca' =>  'nullable|string',
+            'departamento' => 'nullable|alpha|size:3'
+        ]);
         Gate::authorize('admin');
 
         $limit = 5; // Or your desired limit
         $busca = $request->input('busca');
-        $departamento_filtro = $request->input('departamento');
+        $siglaDepartamento = $request->input('departamento');
         $page = $request->input('page', 1, FILTER_VALIDATE_INT);
+        
+        $codDepto = Util::departamentos[$siglaDepartamento][0] ?? NULL;
+        
+        $query = Docente::where('status','=',"A"); 
+        if($codDepto) $query = $query->where('codset','=', $codDepto); 
+        if($busca) $query = $query->where('nome','like', "%".$busca."%"); 
+        
+        $todosDocentes = $query->orderBy('nome')->get()->toArray();
 
-        // 1. Get the full list of active professors, pre-filtered by department if applicable.
-        // This is much more efficient than filtering in PHP.
-        $codDepto = $this->getCodDeptoPorNome($departamento_filtro);
-        $todosDocentes = $this->listarDocentes($codDepto, 'A');
 
-        // 2. Filter the list by name using the search term.
-        $docentesFiltrados = $this->filtrarDocentesPorNome($todosDocentes, $busca);
+        $docentesComMetricas = $this->obterMetricasParaPagina($todosDocentes, $limit, $page);
 
-        // 3. Paginate the filtered list and fetch detailed metrics ONLY for the current page.
-        $docentesComMetricas = $this->obterMetricasParaPagina($docentesFiltrados, $limit, $page);
-
-        // 4. Create a manual paginator instance.
+        // Create a manual paginator instance.
         $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
             $docentesComMetricas,
-            count($docentesFiltrados),
+            count($todosDocentes),
             $limit,
             $page,
             ['path' => url()->current(), 'query' => $request->query()]
         );
 
         return view('lattes.docentes.dashboard', [
+            'departamentos' => Util::getDepartamentos(),
             'docentes' => $paginator,
             'limit' => $limit,
             'busca' => $busca,
-            'departamento_filtro' => $departamento_filtro,
+            'siglaDepartamento' => $siglaDepartamento,
         ]);
-    }
-
-    /**
-     * Filters a list of professors by name.
-     */
-    private function filtrarDocentesPorNome(array $docentes, ?string $busca): array
-    {
-        if (empty($busca)) {
-            return $docentes;
-        }
-
-        return array_values(array_filter($docentes, function ($docente) use ($busca) {
-            //return stripos(utf8_encode($docente['nompes'] ?? ''), $busca) !== false;
-            return stripos($docente['nompes'] ?? '', $busca) !== false;
-        }));
     }
 
     /**
@@ -103,55 +90,16 @@ class LattesController extends Controller
 
         $docentesComMetricas = [];
         foreach ($docentesPagina as $docente) {
-            $metricas = $this->metricsService->getMetricasDetalhadas($docente['codpes']);
-            //$docente['nompes'] = utf8_encode($docente['nompes'] ?? '');
-            $docente['nompes'] = $docente['nompes'] ?? '';
-
-            //formatar o texto dos premios
-            $metricas['premios'] = array_map('html_entity_decode', $metricas['premios']);
-               
-            // Optimization: Fetch and cache departments only for the professors on the current page.
-            $departamentos = $this->getDepartamentosDocente($docente['codpes']);
+            $metricas = $this->metricsService->getMetricasDetalhadas($docente['codpes'],$docente['idLattes']);
+            Log::debug($metricas);
 
             $docentesComMetricas[] = array_merge($metricas, [
-                'docente' => $docente,
-                'departamentos' => $departamentos,
+                'docente' => $docente
             ]);
         }
 
         return $docentesComMetricas;
     }
-
-    /**
-     * Fetches and caches the department names for a given professor.
-     */
-    private function getDepartamentosDocente(int $codpes): array
-    {
-        return Cache::remember("docente_vinculos_nomes_{$codpes}", now()->addHours(24), function () use ($codpes) {
-            $vinculos = Pessoa::listarVinculosAtivos($codpes, false);
-            if (!is_array($vinculos)) {
-                return [];
-            }
-            $nomes = array_values(array_unique(array_filter(array_column($vinculos, 'nomset'))));
-            //return array_map('utf8_encode', $nomes);
-            return $nomes;
-        });
-    }
-
-    /**
-     * Gets the department code from its name for optimized database filtering.
-     */
-    private function getCodDeptoPorNome(?string $nomeDepto): ?int
-    {
-        if (empty($nomeDepto)) {
-            return null;
-        }
-        $departamentos = \App\Utils\Util::getDepartamentos();
-        $depto = collect($departamentos)->firstWhere('1', $nomeDepto);
-        return $depto[0] ?? null;
-    }
-
-
 
     //exports
     public function exportarDocente($codpes)
