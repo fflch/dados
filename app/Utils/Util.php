@@ -123,4 +123,14 @@ class Util
         return $data;
     }
 
+    public static function ordena(array $keys, array $arr){
+        return array_map(function ($item) use ($keys) {
+            $ret = [];
+            foreach ($keys as $key) {
+                $ret[$key] = $item[$key];
+            }
+            return $ret;
+        },$arr);
+    }
+
 }

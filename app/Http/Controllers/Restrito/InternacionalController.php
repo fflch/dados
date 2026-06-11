@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
+use App\Models\Intercambista;
 use App\Utils\Util;
 
 class InternacionalController extends Controller
@@ -21,8 +22,9 @@ class InternacionalController extends Controller
 
         Gate::authorize('admin');
         
-        $data = Util::query('listar_intercambistas_recebidos');
-
+    
+        $data = Intercambista::select('nome','codpes','dtaInicioVinculo','dtaFimVinculo')->orderBy('dtaInicioVinculo')->get()->toArray();
+        $data = Util::ordena(['nome','codpes','dtaInicioVinculo','dtaFimVinculo'],$data);
         $export = new DadosExport([$data],
         [
             'Nome',

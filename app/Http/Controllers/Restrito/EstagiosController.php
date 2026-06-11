@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use App\Exports\DadosExport;
 use App\Utils\Util;
+use App\Models\Estagiario;
 
 class EstagiosController extends Controller
 {
@@ -22,7 +23,9 @@ class EstagiosController extends Controller
         ]);
         $ano = $request->ano ?? Date('Y');
         
-        $data = Util::query('listar_estagiarios',['__ano__'=> $ano]);
+        //$data = Util::query('listar_estagiarios',['__ano__'=> $ano]);
+        $data = Estagiario::whereYear('dtaInicio',$ano)->get()->toArray();
+        $data = Util::ordena(['codpes', 'nome', 'setor','dtaInicio','dtaFim'],$data);
 
         $export = new DadosExport([$data],
         [
