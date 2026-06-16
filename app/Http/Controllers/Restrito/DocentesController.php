@@ -81,11 +81,11 @@ class DocentesController extends Controller
         }
 
         if ($request->fimvin !=null) {
-            $data->whereIn('fim_vinculo', $request->fimvin);
+            $data->where('fim_vinculo','>=', $request->fimvin);
         }
 
         if ($request->fimativ !=null) {
-            $data->whereIn('fim_atividade', $request->fimativ);
+            $data->where('fim_atividade','>=', $request->fimativ);
         }
 
         $data = $data->get()->toarray();
