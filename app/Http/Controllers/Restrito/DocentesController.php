@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Excel;
+use App\Models\Docente;
 use function Illuminate\Log\log;
 
 class DocentesController extends Controller
@@ -22,7 +23,7 @@ class DocentesController extends Controller
             'D' => "Desligado",
             'P' => "Aposentado"
         ];
-    private $keysLista = ['codpes', 'nompes', 'nomset', 'tipmer', 'nomabvcla', 'nomabvfnc', 'sitatl', 'sitoco', 'dtafimvin', 'dtafimdctati'];
+    private $keysLista = ['codpes', 'nome_docente', 'nome_setor', 'merito', 'classe', 'funcao', 'status', 'ultima_ocorrencia', 'fim_vinculo', 'fim_atividade'];
     private $headerDisciplinas = ['Departamento','Mérito','NUSP','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
     public function index(Request $request)
     {
@@ -60,43 +61,35 @@ class DocentesController extends Controller
             ]
         );
 
-
         if ($request->departamento == null) { //seleciona todos os departamentos
-            $dep = implode(", ",array_column(Util::departamentos,0));
+            $dep = array_column(Util::departamentos,0);
         }
         else{
             foreach($request->departamento as $departamento){
                 $dep[] = Util::departamentos[$departamento][0];
-
+                }
             }
-            $dep = implode(", ",$dep);
-        }
-        
-        $filtroMerito = "";
+
+        $data = Docente::whereIn('cod_setor', $dep);
+
         if ($request->merito !=null) {
-            $filtroMerito = "AND V.tipmer in ('".implode("', '",$request->merito)."')\n";
+            $data->whereIn('merito', $request->merito);
         }
         
-        $filtroStatus = "";
         if ($request->status !=null) {
-            $filtroStatus = "AND V.sitatl in ('".implode("', '",$request->status)."')\n";
-        }
-        $filtroFimVin = "";
-        if ($request->fimvin !=null) {
-            
-            $filtroFimVin = "AND (V.dtafimvin IS NULL OR V.dtafimvin >'".$request->fimvin."')\n";
+            $data->whereIn('status', $request->status);
         }
 
-        $filtroFimAtiv = "";
-        if ($request->fimativ !=null) {
-            
-            $filtroFimAtiv = "AND (V.dtafimdctati IS NULL OR V.dtafimdctati > '".$request->fimativ."')\n";
+        if ($request->fimvin !=null) {
+            $data->whereIn('fim_vinculo', $request->fimvin);
         }
+
+        if ($request->fimativ !=null) {
+            $data->whereIn('fim_atividade', $request->fimativ);
+        }
+
+        $data = $data->get()->toarray();
         
-        $data = Util::query("listar_docentes",[
-            "__filtros__" => $filtroStatus.$filtroFimVin.$filtroFimAtiv.$filtroMerito,
-            "__departamentos__" => $dep
-        ]);
         Cache::put($request->session()->getId().'docentes',$data,600);
         return view('restrito.docentes',
         [

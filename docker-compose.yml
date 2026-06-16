@@ -31,6 +31,20 @@ services:
     networks:
       - dados-network
 
+  mongodb:
+    image: mongo:7
+    container_name: dados_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: replicado2mongodb
+    volumes:
+      - replicado2mongodb_mongodb_data:/data/db
+    networks:
+      - dados-network
+
   selenium:
     image: selenium/standalone-chrome
     container_name: dados_selenium
@@ -57,3 +71,5 @@ networks:
 
 volumes:
   mariadb_data:
+  replicado2mongodb_mongodb_data:
+    external: true
