@@ -24,7 +24,7 @@ class DocentesController extends Controller
             'D' => "Desligado",
             'P' => "Aposentado"
         ];
-    private $keysLista = ['codpes', 'nome_docente', 'nome_setor', 'merito', 'classe', 'funcao', 'status', 'ultima_ocorrencia', 'fim_vinculo', 'fim_atividade'];
+    private $keysLista = ['codpes', 'nome', 'departamento', 'merito', 'classe', 'funcao', 'status', 'ultimaOcorrencia', 'dtaFimVinculo', 'dtaFimAtividade'];
     private $headerDisciplinas = ['NUSP','Departamento','Mérito','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
     public function index(Request $request)
     {
@@ -74,7 +74,7 @@ class DocentesController extends Controller
             }
         }
 
-        $data = Docente::whereIn('cod_setor', $dep);
+        $data = Docente::whereIn('codset', $dep);
 
         if ($request->merito !=null) {
             $data->whereIn('merito', $request->merito);
@@ -85,11 +85,11 @@ class DocentesController extends Controller
         }
 
         if ($request->fimvin !=null) {
-            $data->where('fim_vinculo','>=', $request->fimvin);
+            $data->where('dtaFimVinculo','>=', $request->fimvin);
         }
 
         if ($request->fimativ !=null) {
-            $data->where('fim_atividade','>=', $request->fimativ);
+            $data->where('dtaFimAtividade','>=', $request->fimativ);
         }
 
         $data = $data->get()->toarray();
@@ -111,7 +111,7 @@ class DocentesController extends Controller
 
 
         Gate::authorize('admin');
-        $keysDisciplinas = ['departamento','merito_docente','NUSP','nome_docente', 'Disciplinas', 'Media'];
+        $keysDisciplinas = ['nomeDepartamento','meritoDocente','codpes','nomeDocente', 'disciplinas', 'media'];
         
         $request->validate(
             [
@@ -125,12 +125,11 @@ class DocentesController extends Controller
         foreach($request->departamento as $departamento){
                 $dep[] = Util::departamentos[$departamento][0];
             }
-        $doc = Docente::select('codpes')->whereIn('cod_setor', $dep)->get()->toarray();
-        
+        $doc = Docente::select('codpes')->whereIn('codset', $dep)->get()->toarray();
         $nuspS = [];
         foreach($doc as $cod_doc){
             $nuspS[] = $cod_doc['codpes'];
-        }
+            }
 
         $interval = $request->fimdis-$request->inidis+1;
 
@@ -145,34 +144,34 @@ class DocentesController extends Controller
         $reg_ex = '/^(' . $semS . ')/';
 
 
-        $data = Disciplina::whereIn('NUSP', $nuspS)
-                          ->where('Turma', 'regex', $reg_ex)
+        $data = Disciplina::whereIn('codpes', $nuspS)
+                          ->where('turma', 'regex', $reg_ex)
                           ->get()
                           ->toarray();
 
         //contar as disciplinas
         $dis_doscentes = [];
         foreach ($data as $tur) {
-            if(array_key_exists($tur["NUSP"],$dis_doscentes)){
-                $dis_doscentes[$tur["NUSP"]][substr($tur['Turma'],0,5)][$tur['Disciplina'].substr($tur['Turma'],0,5)]=1;
+            if(array_key_exists($tur["codpes"],$dis_doscentes)){
+                $dis_doscentes[$tur["codpes"]][substr($tur['turma'],0,5)][$tur['disciplina'].substr($tur['turma'],0,5)]=1;
             }else{
-                $dis_doscentes[$tur["NUSP"]]=$tur;
+                $dis_doscentes[$tur["codpes"]]=$tur;
                 foreach ($sem as $s){
-                    $dis_doscentes[$tur["NUSP"]][$s]=[];    
+                    $dis_doscentes[$tur["codpes"]][$s]=[];    
                 }
-                $dis_doscentes[$tur["NUSP"]][substr($tur['Turma'],0,5)][$tur['Disciplina'].substr($tur['Turma'],0,5)]=1;
+                $dis_doscentes[$tur["codpes"]][substr($tur['turma'],0,5)][$tur['disciplina'].substr($tur['turma'],0,5)]=1;
             }     
         }
 
         foreach ($dis_doscentes as $n => $doc) {
-            $dis_doscentes[$n]['Disciplinas']=0;
+            $dis_doscentes[$n]['disciplinas']=0;
             foreach ($sem as $s) {
-                $dis_doscentes[$n]['Disciplinas']+=count($doc[$s]);
+                $dis_doscentes[$n]['disciplinas']+=count($doc[$s]);
                 $dis_doscentes[$n][$s]=count($doc[$s]);
             }
-            $dis_doscentes[$n]['Media'] = round($dis_doscentes[$n]['Disciplinas']/$interval,3);
-            unset($dis_doscentes[$n]["Disciplina"]);
-            unset($dis_doscentes[$n]["Turma"]);
+            $dis_doscentes[$n]['media'] = round($dis_doscentes[$n]['disciplinas']/$interval,3);
+            unset($dis_doscentes[$n]["disciplina"]);
+            unset($dis_doscentes[$n]["turma"]);
 
         }
 
