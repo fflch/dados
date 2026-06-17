@@ -62,10 +62,9 @@ class DocentesController extends Controller
             ]
         );
 
+
         if ($request->departamento == null) { //seleciona todos os departamentos
-            foreach($request->departamento as $departamento){
-                $dep[] = array_column(Util::departamentos,0);
-                }
+                $dep = array_column(Util::departamentos,0);
             }
         else{
             foreach($request->departamento as $departamento){
@@ -73,6 +72,7 @@ class DocentesController extends Controller
 
             }
         }
+
 
         $data = Docente::whereIn('codset', $dep);
 
