@@ -7,6 +7,6 @@ class Docente extends Model
 {
     protected $connection = 'mongodb';
     protected $table = 'docentes';
-    protected $hidden = ['_id','updated_at_sync'];
+    protected $hidden = ['_id','id','updated_at_sync'];
 
 }

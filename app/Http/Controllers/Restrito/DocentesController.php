@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Excel;
 use App\Models\Docente;
+use App\Models\Disciplina;
 use function Illuminate\Log\log;
 
 class DocentesController extends Controller
@@ -24,7 +25,7 @@ class DocentesController extends Controller
             'P' => "Aposentado"
         ];
     private $keysLista = ['codpes', 'nome_docente', 'nome_setor', 'merito', 'classe', 'funcao', 'status', 'ultima_ocorrencia', 'fim_vinculo', 'fim_atividade'];
-    private $headerDisciplinas = ['Departamento','Mérito','NUSP','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
+    private $headerDisciplinas = ['NUSP','Departamento','Mérito','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
     public function index(Request $request)
     {
 
@@ -62,13 +63,16 @@ class DocentesController extends Controller
         );
 
         if ($request->departamento == null) { //seleciona todos os departamentos
-            $dep = array_column(Util::departamentos,0);
-        }
+            foreach($request->departamento as $departamento){
+                $dep[] = array_column(Util::departamentos,0);
+                }
+            }
         else{
             foreach($request->departamento as $departamento){
                 $dep[] = Util::departamentos[$departamento][0];
-                }
+
             }
+        }
 
         $data = Docente::whereIn('cod_setor', $dep);
 
@@ -107,7 +111,7 @@ class DocentesController extends Controller
 
 
         Gate::authorize('admin');
-        $keysDisciplinas = ['NomeDepartamento','MeritoDocente','NUSP','NomeDocente', 'Disciplinas', 'Media'];
+        $keysDisciplinas = ['departamento','merito_docente','NUSP','nome_docente', 'Disciplinas', 'Media'];
         
         $request->validate(
             [
@@ -121,16 +125,14 @@ class DocentesController extends Controller
         foreach($request->departamento as $departamento){
                 $dep[] = Util::departamentos[$departamento][0];
             }
-        $doc = Util::query("listar_docentes",[
-            "__departamentos__" => implode(", ",$dep),
-            "__filtros__" =>  ""
-        ]);
-        $nusp = array_column($doc,'codpes');
-        $nuspS = implode(", ", $nusp);
-
+        $doc = Docente::select('codpes')->whereIn('cod_setor', $dep)->get()->toarray();
+        
+        $nuspS = [];
+        foreach($doc as $cod_doc){
+            $nuspS[] = $cod_doc['codpes'];
+        }
 
         $interval = $request->fimdis-$request->inidis+1;
-        
 
         //agrupar os semestres do periodo
         $sem= [];
@@ -139,17 +141,15 @@ class DocentesController extends Controller
             $sem[] = $i.'2';
         }
         $keysDisciplinas = array_merge($keysDisciplinas,$sem);
-        $semS = "'".implode("', '",$sem)."'";
+        $semS = implode('|', $sem);
+        $reg_ex = '/^(' . $semS . ')/';
 
 
+        $data = Disciplina::whereIn('NUSP', $nuspS)
+                          ->where('Turma', 'regex', $reg_ex)
+                          ->get()
+                          ->toarray();
 
-
-        $data = Util::query("disciplinas_docentes",[
-            "__docentes__" => $nuspS,
-            "__interval__" => $interval,
-            "__semestres__"=> $semS
-        ]);
-        
         //contar as disciplinas
         $dis_doscentes = [];
         foreach ($data as $tur) {
