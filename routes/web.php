@@ -7,6 +7,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 Route::get('/', [IndexController::class, 'index']);
 
+use App\Http\Controllers\PedidoController;
+Route::get('/pedidos',              [PedidoController::class, 'index']);
+Route::get('/pedidos/create',       [PedidoController::class, 'create']);
+Route::post('/pedidos',             [PedidoController::class, 'store']);
+Route::get('/pedidos/{pedido}',     [PedidoController::class, 'show']);
+Route::get('/pedidos/{pedido}/edit',[PedidoController::class, 'edit']);
+Route::patch('/pedidos/{pedido}',   [PedidoController::class, 'update']);
+Route::delete('/pedidos/{pedido}',  [PedidoController::class, 'destroy']);
+
 # Restrito
 use App\Http\Controllers\RestritoController;
 Route::get('/restrito', [RestritoController::class, 'restrito']);

@@ -10,6 +10,10 @@ $menu = [
         'key' => 'menu_dinamico',
     ],
     [
+        'text' => 'Pedidos',
+        'url' => 'pedidos',
+    ],
+    [
         'text' => 'Acesso Restrito',
         'url' => 'restrito',
         'can' => 'admin',
