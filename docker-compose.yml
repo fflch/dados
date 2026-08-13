@@ -1,0 +1,59 @@
+services:
+  dados:
+    build: .
+    image: dados
+    container_name: dados
+    ports:
+      - "8000:80"
+    depends_on:
+      - mariadb
+    networks:
+      - dados-network
+    volumes:
+      - ./:/var/www/html
+    environment:
+      HOME: /tmp
+    user: "${UID:-1000}:${GID:-1000}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mariadb:
+    image: mariadb:11
+    container_name: dados_mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: dados
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - dados-network
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: dados_selenium
+    ports:
+      - "7900:7900" # VNC (pra ver o browser rodando)
+    networks:
+      - dados-network
+    shm_size: 2gb
+
+  senhaunica-faker:
+    image: uspdev/senhaunica-faker
+    container_name: dados_senhaunica-faker
+    ports:
+      - "3141:3141"
+    environment:
+          - APP_URL=http://auth.local:3141
+    networks:
+      dados-network:
+        aliases:
+          - auth.local
+
+networks:
+  dados-network:
+
+volumes:
+  mariadb_data:
