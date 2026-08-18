@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 Route::get('/', [IndexController::class, 'index']);
 
+#Pedidos
 use App\Http\Controllers\PedidoController;
 Route::get('/pedidos',              [PedidoController::class, 'index']);
 Route::get('/pedidos/create',       [PedidoController::class, 'create']);
@@ -15,6 +16,14 @@ Route::get('/pedidos/{pedido}',     [PedidoController::class, 'show']);
 Route::get('/pedidos/{pedido}/edit',[PedidoController::class, 'edit']);
 Route::patch('/pedidos/{pedido}',   [PedidoController::class, 'update']);
 Route::delete('/pedidos/{pedido}',  [PedidoController::class, 'destroy']);
+
+use App\Http\Controllers\AlunoGradController;
+Route::get('/contagem-alunosgr', [AlunoGradController::class, 'show']);
+Route::get('/contagem-alunosgr-planilha', [AlunoGradController::class, 'planilha'])->name('contagem-alunosGrad-planilha');
+
+use App\Http\Controllers\VinculosController;
+Route::get('/contagem-vinculos', [VinculosController::class, 'show']);
+Route::get('/contagem-vinculos-planilha', [VinculosController::class, 'planilha'])->name('contagem-vinculos-planilha');
 
 # Restrito
 use App\Http\Controllers\RestritoController;
