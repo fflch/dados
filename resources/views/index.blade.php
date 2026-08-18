@@ -21,6 +21,14 @@
                 ]
             ],
             [
+                'title' => 'Dados Gerais', 
+                'items' => [
+                    ['name' => 'Totais de pessoas com vínculos ativos (Servidores, Docentes, Alunos de Pós-Graduação)', 'url' => '/contagem-vinculos'],
+                    ['name' => 'Total de alunos de graduação por curso', 'url' => '/contagem-alunosgr'],
+
+                ]
+            ],
+            [
                 'title' => 'Dados de Disciplinas',
                 'items' => [
                     ['name' => 'Turmas', 'url' => '/turmas', 'api' => '/api/disciplinas/turmas'],
