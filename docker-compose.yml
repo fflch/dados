@@ -21,9 +21,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: dados
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: dados
+      MYSQL_PASSWORD: dados
+      MYSQL_ROOT_PASSWORD: dados
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -44,7 +44,7 @@ services:
       PMA_PASSWORD: dados
     networks:
       - dados-network
-
+      
   selenium:
     image: selenium/standalone-chrome
     container_name: dados_selenium
@@ -54,6 +54,8 @@ services:
       - dados-network
     shm_size: 2gb
 
+  # No /etc/hosts do seu computador colocar a linha `127.0.0.1 auth.local` 
+  # particularidades do protocolo oAuth1 usado na USP
   senhaunica-faker:
     image: uspdev/senhaunica-faker
     container_name: dados_senhaunica-faker
