@@ -1,0 +1,82 @@
+services:
+  dados:
+    build: .
+    image: dados:latest
+    container_name: dados
+    ports:
+      - "8000:80"
+    depends_on:
+      - mariadb
+    networks:
+      - dados-network
+    volumes:
+      - ./:/var/www/html
+    environment:
+      HOME: /tmp
+    user: "${UID:-1000}:${GID:-1000}"
+
+  mariadb:
+    image: mariadb:11
+    container_name: dados_mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: dados
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - dados-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: dados_phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: dados
+    networks:
+      - dados-network
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: dados_selenium
+    ports:
+      - "7900:7900"
+    networks:
+      - dados-network
+    shm_size: 2gb
+
+  senhaunica-faker:
+    image: uspdev/senhaunica-faker
+    container_name: dados_senhaunica-faker
+    ports:
+      - "3141:3141"
+    environment:
+          - APP_URL=http://auth.local:3141
+    networks:
+      dados-network:
+        aliases:
+          - auth.local
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: dados_mailpit
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Interface Web
+    networks:
+      - dados-network
+
+networks:
+  dados-network:
+
+volumes:
+  mariadb_data:
