@@ -1,4 +1,4 @@
-FROM uspdev/uspdev-php-apache:8.4
+FROM uspdev/uspdev-php-apache:latest
 
 RUN sed -i 's|/var/www/html|/var/www/html/public|' \
     /etc/apache2/sites-available/000-default.conf
@@ -13,3 +13,4 @@ RUN composer install \
     --no-interaction
 
 CMD ["apache2-foreground"]
+

@@ -1,7 +1,7 @@
 services:
   dados:
     build: .
-    image: dados
+    image: dados:latest
     container_name: dados
     ports:
       - "8000:80"
@@ -14,8 +14,6 @@ services:
     environment:
       HOME: /tmp
     user: "${UID:-1000}:${GID:-1000}"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   mariadb:
     image: mariadb:11
@@ -31,11 +29,27 @@ services:
     networks:
       - dados-network
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: dados_phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: dados
+    networks:
+      - dados-network
+
   selenium:
     image: selenium/standalone-chrome
     container_name: dados_selenium
     ports:
-      - "7900:7900" # VNC (pra ver o browser rodando)
+      - "7900:7900"
     networks:
       - dados-network
     shm_size: 2gb
@@ -51,6 +65,15 @@ services:
       dados-network:
         aliases:
           - auth.local
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: dados_mailpit
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Interface Web
+    networks:
+      - dados-network
 
 networks:
   dados-network:
