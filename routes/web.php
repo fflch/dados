@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 Route::get('/', [IndexController::class, 'index']);
 
+use App\Http\Controllers\AlunoGradController;
+Route::get('/contagem-alunosgr', [AlunoGradController::class, 'show']);
+Route::get('/contagem-alunosgr-planilha', [AlunoGradController::class, 'planilha'])->name('contagem-alunosGrad-planilha');
+
+use App\Http\Controllers\VinculosController;
+Route::get('/contagem-vinculos', [VinculosController::class, 'show']);
+Route::get('/contagem-vinculos-planilha', [VinculosController::class, 'planilha'])->name('contagem-vinculos-planilha');
+
 # Restrito
 use App\Http\Controllers\RestritoController;
 Route::get('/restrito', [RestritoController::class, 'restrito']);
