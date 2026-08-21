@@ -1,15 +1,20 @@
 @extends('pedidos')
 
 @section('content')
-<a href="pedidos/create"><button class="btn btn-primary">Criar nova solicitação</button></a>
-@forelse($pedidos as $pedido)
-
-@include('pedido.partials.fields')
-@empty
-<div>
-    <p>SEM PEDIDOS REGISTRADOS</p>    
-</div>
-
-
-@endforelse
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Aussunto</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach($pedidos as $pedido)
+        <tr>
+            <td>{{ $pedido->assunto }}</td>
+            <td>{{ $pedido->descricao }}</td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
 @endsection('content')

@@ -1,4 +1,15 @@
 <?php
+$pedidos = [
+    [
+        'text' => 'Cadastrar Pedido',
+        'url'  => 'pedidos/create',
+    ],
+    [
+        'text' => 'Listar Pedidos',
+        'url'  => 'pedidos',
+        'can'  => 'admin'
+    ]
+];
 
 $menu = [
     [
@@ -10,10 +21,6 @@ $menu = [
         'key' => 'menu_dinamico',
     ],
     [
-        'text' => 'Pedidos',
-        'url' => 'pedidos',
-    ],
-    [
         'text' => 'Acesso Restrito',
         'url' => 'restrito',
         'can' => 'admin',
@@ -23,6 +30,10 @@ $menu = [
         'url' => 'lattes/dashboard',
         'can' => 'admin',
     ],
+    [
+        'text'    => 'Pedidos',
+        'submenu' => $pedidos
+    ]
 ];
 
 $right_menu = [
