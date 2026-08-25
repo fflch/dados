@@ -4,20 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PedidoRequest;
 use App\Models\Pedido;
-
+use Fflch\LaravelFflchStepper\Stepper;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Uspdev\Replicado\Pessoa;
 
 class PedidoController extends Controller
 {
     public function index(Request $request){
         Gate::authorize('admin');
-        if($request->has('search')){
-            $pedidos = Pedido::where('assunto', 'like', '%'.$request->search.'%')->get();
-        }else{
-            $pedidos = Pedido::all();
-        } 
-
+        $pedidos = Pedido::all();
         return view('pedido.index', ['pedidos' => $pedidos]);
     }
 
@@ -29,9 +25,10 @@ class PedidoController extends Controller
     public function store(PedidoRequest $request){
         if(Gate::allows('user')){
             $validated = $request->validated();
-            $validated['user_id'] = auth()->user()->id;
+            $validated['user_codpes'] = auth()->user()->codpes;
             
             $pedido = Pedido::create($validated);
+            $pedido->setStatus('Análise');
             return redirect("/pedidos/$pedido->id");
         }else{
             return redirect()->back()->withInput()->with('alert-warning', "Você precisa estar logado.");
@@ -39,8 +36,9 @@ class PedidoController extends Controller
             
     }
 
-    public function show(Pedido $pedido){
-        return view('pedido.show', ['pedido' => $pedido]);
+    public function show(Pedido $pedido, Stepper $stepper){
+        $stepper->setCurrentStepName($pedido->status);
+        return view('pedido.show', ['pedido' => $pedido, 'stepper' => $stepper->render()]);
     }
 
     public function edit(Pedido $pedido){
@@ -51,10 +49,10 @@ class PedidoController extends Controller
     public function update(PedidoRequest $request, Pedido $pedido){
         Gate::authorize('admin');
         $validated = $request->validated();
-        $validated['user_id'] = auth()->user()->id;
 
         $pedido->update($validated);
-        $request->session()->flash('alert-success','Livro atualizado com sucesso.');
+        $pedido->setStatus('Finalizado');
+        $request->session()->flash('alert-success','Solicitação atualizada com sucesso.');
 
         return redirect("/pedidos/$pedido->id");
     }
@@ -64,5 +62,10 @@ class PedidoController extends Controller
         $pedido->delete();
         session()->flash('alert-info', 'Solicitação removida com sucesso.');
         return redirect('/pedidos');
+    }
+
+    public function meus_pedidos(){
+        $pedidos = Pedido::where('user_codpes', auth()->user()->codpes)->get();
+        return view('pedido.index', ['pedidos' => $pedidos]);
     }
 }

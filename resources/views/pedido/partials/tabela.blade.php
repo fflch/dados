@@ -1,19 +1,23 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Aussunto</th>
+            <th>Status</th>
+            <th>Assunto</th>
             <th>Descrição</th>
+        @can('admin')
             <th>Editar</th>
             <th>Apagar</th>
+        @endcan
+            <th>Visualizar</th>
         </tr>
     </thead>
     <tbody>
-    @if(@isset($pedidos))
-        @foreach($pedidos as $pedido)
+        @isset($pedidos)
+            @foreach($pedidos as $pedido)
+                @include('pedido.partials.campos')
+            @endforeach
+        @else
             @include('pedido.partials.campos')
-        @endforeach
-    @else
-        @include('pedido.partials.campos')
-    @endif
+        @endisset
     </tbody>
 </table>

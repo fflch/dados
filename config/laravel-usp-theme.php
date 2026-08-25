@@ -5,6 +5,11 @@ $pedidos = [
         'url'  => 'pedidos/create',
     ],
     [
+        'text' => 'Meus Pedidos',
+        'url'  => 'pedidos/meuspedidos',
+        'can'  => 'user'
+    ],
+    [
         'text' => 'Listar Pedidos',
         'url'  => 'pedidos',
         'can'  => 'admin'
