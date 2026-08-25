@@ -68,19 +68,18 @@
                     <div class="col-md-3"> 
                         <label><b>Selecionar Colunas:</b></label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="check_todas_col" onchange="todasCol(this)">
-                            <label class="form-check-label" for="check_col_todas">
-                                Todas
+                            <input class="form-check-input" type="checkbox" name="pd_col" id="check_pd_col">
+                            <label class="form-check-label" for="check_pd_col">
+                                CPF e Email do Pesquisador
                             </label>
                         </div>
-                        @foreach ($colunas as $nom => $cod)
-                            <div class="form-check">
-                                <input class="form-check-input col-check-pd" type="checkbox" name="check_col_{{ $cod }}" id="check_col_{{ $cod }}">
-                                <label class="form-check-label" for="check_col_{{ $cod }}">
-                                    {{ $nom }}
-                                </label>
-                            </div>
-                        @endforeach
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="sup_col" id="check_sup_col">
+                            <label class="form-check-label" for="check_sup_col">
+                                CPF e Email do Supervisor
+                            </label>
+                        </div>
+                        
                     </div>                               
                     <div class="col-md-3"><button class="btn btn-primary" type="submit" id="baixar-alunospos">Baixar</button></div>
                 </div>
@@ -105,12 +104,6 @@
                 div.style.display = 'none'
                 form.setAttribute("disabled", "disabled");
             }
-        }
-        function todasCol(check) {
-            const checkboxes = document.querySelectorAll('.col-check-pd');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = check.checked;
-            });
         }
     </script>
   @endsection

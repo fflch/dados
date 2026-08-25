@@ -36,8 +36,7 @@ class PesquisaController extends Controller
         Gate::authorize('admin');
         return view('restrito.pesquisa', [ 
             'departamentos' => Util::departamentos,
-            'status' => $status,
-            'colunas' => $this->colunas
+            'status' => $status
         ]);
     }
 
@@ -77,30 +76,25 @@ class PesquisaController extends Controller
             
 
         // preencher departamentos vazios com o setor do docente
-        if ($request->departamento != null || $request->check_col_departamento != null ) {
-
-            foreach($data  as $num => $proj){
-                if ($proj['departamento'] == null) {
-                    $query = DB::fetchAll("SELECT codset FROM VINCULOPESSOAUSP WHERE tipvin = 'SERVIDOR' AND codpes = ".$proj['nuspSup']);
-                    // verifica se o departamento está de acordo com o filtro
-                    if ($request->departamento != null && Util::departamentos[$request->departamento][0] !=  $query[0]['codset']) {
-                        unset($data[$num]);
-                    }else{
-                        $data[$num]['departamento'] = $query[0]['codset'] ?? null;
-                    }
+        foreach($data  as $num => $proj){
+            if ($proj['departamento'] == null) {
+                $query = DB::fetchAll("SELECT codset FROM VINCULOPESSOAUSP WHERE tipvin = 'SERVIDOR' AND codpes = ".$proj['nuspSup']);
+                // verifica se o departamento está de acordo com o filtro
+                if ($request->departamento != null && Util::departamentos[$request->departamento][0] !=  $query[0]['codset']) {
+                    unset($data[$num]);
+                }else{
+                    $data[$num]['departamento'] = $query[0]['codset'] ?? null;
                 }
             }
         }
 
         // preenche com o nome dos departamentos
-        if ($request->check_col_departamento != null ) {
-            $dep =[];
-            foreach(Util::departamentos as $d){
-                $dep[$d[0]]=$d[1];
-            }
-            foreach($data  as $num => $proj){
-                $data[$num]['departamento'] = $dep[$proj['departamento']] ?? ($proj['departamento'] ?? null);
-            }
+        $dep =[];
+        foreach(Util::departamentos as $d){
+            $dep[$d[0]]=$d[1];
+        }
+        foreach($data  as $num => $proj){
+            $data[$num]['departamento'] = $dep[$proj['departamento']] ?? ($proj['departamento'] ?? null);
         }
 
         
@@ -110,12 +104,12 @@ class PesquisaController extends Controller
 
         // colunas 
         foreach ($this->colunas as $nom => $cod) {
-            if ($request->{'check_col_'.$cod} != null) {
+            //verifica se foi selecionado o email e cpf do pesquisador ou do supervisor
+            if (!(($request->pd_col == null && ($cod == 'cpfPd' || $cod == 'emailPd')) || ($request->sup_col == null && ($cod == 'cpfSup' || $cod == 'emailSup')))) {
                 $header[] = $nom;
 
                 foreach ($data as $num => $val){
                     $projetos[$num][$cod] = $val[$cod];
-
                 }
             }
         }
