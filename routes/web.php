@@ -36,6 +36,7 @@ Route::get('restrito/estagios/estagiarios', [Restrito\EstagiosController::class,
 Route::get('restrito/extensao', [Restrito\ExtensaoController::class,'index']);
 
 Route::get('restrito/pesquisa', [Restrito\PesquisaController::class,'index']);
+Route::get('restrito/pesquisa/pd', [Restrito\PesquisaController::class,'planilhaPd'])->name('planilha-pd');
 
 Route::get('restrito/internacional', [Restrito\InternacionalController::class,'index']);
 Route::get('restrito/internacional/intercambistas', [Restrito\InternacionalController::class,'listarIntercambistasRecebidos'])->name('intercambistas');
