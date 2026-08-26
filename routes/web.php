@@ -9,16 +9,8 @@ Route::get('/', [IndexController::class, 'index']);
 
 #Pedidos
 use App\Http\Controllers\PedidoController;
-/* Route::get('/pedidos',              [PedidoController::class, 'index']);
-Route::get('/pedidos/create',       [PedidoController::class, 'create']);
-Route::get('/pedidos/meuspedidos',   [PedidoController::class, 'meus_pedidos']);
-Route::post('/pedidos',             [PedidoController::class, 'store']);
-Route::get('/pedidos/{pedido}',     [PedidoController::class, 'show']);
-Route::get('/pedidos/{pedido}/edit',[PedidoController::class, 'edit']);
-Route::patch('/pedidos/{pedido}',   [PedidoController::class, 'update']);
-Route::delete('/pedidos/{pedido}',  [PedidoController::class, 'destroy']); */
 Route::get('/pedidos/meuspedidos',  [PedidoController::class, 'meus_pedidos']);
-Route::resource('pedidos',          PedidoController::class);
+Route::resource('pedidos',           PedidoController::class);
 
 use App\Http\Controllers\AlunoGradController;
 Route::get('/contagem-alunosgr', [AlunoGradController::class, 'show']);
@@ -75,4 +67,7 @@ Route::prefix('lattes')->group(function () {
     Route::get('docente/{codpes}/export-detalhado', [LattesController::class, 'exportarDetalhado'])->name('lattes.exportar_detalhado');
     Route::get('api/metricas', [LattesController::class, 'apiMetricas'])->name('lattes.api.metricas');
 });
+
+use App\Http\Controllers\GeneralSettingsController;
+Route::get('/settings', [GeneralSettingsController::class, 'show']);
 

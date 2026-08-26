@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PedidoRequest;
 use App\Models\Pedido;
-use Fflch\LaravelFflchStepper\Stepper;
+use App\Steppers\PedidoStepper;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Uspdev\Replicado\Pessoa;
@@ -13,7 +13,13 @@ class PedidoController extends Controller
 {
     public function index(Request $request){
         Gate::authorize('admin');
-        $pedidos = Pedido::all();
+           
+        if($request->has('filtro')){
+            $pedidos = Pedido::currentStatus($request->filtro)->get();
+        }else{
+            $pedidos = Pedido::all();
+        }
+
         return view('pedido.index', ['pedidos' => $pedidos]);
     }
 
@@ -36,8 +42,8 @@ class PedidoController extends Controller
             
     }
 
-    public function show(Pedido $pedido, Stepper $stepper){
-        $stepper->setCurrentStepName($pedido->status);
+    public function show(Pedido $pedido){
+        $stepper = new PedidoStepper($pedido);
         return view('pedido.show', ['pedido' => $pedido, 'stepper' => $stepper->render()]);
     }
 
@@ -51,8 +57,10 @@ class PedidoController extends Controller
         $validated = $request->validated();
 
         $pedido->update($validated);
-        $pedido->setStatus('Finalizado');
-        $request->session()->flash('alert-success','Solicitação atualizada com sucesso.');
+        if($request->has('status')){
+            $pedido->setStatus($request->status);
+        } 
+        $request->session()->flash('alert-info','Solicitação atualizada com sucesso.');
 
         return redirect("/pedidos/$pedido->id");
     }
@@ -64,8 +72,14 @@ class PedidoController extends Controller
         return redirect('/pedidos');
     }
 
-    public function meus_pedidos(){
-        $pedidos = Pedido::where('user_codpes', auth()->user()->codpes)->get();
+    public function meus_pedidos(Request $request){
+        Gate::authorize('user');
+        $pedidos = Pedido::where('user_codpes', auth()->user()->codpes);
+        if($request->has('filtro')){
+            $pedidos = $pedidos->currentStatus($request->filtro)->get();
+        }else{
+            $pedidos = $pedidos->get();
+        }
         return view('pedido.index', ['pedidos' => $pedidos]);
     }
 }

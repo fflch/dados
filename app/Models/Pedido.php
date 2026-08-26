@@ -13,6 +13,7 @@ class Pedido extends Model
 {
     use HasFactory;
     use HasStatuses;
+    
     protected $guarded = ['id'];
 
     public function user(){
