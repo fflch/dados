@@ -15,25 +15,19 @@ use function Illuminate\Log\log;
 class DocentesController extends Controller
 {
     
-    private $header = ['NUSP',"Nome","Departamento","Mérito","Classe",   "Função","Status", "Ultima Ocorrência", "Fim do Vínculo", "Fim da Atividade"];
+    private $header = ['NUSP',"Nome","Departamento","Mérito","Classe",   "Função","Status", "Ultima Ocorrência", "Início do Vínculo", "Fim do Vínculo", "Fim da Atividade", 'Data de Nascimento', 'Data de Falecimento'];
     private $tipmer = ['MS-1','MS-2','MS-3','MS-4','MS-5','MS-6'];
     private $sitatl= [
             'A' => "Ativo",
             'D' => "Desligado",
             'P' => "Aposentado"
         ];
-    private $keysLista = ['codpes', 'nompes', 'nomset', 'tipmer', 'nomabvcla', 'nomabvfnc', 'sitatl', 'sitoco', 'dtafimvin', 'dtafimdctati'];
+    private $keysLista = ['codpes', 'nompes', 'nomset', 'tipmer', 'nomabvcla', 'nomabvfnc', 'sitatl', 'sitoco', 'dtainivin', 'dtafimvin', 'dtafimdctati', 'dtanas', 'dtaflc'];
     private $headerDisciplinas = ['Departamento','Mérito','NUSP','Nome', 'Disciplinas', 'Média de Disciplinas por Ano'];
     public function index(Request $request)
     {
 
         Gate::authorize('admin');
-        $tipmer = ['MS-1','MS-2','MS-3','MS-4','MS-5','MS-6'];
-        $sitatl= [
-            'A' => "Ativo",
-            'D' => "Desligado",
-            'P' => "Aposentado"
-        ];
 
         if ($request->tabela == null) {
             return view('restrito.docentes',['departamentos'=>Util::departamentos, 
@@ -60,43 +54,46 @@ class DocentesController extends Controller
             ]
         );
 
-
-        if ($request->departamento == null) { //seleciona todos os departamentos
-            $dep = implode(", ",array_column(Util::departamentos,0));
+        
+        $filtro = "";
+        if ($request->merito !=null) {
+            $filtro .= "AND V.tipmer in ('".implode("', '",$request->merito)."')\n";
         }
-        else{
+         
+        if ($request->status !=null) {
+            $filtro .= "AND V.sitatl in ('".implode("', '",$request->status)."')\n";
+        } 
+        if ($request->fimvin !=null) {
+            
+            $filtro .= "AND (V.dtafimvin IS NULL OR V.dtafimvin >'".$request->fimvin."')\n";
+        }
+ 
+        if ($request->fimativ !=null) {
+            
+            $filtro .= "AND (V.dtafimdctati IS NULL OR V.dtafimdctati > '".$request->fimativ."')\n";
+        }
+        if ($request->fimativ !=null) {
+            
+            $filtro .= "AND (V.dtafimdctati IS NULL OR V.dtafimdctati > '".$request->fimativ."')\n";
+        }
+        if ($request->departamento != null) { //seleciona os departamentos
+            $dep = [];
             foreach($request->departamento as $departamento){
                 $dep[] = Util::departamentos[$departamento][0];
 
             }
             $dep = implode(", ",$dep);
-        }
-        
-        $filtroMerito = "";
-        if ($request->merito !=null) {
-            $filtroMerito = "AND V.tipmer in ('".implode("', '",$request->merito)."')\n";
-        }
-        
-        $filtroStatus = "";
-        if ($request->status !=null) {
-            $filtroStatus = "AND V.sitatl in ('".implode("', '",$request->status)."')\n";
-        }
-        $filtroFimVin = "";
-        if ($request->fimvin !=null) {
+            $filtro .= "AND V.codset IN ($dep)\n";
+
             
-            $filtroFimVin = "AND (V.dtafimvin IS NULL OR V.dtafimvin >'".$request->fimvin."')\n";
+        }
+        $data = Util::query("listar_docentes",[
+            "__filtros__" => $filtro
+        ]);
+        foreach($data as $num => $val){
+            $data[$num]['sitatl'] = $this->sitatl[$val['sitatl']];
         }
 
-        $filtroFimAtiv = "";
-        if ($request->fimativ !=null) {
-            
-            $filtroFimAtiv = "AND (V.dtafimdctati IS NULL OR V.dtafimdctati > '".$request->fimativ."')\n";
-        }
-        
-        $data = Util::query("listar_docentes",[
-            "__filtros__" => $filtroStatus.$filtroFimVin.$filtroFimAtiv.$filtroMerito,
-            "__departamentos__" => $dep
-        ]);
         Cache::put($request->session()->getId().'docentes',$data,600);
         return view('restrito.docentes',
         [

@@ -24,9 +24,8 @@ class CrudTest extends DuskTestCase
                      ->pause(2000)
                     ->typeSlowly('assunto', 'Planilha de estagiarios')
                     ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 5)
-                    ->press('Enviar')    
-                    ->visit('pedidos') 
-                    ->waitForText('Planilha de estagiaros')
+                    ->press('Enviar') 
+                    ->assertDatabaseHas('pedidos', ['assunto' => 'Planilha de estagiarios']);   
                     ->assertSee('Planilha de estagiarios');
 
             //Read
