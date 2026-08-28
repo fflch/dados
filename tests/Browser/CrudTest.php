@@ -17,7 +17,9 @@ class CrudTest extends DuskTestCase
                     ->clickLink('Entrar')
                     ->waitFor('#loginUsuario')
                     ->typeSlowly('#loginUsuario', '111111')
-                    ->press('Login');
+                    ->press('Login')
+                    ->waitForText('Sair')
+                    ->assertSee('Sair');
 
             // Create
             $browser->visit('/pedidos/create')
