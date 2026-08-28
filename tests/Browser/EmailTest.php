@@ -27,8 +27,9 @@ class EmailTest extends DuskTestCase
             $browser->visit('/')
                     ->clickLink('Entrar')
                     ->waitFor('#loginUsuario')
-                    ->typeSlowly('#loginUsuario', '111111')
-                    ->press('Login');
+                    ->typeSlowly('#loginUsuario', '1111')
+                    ->press('Login')
+                    ->waitForText('Sair');
             
             // Create
             $browser->visit('/pedidos/create')
