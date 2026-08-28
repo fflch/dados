@@ -7,13 +7,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "fflch/laravel-fflch-stepper": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.1",
         "laravel/tinker": "^2.10.1",
         "maatwebsite/excel": "^3.1",
         "monolog/monolog": "^3.9",
+        "spatie/laravel-model-status": "^1.20",
         "uspdev/laravel-usp-theme": "^2.8",
-        "uspdev/replicado": "^1.25",
+        "uspdev/replicado": "^1.28",
         "uspdev/senhaunica-socialite": "^4.5"
     },
     "require-dev": {

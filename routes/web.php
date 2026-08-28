@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 Route::get('/', [IndexController::class, 'index']);
 
+#Pedidos
+use App\Http\Controllers\PedidoController;
+Route::get('/pedidos/meuspedidos',  [PedidoController::class, 'meus_pedidos']);
+Route::resource('pedidos',           PedidoController::class);
+
 use App\Http\Controllers\AlunoGradController;
 Route::get('/contagem-alunosgr', [AlunoGradController::class, 'show']);
 Route::get('/contagem-alunosgr-planilha', [AlunoGradController::class, 'planilha'])->name('contagem-alunosGrad-planilha');
@@ -63,4 +68,7 @@ Route::prefix('lattes')->group(function () {
     Route::get('docente/{codpes}/export-detalhado', [LattesController::class, 'exportarDetalhado'])->name('lattes.exportar_detalhado');
     Route::get('api/metricas', [LattesController::class, 'apiMetricas'])->name('lattes.api.metricas');
 });
+
+use App\Http\Controllers\GeneralSettingsController;
+Route::get('/settings', [GeneralSettingsController::class, 'show']);
 
