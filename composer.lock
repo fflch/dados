@@ -7674,25 +7674,25 @@
         },
         {
             "name": "uspdev/senhaunica-socialite",
-            "version": "4.5.4",
+            "version": "4.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/uspdev/senhaunica-socialite.git",
-                "reference": "fecac3d61bbb7fa75197b95b1f8ef3b505b9b5a1"
+                "reference": "8f78488132fefa7f4198fba71c681195b659502a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uspdev/senhaunica-socialite/zipball/fecac3d61bbb7fa75197b95b1f8ef3b505b9b5a1",
-                "reference": "fecac3d61bbb7fa75197b95b1f8ef3b505b9b5a1",
+                "url": "https://api.github.com/repos/uspdev/senhaunica-socialite/zipball/8f78488132fefa7f4198fba71c681195b659502a",
+                "reference": "8f78488132fefa7f4198fba71c681195b659502a",
                 "shasum": ""
             },
             "require": {
-                "doctrine/dbal": "^3 | ^4",
-                "kyslik/column-sortable": "^6 | ^7",
+                "doctrine/dbal": "^3 | ^4 ",
+                "kyslik/column-sortable": "^6 | ^7 | ^8",
                 "laravel/socialite": "^5",
                 "php": "^7 | ^8",
                 "socialiteproviders/manager": "^3 | ^4",
-                "spatie/laravel-permission": "^4 | ^5 | ^6"
+                "spatie/laravel-permission": "^4 | ^5 | ^6 | ^7"
             },
             "type": "library",
             "extra": {
@@ -7725,9 +7725,9 @@
             "homepage": "https://github.com/uspdev/senhaunica-socialite",
             "support": {
                 "issues": "https://github.com/uspdev/senhaunica-socialite/issues",
-                "source": "https://github.com/uspdev/senhaunica-socialite/tree/4.5.4"
+                "source": "https://github.com/uspdev/senhaunica-socialite/tree/4.5.8"
             },
-            "time": "2025-11-10T11:03:42+00:00"
+            "time": "2026-03-20T14:12:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
