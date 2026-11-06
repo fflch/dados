@@ -1,0 +1,1 @@
+{!! Blade::render($settings->alteracao_pedido_mail, ['settings' => $settings, 'pedido' => $pedido]); !!}

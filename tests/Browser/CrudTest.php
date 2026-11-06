@@ -34,7 +34,8 @@ class CrudTest extends DuskTestCase
             $browser->pause(2000)
                     ->press('@btn-visualizar')
                     ->assertSee('Planilha de estagiarios')
-                    ->assertSee('Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento');
+                    ->assertSee('Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento')
+                    ->pause(500);
 
             //Upload
             $browser->press('@btn-editar')

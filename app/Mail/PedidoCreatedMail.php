@@ -10,18 +10,22 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Settings\GeneralSettings;
 
 class PedidoCreatedMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     private Pedido $pedido;
+    private GeneralSettings $settings;
+
     /**
      * Create a new message instance.
      */
     public function __construct(Pedido $pedido)
     {
-        $this->pedido = $pedido;
+        $this->pedido   = $pedido;
+        $this->settings = app(GeneralSettings::class);
     }
 
     /**
@@ -30,7 +34,7 @@ class PedidoCreatedMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'EAIP-FFLCH Nova solicitação cadastrada',
+            subject: 'Portal de Dados | Nova solicitação cadastrada: '. $this->pedido->assunto,
         );
     }
 
@@ -42,7 +46,8 @@ class PedidoCreatedMail extends Mailable implements ShouldQueue
         return new Content(
             view: 'emails.pedidos.create',
             with: [
-                'pedido' => $this->pedido,
+                'pedido'   => $this->pedido,
+                'settings' => $this->settings
             ],
         );
     }

@@ -1,0 +1,4 @@
+<p> Pedido atualizado: </p>
+<p> Estado atual: {{ $pedido->status }}</p>
+<p> Assunto:  {{ $pedido->assunto }}</p>
+<p> Descrição: {{ $pedido->descricao }}</p>

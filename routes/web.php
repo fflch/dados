@@ -69,6 +69,8 @@ Route::prefix('lattes')->group(function () {
     Route::get('api/metricas', [LattesController::class, 'apiMetricas'])->name('lattes.api.metricas');
 });
 
+// settings
 use App\Http\Controllers\GeneralSettingsController;
 Route::get('/settings', [GeneralSettingsController::class, 'show']);
+Route::post('/settings', [GeneralSettingsController::class, 'update']);
 

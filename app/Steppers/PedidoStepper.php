@@ -20,20 +20,16 @@ class PedidoStepper extends Stepper
         $steps = config('laravel-fflch-stepper.steps');
 
         foreach($steps as $key=>$value){
-            if($this->pedido->status == 'Análise'){
-                $this->addStep($key);
-                break;
+            //se o pedido for rejeitado o stepper só terá esse estado
+            if($this->pedido->status == "Rejeitado" )
+            {
+              $this->addStep("Rejeitado");
+              break;   
             }
 
-            if($this->pedido->status == "Aprovado" && $key == 'Rejeitado'){
-                continue;
-            }
+            //caso o pedido não seja rejeitado serão mostrados todos os estado menos "Rejeitado".
+            if($key != "Rejeitado")$this->addStep($key);
 
-            if($this->pedido->status == "Rejeitado" && $key == 'Aprovado'){
-                continue;
-            }
-
-            $this->addStep($key);
         }
 
         $this->setCurrentStepName($this->pedido->status);
