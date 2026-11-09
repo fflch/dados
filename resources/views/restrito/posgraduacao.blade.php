@@ -33,18 +33,18 @@
                     </div>
                     <div class="col-md-3" id="programa">
                         <label for="select-programas">Programas:</label>
-                        <select class="form-control select2" id="select-programas" name="programas[]" onchange="programaUnico(this)" required multiple>
+                        <select class="form-control select2" id="select-programas-eleicao" name="programas[]" onchange="programaUnico(this,'-eleicao')" required multiple>
                             @foreach ($programas as $cod => $nome)
                                 <option value="{{$cod}}">{{$nome}}</option>
                             @endforeach
                         </select>       
-                        <input type="checkbox" id="todosprogramas" name="todosprogramas" value="todos" onchange="checkProgramas(this)">
+                        <input type="checkbox" id="todosprogramas" name="todosprogramas" value="todos" onchange="checkProgramas(this,'-eleicao')">
                         <label for="todosprogramas"> Todos os programas</label>  <br/>  
                         <label for="check-programas-junto"> 
                             <input type="checkbox" id="check-programas-junto" name="junto" value="junto">
                             Programas no mesmo arquivo</label>   
                         @foreach ($programas as $cod => $nome)
-                            <input type="hidden" name="programas[]" value="{{ $cod }}" class="hprog"  disabled>   
+                            <input type="hidden" name="programas[]" value="{{ $cod }}" class="hprog-eleicao"  disabled>   
                         @endforeach        
                     </div>    
                     <div class="col-md-2"> 
@@ -67,31 +67,27 @@
         @slot('titulo')Alunos - Pós-graduação @endslot 
         @slot('nome')alunos @endslot 
         @slot('form')
-            <form action="{{ route('pos-eleicao') }}" id="form-alunos-pos" method="GET">
+            <form action="{{ route('pos-listar') }}" id="form-alunos-pos" method="GET">
                 <div class="row">
                     <div class="col-md-1">
                         <label><b>Filtrar por:</b></label>
                     </div>
                     <div class="col-md-3" id="programa">
                         <label for="select-programas">Programas:</label>
-                        <select class="select2" id="select-programasaaaa" name="programas[]" onchange="programaUnico(this)" required multiple>
+                        <select class="form-control select2" id="select-programas-l" name="programas[]" onchange="programaUnico(this,'-l')" required multiple>
                             @foreach ($programas as $cod => $nome)
                                 <option value="{{$cod}}">{{$nome}}</option>
                             @endforeach
                         </select>       
-                        <input type="checkbox" id="todosprogramas" name="todosprogramas" value="todos" onchange="checkProgramas(this)">
+                        <input type="checkbox" id="todosprogramas-l" name="todosprogramas" value="todos" onchange="checkProgramas(this,'-l')">
                         <label for="todosprogramas"> Todos os programas</label>  <br/>  
                         <label for="check-programas-junto"> 
                             <input type="checkbox" id="check-programas-junto" name="junto" value="junto">
                             Programas no mesmo arquivo</label>   
                         @foreach ($programas as $cod => $nome)
-                            <input type="hidden" name="programas[]" value="{{ $cod }}" class="hprog"  disabled>   
+                            <input type="hidden" name="programas[]" value="{{ $cod }}" class="hprog-l"  disabled>   
                         @endforeach        
-                    </div>    
-                    <div class="col-md-2"> 
-                        <input type="checkbox" id="header" name="header" value="header">
-                        <label for="header">Cabeçalho na primeira linha</label>
-                    </div>        
+                    </div>       
                     <div class="col-md-1"> 
                         <label for="header">Tipo de arquivo:</label><br>
                         <input type="radio" name="tipo" value="csv" required checked> <label>.CSV</label><br>
@@ -104,26 +100,58 @@
             <br><span>*O arquivo pode demorar a ser baixado, não atulize a página.</span>
         @endslot 
     @endcomponent
+    @component('components.restrito-painel')
+        @slot('titulo')Bolsas Fapesp vigentes no Brasil  @endslot 
+        @slot('nome')fapesp @endslot 
+        @slot('form')
+            <form action="{{ route('pos-fapesp-lista') }}" id="form-fapesp-pos-lista" method="GET">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label><b>Filtrar por:</b></label>
+                    </div>
+                    <div class="col-md-3" id="programa">
+                        <label for="select-programas">Programas:</label>
+                        <select class="form-control select2" id="select-programas-fl" name="programas[]" onchange="programaUnico(this,'-fl')" required multiple>
+                            @foreach ($programas as $cod => $nome)
+                                <option value="{{$cod}}">{{$nome}}</option>
+                            @endforeach
+                        </select>       
+                        <input type="checkbox" id="todosprogramas-fl" name="todosprogramas" value="todos" onchange="checkProgramas(this,'-fl')">
+                        <label for="todosprogramas"> Todos os programas</label>  <br/>  
+  
+                        @foreach ($programas as $cod => $nome)
+                            <input type="hidden" name="programas[]" value="{{ $cod }}" class="hprog-fl"  disabled>   
+                        @endforeach        
+                    </div>                                     
+                    <div class="col-md-3"><button class="btn btn-primary mb-1" type="submit" id="baixar-fapesp">Baixar</button>
+                    <a href="{{ route('pos-fapesp-estat') }}" class="btn btn-primary mb-1">Baixar estatísticas gerais</a>
+                    </div>
+                </div>
+                <br>
+            </form>
+            <span>*Fonte: BV Fapesp e Replicado.</span>
+        @endslot 
+    @endcomponent
 
 @endsection
 @section('javascripts_bottom')
 <script>
-    function checkProgramas(checkbox) {
-        let hiddens = Array.from(document.getElementsByClassName("hprog")) 
+    function checkProgramas(checkbox, formId) {
+        let hiddens = Array.from(document.getElementsByClassName("hprog"+formId)) 
         if(checkbox.checked){
-            document.getElementById("select-programas").setAttribute("disabled", "disabled");
+            document.getElementById("select-programas"+formId).setAttribute("disabled", "disabled");
             hiddens.forEach(element => {
                 element.removeAttribute("disabled");
             });
         }else{
-            document.getElementById("select-programas").removeAttribute("disabled");
+            document.getElementById("select-programas"+formId).removeAttribute("disabled");
             hiddens.forEach(element => {
                 element.setAttribute("disabled", "disabled");
             });
         }
     }
-    function programaUnico(select) {
-        let check = document.getElementById('check-programas-junto')
+    function programaUnico(select,formId) {
+        let check = document.getElementById('check-programas-junto'+formId)
         if (select.selectedOptions.length ==1) {
             check.checked = false
             check.setAttribute("disabled", "disabled");
