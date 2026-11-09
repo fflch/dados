@@ -2,13 +2,14 @@
     <thead>
         <tr>
             <th>Status</th>
+            <th>Autor</th>
             <th>Assunto</th>
             <th>Descrição</th>
         @can('admin')
-            <th>Editar</th>
-            <th>Apagar</th>
+            <th class="text-center w-1">Editar</th>
+            <th class="text-center w-1">Apagar</th>
         @endcan
-            <th>Visualizar</th>
+            <th class="text-center w-1">Visualizar</th>
         </tr>
     </thead>
     <tbody>

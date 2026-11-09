@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Pedido;
 use App\Mail\PedidoCreatedMail;
+use App\Mail\PedidoUpdatedMail;
 use Illuminate\Support\Facades\Mail;
 
 class PedidoObserver
@@ -21,7 +22,7 @@ class PedidoObserver
      */
     public function updated(Pedido $pedido): void
     {
-        //
+        Mail::to('destinatario@email.com')->queue(new PedidoUpdatedMail($pedido));
     }
 
     /**

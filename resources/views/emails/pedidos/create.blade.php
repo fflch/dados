@@ -1,2 +1,1 @@
-<p>Nova solicitação recebida: {{ $pedido->assunto }}</p> 
-<p>Aqui está a descrição da nova solicitação: {{ $pedido->descricao }}</p>
+{!! Blade::render($settings->criacao_pedido_mail, ['settings' => $settings, 'pedido' => $pedido]); !!}

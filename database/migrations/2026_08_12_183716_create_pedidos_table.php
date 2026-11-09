@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('assunto');
-            $table->string('descricao');
+            $table->text('descricao');
 
             $table->string('user_codpes')->nullable();
             $table->foreign('user_codpes')->references('codpes')->on('users')->nullOnDelete();
