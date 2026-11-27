@@ -24,8 +24,8 @@ class VisualizarPedidosTest extends DuskTestCase
             // Create
             $browser->visit('/pedidos/create')
                     ->pause(2000)
-                    ->typeSlowly('assunto', 'Planilha de estagiarios')
-                    ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 5)
+                    ->typeSlowly('assunto', 'Planilha de estagiarios', 10)
+                    ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 10)
                     ->press('Enviar')
                     ->waitForText('Planilha de estagiarios', 10)
                     ->assertSee('Planilha de estagiarios');

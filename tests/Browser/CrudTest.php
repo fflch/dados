@@ -24,30 +24,30 @@ class CrudTest extends DuskTestCase
             // Create
             $browser->visit('/pedidos/create')
                      ->pause(2000)
-                    ->typeSlowly('assunto', 'Planilha de estagiarios')
-                    ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 5)
+                    ->typeSlowly('assunto', 'Planilha de estagiarios', 10)
+                    ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 10)
                     ->press('Enviar') 
                     ->waitForText('Planilha de estagiarios', 10)
                     ->assertSee('Planilha de estagiarios');
 
             //Read
             $browser->pause(2000)
-                    ->press('@btn-visualizar')
+                    ->press('button[name="btn-visualizar"]')
                     ->assertSee('Planilha de estagiarios')
                     ->assertSee('Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento')
                     ->pause(500);
 
             //Upload
-            $browser->press('@btn-editar')
-                    ->typeSlowly('assunto', 'Planilha de estagiarios - Revisado')
-                    ->typeSlowly('descricao', 'Nova descricao') 
+            $browser->press('button[name="btn-editar"]')
+                    ->typeSlowly('assunto', 'Planilha de estagiarios - Revisado', 10)
+                    ->typeSlowly('descricao', 'Nova descricao', 10) 
                     ->press('Enviar')
                     ->assertSee('Planilha de estagiarios - Revisado')
                     ->assertSee('Nova descricao');
 
             //Delete
             $browser->pause(2000)
-                    ->press('@btn-apagar')
+                    ->press('button[name="btn-apagar"]')
                     ->acceptDialog()
                     ->assertDontSee('Planilha de estagiarios - Revisado');
         });

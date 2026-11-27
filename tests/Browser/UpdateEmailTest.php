@@ -33,15 +33,15 @@ class UpdateEmailTest extends DuskTestCase
             
             // Create
             $browser->visit('/pedidos/create')
-                    ->typeSlowly('assunto', 'Planilha de estagiarios')
-                    ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 5)
+                    ->typeSlowly('assunto', 'Planilha de estagiarios', 10)
+                    ->typeSlowly('descricao', 'Solicita-se a disponibilidade de uma planilha com a quantidade de estagiarios por departamento', 10)
                     ->press('Enviar')
                     ->pause(1000);
 
             // Se está em análise, vai para produção
-            $browser->press('@btn-editar')
+            $browser->press('button[name="btn-editar"]')
                     ->assertSee('Enviar para Produção')
-                    ->press('@btn-update')
+                    ->press('button[name="status"]')
                     ->acceptDialog()
                     ->pause(500);
 
